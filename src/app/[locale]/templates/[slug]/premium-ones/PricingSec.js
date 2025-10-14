@@ -1,30 +1,35 @@
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle, XCircle } from "lucide-react";
 import enMessages from "@/messages/en/TemplateSlug.json";
+import arMessages from "@/messages/ar/TemplateSlug.json";
 
 export default function PricingSec({ template }) {
   const t = useTranslations("TemplateSlug");
+  const locale = useLocale();
 
-  // Always use English messages for button links (Arabic links are disabled)
+  // Use the appropriate messages based on the current locale
+  const messages = locale === 'ar' ? arMessages : enMessages;
+
+  // Get the basic plan with the correct link for the current locale
   const basic = t.raw(`${template.name}.pricingSec.plans.basic`);
-  if (basic && enMessages[template.name]?.pricingSec?.plans?.basic) {
-    basic.buttonLink = enMessages[template.name].pricingSec.plans.basic.buttonLink;
+  if (basic && messages[template.name]?.pricingSec?.plans?.basic) {
+    basic.buttonLink = messages[template.name].pricingSec.plans.basic.buttonLink;
   }
 
   let advanced = null;
   if (t.has(`${template.name}.pricingSec.plans.advanced`)) {
     advanced = t.raw(`${template.name}.pricingSec.plans.advanced`);
-    if (advanced && enMessages[template.name]?.pricingSec?.plans?.advanced) {
-      advanced.buttonLink = enMessages[template.name].pricingSec.plans.advanced.buttonLink;
+    if (advanced && messages[template.name]?.pricingSec?.plans?.advanced) {
+      advanced.buttonLink = messages[template.name].pricingSec.plans.advanced.buttonLink;
     }
   }
 
   let more_advanced = null;
   if (t.has(`${template.name}.pricingSec.plans.more-advanced`)) {
     more_advanced = t.raw(`${template.name}.pricingSec.plans.more-advanced`);
-    if (more_advanced && enMessages[template.name]?.pricingSec?.plans?.['more-advanced']) {
-      more_advanced.buttonLink = enMessages[template.name].pricingSec.plans['more-advanced'].buttonLink;
+    if (more_advanced && messages[template.name]?.pricingSec?.plans?.['more-advanced']) {
+      more_advanced.buttonLink = messages[template.name].pricingSec.plans['more-advanced'].buttonLink;
     }
   }
 
@@ -146,12 +151,21 @@ export default function PricingSec({ template }) {
                     ))}
                 </ul>
               </div>
-              <Link
-                href={plan.data.buttonLink}
-                className={`mt-auto inline-block w-full text-center ${plan.buttonBg} ${plan.buttonText} font-semibold py-3 rounded-xl ${plan.hoverBg} transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${plan.ringColor} text-2xl`}
-              >
-                {plan.data.button}
-              </Link>
+              {plan.data.buttonLink && plan.data.buttonLink.trim() !== '' ? (
+                <Link
+                  href={plan.data.buttonLink}
+                  className={`mt-auto inline-block w-full text-center ${plan.buttonBg} ${plan.buttonText} font-semibold py-3 rounded-xl ${plan.hoverBg} transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${plan.ringColor} text-2xl`}
+                >
+                  {plan.data.button}
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className={`mt-auto inline-block w-full text-center bg-gray-200 text-gray-400 font-semibold py-3 rounded-xl cursor-not-allowed opacity-60 text-2xl`}
+                >
+                  {plan.data.button}
+                </button>
+              )}
             </div>
           );
         })}
