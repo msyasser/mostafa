@@ -9,7 +9,6 @@ export default function PerformanceMonitor() {
       // LCP (Largest Contentful Paint)
       new PerformanceObserver((entryList) => {
         for (const entry of entryList.getEntries()) {
-          console.log('LCP:', entry.startTime);
           // Send to analytics
           if (window.gtag) {
             window.gtag('event', 'web_vitals', {
@@ -24,7 +23,6 @@ export default function PerformanceMonitor() {
       // FID (First Input Delay)
       new PerformanceObserver((entryList) => {
         for (const entry of entryList.getEntries()) {
-          console.log('FID:', entry.processingStart - entry.startTime);
           if (window.gtag) {
             window.gtag('event', 'web_vitals', {
               name: 'FID',
@@ -43,7 +41,6 @@ export default function PerformanceMonitor() {
             clsValue += entry.value;
           }
         }
-        console.log('CLS:', clsValue);
         if (window.gtag) {
           window.gtag('event', 'web_vitals', {
             name: 'CLS',
@@ -56,8 +53,8 @@ export default function PerformanceMonitor() {
       // Monitor resource loading
       new PerformanceObserver((entryList) => {
         for (const entry of entryList.getEntries()) {
-          if (entry.duration > 1000) { // Log slow resources
-            console.warn('Slow resource:', entry.name, entry.duration + 'ms');
+          if (entry.duration > 1000) { // Track slow resources
+            // Could send to analytics if needed
           }
         }
       }).observe({ entryTypes: ['resource'] });

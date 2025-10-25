@@ -21,7 +21,7 @@ export default function VideoPlayer({ course, playlistVideos }) {
         const parsedVideos = JSON.parse(savedWatchedVideos);
         setWatchedVideos(new Set(parsedVideos));
       } catch (error) {
-        console.error('Error parsing watched videos from localStorage:', error);
+        // Silently handle parsing errors
       }
     }
   }, []);
