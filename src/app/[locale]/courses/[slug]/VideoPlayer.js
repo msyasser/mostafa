@@ -48,7 +48,7 @@ export default function VideoPlayer({ course, playlistVideos }) {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
       
       {/* Video Player Section */}
       <div className="flex-1">
@@ -57,11 +57,15 @@ export default function VideoPlayer({ course, playlistVideos }) {
           <div className="aspect-video bg-black relative">
             <iframe
               key={selectedVideo.id}
-              src={`https://www.youtube.com/embed/${selectedVideo.id}?rel=0&modestbranding=1`}
+              src={`https://www.youtube.com/embed/${selectedVideo.id}?rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
               title={isArabic ? selectedVideo.title_ar : selectedVideo.title}
               className="w-full h-full"
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
+              playsInline
+              webkit-playsinline="true"
+              frameBorder="0"
+              loading="lazy"
             />
           </div>
           
@@ -118,7 +122,7 @@ export default function VideoPlayer({ course, playlistVideos }) {
       </div>
 
       {/* Video List Sidebar */}
-      <div className="lg:w-96">
+      <div className="w-full lg:w-96">
         <div className="bg-neutral-900 rounded-xl border border-neutral-800 overflow-hidden">
           <div className="p-4 border-b border-neutral-800">
             <h3 className="text-lg font-semibold text-white">
@@ -129,15 +133,19 @@ export default function VideoPlayer({ course, playlistVideos }) {
             </p>
           </div>
           
-          <div className="max-h-96 overflow-y-auto">
+          <div className="max-h-96 overflow-y-auto overscroll-contain">
             {playlistVideos.map((video, index) => (
               <div
                 key={video.id}
                 onClick={() => handleVideoSelect(video)}
-                className={`p-4 border-b border-neutral-800 cursor-pointer transition-colors duration-200 ${
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  handleVideoSelect(video);
+                }}
+                className={`p-4 border-b border-neutral-800 cursor-pointer transition-colors duration-200 touch-manipulation ${
                   selectedVideo.id === video.id
                     ? "bg-main/10 border-main/30"
-                    : "hover:bg-neutral-800"
+                    : "hover:bg-neutral-800 active:bg-neutral-800"
                 }`}
               >
                 <div className="flex gap-3">
