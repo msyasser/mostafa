@@ -17,6 +17,7 @@ export default function Navigation() {
   const links = [
     { name: t("HOME"), to: "" },
     { name: t("TEMPLATES"), to: "templates" },
+    { name: t("COURSES"), to: "courses" },
     { name: t("BLOGS"), to: "blog" },
     { name: t("CONTACT"), to: "contact" },
     { name: t("ABOUT_ME"), to: "about" },

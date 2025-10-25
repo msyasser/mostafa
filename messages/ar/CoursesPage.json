@@ -1,0 +1,24 @@
+{
+  "title": "الدورات التدريبية",
+  "subtitle": "أتقن نوشن مع دورات شاملة مصممة لتحويل مهارات الإنتاجية والتنظيم لديك.",
+  "totalCourses": "دورة متاحة",
+  "allLevels": "جميع المستويات",
+  "lifetimeAccess": "وصول مدى الحياة",
+  "premium": "بريميوم",
+  "enrolled": "مسجل",
+  "reviews": "تقييم",
+  "viewCourse": "عرض الدورة",
+  "categories": {
+    "productivity": "الإنتاجية",
+    "knowledgeManagement": "إدارة المعرفة",
+    "education": "التعليم",
+    "teamCollaboration": "التعاون الجماعي",
+    "automation": "الأتمتة",
+    "design": "التصميم"
+  },
+  "cta": {
+    "title": "مستعد لتحويل إنتاجيتك؟",
+    "description": "انضم إلى آلاف الطلاب الذين أتقنوا نوشن بالفعل وحولوا سير عملهم.",
+    "button": "ابدأ اليوم"
+  }
+}

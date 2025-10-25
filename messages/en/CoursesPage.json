@@ -1,0 +1,24 @@
+{
+  "title": "Courses",
+  "subtitle": "Master Notion with comprehensive courses designed to transform your productivity and organization skills.",
+  "totalCourses": "courses available",
+  "allLevels": "All skill levels",
+  "lifetimeAccess": "Lifetime access",
+  "premium": "Premium",
+  "enrolled": "enrolled",
+  "reviews": "reviews",
+  "viewCourse": "View Course",
+  "categories": {
+    "productivity": "Productivity",
+    "knowledgeManagement": "Knowledge Management",
+    "education": "Education",
+    "teamCollaboration": "Team Collaboration",
+    "automation": "Automation",
+    "design": "Design"
+  },
+  "cta": {
+    "title": "Ready to Transform Your Productivity?",
+    "description": "Join thousands of students who have already mastered Notion and transformed their workflows.",
+    "button": "Get Started Today"
+  }
+}

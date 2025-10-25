@@ -16,6 +16,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
       TemplatesPage: (
         await import(`../../messages/${locale}/TemplatesPage.json`)
       ).default,
+      CoursesPage: (await import(`../../messages/${locale}/CoursesPage.json`))
+        .default,
       BlogsPage: (await import(`../../messages/${locale}/BlogsPage.json`))
         .default,
       ContactPage: (await import(`../../messages/${locale}/ContactPage.json`))
