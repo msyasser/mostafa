@@ -2,7 +2,7 @@ import { MdEmail } from "react-icons/md";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import aboutImg from "/public/mostafa/mostafa.webp";
+import aboutImg from "/public/certifications/notion-certifications.png";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -23,10 +23,10 @@ export async function generateMetadata({ params }) {
       url: `https://mostafayasser.com/${locale}/about`,
       images: [
         {
-          url: "/mostafa/mostafa.webp",
+          url: "/certifications/notion-certifications.png",
           width: 800,
           height: 600,
-          alt: "Mostafa Yasser",
+          alt: "Mostafa Yasser - Notion Certified",
         },
       ],
     },
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title,
       description,
-      images: ["/mostafa/mostafa.webp"],
+      images: ["/certifications/notion-certifications.png"],
     },
   };
 }
@@ -56,6 +56,24 @@ function AboutMe() {
               {t("bio")}
             </p>
 
+            <div className="flex flex-col gap-4">
+              <h3 className="text-xl font-semibold text-gray-200">{t("certifications")}</h3>
+              <div className="flex flex-wrap gap-4">
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-main to-blue-500 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300"></div>
+                  <div className="relative bg-gray-900 rounded-lg p-3 border border-gray-700 hover:border-main/50 transition-colors">
+                    <Image
+                      src="/certifications/notion-certified-admin.png"
+                      alt={t("notionAdmin")}
+                      width={120}
+                      height={80}
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div>
               <a
                 href="mailto:contact@mostafayasser.com"
@@ -72,7 +90,7 @@ function AboutMe() {
             <div className="transform rotate-1 hover:rotate-0 transition-transform duration-300 shadow-2xl rounded-3xl overflow-hidden border border-main/20">
               <Image
                 src={aboutImg}
-                alt="Mostafa Yasser"
+                alt="Mostafa Yasser - Notion Certified"
                 className="w-full h-auto object-cover"
                 placeholder="blur"
               />

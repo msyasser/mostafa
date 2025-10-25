@@ -2,5 +2,8 @@
   "greeting": "Hey, I'm",
   "name": "Mostafa",
   "bio": " Planning Engineer. Notion systems builder. Productivity content creator. I help teams and individuals master their workflows with scalable Notion setups that bring clarity and focus.",
-  "connect": "Let's Connect"
+  "connect": "Let's Connect",
+  "certifications": "Certifications",
+  "notionCertified": "Notion Certified",
+  "notionAdmin": "Notion Certified Admin"
 }
