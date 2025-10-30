@@ -66,7 +66,6 @@ export default function Navigation() {
           <div className="lg:hidden flex justify-between items-center w-full px-2">
             <div className="flex items-center space-x-2">
               <LanguageSwitcher />
-              <UserMenu />
             </div>
             <Link href={`/${locale}`}>
               <p className="mx-auto px-0.5 font-bold text-xl uppercase mt-0.5">
@@ -119,6 +118,9 @@ export default function Navigation() {
                 </Link>
               );
             })}
+            <div className="pt-4 w-full max-w-sm">
+              <UserMenu inline />
+            </div>
           </div>
         </div>
       </BlurText>
