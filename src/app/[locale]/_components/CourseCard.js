@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import { ClockIcon, UserIcon, AcademicCapIcon } from "@heroicons/react/24/solid";
+import { ClockIcon, UserIcon, AcademicCapIcon, LockClosedIcon } from "@heroicons/react/24/solid";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 export default function CourseCard({ course }) {
   const t = useTranslations("CoursesPage");
   const locale = useLocale();
   const isArabic = locale === "ar";
+  const { data: session } = useSession();
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
   const courseName = isArabic ? course.name_ar : course.name;
   const courseDescription = isArabic ? course.description_ar : course.description;
@@ -17,10 +21,39 @@ export default function CourseCard({ course }) {
   const courseLanguage = isArabic ? course.language_ar : course.language;
   const courseCurrency = isArabic ? course.currency_ar : course.currency;
 
+  const handleCardClick = (e) => {
+    if (!session) {
+      e.preventDefault();
+      setShowLoginPrompt(true);
+      setTimeout(() => setShowLoginPrompt(false), 3000);
+    }
+  };
+
   return (
     <div className="group relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-main/50 transition-all duration-300 hover:shadow-2xl hover:shadow-main/10">
+      {/* Login Required Tooltip */}
+      {showLoginPrompt && !session && (
+        <div className="absolute inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center rounded-2xl">
+          <div className="text-center p-6">
+            <LockClosedIcon className="w-16 h-16 text-main mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">
+              {isArabic ? "تسجيل الدخول مطلوب" : "Login Required"}
+            </h3>
+            <p className="text-gray-400 mb-4">
+              {isArabic ? "يرجى تسجيل الدخول لمشاهدة هذه الدورة" : "Please login to access this course"}
+            </p>
+            <Link
+              href={`/${locale}/auth/signin`}
+              className="inline-block bg-main text-black font-semibold py-2 px-6 rounded-lg hover:bg-white transition-colors"
+            >
+              {isArabic ? "تسجيل الدخول" : "Sign In"}
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* Clickable Card Content */}
-      <Link href={`/${locale}/courses/${course.slug}`} className="block">
+      <Link href={session ? `/${locale}/courses/${course.slug}` : `#`} className="block" onClick={handleCardClick}>
         {/* Course Icon */}
         <div className="relative h-48 overflow-hidden">
           <div className="w-full h-full bg-gradient-to-br from-main/20 to-main/5 flex items-center justify-center">

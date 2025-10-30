@@ -6,6 +6,7 @@ import Image from "next/image";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
+import UserMenu from "./UserMenu";
 import { useTranslations } from "next-intl";
 
 export default function Navigation() {
@@ -58,11 +59,15 @@ export default function Navigation() {
             })}
 
             <LanguageSwitcher />
+            <UserMenu />
           </div>
 
           {/* Hamburger Icon */}
           <div className="lg:hidden flex justify-between items-center w-full px-2">
-            <LanguageSwitcher />
+            <div className="flex items-center space-x-2">
+              <LanguageSwitcher />
+              <UserMenu />
+            </div>
             <Link href={`/${locale}`}>
               <p className="mx-auto px-0.5 font-bold text-xl uppercase mt-0.5">
                 {t("MOSTAFA")}

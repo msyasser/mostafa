@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import SEOOptimizer from "@/src/app/[locale]/_components/SEOOptimizer";
@@ -6,6 +6,7 @@ import courses from "@/src/app/[locale]/_data/coursesData";
 import { StarIcon, ClockIcon, UserIcon, AcademicCapIcon } from "@heroicons/react/24/solid";
 import VideoPlayer from "./VideoPlayer";
 import { getLocale } from "next-intl/server";
+import { auth } from "@/src/app/api/auth/[...nextauth]/route";
 
 
 
@@ -96,6 +97,12 @@ export default async function CourseSlugPage({ params }) {
 
   const locale = await getLocale();
   const isArabic = locale === "ar";
+
+  // Check authentication
+  const session = await auth();
+  if (!session) {
+    redirect(`/${locale}/auth/signin?callbackUrl=/${locale}/courses/${slug}`);
+  }
 
   const courseName = isArabic ? course.name_ar : course.name;
   const courseDescription = isArabic ? course.description_ar : course.description;

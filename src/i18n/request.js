@@ -46,6 +46,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
         .default,
       NotFound: (await import(`../../messages/${locale}/NotFound.json`))
         .default,
+      Auth: (await import(`../../messages/${locale}/Auth.json`)).default,
     },
   };
 });

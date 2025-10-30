@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import Navigation from "@/src/app/[locale]/_components/Navigation";
 import Footer from "@/src/app/[locale]/_components/Footer";
 import PerformanceMonitor from "@/src/app/[locale]/_components/PerformanceMonitor";
+import AuthProvider from "@/src/app/[locale]/_components/AuthProvider";
 import "@/src/app/[locale]/_styles/globals.css";
 import Script from "next/script";
 
@@ -156,10 +157,12 @@ export default async function LocaleLayout({ children, params }) {
         cz-shortcut-listen="true"
       >
         <NextIntlClientProvider locale={locale}>
-          <PerformanceMonitor />
-          <Navigation />
-          <main className="flex-1 px-2 sm:px-8 pt-26">{children}</main>
-          <Footer />
+          <AuthProvider>
+            <PerformanceMonitor />
+            <Navigation />
+            <main className="flex-1 px-2 sm:px-8 pt-26">{children}</main>
+            <Footer />
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>
