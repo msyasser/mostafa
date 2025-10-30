@@ -10,6 +10,7 @@ export default function UserMenu() {
   const t = useTranslations("Auth");
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
+  const isArabic = locale === "ar";
 
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
@@ -48,7 +49,7 @@ export default function UserMenu() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 bg-black/95 backdrop-blur-md rounded-lg shadow-lg border border-white/10 z-50 overflow-hidden">
+        <div className={`absolute ${isArabic ? "left-0" : "right-0"} mt-2 w-64 bg-black/95 backdrop-blur-md rounded-lg shadow-lg border border-white/10 z-50 overflow-hidden ${isArabic ? "text-right" : "text-left"}`}>
           <div className="px-4 py-3 border-b border-white/10">
             <p className="text-sm font-semibold truncate">{session.user.name || session.user.email}</p>
             {session.user.email && (
@@ -59,7 +60,7 @@ export default function UserMenu() {
           <div className="py-2">
             <button
               onClick={() => signOut({ callbackUrl: `/${locale}` })}
-              className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/10 transition-colors"
+              className={`w-full ${isArabic ? "text-right" : "text-left"} px-4 py-2 text-sm text-red-400 hover:bg-white/10 transition-colors`}
             >
               {t("SIGN_OUT")}
             </button>
