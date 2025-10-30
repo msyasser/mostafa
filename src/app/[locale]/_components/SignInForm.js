@@ -80,7 +80,7 @@ export default function SignInForm() {
 
   return (
     <BlurText duration={1}>
-      <div className="bg-white/5 backdrop-blur-md rounded-lg p-8 border border-white/10">
+      <div className="bg-white/5 backdrop-blur-md rounded-lg p-6 sm:p-8 border border-white/10">
         <form onSubmit={handleSubmit} className="space-y-4">
           {isSignup && (
             <div>

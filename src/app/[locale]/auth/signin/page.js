@@ -18,11 +18,11 @@ export default async function SignInPage({ params }) {
   const t = await getTranslations({ locale, namespace: "Auth" });
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-20">
+    <div className="min-h-screen flex items-start sm:items-center justify-center px-4 sm:px-6 md:px-8 pt-20 sm:pt-20 md:pt-24 lg:pt-28 pb-16 sm:pb-16 md:pb-20 lg:pb-24">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-2">{t("SIGN_IN")}</h1>
-          <p className="text-gray-400">{t("SIGNIN_DESCRIPTION")}</p>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2">{t("SIGN_IN")}</h1>
+          <p className="text-gray-400 text-sm sm:text-base">{t("SIGNIN_DESCRIPTION")}</p>
         </div>
         <SignInForm />
       </div>
