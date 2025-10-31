@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "@/src/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
+import PhoneInput from "react-phone-number-input";
 
 export default function SignInForm() {
   const t = useTranslations("Auth");
@@ -120,14 +121,18 @@ export default function SignInForm() {
               <label htmlFor="phone" className="block text-sm font-medium mb-2">
                 {t("PHONE")}
               </label>
-              <input
+              <PhoneInput
                 id="phone"
-                name="phone"
-                type="tel"
+                international
+                defaultCountry="EG"
                 value={formData.phone}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-main border border-white/20"
-                placeholder={t("PHONE_PLACEHOLDER")}
+                onChange={(value) => {
+                  setFormData({
+                    ...formData,
+                    phone: value || "",
+                  });
+                }}
+                className="phone-input-custom"
               />
             </div>
           )}

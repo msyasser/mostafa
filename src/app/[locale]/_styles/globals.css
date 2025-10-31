@@ -159,3 +159,90 @@ section:target {
     animation: pulseStar 2s ease-in-out infinite;
   }
 }
+
+/* Phone Input Custom Styles */
+.phone-input-custom .PhoneInputInput {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 0.5rem !important;
+  padding: 0.75rem 1rem !important;
+  color: white !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.phone-input-custom .PhoneInputInput:focus {
+  outline: none !important;
+  border-color: #d7b180 !important;
+  box-shadow: 0 0 0 2px rgba(215, 177, 128, 0.2) !important;
+}
+
+.phone-input-custom .PhoneInputInput::placeholder {
+  color: rgba(156, 163, 175, 1) !important;
+}
+
+.phone-input-custom {
+  display: flex !important;
+  width: 100% !important;
+}
+
+.phone-input-custom .PhoneInputCountryIcon,
+.PhoneInputCountryIcon {
+  border: none !important;
+  margin-right: 0.5rem !important;
+  width: 24px !important;
+  height: 18px !important;
+  flex-shrink: 0 !important;
+}
+
+.phone-input-custom .PhoneInputCountry,
+.PhoneInputCountry {
+  display: flex !important;
+  align-items: center !important;
+  margin-right: 0.5rem !important;
+}
+
+.phone-input-custom select,
+.PhoneInputCountrySelect,
+.PhoneInput select {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 0.5rem !important;
+  color: white !important;
+  padding: 0.5rem 0.25rem !important;
+  margin-right: 0.5rem !important;
+  width: auto !important;
+  min-width: 60px !important;
+  max-width: 90px !important;
+  cursor: pointer !important;
+  font-size: 0.875rem !important;
+}
+
+.phone-input-custom select:focus,
+.PhoneInputCountrySelect:focus,
+.PhoneInput select:focus {
+  outline: none !important;
+  border-color: #d7b180 !important;
+  box-shadow: 0 0 0 2px rgba(215, 177, 128, 0.2) !important;
+}
+
+.phone-input-custom select option,
+.PhoneInputCountrySelect option,
+.PhoneInput select option {
+  background-color: #000 !important;
+  color: white !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.phone-input-custom select option:hover,
+.PhoneInputCountrySelect option:hover,
+.PhoneInput select option:hover {
+  background-color: rgba(215, 177, 128, 0.3) !important;
+}
+
+/* Additional dropdown container styling */
+.PhoneInput {
+  display: flex !important;
+  width: 100% !important;
+  align-items: center !important;
+}
