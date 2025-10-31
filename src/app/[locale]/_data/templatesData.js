@@ -489,6 +489,16 @@ const templates = [
     tags_ar: ["ملاحظات", "دراسة", "معرفة", "كتابة", "تنظيم"],
     detailsLink: "",
   },
+  {
+    id: 42,
+    name: "Weight Tracker",
+    name_ar: "متتبع الوزن",
+    slug: "weight-tracker",
+    category: "health",
+    tags: ["weight", "health", "fitness", "tracking", "progress"],
+    tags_ar: ["وزن", "صحة", "لياقة", "تتبع", "تقدم"],
+    detailsLink: "",
+  },
 ];
 
 export default templates;
