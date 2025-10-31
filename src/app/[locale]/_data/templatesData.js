@@ -89,7 +89,7 @@ const templates = [
   {
     id: 19,
     name: "FinanceHub",
-    name_ar: "مركز التمويل",
+    name_ar: "مركز المال",
     slug: "finance-hub",
     premium: true,
     category: "finance",
@@ -334,7 +334,7 @@ const templates = [
   {
     id: 24,
     name: "FinanceHub - Minimal Version",
-    name_ar: "مركز التمويل - نسخة مبسطة",
+    name_ar: "مركز المال - نسخة مبسطة",
     slug: "finance-hub-minimal",
     category: "finance",
     tags: [
