@@ -113,25 +113,24 @@ section:target {
   }
 
   .category-scrollbar::-webkit-scrollbar {
-    height: 6px;
+    height: 3px;
   }
 
   .category-scrollbar::-webkit-scrollbar-track {
     background: transparent;
-    border-radius: 10px;
   }
 
   .category-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #d7b180;
-    border-radius: 10px;
+    background-color: rgba(215, 177, 128, 0.4);
+    border-radius: 3px;
   }
 
   .category-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #c4a06b;
+    background-color: rgba(215, 177, 128, 0.6);
   }
 
   .category-scrollbar {
-    scrollbar-color: #d7b180 transparent; /* For Firefox */
+    scrollbar-color: rgba(215, 177, 128, 0.4) transparent; /* For Firefox */
     scrollbar-width: thin;
   }
 
