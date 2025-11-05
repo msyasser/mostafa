@@ -81,47 +81,72 @@ async function createUserInNotion({ name, email, password, phone }) {
   // Find the actual property names in your database
   const properties = dbSchema.properties;
   console.log('📋 Available properties in your database:', Object.keys(properties));
+  console.log('📋 Property types:', Object.entries(properties).map(([key, value]) => `${key}: ${value.type}`));
 
   // Build properties object dynamically based on what exists
   const userProperties = {};
   
-  // Look for Name/Name property
+  // Look for Name/Title property (required)
   const nameProp = Object.keys(properties).find(p => properties[p].type === 'title');
-  if (nameProp) {
-    userProperties[nameProp] = { title: [{ text: { content: name } }] };
+  if (!nameProp) {
+    throw new Error("Database must have a Title property for user names");
   }
+  userProperties[nameProp] = { title: [{ text: { content: name } }] };
+  console.log(`✅ Found name property: "${nameProp}"`);
 
-  // Look for Email property
+  // Look for Email property (required)
   const emailProp = Object.keys(properties).find(p => properties[p].type === 'email');
-  if (emailProp) {
-    userProperties[emailProp] = { email: email };
+  if (!emailProp) {
+    throw new Error("Database must have an Email property");
   }
+  userProperties[emailProp] = { email: email };
+  console.log(`✅ Found email property: "${emailProp}"`);
 
-  // Look for Password property
-  const passwordProp = Object.keys(properties).find(p => 
-    properties[p].type === 'rich_text' || properties[p].type === 'text'
+  // Look for Password property - prioritize by name first, then by type
+  let passwordProp = Object.keys(properties).find(p => 
+    p.toLowerCase().includes('password') && 
+    (properties[p].type === 'rich_text' || properties[p].type === 'text')
   );
+  
+  // If not found by name, find any rich_text or text property
+  if (!passwordProp) {
+    passwordProp = Object.keys(properties).find(p => 
+      properties[p].type === 'rich_text' || properties[p].type === 'text'
+    );
+  }
+  
   if (passwordProp) {
     userProperties[passwordProp] = { 
       [properties[passwordProp].type === 'rich_text' ? 'rich_text' : 'text']: [{ 
         text: { content: hashPassword(password) } 
       }] 
     };
+    console.log(`✅ Found password property: "${passwordProp}"`);
+  } else {
+    console.warn('⚠️ No password property found in database');
   }
 
   // Look for Phone property
   const phoneProp = Object.keys(properties).find(p => properties[p].type === 'phone_number');
   if (phoneProp && phone) {
-    userProperties[phoneProp] = { phone_number: phone };
+    // Remove any spaces or special formatting from phone number
+    const cleanPhone = phone.replace(/\s+/g, '');
+    userProperties[phoneProp] = { phone_number: cleanPhone };
+    console.log(`✅ Found phone property: "${phoneProp}"`);
   }
 
-  // Look for Date property
-  const dateProp = Object.keys(properties).find(p => properties[p].type === 'date');
+  // Look for Date property (for registration date)
+  const dateProp = Object.keys(properties).find(p => 
+    properties[p].type === 'date' && 
+    (p.toLowerCase().includes('date') || p.toLowerCase().includes('created') || p.toLowerCase().includes('registered'))
+  );
   if (dateProp) {
-    userProperties[dateProp] = { date: { start: new Date().toISOString() } };
+    userProperties[dateProp] = { date: { start: new Date().toISOString().split('T')[0] } };
+    console.log(`✅ Found date property: "${dateProp}"`);
   }
 
   console.log('📝 Creating user with properties:', Object.keys(userProperties));
+  console.log('📝 Properties data:', JSON.stringify(userProperties, null, 2));
 
   const response = await fetch(`https://api.notion.com/v1/pages`, {
     method: 'POST',
@@ -137,12 +162,26 @@ async function createUserInNotion({ name, email, password, phone }) {
   });
 
   if (!response.ok) {
-    const error = await response.json();
-    console.error('Notion API error:', error);
-    throw new Error('Failed to create user in Notion');
+    const errorText = await response.text();
+    let error;
+    try {
+      error = JSON.parse(errorText);
+    } catch (e) {
+      error = { raw: errorText };
+    }
+    console.error('❌ Notion API error response:', {
+      status: response.status,
+      statusText: response.statusText,
+      error: error,
+      propertiesSent: Object.keys(userProperties),
+      propertiesData: userProperties
+    });
+    throw new Error(`Failed to create user in Notion: ${error.message || response.statusText}`);
   }
 
-  return await response.json();
+  const result = await response.json();
+  console.log('✅ Successfully created user in Notion:', result.id);
+  return result;
 }
 
 async function findUserByEmail(email) {
@@ -243,10 +282,11 @@ export const authConfig = {
               console.error('❌ Notion error details:', {
                 message: error.message,
                 status: error.status || 'unknown',
-                code: error.code || 'unknown'
+                code: error.code || 'unknown',
+                stack: error.stack
               });
               // Don't fallback - show the error to user
-              throw new Error("Failed to create account. Please check server logs for details.");
+              throw new Error(error.message || "Failed to create account. Please check server logs for details.");
             }
           } else {
             // Fallback to in-memory storage

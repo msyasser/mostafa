@@ -8,8 +8,6 @@ import VideoPlayer from "./VideoPlayer";
 import { getLocale } from "next-intl/server";
 import { auth } from "@/src/app/api/auth/[...nextauth]/route";
 
-
-
 // YouTube course videos data - Real video IDs from your course
 const playlistVideos = [
   {
