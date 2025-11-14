@@ -63,6 +63,7 @@ export default function TemplateDetailsClient({ template }) {
               height={600}
               className="w-full lg:w-7/12 aspect-[4/3] lg:aspect-auto rounded-xl shadow-lg"
               priority={true}
+              unoptimized={true}
             />
             <div className="w-full lg:w-1/3 flex flex-col justify-start items-center lg:items-start text-center lg:text-left">
               <h1

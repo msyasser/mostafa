@@ -111,6 +111,7 @@ export default function TemplatesShowcase() {
             width={800}
             height={800}
             className="object-cover w-full h-full"
+            unoptimized={true}
           />
         </div>
         <h3 className="mt-3 text-sm sm:text-xl md:text-2xl font-semibold">
