@@ -25,9 +25,9 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-50 p-3">
+    <nav className="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-50 p-3 transition-all duration-300 ease-in-out">
       <BlurText duration={1}>
-        <div className="flex justify-between items-center mx-auto max-w-7xl">
+        <div className="flex justify-between items-center mx-auto max-w-7xl transition-all duration-300 ease-in-out">
           <Link
             href={`/${locale}`}
             className="hidden lg:flex items-center gap-2 pl-1 mt-0.5"
@@ -49,7 +49,7 @@ export default function Navigation() {
                 <Link
                   href={href}
                   key={index}
-                  className={`hover:text-main transition duration-300 ${
+                  className={`hover:text-main transition-all duration-300 ease-in-out ${
                     pathname === href ? "text-main" : ""
                   }`}
                 >
@@ -98,8 +98,8 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         <div
-          className={`fixed top-0 left-0 w-full h-screen bg-black backdrop-blur-md z-40 px-6 py-12 transition-transform duration-300 ease-in-out ${
-            menuOpen ? "translate-x-0" : "-translate-x-full"
+          className={`fixed top-0 left-0 w-full h-screen bg-black backdrop-blur-md z-40 px-6 py-12 transition-all duration-300 ease-in-out ${
+            menuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"
           }`}
         >
           <div className="flex flex-col items-center space-y-6">
@@ -109,7 +109,7 @@ export default function Navigation() {
                 <Link
                   href={href}
                   key={index}
-                  className={`text-2xl font-semibold ${
+                  className={`text-2xl font-semibold transition-all duration-300 ease-in-out hover:text-main ${
                     pathname === href ? "text-main" : ""
                   }`}
                   onClick={() => setMenuOpen(false)}
