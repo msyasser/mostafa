@@ -68,7 +68,7 @@ export default function UserMenu({ inline = false }) {
   if (inline) {
     return (
       <div className={`w-full bg-black/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 ${isArabic ? "text-right" : "text-left"}`}>
-        <div className="px-5 py-4 border-b border-white/10 bg-black/50 flex items-center gap-3">
+        <div className={`px-5 py-4 border-b border-white/10 bg-black/50 flex items-center gap-3 ${isArabic ? "flex-row-reverse" : ""}`}>
           <div className="w-11 h-11 rounded-full bg-main flex items-center justify-center text-black font-bold text-lg shadow-lg ring-2 ring-main/30">
             {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || "U"}
           </div>
@@ -113,10 +113,10 @@ export default function UserMenu({ inline = false }) {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center px-1 py-1 rounded-full hover:bg-white/10 transition-all duration-200 cursor-pointer"
+        className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-white/10 transition-all duration-200 cursor-pointer border border-white/20"
         aria-label="User menu"
       >
-        <div className="w-9 h-9 rounded-full bg-main flex items-center justify-center text-black font-bold">
+        <div className="w-8 h-8 rounded-full bg-main flex items-center justify-center text-black font-bold text-sm shadow-sm">
           {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || "U"}
         </div>
       </button>
@@ -130,7 +130,7 @@ export default function UserMenu({ inline = false }) {
       >
         {/* Profile Section */}
         <div className="px-5 py-4 border-b border-white/10 bg-black/50">
-          <div className="flex items-center gap-3">
+          <div className={`flex items-center gap-3 ${isArabic ? "flex-row-reverse" : ""}`}>
             <div className="w-11 h-11 rounded-full bg-main flex items-center justify-center text-black font-bold text-lg shadow-lg ring-2 ring-main/30">
               {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || "U"}
             </div>

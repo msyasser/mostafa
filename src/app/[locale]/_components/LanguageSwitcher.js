@@ -25,11 +25,10 @@ export default function LanguageSwitcher() {
   return (
     <button
       onClick={handleClick}
-      className="flex items-center justify-center rounded-full border lg:border-white/20 border-none bg-transparent hover:bg-white/5 backdrop-blur-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+      className="flex items-center justify-center w-9 h-9 rounded-full border border-white/20 bg-transparent hover:bg-white/10 backdrop-blur-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+      aria-label="Switch language"
     >
-      <span className="w-[24px] h-[24px] lg:w-[32px] lg:h-[32px] flex items-center justify-center text-main hover:opacity-50 transition duration-200 mt-0.5 lg:mt-0">
-        <GlobeAltIcon className="w-8 h-8" />
-      </span>
+      <GlobeAltIcon className="w-5 h-5 text-main hover:opacity-70 transition duration-200" />
     </button>
   );
 }

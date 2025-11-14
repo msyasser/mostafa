@@ -58,8 +58,10 @@ export default function Navigation() {
               );
             })}
 
-            <LanguageSwitcher />
-            <UserMenu />
+            <div className="flex items-center gap-3 ml-2">
+              <LanguageSwitcher />
+              <UserMenu />
+            </div>
           </div>
 
           {/* Hamburger Icon */}
