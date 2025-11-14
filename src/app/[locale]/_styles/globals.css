@@ -89,6 +89,17 @@ section:target {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Text Selection Styles */
+::selection {
+  background-color: rgba(215, 177, 128, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: rgba(215, 177, 128, 0.3);
+  color: #ffffff;
+}
+
 @layer utilities {
   .toc-scroll::-webkit-scrollbar {
     width: 8px;

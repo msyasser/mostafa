@@ -1798,9 +1798,63 @@
     "description": "A clean and easy-to-use Notion template to track your weight and see your progress over time. Add your weight, see the difference automatically, and stay motivated on your fitness journey.",
     "price": "$0",
     "checkout": "Download",
-    "checkoutLink": "",
+    "checkoutLink": "https://www.notion.com/templates/weight-tracker-free",
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/42.webp"
+  },
+  "TaskHub": {
+    "name": "TaskHub",
+    "description": "TaskHub is a complete task management system built in Notion to help you stay productive, focused, and in control of both work and personal life. From daily to-dos to long-term projects, and even recurring tasks you repeat every week or month — TaskHub handles it all in one clean, minimal space.",
+    "price": "$0",
+    "checkout": "Download",
+    "checkoutLink": "https://www.notion.com/templates/taskhub",
+    "moreDetails": "More Details",
+    "image": "/thumbnails/ENThumbnails/43.webp"
+  },
+  "Recommendations Tracker": {
+    "name": "Recommendations Tracker",
+    "description": "Recommendations Tracker is the perfect Notion template to keep track of every recommendation you receive. Instead of losing suggestions in chats or forgetting them later, you can now collect them all in one organized space.",
+    "price": "$0",
+    "checkout": "Download",
+    "checkoutLink": "https://www.notion.com/templates/recommendations-tracker",
+    "moreDetails": "More Details",
+    "image": "/thumbnails/ENThumbnails/44.webp"
+  },
+  "My Journal": {
+    "name": "My Journal",
+    "description": "My Journal is your personal space in Notion designed to make journaling effortless and meaningful. With this",
+    "price": "$0",
+    "checkout": "Download",
+    "checkoutLink": "https://www.notion.com/templates/my-journal-free",
+    "moreDetails": "More Details",
+    "image": "/thumbnails/ENThumbnails/45.webp"
+  },
+  "My Ideas": {
+    "name": "My Ideas",
+    "description": "My Ideas is your personal hub for creativity inside Notion.",
+    "price": "$0",
+    "checkout": "Download",
+    "checkoutLink": "https://www.notion.com/templates/my-ideas",
+    "moreDetails": "More Details",
+    "image": "/thumbnails/ENThumbnails/46.webp"
+  },
+  "Content Calendar": {
+    "name": "Content Calendar | Manage & Plan Your Social Media",
+    "description": "Stay consistent and creative with this all-in-one Notion Content Ideas Hub. Designed for creators, marketers, and teams who want a clear system to organize their content pipeline. Easily capture new ideas, categorize them by platform and type, set goals and priorities, and track progress from Idea → Draft → Scheduled → Published — all in one place.",
+    "price": "$0",
+    "checkout": "Download",
+    "checkoutLink": "https://www.notion.com/templates/content-calendar-free",
+    "moreDetails": "More Details",
+    "image": "/thumbnails/ENThumbnails/47.webp"
+  },
+  "100 Days Challenge": {
+    "name": "100 Days Challenge",
+    "description": "The \"100 Days Challenge\" template, crafted by Mostafa, is a comprehensive tool to support your 100-day journey toward personal growth, fitness, or skill development. This template combines motivation and organization with advanced tracking features.",
+    "price": "$0",
+    "checkout": "Download",
+    "checkoutLink": "https://www.notion.com/templates/100dayschallenge",
+    "moreDetails": "More Details",
+    "image": "/thumbnails/ENThumbnails/48.webp"
   },
 
   "Second Brain - Muslim Edition": {
