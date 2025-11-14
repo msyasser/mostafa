@@ -15,7 +15,7 @@ const templates = [
       "tasks",
     ],
     tags_ar: ["العقل الثاني", "ملاحظات", "معرفة", "تنظيم", "تفكير", "مهام"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/second-brain",
   },
   {
     id: 40,
@@ -36,7 +36,7 @@ const templates = [
       "spirituality",
     ],
     tags_ar: ["العقل الثاني", "ملاحظات", "معرفة", "تنظيم", "تفكير", "مهام", "إسلام", "مسلم", "روحانية"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/second-brain-muslim-edition",
   },
   {
     id: 1,
@@ -47,7 +47,7 @@ const templates = [
     category: "islam",
     tags: ["quran", "reading", "religion", "islam", "ibadah", "holy book"],
     tags_ar: ["قرآن", "قراءة", "دين", "إسلام", "عبادة", "الكتاب المقدس"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/quran-tracker",
   },
   {
     id: 2,
@@ -64,7 +64,7 @@ const templates = [
       "self-improvement",
     ],
     tags_ar: ["تحدي", "هدف", "تحفيز", "عادة", "تتبع", "تطوير الذات"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/90-day-challenge-premium",
   },
   {
     id: 12,
@@ -74,7 +74,7 @@ const templates = [
     category: "productivity",
     tags: ["priority", "focus", "goals", "decision-making", "planning"],
     tags_ar: ["أولوية", "تركيز", "أهداف", "اتخاذ القرار", "تخطيط"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/priority-compass",
   },
   {
     id: 13,
@@ -84,7 +84,7 @@ const templates = [
     category: "productivity",
     tags: ["tasks", "to-do", "manager", "productivity", "project management"],
     tags_ar: ["مهام", "قائمة المهام", "مدير", "إنتاجية", "إدارة المشاريع"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/task-manager",
   },
   {
     id: 19,
@@ -103,7 +103,7 @@ const templates = [
       "spending",
     ],
     tags_ar: ["مال", "ميزانية", "نفقات", "دخل", "مالية", "نقد", "إنفاق"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/finance-hub",
   },
   {
     id: 16,
@@ -121,7 +121,7 @@ const templates = [
       "schedule",
     ],
     tags_ar: ["دراسة", "تعليم", "طلاب", "تخطيط", "مراجعة", "جدول"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/study-hub",
   },
   {
     id: 39,
@@ -140,7 +140,7 @@ const templates = [
       "tracking",
     ],
     tags_ar: ["عبادة", "صلاة", "إسلام", "دين", "روحانية", "تتبع", "عبادات"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/ibadat-hub",
   },
   {
     id: 21,
@@ -150,7 +150,7 @@ const templates = [
     category: "islam",
     tags: ["prayer", "salah", "timing", "religion", "islam", "worship"],
     tags_ar: ["صلاة", "مواقيت", "توقيت", "دين", "إسلام", "عبادة"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/prayer-times",
   },
   {
     id: 3,
@@ -168,7 +168,7 @@ const templates = [
       "fasting",
     ],
     tags_ar: ["عبادة", "صلاة", "دين", "إسلام", "صيام", "عادة"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/ibadat-tracker",
   },
   {
     id: 4,
@@ -178,7 +178,7 @@ const templates = [
     category: "islam",
     tags: ["quran", "reading", "islam", "religion", "tracker", "memorization"],
     tags_ar: ["قرآن", "قراءة", "دين", "إسلام", "تتبع", "حفظ"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/quran-tracker-minimal",
   },
   {
     id: 5,
@@ -188,7 +188,7 @@ const templates = [
     category: "education",
     tags: ["study", "planner", "school", "university", "schedule", "revision"],
     tags_ar: ["دراسة", "مخطط", "مدرسة", "جامعة", "جدول", "مراجعة"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/study-planner",
   },
   {
     id: 6,
@@ -198,7 +198,7 @@ const templates = [
     category: "productivity",
     tags: ["weekly", "planner", "tasks", "schedule", "calendar", "goals"],
     tags_ar: ["أسبوعي", "مخطط", "مهام", "جدول", "تقويم", "أهداف"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/weekly-planner",
   },
   {
     id: 7,
@@ -208,7 +208,7 @@ const templates = [
     category: "health",
     tags: ["habits", "routine", "self-improvement", "consistency", "goals"],
     tags_ar: ["عادات", "روتين", "تطوير الذات", "استمرارية", "أهداف"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/habit-tracker-minimal",
   },
   {
     id: 8,
@@ -218,7 +218,7 @@ const templates = [
     category: "lifestyle",
     tags: ["books", "reading", "tracker", "study", "library", "knowledge"],
     tags_ar: ["كتب", "قراءة", "تتبع", "دراسة", "مكتبة", "معرفة"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/reading-tracker",
   },
   {
     id: 9,
@@ -228,7 +228,7 @@ const templates = [
     category: "challenges",
     tags: ["challenge", "90 days", "habit", "goal", "plan", "tracker"],
     tags_ar: ["تحدي", "٩٠ يوم", "عادة", "هدف", "خطة", "تتبع"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/90-day-challenge",
   },
   {
     id: 10,
@@ -238,7 +238,7 @@ const templates = [
     category: "islam",
     tags: ["quran", "memorization", "hifz", "islam", "learning", "religion"],
     tags_ar: ["قرآن", "حفظ", "تحفيظ", "إسلام", "تعلم", "دين"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/quran-memorization",
   },
   {
     id: 11,
@@ -248,7 +248,7 @@ const templates = [
     category: "islam",
     tags: ["ramadan", "fasting", "ibadah", "quran", "tracker", "islam"],
     tags_ar: ["رمضان", "صيام", "عبادة", "قرآن", "تتبع", "إسلام"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/ramadan-tracker",
   },
   {
     id: 14,
@@ -265,7 +265,7 @@ const templates = [
       "productivity",
     ],
     tags_ar: ["نوشن", "بداية", "مساحة العمل", "قوالب", "تنظيم", "إنتاجية"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/notion-starter-pack",
   },
   {
     id: 15,
@@ -282,7 +282,7 @@ const templates = [
       "project",
     ],
     tags_ar: ["أفكار", "فريق", "عصف ذهني", "تعاون", "تدفق", "مشروع"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/idea-flow-team",
   },
   {
     id: 17,
@@ -292,7 +292,7 @@ const templates = [
     category: "content",
     tags: ["ideas", "personal", "solo", "creativity", "thinking", "flow"],
     tags_ar: ["أفكار", "شخصي", "فردي", "إبداع", "تفكير", "تدفق"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/idea-flow-solo",
   },
   {
     id: 18,
@@ -309,7 +309,7 @@ const templates = [
       "organization",
     ],
     tags_ar: ["شخصي", "نوشن", "لوحة تحكم", "الذات", "مساحة عمل", "تنظيم"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/notion-me",
   },
   {
     id: 22,
@@ -319,7 +319,7 @@ const templates = [
     category: "education",
     tags: ["study", "students", "minimal", "education", "learning", "planner"],
     tags_ar: ["دراسة", "طلاب", "مبسط", "تعليم", "تعلم", "مخطط"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/studyhub-minimal",
   },
   {
     id: 23,
@@ -329,7 +329,7 @@ const templates = [
     category: "productivity",
     tags: ["second brain", "notes", "thinking", "organization", "minimal"],
     tags_ar: ["العقل الثاني", "ملاحظات", "تفكير", "تنظيم", "مبسط"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/second-brain-minimal",
   },
   {
     id: 24,
@@ -347,7 +347,7 @@ const templates = [
       "tracker",
     ],
     tags_ar: ["مال", "مالية", "ميزانية", "نقد", "نفقات", "دخل", "تتبع"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/finance-hub-minimal",
   },
   {
     id: 25,
@@ -357,7 +357,7 @@ const templates = [
     category: "finance",
     tags: ["liabilities", "debts", "finance", "money", "budget"],
     tags_ar: ["خصومات", "ديون", "مالية", "مال", "ميزانية"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-liabilities",
   },
   {
     id: 26,
@@ -367,7 +367,7 @@ const templates = [
     category: "productivity",
     tags: ["wishlist", "goals", "dreams", "shopping", "planning"],
     tags_ar: ["أمنيات", "أهداف", "أحلام", "تسوق", "تخطيط"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-wishlist",
   },
   {
     id: 27,
@@ -377,7 +377,7 @@ const templates = [
     category: "finance",
     tags: ["subscriptions", "payments", "tracking", "expenses", "management"],
     tags_ar: ["اشتراكات", "مدفوعات", "تتبع", "نفقات", "إدارة"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-subscriptions",
   },
   {
     id: 28,
@@ -387,7 +387,7 @@ const templates = [
     category: "lifestyle",
     tags: ["watchlist", "movies", "series", "tracking", "entertainment"],
     tags_ar: ["مشاهدة", "أفلام", "مسلسلات", "تتبع", "ترفيه"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-watchlist",
   },
   {
     id: 29,
@@ -397,7 +397,7 @@ const templates = [
     category: "productivity",
     tags: ["schedule", "calendar", "planning", "routine", "time management"],
     tags_ar: ["جدول", "تقويم", "تخطيط", "روتين", "إدارة الوقت"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-schedule",
   },
   {
     id: 30,
@@ -407,7 +407,7 @@ const templates = [
     category: "education",
     tags: ["instructors", "teachers", "education", "university", "contacts"],
     tags_ar: ["مدرسين", "معلمين", "تعليم", "جامعة", "جهات الاتصال"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-instructors",
   },
   {
     id: 31,
@@ -417,7 +417,7 @@ const templates = [
     category: "finance",
     tags: ["taxes", "finance", "money", "income", "expenses", "tracking"],
     tags_ar: ["ضرائب", "مالية", "مال", "دخل", "نفقات", "تتبع"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-taxes",
   },
   {
     id: 32,
@@ -427,7 +427,7 @@ const templates = [
     category: "finance",
     tags: ["depts", "debts", "money", "finance", "tracking"],
     tags_ar: ["ديون", "مال", "مالية", "تتبع", "مستحقات"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-depts",
   },
   {
     id: 33,
@@ -437,7 +437,7 @@ const templates = [
     category: "productivity",
     tags: ["contacts", "network", "people", "phonebook", "connections"],
     tags_ar: ["جهات الاتصال", "شبكة", "أشخاص", "دليل الهاتف", "معارف"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-contacts",
   },
   {
     id: 34,
@@ -447,7 +447,7 @@ const templates = [
     category: "health",
     tags: ["habits", "tracking", "routine", "self-improvement", "consistency"],
     tags_ar: ["عادات", "تتبع", "روتين", "تطوير الذات", "استمرارية"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/habit-tracker-premium",
   },
   {
     id: 35,
@@ -457,7 +457,7 @@ const templates = [
     category: "education",
     tags: ["exams", "study", "revision", "schedule", "education"],
     tags_ar: ["اختبارات", "دراسة", "مراجعة", "جدول", "تعليم"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-exams",
   },
   {
     id: 36,
@@ -467,7 +467,7 @@ const templates = [
     category: "education",
     tags: ["resources", "materials", "files", "study", "documents"],
     tags_ar: ["مصادر", "مواد", "ملفات", "دراسة", "مستندات"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-resources",
   },
   {
     id: 37,
@@ -477,7 +477,7 @@ const templates = [
     category: "education",
     tags: ["assignments", "homework", "tasks", "school", "university"],
     tags_ar: ["مهام", "واجبات", "مدرسة", "جامعة", "دراسة"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-assignments",
   },
   {
     id: 38,
@@ -487,7 +487,7 @@ const templates = [
     category: "education",
     tags: ["notes", "study", "knowledge", "writing", "organization"],
     tags_ar: ["ملاحظات", "دراسة", "معرفة", "كتابة", "تنظيم"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/my-notes",
   },
   {
     id: 42,
@@ -497,7 +497,7 @@ const templates = [
     category: "health",
     tags: ["weight", "health", "fitness", "tracking", "progress"],
     tags_ar: ["وزن", "صحة", "لياقة", "تتبع", "تقدم"],
-    detailsLink: "",
+    detailsLink: "https://www.mostafayasser.com/en/templates/weight-tracker",
   },
 ];
 
