@@ -11,7 +11,7 @@ export default function PremiumOfferPopup({ template, isOpen, onClose }) {
   const [mounted, setMounted] = useState(false);
 
   // Coupon code - MS30 for 30% off
-  const couponCode = "MS30";
+  const couponCode = "MY50";
 
   useEffect(() => {
     setMounted(true);
@@ -85,7 +85,7 @@ export default function PremiumOfferPopup({ template, isOpen, onClose }) {
                   className="inline-flex items-center gap-1 bg-main/10 text-main px-2 py-1 rounded-full text-xs font-bold"
                 >
                   <Percent className="w-3 h-3" />
-                  30% OFF
+                  50% OFF
                 </motion.div>
               </div>
 
