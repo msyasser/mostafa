@@ -63,7 +63,7 @@ function Footer() {
                 },
                 {
                   icon: BsTelegram,
-                  link: "https://t.me/engmsyasser",
+                  link: "https://t.me/mostafa_notion",
                   label: "Telegram",
                 },
               ].map(({ icon: Icon, link, label }, idx) => (
