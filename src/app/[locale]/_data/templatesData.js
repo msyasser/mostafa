@@ -559,6 +559,16 @@ const templates = [
     tags_ar: ["تحدي", "100 يوم", "عادة", "هدف", "تتبع", "تطوير الذات"],
     detailsLink: "https://www.mostafayasser.com/en/templates/100-days-challenge",
   },
+  {
+  id: 49,
+  name: "Flashcards",
+  name_ar: "البطاقات التعليمية",
+  slug: "flashcards",
+  category: "productivity",
+  tags: ["flashcards", "study", "learning", "memory", "revision", "notes"],
+  tags_ar: ["البطاقات التعليمية", "مذاكرة", "تعلم", "ذاكرة", "مراجعة", "ملاحظات"],
+  detailsLink: "https://www.mostafayasser.com/en/templates/flashcards"
+  }
 ];
 
 export default templates;

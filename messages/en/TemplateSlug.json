@@ -1856,7 +1856,15 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/48.webp"
   },
-
+  "Flashcards": {
+    "name": "Flashcards",
+    "description": "Flashcards is a Notion template to help you create and manage flashcards for your study materials—organized by name, status, and type.",
+    "price": "$0",
+    "checkout": "Download",
+    "checkoutLink": "https://www.notion.so/templates/flashcards-free",
+    "moreDetails": "More Details",
+    "image": "/thumbnails/ENThumbnails/49.webp"
+  },
   "Second Brain - Muslim Edition": {
     "name": "Second Brain - Muslim Edition",
     "description": "The all-in-one Notion system to organize your tasks, goals, habits, ideas, and finances — all in one connected workspace, designed specifically for Muslims with Islamic calendar integration, prayer time reminders, and spiritual growth tracking.",
