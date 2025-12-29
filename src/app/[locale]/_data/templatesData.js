@@ -568,6 +568,16 @@ const templates = [
   tags: ["flashcards", "study", "learning", "memory", "revision", "notes"],
   tags_ar: ["البطاقات التعليمية", "مذاكرة", "تعلم", "ذاكرة", "مراجعة", "ملاحظات"],
   detailsLink: "https://www.mostafayasser.com/en/templates/flashcards"
+  },
+  {
+  id: 50,
+  name: "My 2026 Goals",
+  name_ar: "أهدافي لعام 2026",
+  slug: "my-2026-goals",
+  category: "productivity",
+  tags: ["goals", "planning", "2026", "vision", "self-improvement", "productivity"],
+  tags_ar: ["أهداف", "تخطيط", "2026", "رؤية", "تطوير الذات", "إنتاجية"],
+  detailsLink: "https://www.mostafayasser.com/en/templates/my-2026-goals"
   }
 ];
 

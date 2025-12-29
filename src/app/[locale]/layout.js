@@ -155,6 +155,7 @@ export default async function LocaleLayout({ children, params }) {
       <body
         className="bg-black text-white min-h-screen flex flex-col"
         cz-shortcut-listen="true"
+        data-testim-main-word-scripts-loaded="true"
       >
         <NextIntlClientProvider locale={locale}>
           <AuthProvider>
