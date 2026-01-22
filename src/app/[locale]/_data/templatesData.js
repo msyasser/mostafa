@@ -1,3 +1,67 @@
+const BASE_LAST_UPDATED = new Date("2025-10-01");
+const LAST_UPDATED_OVERRIDES = {
+  "my-2026-goals": "2026-01-05",
+  "100-days-challenge": "2025-12-01",
+  "90-day-challenge": "2025-11-15",
+  "90-day-challenge-premium": "2025-11-20",
+  "ramadan-tracker": "2025-02-15",
+  "quran-tracker": "2025-03-10",
+  "quran-tracker-minimal": "2025-03-05",
+  "quran-memorization": "2025-03-12",
+  "prayer-times": "2025-03-08",
+  "ibadat-tracker": "2025-03-01",
+  "ibadat-hub": "2025-03-18",
+  "study-hub": "2025-09-10",
+  "studyhub-minimal": "2025-09-01",
+  "study-planner": "2025-09-05",
+  "my-exams": "2025-09-08",
+  "my-resources": "2025-09-04",
+  "my-assignments": "2025-09-06",
+  "my-notes": "2025-09-02",
+  "finance-hub": "2025-10-10",
+  "finance-hub-minimal": "2025-10-04",
+  "my-liabilities": "2025-10-06",
+  "my-subscriptions": "2025-10-02",
+  "my-taxes": "2025-10-08",
+  "my-depts": "2025-10-03",
+  "weight-tracker": "2025-08-20",
+  "habit-tracker-minimal": "2025-08-10",
+  "habit-tracker-premium": "2025-08-25",
+  "reading-tracker": "2025-07-15",
+  "my-watchlist": "2025-07-20",
+  "recommendations-tracker": "2025-07-25",
+  "my-journal": "2025-07-18",
+  "content-calendar": "2025-11-01",
+  "idea-flow-team": "2025-10-22",
+  "idea-flow-solo": "2025-10-18",
+  "notion-starter-pack": "2025-09-20",
+  "notion-me": "2025-09-25",
+  "weekly-planner": "2025-08-05",
+  "priority-compass": "2025-08-12",
+  "task-manager": "2025-08-14",
+  "taskhub": "2025-08-22",
+  "my-schedule": "2025-08-18",
+  "my-instructors": "2025-09-07",
+  "my-contacts": "2025-08-16",
+  "my-wishlist": "2025-08-09",
+  "my-ideas": "2025-08-28",
+  "flashcards": "2025-09-12",
+  "second-brain": "2025-10-15",
+  "second-brain-minimal": "2025-10-12",
+  "second-brain-muslim-edition": "2025-10-17"
+};
+
+const getLastUpdatedForTemplate = (template) => {
+  if (LAST_UPDATED_OVERRIDES[template.slug]) {
+    return LAST_UPDATED_OVERRIDES[template.slug];
+  }
+
+  const daysToAdd = Math.max(0, template.id) * 5;
+  const date = new Date(BASE_LAST_UPDATED);
+  date.setDate(date.getDate() + daysToAdd);
+  return date.toISOString().slice(0, 10);
+};
+
 const templates = [
   {
     id: 20,
@@ -579,6 +643,9 @@ const templates = [
   tags_ar: ["أهداف", "تخطيط", "2026", "رؤية", "تطوير الذات", "إنتاجية"],
   detailsLink: "https://www.mostafayasser.com/en/templates/my-2026-goals"
   }
-];
+].map((template) => ({
+  ...template,
+  lastUpdated: template.lastUpdated ?? getLastUpdatedForTemplate(template),
+}));
 
 export default templates;

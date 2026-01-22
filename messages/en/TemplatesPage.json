@@ -3,6 +3,13 @@
   "subtitle": "Stay inspired and explore the newest projects and ideas I've been working on.",
   "placeholder": "Search templates...",
   "noTemplates": "No templates found.",
+  "categoryLabel": "Category",
+  "lastUpdatedLabel": "Last update",
+  "sort": {
+    "label": "Sort templates",
+    "newest": "Newest first",
+    "oldest": "Oldest first"
+  },
   "filters": {
     "pricing": {
       "all": "All Templates",

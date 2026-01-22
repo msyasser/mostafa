@@ -18,6 +18,8 @@ function getRandomItems(arr, count) {
 
 export default function TemplateDetailsClient({ template }) {
   const t = useTranslations("TemplateSlug");
+  const tTemplates = useTranslations("TemplatesPage");
+  const tCategories = useTranslations("Categories");
   const locale = useLocale();
 
   if (
@@ -27,6 +29,31 @@ export default function TemplateDetailsClient({ template }) {
   ) {
     return <PremiumPage template={template} />;
   }
+
+  const getCategoryLabel = () => {
+    try {
+      return tCategories(template.category);
+    } catch (error) {
+      return template.category;
+    }
+  };
+
+  const getLastUpdatedLabel = () => {
+    if (!template.lastUpdated) {
+      return null;
+    }
+
+    const parsedDate = new Date(template.lastUpdated);
+    if (Number.isNaN(parsedDate.getTime())) {
+      return template.lastUpdated;
+    }
+
+    return new Intl.DateTimeFormat(locale, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }).format(parsedDate);
+  };
 
   // 🔍 Step 1: Filter related templates by category or tags
   const relatedTemplates = templatesData.filter((t) => {
@@ -78,6 +105,20 @@ export default function TemplateDetailsClient({ template }) {
               >
                 {t(`${template.name}.price`)}
               </p>
+              {!template.premium && (
+                <div className="mt-4 flex flex-wrap justify-center lg:justify-start items-center gap-2 text-xs md:text-sm">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-[#D7B180]/40 bg-black/60 px-3 py-1 text-main">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#D7B180]" />
+                    {tTemplates("categoryLabel")}: {getCategoryLabel()}
+                  </span>
+                  {getLastUpdatedLabel() && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-[#D7B180]/40 bg-black/60 px-3 py-1 text-main">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#D7B180]" />
+                      {tTemplates("lastUpdatedLabel")}: {getLastUpdatedLabel()}
+                    </span>
+                  )}
+                </div>
+              )}
               <p
                 className={`text-base md:text-lg text-muted mt-4 text-center ${locale === "ar" ? "lg:text-right" : "lg:text-left"
                   }`}

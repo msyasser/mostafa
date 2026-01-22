@@ -10,7 +10,7 @@ import templatesData from "@/src/app/[locale]/_data/templatesData";
 import TemplateCard from "./TemplateCard";
 import { useTranslations, useLocale } from "next-intl";
 
-function TemplateList({ filter, pricingFilter }) {
+function TemplateList({ filter, pricingFilter, sortOrder = "newest" }) {
   const t = useTranslations("TemplatesPage");
   const locale = useLocale();
   const [searchTerm, setSearchTerm] = useState("");
@@ -44,6 +44,12 @@ function TemplateList({ filter, pricingFilter }) {
       ? filteredTemplates
       : fuse.search(searchTerm).map((result) => result.item);
 
+  const sortedTemplates = [...searchedTemplates].sort((a, b) => {
+    const aDate = new Date(a.lastUpdated || 0).getTime();
+    const bDate = new Date(b.lastUpdated || 0).getTime();
+    return sortOrder === "oldest" ? aDate - bDate : bDate - aDate;
+  });
+
   return (
     <>
       <motion.div
@@ -75,15 +81,15 @@ function TemplateList({ filter, pricingFilter }) {
         </motion.div>
       </motion.div>
 
-      <Suspense fallback={<Loader />} key={filter + searchTerm + pricingFilter}>
+      <Suspense fallback={<Loader />} key={filter + searchTerm + pricingFilter + sortOrder}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 mt-8 sm:mt-10 px-4 sm:px-0"
         >
-          {searchedTemplates.length > 0 ? (
-            searchedTemplates.map((template, index) => {
+          {sortedTemplates.length > 0 ? (
+            sortedTemplates.map((template, index) => {
               return (
                 <TemplateCard
                   key={template.id}

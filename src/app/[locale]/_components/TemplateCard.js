@@ -35,6 +35,22 @@ export default function TemplateCard({ template, index }) {
     }
   };
 
+  const isNewTemplate = () => {
+    if (!template.lastUpdated) {
+      return false;
+    }
+
+    const parsedDate = new Date(template.lastUpdated);
+    if (Number.isNaN(parsedDate.getTime())) {
+      return false;
+    }
+
+    const now = new Date();
+    const diffInMs = now - parsedDate;
+    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+    return diffInDays >= 0 && diffInDays <= 30;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -50,6 +66,11 @@ export default function TemplateCard({ template, index }) {
               suppressHydrationWarning={true}
             >
               PRO
+            </span>
+          )}
+          {isNewTemplate() && (
+            <span className="absolute top-4 left-4 rounded-full bg-[#D7B180] text-black text-xs font-semibold px-3 py-1 shadow-md">
+              NEW
             </span>
           )}
 
