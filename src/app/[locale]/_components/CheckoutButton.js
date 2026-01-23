@@ -173,6 +173,12 @@ function CheckoutButton({
         const orderedOptions = isArabicSelected
           ? ['ar', 'en']
           : ['en', 'ar'];
+        const getLanguageLabel = (lang) => {
+          if (locale === 'ar') {
+            return lang === 'ar' ? 'العربية' : 'الإنجليزية';
+          }
+          return lang === 'ar' ? 'Arabic' : 'English';
+        };
 
         const renderOption = (lang) => {
           const isArabic = lang === 'ar';
@@ -192,7 +198,7 @@ function CheckoutButton({
                 }`}
             >
               <span className="flex items-center justify-between">
-                <span>{isArabic ? 'العربية' : 'English'}</span>
+                <span>{getLanguageLabel(lang)}</span>
                 {!isDisabled && isSelected && (
                   <span className="text-xs text-main">✓</span>
                 )}
@@ -206,6 +212,13 @@ function CheckoutButton({
             className={`absolute top-full mt-2 w-full bg-white rounded-lg border border-gray-200 shadow-md z-50 overflow-hidden ${locale === 'ar' ? 'right-0' : 'left-0'
               }`}
           >
+            <div
+              className={`px-4 py-2 text-xs font-medium text-gray-500 ${locale === 'ar' ? 'text-right' : 'text-left'
+                }`}
+            >
+              {t("templateLanguage")}
+            </div>
+            <div className="border-t border-gray-100" />
             {orderedOptions.map((lang, index) => (
               <div key={lang}>
                 {renderOption(lang)}
