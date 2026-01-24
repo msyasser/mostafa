@@ -69,7 +69,7 @@ export default function TemplateCard({ template, index }) {
             </span>
           )}
           {isNewTemplate() && (
-            <span className="absolute top-4 left-4 rounded-full bg-[#D7B180] text-black text-xs font-semibold px-3 py-1 shadow-md">
+            <span className="absolute top-4 left-4 rounded-full bg-white text-black text-xs font-semibold px-3 py-1 shadow-md">
               NEW
             </span>
           )}

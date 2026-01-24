@@ -55,6 +55,8 @@ export default function TemplateDetailsClient({ template }) {
     }).format(parsedDate);
   };
 
+  const categoryFilterHref = `/${locale}/templates?category=${encodeURIComponent(template.category)}`;
+
   // 🔍 Step 1: Filter related templates by category or tags
   const relatedTemplates = templatesData.filter((t) => {
     const sameCategory = t.category === template.category;
@@ -107,10 +109,14 @@ export default function TemplateDetailsClient({ template }) {
               </p>
               {!template.premium && (
                 <div className="mt-4 flex flex-wrap justify-center lg:justify-start items-center gap-2 text-xs md:text-sm">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#D7B180]/40 bg-black/60 px-3 py-1 text-main">
+                  <Link
+                    href={categoryFilterHref}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#D7B180]/40 bg-black/60 px-3 py-1 text-main transition hover:border-[#D7B180]/80 hover:bg-black/80"
+                    aria-label={`${tTemplates("categoryLabel")}: ${getCategoryLabel()}`}
+                  >
                     <span className="h-1.5 w-1.5 rounded-full bg-[#D7B180]" />
                     {tTemplates("categoryLabel")}: {getCategoryLabel()}
-                  </span>
+                  </Link>
                   {getLastUpdatedLabel() && (
                     <span className="inline-flex items-center gap-2 rounded-full border border-[#D7B180]/40 bg-black/60 px-3 py-1 text-main">
                       <span className="h-1.5 w-1.5 rounded-full bg-[#D7B180]" />

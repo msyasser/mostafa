@@ -212,10 +212,7 @@ function CheckoutButton({
             className={`absolute top-full mt-2 w-full bg-white rounded-lg border border-gray-200 shadow-md z-50 overflow-hidden ${locale === 'ar' ? 'right-0' : 'left-0'
               }`}
           >
-            <div
-              className={`px-4 py-2 text-xs font-medium text-gray-500 ${locale === 'ar' ? 'text-right' : 'text-left'
-                }`}
-            >
+            <div className="px-4 py-2 text-sm font-semibold text-gray-600 text-center">
               {t("templateLanguage")}
             </div>
             <div className="border-t border-gray-100" />
