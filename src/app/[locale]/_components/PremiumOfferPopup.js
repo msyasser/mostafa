@@ -11,7 +11,7 @@ export default function PremiumOfferPopup({ template, isOpen, onClose }) {
   const [mounted, setMounted] = useState(false);
 
   // Coupon code - MS30 for 30% off
-  const couponCode = "MY50";
+  const couponCode = "MS30";
 
   useEffect(() => {
     setMounted(true);
