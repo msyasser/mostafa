@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy, Check, Gift, Percent } from "lucide-react";
 
 export default function PremiumOfferPopup({ template, isOpen, onClose }) {
   const t = useTranslations("TemplateSlug");
+  const locale = useLocale();
+  const isRtl = locale === "ar";
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -37,7 +39,10 @@ export default function PremiumOfferPopup({ template, isOpen, onClose }) {
           animate={{ opacity: 1, x: 0, y: 0 }}
           exit={{ opacity: 0, x: 100, y: 100 }}
           transition={{ type: "spring", damping: 20, stiffness: 300 }}
-          className="fixed bottom-2 left-2 right-2 sm:bottom-3 sm:right-3 sm:left-auto md:bottom-4 md:right-4 lg:bottom-5 lg:right-5 z-50 w-auto sm:w-80 md:w-80 lg:w-80 xl:w-80 sm:max-w-80"
+          className={`fixed bottom-2 left-2 right-2 sm:bottom-3 md:bottom-4 lg:bottom-5 z-50 w-auto sm:w-80 md:w-80 lg:w-80 xl:w-80 sm:max-w-80 ${isRtl
+            ? "sm:left-3 sm:right-auto md:left-4 md:right-auto lg:left-5 lg:right-auto"
+            : "sm:right-3 sm:left-auto md:right-4 md:left-auto lg:right-5 lg:left-auto"
+            }`}
         >
           {/* Popup Content */}
           <motion.div
@@ -46,7 +51,7 @@ export default function PremiumOfferPopup({ template, isOpen, onClose }) {
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+              className={`absolute top-2 z-10 p-1.5 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors cursor-pointer ${isRtl ? "left-2" : "right-2"}`}
             >
               <X className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
             </button>
@@ -63,7 +68,7 @@ export default function PremiumOfferPopup({ template, isOpen, onClose }) {
                 >
                   <Gift className="w-4 h-4 text-white" />
                 </motion.div>
-                <div className="flex-1 text-left min-w-0">
+                <div className={`flex-1 min-w-0 ${isRtl ? "text-right" : "text-left"}`}>
                   <h2 className="text-sm font-bold text-white truncate">
                     {t("premiumOffer.title")}
                   </h2>
@@ -75,7 +80,7 @@ export default function PremiumOfferPopup({ template, isOpen, onClose }) {
             </div>
 
             {/* Content */}
-            <div className="p-3 space-y-3">
+            <div className={`p-3 space-y-3 ${isRtl ? "text-right" : "text-left"}`}>
               {/* Discount Badge */}
               <div className="text-center">
                 <motion.div
@@ -85,19 +90,19 @@ export default function PremiumOfferPopup({ template, isOpen, onClose }) {
                   className="inline-flex items-center gap-1 bg-main/10 text-main px-2 py-1 rounded-full text-xs font-bold"
                 >
                   <Percent className="w-3 h-3" />
-                  50% OFF
+                  30% OFF
                 </motion.div>
               </div>
 
               {/* Coupon Code Section */}
               <div className="space-y-2">
-                <p className="hidden sm:block text-center text-neutral-600 dark:text-neutral-400 text-xs leading-relaxed">
+                <p className={`hidden sm:block text-neutral-600 dark:text-neutral-400 text-xs leading-relaxed ${isRtl ? "text-right" : "text-center"}`}>
                   {t("premiumOffer.couponDescription")}
                 </p>
 
                 <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-2 border-2 border-dashed border-main/30">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                    <code className="flex-1 font-mono text-sm font-bold text-main bg-white dark:bg-neutral-700 px-2 py-1.5 sm:py-1 rounded text-center sm:text-left">
+                    <code className={`flex-1 font-mono text-sm font-bold text-main bg-white dark:bg-neutral-700 px-2 py-1.5 sm:py-1 rounded ${isRtl ? "text-right" : "text-center sm:text-left"}`}>
                       {couponCode}
                     </code>
                     <button
