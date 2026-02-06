@@ -92,7 +92,7 @@ const iconsMap = {
     Layers,
     BarChart3,
   ],
-  "quran-tracker": [
+  "quranhub": [
     LayoutDashboard,  // Quran Overview
     Layers,          // Juz Tracking
     FileText,        // Surah Insights

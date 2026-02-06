@@ -22,22 +22,22 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/21.webp"
   },
-  "Quran Tracker": {
+  "QuranHub": {
     "homeSec": {
       "logoURL": "/premiumTemplates/quran-tracker/quran-tracker.webp",
-      "title": "Stay Consistent on Your Quran Path with Quran Tracker",
+      "title": "Stay Consistent on Your Quran Path with QuranHub",
       "description": "The all-in-one Notion system to track your recitation, memorization, tafsir, and progress — all in one connected workspace.",
       "heroImageURL": "/premiumTemplates/quran-tracker/heroImage.webp",
       "dashboardButtonText": "Dashboard"
     },
     "dashboardSec": {
       "title": "A Clear View of Your Quran Journey",
-      "description": "See your recitation, memorization, and tafsir progress at a glance with Quran Tracker's all-in-one dashboard.",
+      "description": "See your recitation, memorization, and tafsir progress at a glance with QuranHub's all-in-one dashboard.",
       "dashboardImageURL": "/premiumTemplates/quran-tracker/Dashboard.webp"
     },
     "essentialsSec": {
       "title": "Everything You Need — In One Place",
-      "description": "Discover the core features that make Quran Tracker your ultimate companion for Quran memorization, recitation, and daily ibadah.",
+      "description": "Discover the core features that make QuranHub your ultimate companion for Quran memorization, recitation, and daily ibadah.",
       "features": {
         "0": {
           "title": "Quran Overview",
@@ -66,25 +66,25 @@
       }
     },
     "walkthroughSec": {
-      "title": "A Visual Walkthrough of Quran Tracker",
-      "description": "Take a closer look at how Quran Tracker helps you on your journey with the Quran — from memorization and recitation to tafsir study and complete progress tracking.",
+      "title": "A Visual Walkthrough of QuranHub",
+      "description": "Take a closer look at how QuranHub helps you on your journey with the Quran — from memorization and recitation to tafsir study and complete progress tracking.",
       "rowBlocks": {
         "0": {
           "title": "Structured Quran Journey",
           "description": "Navigate the Quran by Juz and Surahs — track your Recitation, Hifz, and Tafsir progress in one organized system.",
-          "image": "/premiumTemplates/quran-tracker/designs/139.webp",
+          "image": "/premiumTemplates/quran-tracker/designs/137.webp",
           "reverse": false
         },
         "1": {
           "title": "Explore Each Juz in Detail",
           "description": "Dive into every Juz to see its Surahs, verse counts, and detailed progress for recitation, memorization, and tafsir.",
-          "image": "/premiumTemplates/quran-tracker/designs/137.webp",
+          "image": "/premiumTemplates/quran-tracker/designs/138.webp",
           "reverse": true
         },
         "2": {
           "title": "Surah-by-Surah Breakdown",
           "description": "Explore every Surah with all verses fully written in Arabic, paired with clear English explanations. Stay on track with checkboxes for recitation, memorization, and tafsir, while accessing rich Surah insights — verse count, Makki/Madani, name meaning, Juz, and revelation order. Plus, each Surah and verse comes with a direct external link to Quran.com for deeper study and reference.",
-          "image": "/premiumTemplates/quran-tracker/designs/138.webp",
+          "image": "/premiumTemplates/quran-tracker/designs/139.webp",
           "reverse": false
         },
         "3": {
@@ -94,16 +94,22 @@
           "reverse": true
         },
         "4": {
-          "title": "Personalized Journeys",
-          "description": "Start a new Khatma, Tafsir, or Hifz with just one click, and track your progress from beginning to completion. Stay motivated with the Achievements database, recording start and finish dates for every milestone in your Quran journey.",
+          "title": "Flexible Progress Tracking",
+          "description": "Track your Quran progress in the way that suits you. Choose your path—Recitation, Hifz, or Tafsir—and the system automatically adjusts how progress is calculated across the Quran. You can also decide whether to track by Pages or by Ayat, giving you full control over how you measure and visualize your journey.",
           "image": "/premiumTemplates/quran-tracker/designs/141.webp",
           "reverse": false
+        },
+        "5": {
+          "title": "Quran Milestones",
+          "description": "Start a new Khatma, Tafsir, or Hifz with a single click. Set start and end dates, track your progress from beginning to completion, and document every milestone through the Achievements database to stay consistent and motivated throughout your Quran journey.",
+          "image": "/premiumTemplates/quran-tracker/designs/142.webp",
+          "reverse": true
         }
       }
     },
     "databasesSec": {
-      "title": "The Backbone of Quran Tracker",
-      "description": "At the core of Quran Tracker lies a powerful system of interconnected databases designed to organize, connect, and simplify your entire spiritual journey with the Quran.",
+      "title": "The Backbone of QuranHub",
+      "description": "At the core of QuranHub lies a powerful system of interconnected databases designed to organize, connect, and simplify your entire spiritual journey with the Quran.",
       "features": {
         "0": {
           "title": "Quran",
@@ -121,24 +127,29 @@
           "image": "/premiumTemplates/quran-tracker/screenshots/132.webp"
         },
         "3": {
-          "title": "Ayat",
-          "description": "Every verse of the Quran written in Arabic with English translation, additional details, and a direct link to Quran.com.",
+          "title": "Pages",
+          "description": "All 604 Quran pages linked to Juz, Hizb, Ayat, and Surahs, with tracking for recitation, memorization, Tafsir, and personal notes.",
           "image": "/premiumTemplates/quran-tracker/screenshots/133.webp"
         },
         "4": {
-          "title": "Achieve",
-          "description": "Track milestones with start and finish dates for Khatma, Tafsir, and Hifz journeys.",
+          "title": "Ayat",
+          "description": "Every verse of the Quran written in Arabic with English translation, additional details, and a direct link to Quran.com.",
           "image": "/premiumTemplates/quran-tracker/screenshots/134.webp"
         },
         "5": {
-          "title": "Notes",
-          "description": "Write and organize reflection notes tied to specific verses, with the option to pin important insights for quick access.",
+          "title": "Achieve",
+          "description": "Track milestones with start and finish dates for Khatma, Tafsir, and Hifz journeys.",
           "image": "/premiumTemplates/quran-tracker/screenshots/135.webp"
         },
         "6": {
+          "title": "Notes",
+          "description": "Create personal notes linked to specific verses — a dedicated space for tadabbur, insights, reflections, and spaced repetition to reinforce understanding over time.",
+          "image": "/premiumTemplates/quran-tracker/screenshots/136.webp"
+        },
+        "7": {
           "title": "Tools",
           "description": "A curated collection of useful tools and resources to support your Quran learning and reflection journey.",
-          "image": "/premiumTemplates/quran-tracker/screenshots/136.webp"
+          "image": "/premiumTemplates/quran-tracker/screenshots/137.webp"
         }
       }
     },
@@ -169,8 +180,8 @@
         "more-advanced": {
           "label": "Premium",
           "description": "Unlock your full spiritual productivity potential.",
-          "price": "$14.99",
-          "oldPrice": "$25",
+          "price": "$20",
+          "oldPrice": "$30",
           "features": [
             "Lifetime Updates",
             "Quran Database",
@@ -183,7 +194,7 @@
             "Advanced Tracking"
           ],
           "button": "Buy Now",
-          "buttonLink": "https://www.notion.so/marketplace/templates/quran-tracker-559?checkout=true",
+          "buttonLink": "https://www.notion.so/marketplace/templates/quran-hub?checkout=true",
           "badge": "Best Value"
         }
       }
@@ -197,15 +208,15 @@
         },
         {
           "question": "How do I get access to the template?",
-          "answer": "Once you complete your purchase, you'll instantly receive an email with a link to duplicate the Quran Tracker template to your Notion workspace."
+          "answer": "Once you complete your purchase, you'll instantly receive an email with a link to duplicate the QuranHub template to your Notion workspace."
         },
         {
           "question": "Do I need a paid Notion account?",
-          "answer": "No. You can use Quran Tracker with Notion's free plan."
+          "answer": "No. You can use QuranHub with Notion's free plan."
         },
         {
           "question": "Is this template suitable for beginners?",
-          "answer": "Absolutely! Quran Tracker is designed for all levels, from beginners starting their Quran journey to advanced students seeking deeper organization."
+          "answer": "Absolutely! QuranHub is designed for all levels, from beginners starting their Quran journey to advanced students seeking deeper organization."
         },
         {
           "question": "Can I customize the template?",
@@ -229,10 +240,10 @@
         }
       ]
     },
-    "name": "Quran Tracker",
+    "name": "QuranHub",
     "description": "Track Quran recitation, memorization & Tafsir in one powerful Notion template. Stay motivated, reflect deeply, and elevate your Quran journey.",
     "price": "$14.99",
-    "checkout": "Get Quran Tracker",
+    "checkout": "Get QuranHub",
     "checkoutLink": "https://mostafayasser.lemonsqueezy.com/buy/786dd007-922a-4df6-ac87-8519b528061f",
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/1.webp"
@@ -273,8 +284,8 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/3.webp"
   },
-  "Quran Tracker - Minimal Version": {
-    "name": "Quran Tracker - Minimal Version",
+  "QuranHub - Minimal Version": {
+    "name": "QuranHub - Minimal Version",
     "description": "Track Quran recitation, memorization & Tafsir in one powerful Notion template. Stay motivated, reflect deeply, and elevate your Quran journey.",
     "price": "$0",
     "checkoutLink": "https://www.notion.com/templates/qurantracker",
@@ -469,19 +480,16 @@
         "0": {
           "title": "Fard",
           "description": "Track your five daily prayers with jama'ah, on-time, qada', or missed status — complete with progress points.",
-
           "image": "/premiumTemplates/ibadat-hub/screenshots/1.webp"
         },
         "1": {
           "title": "Nafl",
           "description": "Stay consistent with sunnah, qiyam, fasting, and extra worship — all organized with progress tracking.",
-
           "image": "/premiumTemplates/ibadat-hub/screenshots/2.webp"
         },
         "2": {
           "title": "Prayer Times",
           "description": "View today's salah timings, countdown to the next prayer, and stay aligned with your daily schedule.",
-
           "image": "/premiumTemplates/ibadat-hub/screenshots/3.webp"
         },
         "3": {
@@ -492,7 +500,6 @@
         "4": {
           "title": "Shortcuts",
           "description": "Quick access to dedicated pages like My Quran, My Dua, and other personalized worship spaces.",
-
           "image": "/premiumTemplates/ibadat-hub/screenshots/5.webp"
         },
         "5": {
@@ -510,7 +517,11 @@
           "label": "Free",
           "description": "A free, simplified version to get you started.",
           "price": "$0",
-          "features": ["Lifetime Updates", "Fard (Simple)", "Nafl (Simple)"],
+          "features": [
+            "Lifetime Updates",
+            "Fard (Simple)",
+            "Nafl (Simple)"
+          ],
           "missingFeatures": [
             "Prayer Times",
             "Advanced Dashboard",
@@ -1241,7 +1252,9 @@
             "Contacts",
             "Charts"
           ],
-          "missingFeatures": ["FinanceHub"],
+          "missingFeatures": [
+            "FinanceHub"
+          ],
           "button": "Buy Now",
           "buttonLink": "https://www.notion.so/marketplace/templates/second-brain-basic?checkout=true",
           "badge": "Best Value"
@@ -1527,7 +1540,11 @@
           "label": "Basic",
           "description": "A simple start to organize your financial life with FinanceHub.",
           "price": "$0",
-          "features": ["Life time updates", "Expense", "Income"],
+          "features": [
+            "Life time updates",
+            "Expense",
+            "Income"
+          ],
           "missingFeatures": [
             "Profile",
             "Accounts",
@@ -1652,7 +1669,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/24.webp"
   },
-
   "My Liabilities": {
     "name": "My Liabilities",
     "description": "My Liabilities is a Notion template to track and manage your recurring financial obligations such as bills, rent, and memberships—categorized and linked for easy access and budgeting.",
@@ -1662,7 +1678,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/25.webp"
   },
-
   "My Wishlist": {
     "name": "My Wishlist",
     "description": "A smart Notion wishlist template to plan, track, and manage the things you want—organized by status, category, and savings progress.",
@@ -1672,7 +1687,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/26.webp"
   },
-
   "My Subscriptions": {
     "name": "My Subscriptions",
     "description": "My Subscriptions is a simple Notion template to track all your active subscriptions, their costs, billing cycles, and renewal dates—so you never miss a charge or lose control of your budget.",
@@ -1682,7 +1696,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/27.webp"
   },
-
   "My Watchlist": {
     "name": "My Watchlist",
     "description": "Stay on top of your favorite movies, series, and documentaries with My Watchlist – a simple, organized Notion template to manage what you’ve watched, what’s next, and what’s worth recommending.",
@@ -1692,7 +1705,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/28.webp"
   },
-
   "My Schedule": {
     "name": "My Schedule",
     "description": "My Schedule is a Notion template to help you organize your daily and weekly class or meeting schedules—organized by name, day, and time.",
@@ -1702,7 +1714,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/29.webp"
   },
-
   "My Instructors": {
     "name": "My Instructors",
     "description": "My Instructors is a Notion template to help you organize and manage contact details of your instructors—organized by name, course, and status.",
@@ -1712,7 +1723,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/30.webp"
   },
-
   "My Taxes": {
     "name": "My Taxes",
     "description": "My Taxes is a Notion template to help you track your tax-related payments, deadlines, and obligations—organized by type, frequency, and payment status.",
@@ -1722,7 +1732,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/31.webp"
   },
-
   "My Depts": {
     "name": "My Depts",
     "description": "My Debts is a Notion template to help you track your debt payments, deadlines, and balances—organized by type, payment method, and status.",
@@ -1732,7 +1741,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/32.webp"
   },
-
   "My Contacts": {
     "name": "My Contacts",
     "description": "My Contacts is a Notion template to help you organize your personal and professional relationships. Categorize contacts, set reminders for regular check-ins, and never miss a birthday or important follow-up again.",
@@ -1742,7 +1750,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/33.webp"
   },
-
   "Habit Tracker - Premium": {
     "name": "Habit Tracker",
     "description": "Habit Tracker is a Notion template to help you monitor and build daily habits—organized by habit type, completion status, and progress over time.",
@@ -1752,7 +1759,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/34.webp"
   },
-
   "My Exams": {
     "name": "My Exams",
     "description": "My Exams is a Notion template to help you track exam schedules, progress, and deadlines—organized by status, type, and course.",
@@ -1762,7 +1768,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/35.webp"
   },
-
   "My Resources": {
     "name": "My Resources",
     "description": "My Resources is a Notion template to help you manage and track your study materials—organized by name, status, and type.",
@@ -1772,7 +1777,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/36.webp"
   },
-
   "My Assignments": {
     "name": "My Assignments",
     "description": "My Assignments is a Notion template to help you manage your tasks and deadlines—organized by status, priority, and calendar view.",
@@ -1782,7 +1786,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/37.webp"
   },
-
   "My Notes": {
     "name": "My Notes",
     "description": "My Notes is an advanced Notion template designed for capturing, reviewing, and organizing your notes using spaced repetition, smart filters, and multiple views.",
@@ -1792,7 +1795,6 @@
     "moreDetails": "More Details",
     "image": "/thumbnails/ENThumbnails/38.webp"
   },
-
   "Weight Tracker": {
     "name": "Weight Tracker",
     "description": "A clean and easy-to-use Notion template to track your weight and see your progress over time. Add your weight, see the difference automatically, and stay motivated on your fitness journey.",
@@ -2181,7 +2183,9 @@
             "Quran Tracker",
             "IbadatHub"
           ],
-          "missingFeatures": ["FinanceHub"],
+          "missingFeatures": [
+            "FinanceHub"
+          ],
           "button": "Buy Now",
           "buttonLink": "https://www.notion.so/marketplace/templates/muslims-second-brain?checkout=true",
           "badge": "Best Value"

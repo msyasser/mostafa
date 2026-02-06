@@ -37,8 +37,8 @@ module.exports = {
     await config.transform(config, "/ar/templates/study-hub", { priority: 0.9, changefreq: "weekly" }),
 
     // Regular templates (medium priority)
-    await config.transform(config, "/en/templates/quran-tracker-premium", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/quran-tracker-premium", { priority: 0.8, changefreq: "monthly" }),
+    await config.transform(config, "/en/templates/quranhub", { priority: 0.8, changefreq: "monthly" }),
+    await config.transform(config, "/ar/templates/quranhub", { priority: 0.8, changefreq: "monthly" }),
     await config.transform(config, "/en/templates/90-day-challenge-premium", { priority: 0.8, changefreq: "monthly" }),
     await config.transform(config, "/ar/templates/90-day-challenge-premium", { priority: 0.8, changefreq: "monthly" }),
     await config.transform(config, "/en/templates/priority-compass", { priority: 0.8, changefreq: "monthly" }),
@@ -49,8 +49,8 @@ module.exports = {
     await config.transform(config, "/ar/templates/prayer-times", { priority: 0.8, changefreq: "monthly" }),
     await config.transform(config, "/en/templates/ibadat-tracker", { priority: 0.8, changefreq: "monthly" }),
     await config.transform(config, "/ar/templates/ibadat-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/quran-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/quran-tracker", { priority: 0.8, changefreq: "monthly" }),
+    await config.transform(config, "/en/templates/quranhub", { priority: 0.8, changefreq: "monthly" }),
+    await config.transform(config, "/ar/templates/quranhub", { priority: 0.8, changefreq: "monthly" }),
     await config.transform(config, "/en/templates/study-planner", { priority: 0.8, changefreq: "monthly" }),
     await config.transform(config, "/ar/templates/study-planner", { priority: 0.8, changefreq: "monthly" }),
     await config.transform(config, "/en/templates/weekly-planner", { priority: 0.8, changefreq: "monthly" }),

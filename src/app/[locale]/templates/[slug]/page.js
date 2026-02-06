@@ -41,7 +41,7 @@ export async function generateMetadata({ params }) {
     faviconPath = "/favicons/second-brain.webp";
   } else if (slug === "finance-hub") {
     faviconPath = "/favicons/finance-hub.webp";
-  } else if (slug === "quran-tracker") {
+  } else if (slug === "quranhub") {
     faviconPath = "/favicons/quran-tracker.webp";
   } else if (slug === "ibadat-hub") {
     faviconPath = "/favicons/ibadat-hub.webp";
@@ -124,7 +124,7 @@ export default async function TemplateDetails({ params }) {
     template.slug === "second-brain" ||
     template.slug === "second-brain-muslim-edition" ||
     template.slug === "finance-hub" ||
-    template.slug === "quran-tracker" ||
+    template.slug === "quranhub" ||
     template.slug === "ibadat-hub"
   ) {
     return <PremiumPage template={template} />;
