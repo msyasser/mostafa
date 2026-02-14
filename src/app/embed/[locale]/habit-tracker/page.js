@@ -1,6 +1,7 @@
 "use client";
 
 import HabitTracker from "@/src/components/widgets/HabitTracker";
+import EmbedWrapper from "@/src/components/EmbedWrapper";
 import { useSearchParams } from "next/navigation";
 
 export default function HabitTrackerPage() {
@@ -8,8 +9,8 @@ export default function HabitTrackerPage() {
     const theme = searchParams.get("theme");
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <EmbedWrapper>
             <HabitTracker theme={theme || "dark"} />
-        </div>
+        </EmbedWrapper>
     );
 }

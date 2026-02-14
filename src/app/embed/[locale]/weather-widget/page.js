@@ -1,6 +1,7 @@
 "use client";
 
 import WeatherWidget from "@/src/components/widgets/WeatherWidget";
+import EmbedWrapper from "@/src/components/EmbedWrapper";
 import { useSearchParams } from "next/navigation";
 
 export default function WeatherWidgetPage() {
@@ -9,11 +10,11 @@ export default function WeatherWidgetPage() {
     const city = searchParams.get("city");
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <EmbedWrapper>
             <WeatherWidget
                 theme={theme || "dark"}
                 defaultCity={city || ""}
             />
-        </div>
+        </EmbedWrapper>
     );
 }

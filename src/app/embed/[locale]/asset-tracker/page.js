@@ -1,6 +1,7 @@
 "use client";
 
 import AssetTracker from "@/src/components/widgets/AssetTracker";
+import EmbedWrapper from "@/src/components/EmbedWrapper";
 import { useSearchParams } from "next/navigation";
 
 export default function AssetTrackerPage() {
@@ -8,8 +9,8 @@ export default function AssetTrackerPage() {
     const theme = searchParams.get("theme");
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <EmbedWrapper>
             <AssetTracker theme={theme || "dark"} />
-        </div>
+        </EmbedWrapper>
     );
 }

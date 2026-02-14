@@ -1,6 +1,7 @@
 "use client";
 
 import EventCountdown from "@/src/components/widgets/EventCountdown";
+import EmbedWrapper from "@/src/components/EmbedWrapper";
 import { useSearchParams } from "next/navigation";
 
 export default function EventCountdownPage() {
@@ -10,12 +11,12 @@ export default function EventCountdownPage() {
     const title = searchParams.get("title");
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <EmbedWrapper>
             <EventCountdown
                 theme={theme || "dark"}
                 initialDate={date || ""}
                 initialTitle={title || ""}
             />
-        </div>
+        </EmbedWrapper>
     );
 }

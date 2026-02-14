@@ -1,6 +1,7 @@
 "use client";
 
 import RamadanPrayers from "@/src/components/widgets/RamadanPrayers";
+import EmbedWrapper from "@/src/components/EmbedWrapper";
 import { useSearchParams } from "next/navigation";
 
 export default function RamadanPrayersPage() {
@@ -9,8 +10,8 @@ export default function RamadanPrayersPage() {
     const city = searchParams.get("city");
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <EmbedWrapper>
             <RamadanPrayers theme={theme || "dark"} defaultCity={city || ""} />
-        </div>
+        </EmbedWrapper>
     );
 }
