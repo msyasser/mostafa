@@ -190,7 +190,7 @@ export default function RamadanPrayers({ theme = "dark", defaultCity = "", isPre
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`relative overflow-hidden rounded-3xl border p-6 shadow-2xl backdrop-blur-md transition-all duration-500 max-w-md mx-auto flex flex-col ${containerClasses}`}
+            className={`relative overflow-hidden rounded-3xl border p-6 shadow-2xl backdrop-blur-md transition-all duration-500 w-full max-w-full mx-auto min-h-[400px] flex flex-col justify-center ${containerClasses}`}
         >
             <div className="absolute -top-10 -right-10 opacity-10 blur-2xl">
                 <Moon size={200} fill="currentColor" />
