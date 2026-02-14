@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLocale } from "next-intl";
+import { Settings } from "lucide-react";
 
 export default function LifeProgressWidget({ theme = "dark" }) {
+    const locale = useLocale();
     const isDark = theme === "dark";
     const containerClass = isDark
         ? "bg-neutral-900 border border-neutral-800"
@@ -53,10 +56,18 @@ export default function LifeProgressWidget({ theme = "dark" }) {
     }, []);
 
     return (
-        <div className={`${containerClass} rounded-2xl p-6 w-full max-w-sm mx-auto shadow-xl space-y-4 transition-colors duration-300`}>
-            <h3 className={`text-xl font-bold mb-2 text-center ${titleClass}`}>
-                Progress
-            </h3>
+        <div className={`${containerClass} rounded-2xl p-6 w-full max-w-sm mx-auto shadow-xl space-y-4 transition-colors duration-300 relative group`}>
+            <div className="flex justify-between items-center mb-2">
+                <h3 className={`text-xl font-bold ${titleClass}`}>
+                    Progress
+                </h3>
+                <button
+                    onClick={() => window.open(`/${locale}/tools/life-progress`, '_blank')}
+                    className="p-1.5 hover:bg-neutral-800/50 rounded-lg transition-colors text-neutral-500 hover:text-white cursor-pointer opacity-0 group-hover:opacity-100"
+                >
+                    <Settings size={16} />
+                </button>
+            </div>
 
             <div className="space-y-4">
                 <div>

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { Cloud, Sun, CloudRain, Wind, Droplets, MapPin, Loader2, RefreshCw } from "lucide-react";
+import { Cloud, Sun, CloudRain, Wind, Droplets, MapPin, Loader2, RefreshCw, Settings } from "lucide-react";
 
 export default function WeatherWidget({ theme = "dark", defaultCity = "", isPreview = false, isExplorer = false }) {
     const t = useTranslations("WeatherWidget");
@@ -132,7 +132,7 @@ export default function WeatherWidget({ theme = "dark", defaultCity = "", isPrev
                                 </div>
                             </div>
                             {!isExplorer && (
-                                <button onClick={() => setSavedCity("")} className="p-2 hover:bg-neutral-800/50 rounded-xl transition-colors text-neutral-500 hover:text-white"><RefreshCw size={18} /></button>
+                                <button onClick={() => window.open(`/${locale}/tools/weather-widget`, '_blank')} className="p-2 hover:bg-neutral-800/50 rounded-xl transition-colors text-neutral-500 hover:text-white cursor-pointer"><Settings size={18} /></button>
                             )}
                         </div>
 

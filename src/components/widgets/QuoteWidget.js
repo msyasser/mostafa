@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLocale } from "next-intl";
+import { Settings } from "lucide-react";
 
 export default function QuoteWidget({ theme = "dark" }) {
+    const locale = useLocale();
     const isDark = theme === "dark";
     const containerClass = isDark
         ? "bg-neutral-900 border border-neutral-800"
@@ -42,6 +45,12 @@ export default function QuoteWidget({ theme = "dark" }) {
 
     return (
         <div className={`${containerClass} rounded-2xl p-6 text-center w-full max-w-md mx-auto shadow-xl relative overflow-hidden group transition-colors duration-300`}>
+            <button
+                onClick={() => window.open(`/${locale}/tools/quote`, '_blank')}
+                className="absolute top-4 right-4 z-20 p-1.5 hover:bg-neutral-800/10 rounded-lg transition-colors text-neutral-500 hover:text-current cursor-pointer opacity-0 group-hover:opacity-100"
+            >
+                <Settings size={16} />
+            </button>
             <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-main via-purple-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
             <div className={`text-4xl absolute top-4 left-4 font-serif ${markClass}`}>
                 &quot;

@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { Settings } from "lucide-react";
 
 export default function PomodoroWidget({ theme = "dark" }) {
     const t = useTranslations("HomePage"); // Using HomePage for now, could use a dedicated widget namespace later
+    const locale = useLocale();
     const [minutes, setMinutes] = useState(25);
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(false);
@@ -79,9 +81,18 @@ export default function PomodoroWidget({ theme = "dark" }) {
 
     return (
         <div className={`${containerClass} border rounded-2xl p-6 text-center w-full max-w-md mx-auto shadow-xl transition-colors duration-300`}>
-            <h3 className="text-xl font-bold mb-4">
-                {mode === "work" ? "Focus Time" : "Break Time"}
-            </h3>
+            <div className="flex justify-between items-center mb-4 relative">
+                <div className="w-6" /> {/* Spacer */}
+                <h3 className="text-xl font-bold">
+                    {mode === "work" ? "Focus Time" : "Break Time"}
+                </h3>
+                <button
+                    onClick={() => window.open(`/${locale}/tools/pomodoro`, '_blank')}
+                    className="p-1.5 hover:bg-neutral-800/10 rounded-lg transition-colors text-neutral-500 hover:text-current cursor-pointer"
+                >
+                    <Settings size={18} />
+                </button>
+            </div>
             <div className={`text-6xl font-mono font-bold mb-6 ${timerClass}`}>
                 {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
             </div>

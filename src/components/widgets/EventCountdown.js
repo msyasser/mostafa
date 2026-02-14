@@ -113,7 +113,7 @@ export default function EventCountdown({ theme = "dark", initialDate = "", initi
                                 <div className="w-8" />
                                 <span className="text-main font-bold text-xs uppercase tracking-[0.2em]">{t("title")}</span>
                                 {!isExplorer ? (
-                                    <button onClick={() => setIsEditing(true)} className="p-2 hover:bg-white/10 rounded-lg transition-colors text-neutral-500 hover:text-white"><Settings size={16} /></button>
+                                    <button onClick={() => window.open(`/${locale}/tools/event-countdown`, '_blank')} className="p-2 hover:bg-white/10 rounded-lg transition-colors text-neutral-500 hover:text-white cursor-pointer"><Settings size={16} /></button>
                                 ) : <div className="w-8" />}
                             </div>
                             <h3 className="text-3xl font-bold tracking-tighter uppercase leading-tight">{title || "No Title"}</h3>

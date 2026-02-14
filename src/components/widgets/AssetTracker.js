@@ -3,10 +3,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { TrendingUp, TrendingDown, RefreshCw, Activity, DollarSign } from "lucide-react";
+import { TrendingUp, TrendingDown, RefreshCw, Activity, DollarSign, Settings } from "lucide-react";
 
 export default function AssetTracker({ theme = "dark", isPreview = false }) {
     const t = useTranslations("AssetTracker");
+    const locale = useLocale();
     const isDark = theme === "dark";
 
     const [assets, setAssets] = useState([
@@ -102,13 +103,21 @@ export default function AssetTracker({ theme = "dark", isPreview = false }) {
                             </div>
                         </div>
                     </div>
-                    <button
-                        onClick={fetchPrices}
-                        disabled={loading}
-                        className={`p-2 hover:bg-neutral-800/50 rounded-xl transition-all cursor-pointer ${loading ? "animate-spin text-main" : "text-neutral-500 hover:text-white"}`}
-                    >
-                        <RefreshCw size={18} />
-                    </button>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => window.open(`/${locale}/tools/asset-tracker`, '_blank')}
+                            className="p-2 hover:bg-neutral-800/50 rounded-xl transition-colors text-neutral-500 hover:text-white cursor-pointer"
+                        >
+                            <Settings size={18} />
+                        </button>
+                        <button
+                            onClick={fetchPrices}
+                            disabled={loading}
+                            className={`p-2 hover:bg-neutral-800/50 rounded-xl transition-all cursor-pointer ${loading ? "animate-spin text-main" : "text-neutral-500 hover:text-white"}`}
+                        >
+                            <RefreshCw size={18} />
+                        </button>
+                    </div>
                 </div>
 
                 <div className="space-y-3">

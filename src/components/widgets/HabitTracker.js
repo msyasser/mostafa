@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Trash2, RotateCcw, Check, Sparkles, MoreHorizontal } from "lucide-react";
+import { Plus, Trash2, RotateCcw, Check, Sparkles, MoreHorizontal, Settings } from "lucide-react";
 
 export default function HabitTracker({ theme = "dark", isPreview = false }) {
     const t = useTranslations("HabitTracker");
+    const locale = useLocale();
     const isDark = theme === "dark";
 
     const [habits, setHabits] = useState([]);
@@ -92,6 +93,12 @@ export default function HabitTracker({ theme = "dark", isPreview = false }) {
             <div className="flex justify-between items-center mb-8">
                 <h3 className="text-2xl font-bold tracking-tighter uppercase leading-none">{t("title")}</h3>
                 <div className="flex gap-2">
+                    <button
+                        onClick={() => window.open(`/${locale}/tools/habit-tracker`, '_blank')}
+                        className="p-2 hover:bg-neutral-800/50 rounded-xl transition-colors text-neutral-500 hover:text-white cursor-pointer"
+                    >
+                        <Settings size={18} />
+                    </button>
                     <button
                         onClick={() => saveHabits(habits.map(h => ({ ...h, current: 0 })))}
                         className="p-2 hover:bg-neutral-800/50 rounded-xl transition-colors text-neutral-500 hover:text-white cursor-pointer"

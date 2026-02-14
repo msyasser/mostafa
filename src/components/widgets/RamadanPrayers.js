@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun, MapPin, RefreshCcw, Loader2, Clock } from "lucide-react";
+import { Moon, Sun, MapPin, RefreshCcw, Loader2, Clock, Settings } from "lucide-react";
 
 export default function RamadanPrayers({ theme = "dark", defaultCity = "", isPreview = false, isExplorer = false }) {
     const t = useTranslations("RamadanPrayers");
@@ -226,7 +226,7 @@ export default function RamadanPrayers({ theme = "dark", defaultCity = "", isPre
                                 </p>
                             </div>
                             {!isExplorer && (
-                                <button onClick={resetCity} className="p-2 rounded-full hover:bg-neutral-800/50 transition-colors text-neutral-500 hover:text-white"><RefreshCcw size={18} /></button>
+                                <button onClick={() => window.open(`/${locale}/tools/ramadan-prayers`, '_blank')} className="p-2 rounded-full hover:bg-neutral-800/50 transition-colors text-neutral-500 hover:text-white cursor-pointer"><Settings size={18} /></button>
                             )}
                         </div>
 

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, Clock, Plus, Trash2, CheckCircle2, Circle } from "lucide-react";
+import { BookOpen, Clock, Plus, Trash2, CheckCircle2, Circle, Settings } from "lucide-react";
 
 export default function StudyPlanner({ theme = "dark", isPreview = false, isExplorer = false }) {
     const t = useTranslations("StudyPlanner");
@@ -100,10 +100,16 @@ export default function StudyPlanner({ theme = "dark", isPreview = false, isExpl
 
             <div className="relative z-10 w-full space-y-6">
                 <div className="text-center">
-                    <div className="flex justify-center mb-2">
+                    <div className="flex justify-center mb-2 relative">
                         <div className="p-3 bg-main/10 rounded-2xl">
                             <BookOpen className="text-main" size={24} />
                         </div>
+                        <button
+                            onClick={() => window.open(`/${locale}/tools/study-planner`, '_blank')}
+                            className="absolute right-0 top-0 p-2 hover:bg-neutral-800/50 rounded-xl transition-colors text-neutral-500 hover:text-white cursor-pointer"
+                        >
+                            <Settings size={18} />
+                        </button>
                     </div>
                     <h3 className="text-3xl font-black tracking-tighter uppercase leading-none">{t("title")}</h3>
                     <div className="mt-4 flex items-center justify-center gap-8">
