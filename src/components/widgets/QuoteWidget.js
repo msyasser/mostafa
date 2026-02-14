@@ -44,7 +44,7 @@ export default function QuoteWidget({ theme = "dark" }) {
     }, []);
 
     return (
-        <div className={`${containerClass} rounded-2xl p-6 text-center w-full max-w-md mx-auto shadow-xl relative overflow-hidden group transition-colors duration-300`}>
+        <div className={`${containerClass} rounded-2xl p-6 text-center w-full max-w-full mx-auto shadow-xl relative overflow-hidden group transition-colors duration-300`}>
             <button
                 onClick={() => window.open(`/${locale}/tools/quote`, '_blank')}
                 className="absolute top-4 right-4 z-20 p-1.5 hover:bg-neutral-800/10 rounded-lg transition-colors text-neutral-500 hover:text-current cursor-pointer opacity-0 group-hover:opacity-100"

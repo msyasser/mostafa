@@ -97,7 +97,7 @@ export default function WeatherWidget({ theme = "dark", defaultCity = "", isPrev
     }
 
     return (
-        <div className={`relative overflow-hidden rounded-3xl border p-8 shadow-2xl backdrop-blur-md transition-all duration-500 max-w-md mx-auto min-h-[350px] flex flex-col justify-center ${containerClasses}`}>
+        <div className={`relative overflow-hidden rounded-3xl border p-8 shadow-2xl backdrop-blur-md transition-all duration-500 w-full max-w-full mx-auto min-h-[350px] flex flex-col justify-center ${containerClasses}`}>
             <div className={`absolute inset-0 opacity-10 pointer-events-none ${weather?.temp > 25 ? "bg-orange-500" : "bg-blue-500"}`} style={{ filter: "blur(100px)" }} />
 
             <div className="relative z-10">

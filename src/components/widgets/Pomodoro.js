@@ -80,7 +80,7 @@ export default function PomodoroWidget({ theme = "dark" }) {
     };
 
     return (
-        <div className={`${containerClass} border rounded-2xl p-6 text-center w-full max-w-md mx-auto shadow-xl transition-colors duration-300`}>
+        <div className={`${containerClass} border rounded-2xl p-6 text-center w-full max-w-full mx-auto shadow-xl transition-colors duration-300`}>
             <div className="flex justify-between items-center mb-4 relative">
                 <div className="w-6" /> {/* Spacer */}
                 <h3 className="text-xl font-bold">

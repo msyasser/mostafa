@@ -89,7 +89,7 @@ export default function HabitTracker({ theme = "dark", isPreview = false }) {
     }
 
     return (
-        <div className={`relative overflow-hidden rounded-3xl border p-6 shadow-2xl backdrop-blur-md transition-all duration-500 max-w-md mx-auto min-h-[400px] flex flex-col ${containerClasses}`}>
+        <div className={`relative overflow-hidden rounded-3xl border p-6 shadow-2xl backdrop-blur-md transition-all duration-500 w-full max-w-full mx-auto min-h-[400px] flex flex-col ${containerClasses}`}>
             <div className="flex justify-between items-center mb-8">
                 <h3 className="text-2xl font-bold tracking-tighter uppercase leading-none">{t("title")}</h3>
                 <div className="flex gap-2">

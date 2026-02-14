@@ -80,7 +80,7 @@ export default function EventCountdown({ theme = "dark", initialDate = "", initi
     }
 
     return (
-        <div className={`relative overflow-hidden rounded-3xl border p-8 shadow-2xl backdrop-blur-md transition-all duration-500 max-w-md mx-auto min-h-[350px] flex flex-col justify-center ${containerClasses}`}>
+        <div className={`relative overflow-hidden rounded-3xl border p-8 shadow-2xl backdrop-blur-md transition-all duration-500 w-full max-w-full mx-auto min-h-[350px] flex flex-col justify-center ${containerClasses}`}>
             <div className={`absolute -bottom-10 -left-10 opacity-5 blur-3xl rounded-full w-40 h-40 bg-main`} />
 
             <div className="relative z-10 flex flex-col items-center gap-6 w-full">

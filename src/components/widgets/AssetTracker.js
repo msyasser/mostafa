@@ -85,7 +85,7 @@ export default function AssetTracker({ theme = "dark", isPreview = false }) {
     }
 
     return (
-        <div className={`relative overflow-hidden rounded-3xl border p-6 shadow-2xl backdrop-blur-md transition-all duration-500 max-w-md mx-auto min-h-[300px] flex flex-col ${containerClasses}`}>
+        <div className={`relative overflow-hidden rounded-3xl border p-6 shadow-2xl backdrop-blur-md transition-all duration-500 w-full max-w-full mx-auto min-h-[300px] flex flex-col ${containerClasses}`}>
             {/* Grid Pattern Background */}
             <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #d7b180 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
 

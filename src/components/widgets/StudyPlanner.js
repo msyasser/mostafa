@@ -94,7 +94,7 @@ export default function StudyPlanner({ theme = "dark", isPreview = false, isExpl
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`relative overflow-hidden rounded-[2.5rem] border p-8 shadow-2xl backdrop-blur-xl transition-all duration-500 max-w-md mx-auto min-h-[450px] flex flex-col ${containerClasses}`}
+            className={`relative overflow-hidden rounded-[2.5rem] border p-8 shadow-2xl backdrop-blur-xl transition-all duration-500 w-full max-w-full mx-auto min-h-[450px] flex flex-col ${containerClasses}`}
         >
             <div className="absolute -top-10 -right-10 opacity-10 blur-3xl rounded-full w-40 h-40 bg-main" />
 

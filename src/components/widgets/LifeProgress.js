@@ -56,7 +56,7 @@ export default function LifeProgressWidget({ theme = "dark" }) {
     }, []);
 
     return (
-        <div className={`${containerClass} rounded-2xl p-6 w-full max-w-sm mx-auto shadow-xl space-y-4 transition-colors duration-300 relative group`}>
+        <div className={`${containerClass} rounded-2xl p-6 w-full max-w-full mx-auto shadow-xl space-y-4 transition-colors duration-300 relative group`}>
             <div className="flex justify-between items-center mb-2">
                 <h3 className={`text-xl font-bold ${titleClass}`}>
                     Progress
