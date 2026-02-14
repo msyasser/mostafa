@@ -165,7 +165,7 @@ export default function RamadanPrayers({ theme = "dark", defaultCity = "", isPre
 
     const containerClasses = isDark
         ? "bg-neutral-900/80 border-neutral-800 text-white"
-        : "bg-white text-black border-none shadow-none";
+        : "bg-white/80 border-gray-200 text-black";
 
     if (isPreview) {
         return (
