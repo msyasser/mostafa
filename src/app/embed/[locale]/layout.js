@@ -48,7 +48,7 @@ export default async function EmbedLayout({ children, params }) {
         >
             <body className="bg-transparent min-h-screen flex flex-col overflow-hidden">
                 <NextIntlClientProvider locale={locale} messages={messages}>
-                    <main className="flex-1 flex justify-center items-center w-full h-full p-4">
+                    <main className="flex-1 flex justify-center items-center w-full h-full">
                         {children}
                     </main>
                 </NextIntlClientProvider>

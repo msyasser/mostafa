@@ -8,7 +8,7 @@ export default function EmbedWrapper({ children }) {
 
     return (
         <div
-            className={`flex items-center justify-center min-h-screen w-full transition-colors duration-300 ${theme === "dark" ? "bg-[#191919] text-white" : "bg-white text-black"
+            className={`flex items-center justify-center min-h-screen w-full p-4 transition-colors duration-300 ${theme === "dark" ? "bg-[#191919] text-white" : "bg-white text-black"
                 }`}
         >
             {children}
