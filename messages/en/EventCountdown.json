@@ -1,0 +1,15 @@
+{
+    "title": "Countdown",
+    "eventName": "Event Name",
+    "targetDate": "Target Date",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "eventPassed": "The event has arrived!",
+    "settings": "Settings",
+    "celebrate": "Celebrate!",
+    "editEvent": "Edit Event",
+    "enterEvent": "Enter Event Name...",
+    "save": "Save"
+}

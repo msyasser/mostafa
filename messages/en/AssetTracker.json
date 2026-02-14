@@ -1,0 +1,12 @@
+{
+    "title": "Assets",
+    "live": "Live",
+    "gold": "Gold",
+    "silver": "Silver",
+    "bitcoin": "Bitcoin",
+    "ethereum": "Ethereum",
+    "price": "Price",
+    "change24h": "24h %",
+    "updated": "Updated",
+    "poweredBy": "Data via"
+}

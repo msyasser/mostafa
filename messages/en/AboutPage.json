@@ -1,9 +1,117 @@
 {
-  "greeting": "Hey, I'm",
-  "name": "Mostafa",
-  "bio": " Planning Engineer. Notion systems builder. Productivity content creator. I help teams and individuals master their workflows with scalable Notion setups that bring clarity and focus.",
-  "connect": "Let's Connect",
-  "certifications": "Certifications",
-  "notionCertified": "Notion Certified",
-  "notionAdmin": "Notion Certified Admin"
+  "hero": {
+    "title": "From Planning Engineer to Digital Architect",
+    "subtitle": "I don't just organize tasks. I engineer workflows that function like well-oiled machines.",
+    "badge": "The Story Behind The Systems"
+  },
+  "story": {
+    "chapters": [
+      {
+        "title": "I Was Always Building Something",
+        "date": "The Early Days",
+        "image": "/about/early-days.webp",
+        "image2": "/about/IMG0296A.webp",
+        "content": [
+          "Before I became a project planning engineer,",
+          "before I became a Notion Certified Admin,",
+          "I was just a kid obsessed with computers.",
+          "I was one of the first kids in my village to own a computer.",
+          "My uncle had an electronics shop — and I had unlimited curiosity.",
+          "I installed everything. Explored every setting. Changed Windows icons.",
+          "Broke the system more times than I can count.",
+          "Not because I had to. But because I wanted to understand how things worked."
+        ]
+      },
+      {
+        "title": "Curiosity Turned Into Skill",
+        "date": "The Learning Curve",
+        "image": "/about/learning.webp",
+        "content": [
+          "I wasn’t just playing games.",
+          "I was learning: Microsoft Office, Graphic design, 3D tools, Marketing, Branding, Copywriting.",
+          "If I saw a new field, I studied it.",
+          "Not for certificates.",
+          "But because I genuinely love learning."
+        ]
+      },
+      {
+        "title": "Engineering Shaped My Thinking",
+        "date": "University & Career",
+        "image": "/about/engneeringsite01.webp",
+        "image2": "/about/engineering.webp",
+        "content": [
+          "Later, I studied Civil Engineering.",
+          "That’s where everything connected.",
+          "Planning. Cost management. Project control. Systems thinking.",
+          "Engineering didn’t just teach me calculations.",
+          "It taught me structure.",
+          "And I realized something important: I don’t just like tools. I like systems."
+        ]
+      },
+      {
+        "title": "The Notion Moment (2020)",
+        "date": "Finding Notion",
+        "image": "/about/notion-moment.webp",
+        "content": [
+          "In my first year of university, I discovered Notion.",
+          "At the time, I was testing every productivity app out there: TickTick, Microsoft To Do, and many others.",
+          "But they all had limits.",
+          "Notion was different.",
+          "It wasn’t a tool. It was a blank system waiting to be designed.",
+          "I struggled at first. Stopped. Came back. Learned again.",
+          "And then I stopped using Notion like a user… and started building with it."
+        ]
+      },
+      {
+        "title": "From Creator to System Architect",
+        "date": "The Evolution",
+        "image": "/about/23yearsold02.webp",
+        "image2": "/about/Certifications.webp",
+        "content": [
+          "By 2024, when Notion launched its marketplace, I was among the early creators.",
+          "I started my YouTube channel. Built a small studio. Bought a camera. Started teaching.",
+          "When Notion Academy opened, I earned certifications up to Notion Certified Admin.",
+          "But what truly mattered wasn’t certificates.",
+          "It was impact."
+        ]
+      },
+      {
+        "title": "Building Communities",
+        "date": "Expanding Impact",
+        "image": "/about/community.webp",
+        "content": [
+          "I founded:",
+          "- Arab Notion – to grow the Arabic Notion community",
+          "- Notion Muslims – to connect Muslims using Notion worldwide",
+          "Because I don’t just build systems.",
+          "I build ecosystems."
+        ]
+      },
+      {
+        "title": "Today",
+        "date": "The Mission",
+        "image": "/about/23yearsold01.webp",
+        "image2": "/about/IMG-20240227-WA0032.webp",
+        "content": [
+          "Today, I help individuals, teams, and companies build structured Notion systems tailored to how they think and work.",
+          "Not templates.",
+          "Not random dashboards.",
+          "Systems.",
+          "Built for clarity.",
+          "Built for scale.",
+          "Built around you."
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "years": "Years of Experience",
+    "systems": "Systems Built",
+    "impact": "People Helped"
+  },
+  "cta": {
+    "title": "Let’s Build Something Structured.",
+    "workWithMe": "Work With Me",
+    "exploreMyWork": "Explore My Work"
+  }
 }

@@ -1,0 +1,15 @@
+{
+    "title": "العد التنازلي",
+    "eventName": "اسم الحدث",
+    "targetDate": "تاريخ الحدث",
+    "days": "أيام",
+    "hours": "ساعات",
+    "minutes": "دقائق",
+    "seconds": "ثواني",
+    "eventPassed": "حان وقت الحدث!",
+    "settings": "الإعدادات",
+    "celebrate": "احتفال!",
+    "editEvent": "تعديل الحدث",
+    "enterEvent": "أدخل اسم الحدث...",
+    "save": "حفظ"
+}

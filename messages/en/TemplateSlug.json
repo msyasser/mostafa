@@ -534,7 +534,7 @@
         "more-advanced": {
           "label": "Premium",
           "description": "Unlock your full spiritual productivity potential.",
-          "price": "$19.98",
+          "price": "$25",
           "features": [
             "Lifetime Updates",
             "Fard (Advanced)",
@@ -585,7 +585,7 @@
     },
     "name": "IbadatHub",
     "description": "",
-    "price": "$19.98",
+    "price": "$25",
     "checkout": "Get IbadatHub",
     "checkoutLink": "https://www.notion.com/templates/ibadat-hub",
     "moreDetails": "More Details",

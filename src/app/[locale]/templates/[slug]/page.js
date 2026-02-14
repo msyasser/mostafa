@@ -15,8 +15,8 @@ export async function generateMetadata({ params }) {
   if (!template) return {};
 
   const title = locale === "ar"
-    ? `${t(`${template.name}.name`)} | قالب نوشن من مصطفى ياسر`
-    : `${t(`${template.name}.name`)} | Notion Template by Mostafa Yasser`;
+    ? `${t(`${template.name}.name`)}`
+    : `${t(`${template.name}.name`)}`;
 
   const description = locale === "ar"
     ? t(`${template.name}.description`) ??

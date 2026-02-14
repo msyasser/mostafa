@@ -1,6 +1,39 @@
 {
-  "title": "Let’s Work Together on Your Notion Journey",
-  "subtitle": "Feel free to choose an option below to message me, order a custom Notion template, or find out how to become an affiliate and start earning.",
-  "contactBtn": "Contact Me",
-  "customTemplateBtn": "Custom Template"
+  "hero": {
+    "title": "Let’s Start a Conversation",
+    "subtitle": "Whether you need a custom Notion system, have a question, or just want to say hi, I’m here to listen.",
+    "badge": "Get In Touch"
+  },
+  "options": {
+    "email": {
+      "title": "General Inquiries",
+      "description": "For general questions, collaborations, or speaking inquiries.",
+      "button": "Send Email"
+    },
+    "custom": {
+      "title": "Custom Systems",
+      "description": "Ready to build your bespoke operating system? Let's define your requirements.",
+      "button": "Request Service"
+    },
+    "support": {
+      "title": "Template Support",
+      "description": "Bought a template and need help? I'm here to ensure you get the most out of it.",
+      "button": "Get Support"
+    }
+  },
+  "socials": {
+    "title": "Connect on Social Media",
+    "subtitle": "Follow my journey and get daily Notion tips."
+  },
+  "form": {
+    "title": "Send a Message",
+    "name": "Full Name",
+    "email": "Email Address",
+    "whatsapp": "WhatsApp Number",
+    "details": "Project Details & Message",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Something went wrong. Please try again."
+  }
 }

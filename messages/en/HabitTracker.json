@@ -1,0 +1,12 @@
+{
+    "title": "Habits",
+    "addHabit": "Add Habit",
+    "habitName": "Habit Name",
+    "dailyGoal": "Goal",
+    "save": "Save",
+    "resetAll": "Reset All",
+    "delete": "Delete",
+    "done": "Done!",
+    "edit": "Edit",
+    "placeholder": "Drink water..."
+}

@@ -1,0 +1,11 @@
+{
+    "title": "Study Planner",
+    "hours": "Hours",
+    "completed": "Done",
+    "addTopicPlaceholder": "What to study?",
+    "noTopics": "No topics yet. Add one to start planning!",
+    "studyTime": "Daily Goal",
+    "math": "Math - Calculus",
+    "physics": "Physics - Newton's Laws",
+    "cs": "CS - Data Structures"
+}

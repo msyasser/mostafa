@@ -1,0 +1,18 @@
+{
+    "title": "Ramadan Kareem",
+    "ramadan": "RAMADAN",
+    "daysUntil": "days until",
+    "ramadanDay": "Day {day}",
+    "eidMubarak": "🎉 Eid Mubarak! 🎉",
+    "enterCity": "Enter your city",
+    "submit": "Submit",
+    "changeCity": "Change City",
+    "fajr": "Fajr",
+    "dhuhr": "Dhuhr",
+    "asr": "Asr",
+    "maghrib": "Maghrib",
+    "isha": "Isha",
+    "poweredBy": "Powered by",
+    "locationError": "City not found. Please try again.",
+    "hijriFormat": "{day} {month}, {year}H"
+}

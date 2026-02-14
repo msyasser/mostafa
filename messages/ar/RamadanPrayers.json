@@ -1,0 +1,18 @@
+{
+    "title": "رمضان كريم",
+    "ramadan": "رمضان",
+    "daysUntil": "يوم حتى",
+    "ramadanDay": "اليوم {day}",
+    "eidMubarak": "🎉 عيد مبارك! 🎉",
+    "enterCity": "أدخل مدينتك",
+    "submit": "تم",
+    "changeCity": "تغيير المدينة",
+    "fajr": "الفجر",
+    "dhuhr": "الظهر",
+    "asr": "العصر",
+    "maghrib": "المغرب",
+    "isha": "العشاء",
+    "poweredBy": "بواسطة",
+    "locationError": "لم يتم العثور على المدينة. حاول مرة أخرى.",
+    "hijriFormat": "{day} {month}، {year}هـ"
+}

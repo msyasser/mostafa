@@ -1,50 +1,50 @@
 {
   "title": "Privacy Policy",
-  "effectiveDate": "Effective Date: April 8, 2025",
+  "effectiveDate": "Effective Date: February 13, 2026",
   "section1": {
     "title": "1. Introduction",
-    "content": "Welcome to Mostafa Yasser. This Privacy Policy outlines how we collect, use, and protect your personal information. By using our website, you agree to the collection and use of information in accordance with this policy."
+    "content": "Welcome to Mostafa Yasser's platform. We are committed to protecting your personal data and your privacy. This Privacy Policy explains how we collect, use, and safe-guard your information when you visit our website, purchase our Notion templates, or engage in our consulting services."
   },
   "section2": {
     "title": "2. Information We Collect",
     "content": [
       {
         "label": "Personal Information:",
-        "value": " Name, email address, etc."
+        "value": " We may collect your name, email address, and billing information when you subscribe to our newsletter, purchase a template, or book a consultation."
+      },
+      {
+        "label": "Project Data:",
+        "value": " For consulting clients, we may receive access to your Notion workspaces or project details necessary to build your custom systems."
       },
       {
         "label": "Usage Data:",
-        "value": " Information about how you interact with our website."
-      },
-      {
-        "label": "Cookies:",
-        "value": " We use cookies to enhance user experience."
+        "value": " Periodically, we collect technical data such as IP addresses, browser types, and page interaction to improve our website experience."
       }
     ]
   },
   "section3": {
     "title": "3. How We Use Your Information",
     "content": [
-      "To improve our website and services.",
-      "To send promotional emails and updates.",
-      "To respond to customer support inquiries."
+      "To deliver the Notion templates and consulting services you requested.",
+      "To provide specialized support and system maintenance.",
+      "To send updates about new tools, templates, and Notion tips (you can opt-out at any time).",
+      "To process payments securely through our third-party providers."
     ]
   },
   "section4": {
-    "title": "4. Data Security",
-    "content": "We take appropriate measures to protect your personal information, but please note that no method of transmission over the internet or method of electronic storage is 100% secure."
+    "title": "4. Data Sharing & Third Parties",
+    "content": "We do not sell your personal data. We only share information with trusted third-party services essential for our operations, such as payment processors (Stripe/PayPal), email marketing tools, and the Notion platform itself where your systems reside."
   },
   "section5": {
-    "title": "5. Your Rights",
-    "content": "You have the right to access, correct, and delete your personal information. You may also opt out of receiving promotional emails."
+    "title": "5. Security & Retention",
+    "content": "We implement industry-standard security measures to protect your data. We retain your information only as long as necessary to provide our services and comply with legal obligations."
   },
   "section6": {
-    "title": "6. Changes to This Policy",
-    "content": "We may update our Privacy Policy from time to time. Any changes will be posted on this page with the updated date."
+    "title": "6. Your Privacy Rights",
+    "content": "Depending on your location, you have the right to access, correct, or delete your personal data. To exercise these rights, please contact our support team."
   },
-
   "contact": {
     "title": "7. Contact Us",
-    "text": "If you have any questions about this Privacy Policy, please contact us at"
+    "text": "If you have any questions regarding this Privacy Policy, please reach out to us at:"
   }
 }

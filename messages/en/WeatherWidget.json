@@ -1,0 +1,11 @@
+{
+    "title": "Weather",
+    "enterCity": "Enter City",
+    "humidity": "Humidity",
+    "wind": "Wind",
+    "feelsLike": "Feels like",
+    "updated": "Updated",
+    "live": "Live",
+    "error": "City not found",
+    "submit": "Submit"
+}

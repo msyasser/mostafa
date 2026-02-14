@@ -1,4 +1,6 @@
 import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
+import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import dynamic from "next/dynamic";
 import AnimatedText from "@/src/app/[locale]/_components/AnimatedText";
 import TypewriterText from "@/src/app/[locale]/_components/TypewriterText";
@@ -7,24 +9,33 @@ import BlurText from "@/src/app/[locale]/_components/BlurText";
 import SEOOptimizer from "./_components/SEOOptimizer";
 
 // Lazy load components that are not immediately visible
+// Lazy load components that are not immediately visible
 const TemplatesShowcase = dynamic(() => import("@/src/app/[locale]/_components/TempaltesShowCase"), {
   loading: () => <div className="animate-pulse h-96 bg-gray-800 rounded-lg"></div>
 });
 const SubscriptionForm = dynamic(() => import("@/src/app/[locale]/_components/SubscriptionForm"), {
   loading: () => <div className="animate-pulse h-32 bg-gray-800 rounded-lg"></div>
 });
-const GoToTemplatesPageButton = dynamic(() => import("@/src/app/[locale]/_components/GoToTemplatesPageButton"), {
-  loading: () => <div className="animate-pulse h-12 bg-gray-800 rounded-lg w-48"></div>
+const HomeServicesSection = dynamic(() => import("@/src/app/[locale]/_components/HomeServicesSection"), {
+  loading: () => <div className="animate-pulse h-96 bg-gray-800 rounded-lg"></div>
+});
+
+// ... inside component ...
+
+{/* Services Summary Section */ }
+<HomeServicesSection />
+const ContentAuthoritySection = dynamic(() => import("@/src/app/[locale]/_components/ContentAuthoritySection"), {
+  loading: () => <div className="animate-pulse h-64 bg-gray-800 rounded-lg"></div>
 });
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const isArabic = locale === "ar";
 
-  const baseUrl = "https://www.mostafayasser.com";
+  const siteUrl = "https://www.mostafayasser.com";
   const imageUrl = isArabic
-    ? `${baseUrl}/metaData/ar/1.webp`
-    : `${baseUrl}/metaData/en/1.webp`;
+    ? `${siteUrl}/metaData/ar/1.webp`
+    : `${siteUrl}/metaData/en/1.webp`;
 
   const title = isArabic
     ? "مصطفى ياسر | قوالب نوشن لتنظيم حياتك"
@@ -40,12 +51,16 @@ export async function generateMetadata({ params }) {
       default: title,
     },
     description,
+    metadataBase: new URL(siteUrl),
+    alternates: {
+      canonical: `${siteUrl}/${locale}`,
+    },
     openGraph: {
       title,
       description: isArabic
         ? "عزز إنتاجيتك مع قوالب نوشن الاحترافية من مصطفى ياسر. بسيطة وفعالة وجميلة."
         : "Boost your productivity with premium Notion templates by Mostafa Yasser. Simple, effective, and beautifully designed.",
-      url: baseUrl,
+      url: `${siteUrl}/${locale}`,
       siteName: "Mostafa Yasser",
       images: [
         {
@@ -61,17 +76,9 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: isArabic
-        ? "مصطفى ياسر | قوالب نوشن"
-        : "Mostafa Yasser | Notion Templates",
-      description: isArabic
-        ? "اكتشف قوالب نوشن لتنظيم حياتك وزيادة إنتاجيتك. من تصميم مصطفى ياسر."
-        : "Discover Notion templates that organize your life and boost productivity. Built by Mostafa Yasser.",
-      creator: "@engmsyasser",
+      title,
+      description,
       images: [imageUrl],
-    },
-    alternates: {
-      canonical: `${baseUrl}/${locale}`,
     },
     other: {
       "google-site-verification": "SKiO5RTFyP9KeXKJAJ14FVn-qZUFpXut8_41TWNG_9o",
@@ -81,6 +88,8 @@ export async function generateMetadata({ params }) {
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
+  const tCalendar = useTranslations("CaseStudiesPage");
+  const locale = useLocale();
 
   return (
     <>
@@ -88,41 +97,75 @@ export default function HomePage() {
         type="website"
         title={t("title")}
         description={t("subtitle")}
-        url={`https://www.mostafayasser.com/${useLocale()}`}
-        image={`https://www.mostafayasser.com/metaData/${useLocale() === "ar" ? "ar" : "en"}/1.webp`}
-        locale={useLocale()}
+        url={`https://www.mostafayasser.com/${locale}`}
+        image={`https://www.mostafayasser.com/metaData/${locale === "ar" ? "ar" : "en"}/1.webp`}
+        locale={locale}
       />
       <BlurText>
-        <div className="text-center">
-          <AnimatedText className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl px-2 font-extrabold leading-tight">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl px-2 font-extrabold leading-tight">
+        <div className="text-center min-h-[calc(100vh-160px)] flex flex-col justify-center items-center">
+          <AnimatedText className="max-w-5xl mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-7xl px-4 font-extrabold leading-tight tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
               <TypewriterText text={t("title")} />
             </h1>
           </AnimatedText>
 
           <AnimatedWrapper delay={2.5}>
-            <p className="text-base sm:text-lg md:text-xl text-main mt-4 max-w-2xl mx-auto px-4 font-light tracking-tight">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mt-8 max-w-3xl mx-auto px-4 font-medium tracking-wide">
               {t("subtitle")}
             </p>
 
-            <GoToTemplatesPageButton
-              text={t("browseButton")}
-              className={"flex justify-center mt-6 sm:mt-10 relative z-10 px-4"}
-            />
-
-            <SubscriptionForm className="mt-15 w-full max-w-xl mx-auto flex flex-col sm:flex-row items-center gap-3 px-4 sm:px-6">
-              <p className="text-center text-sm sm:text-base mt-4 max-w-md px-4 sm:px-0 mx-auto text-gray-400 font-light tracking-tight leading-relaxed">
-                {t.rich("newsletter", {
-                  span: (chunks) => (
-                    <span className="font-medium text-white">{chunks}</span>
-                  ),
-                })}
-              </p>
-            </SubscriptionForm>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-10 relative z-10">
+              <a
+                href="#templates-section"
+                className="flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-main text-black font-bold text-lg transition-all duration-300 hover:bg-white hover:scale-105 w-full sm:w-auto min-w-[200px] shadow-[0_0_20px_rgba(215,177,128,0.4)]"
+              >
+                {t("searchTemplatesButton")}
+                {locale === "ar" ? <BsArrowLeft className="text-xl" /> : <BsArrowRight className="text-xl" />}
+              </a>
+              <a
+                href="#calendar-section"
+                className="flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/20 hover:border-white text-white font-medium text-lg transition-all duration-300 hover:bg-white/10 w-full sm:w-auto min-w-[200px]"
+              >
+                {t("workWithUsButton")}
+              </a>
+            </div>
           </AnimatedWrapper>
         </div>
 
-        <TemplatesShowcase />
+        {/* Services Section */}
+        {/* Services Summary Section */}
+        <HomeServicesSection />
+
+        <TemplatesShowcase title={t("templatesTitle")} subtitle={t("templatesSubtitle")} />
+
+        <ContentAuthoritySection />
+
+        {/* Calendar Section (Replaces ContactCTASection) */}
+        <div id="calendar-section" className="py-24 px-6 bg-neutral-900 border-t border-neutral-800 scroll-mt-32">
+          <div className="max-w-5xl mx-auto">
+            <AnimatedWrapper>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                  {tCalendar("calendarTitle")}
+                </h2>
+                <p className="text-gray-400 max-w-xl mx-auto text-lg">
+                  {tCalendar("calendarDescription")}
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl overflow-hidden shadow-2xl border-4 border-neutral-800">
+                <iframe
+                  src="https://calendar.notion.so/meet/mostafa-yasser/discovery-call"
+                  style={{ border: 0 }}
+                  width="100%"
+                  height="600"
+                  frameBorder="0"
+                  title="Scheduling Calendar"
+                ></iframe>
+              </div>
+            </AnimatedWrapper>
+          </div>
+        </div>
       </BlurText>
     </>
   );

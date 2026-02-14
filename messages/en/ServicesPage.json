@@ -1,0 +1,114 @@
+{
+    "hero": {
+        "title": "Custom Notion Systems Built Around How You Think & Work",
+        "subtitle": "I design structured, scalable systems that bring clarity to your workflow — whether you're an individual or a growing company.",
+        "ctaBook": "Book a Call",
+        "ctaCaseStudies": "View Case Studies"
+    },
+    "whatIDo": {
+        "title": "What I Help You Achieve",
+        "blocks": [
+            {
+                "title": "Bring Structure to Chaos",
+                "description": "Turn scattered tools and ideas into one organized system."
+            },
+            {
+                "title": "Centralize Your Operations",
+                "description": "Projects, tasks, people, finances — connected in one place."
+            },
+            {
+                "title": "Automate Repetitive Work",
+                "description": "Reduce manual tracking and eliminate calculation errors."
+            },
+            {
+                "title": "Build for Scale",
+                "description": "Systems designed to grow with you or your company."
+            }
+        ]
+    },
+    "process": {
+        "title": "How We Build Your System",
+        "steps": [
+            {
+                "title": "Understand Your Workflow",
+                "description": "Deep dive into your current processes and pain points."
+            },
+            {
+                "title": "Design the Architecture",
+                "description": "Blueprint a custom solution tailored to your logic."
+            },
+            {
+                "title": "Build & Integrate",
+                "description": "Develop the system and connect your essential tools."
+            },
+            {
+                "title": "Test & Refine",
+                "description": "Ensure everything works seamlessly before launch."
+            },
+            {
+                "title": "Deliver & Train",
+                "description": "Handover with training to ensure adoption."
+            }
+        ]
+    },
+    "caseStudies": {
+        "title": "Selected Projects",
+        "viewAll": "View Full Case Studies"
+    },
+    "targetAudience": {
+        "title": "This Is For You If",
+        "list": [
+            "You manage complex workflows",
+            "Your operations feel scattered",
+            "You rely on manual tracking",
+            "You need clarity before scaling"
+        ]
+    },
+    "whyMe": {
+        "title": "Why Work With Me",
+        "points": [
+            {
+                "title": "No Generic Templates",
+                "description": "I don’t sell generic templates. Every system is built around your logic."
+            },
+            {
+                "title": "Logic First",
+                "description": "I focus on structure before aesthetics."
+            },
+            {
+                "title": "Systems Thinking",
+                "description": "I think in systems, not pages."
+            },
+            {
+                "title": "Partner, Not Vendor",
+                "description": "I work with you to ensure long-term success."
+            }
+        ]
+    },
+    "faq": {
+        "title": "Frequently Asked Questions",
+        "items": [
+            {
+                "question": "Do you build custom systems only?",
+                "answer": "Yes, I specialize in bespoke Notion systems tailored to your specific needs."
+            },
+            {
+                "question": "Can you integrate APIs?",
+                "answer": "Absolutely. I can connect Notion with tools like Slack, Google Calendar, Stripe, and more."
+            },
+            {
+                "question": "Do you work with companies?",
+                "answer": "Yes, I work with both individuals and teams to streamline operations."
+            },
+            {
+                "question": "What’s the typical timeline?",
+                "answer": "Timelines vary by complexity, but most projects take 2-4 weeks from design to delivery."
+            }
+        ]
+    },
+    "finalCta": {
+        "title": "Let’s Build a System That Works for You.",
+        "ctaBook": "Book a Consultation",
+        "ctaContact": "Contact Me"
+    }
+}

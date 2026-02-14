@@ -3,12 +3,21 @@
   "description": "Let's stay connected! Follow me on social media to get exclusive content, helpful tips, and the latest updates on everything I create and share.",
   "subscribe": "Subscribe",
   "emailPlaceholder": "Your email address",
-  "popularVideos": "POPULAR VIDEOS",
+  "quickLinks": "QUICK LINKS",
+  "links": {
+    "home": "Home",
+    "about": "About Me",
+    "services": "Services",
+    "caseStudies": "Case Studies",
+    "templates": "Templates",
+    "tools": "Tools",
+    "blogs": "Blogs",
+    "contact": "Contact"
+  },
+  "information": "INFORMATION",
   "legal": "LEGAL",
   "privacy": "Privacy Policy",
   "terms": "Terms of Service",
-  "customTemplate": "CUSTOM TEMPLATE",
-  "customTemplateCta": "Need a Custom Template?",
   "premiumTemplates": "PREMIUM TEMPLATES",
   "templates": {
     "secondBrain": "Second Brain",
@@ -17,10 +26,5 @@
   },
   "copyright": "© 2025 Mostafa Yasser. All rights reserved.",
   "developedBy": "Developed by",
-  "developer": "Hazem Yasser",
-  "youtube": {
-    "titleOne": "Introduction to Notion: What It Is and Why You Should Use It",
-    "titleTwo": "Comprehensive Guide to Using Databases in Notion",
-    "titleThree": "Notion Advanced Tips and Tricks for Productivity"
-  }
+  "developer": "Hazem Yasser"
 }

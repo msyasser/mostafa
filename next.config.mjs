@@ -85,7 +85,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "frame-ancestors 'self' https://www.notion.so https://notion.so; frame-src 'self' https://www.notion.so https://notion.so https://mostafayasser.notion.site https://www.youtube.com https://youtube.com https://app.fillout.com https://fillout.com https://embed.fillout.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com; connect-src 'self' https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com;",
+            value: "frame-ancestors 'self' https://www.notion.so https://notion.so; frame-src 'self' https://www.notion.so https://notion.so https://mostafayasser.notion.site https://www.youtube.com https://youtube.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.so; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.so; connect-src 'self' https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.so https://api.opencagedata.com https://api.aladhan.com https://nominatim.openstreetmap.org https://api.coingecko.com https://api.open-meteo.com;",
           },
           {
             key: 'X-Content-Type-Options',

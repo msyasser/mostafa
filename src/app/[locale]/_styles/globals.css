@@ -182,6 +182,13 @@ section:target {
   .animate-pulse-star {
     animation: pulseStar 2s ease-in-out infinite;
   }
+  
+  /* Blueprint Grid Pattern */
+  .bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  }
 }
 
 /* Phone Input Custom Styles */

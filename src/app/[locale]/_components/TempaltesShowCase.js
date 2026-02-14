@@ -21,9 +21,10 @@ const templates = {
   ],
   moreTemplates: [
     {
-      id: 5,
-      name: "Study Planner",
-      slug: "study-planner",
+      id: 20,
+      name: "Second Brain",
+      slug: "second-brain",
+      premium: true,
     },
     {
       id: 19,
@@ -32,9 +33,10 @@ const templates = {
       premium: true,
     },
     {
-      id: 7,
-      name: "Habit Tracker - Minimal Version",
-      slug: "habit-tracker-minimal",
+      id: 16,
+      name: "StudyHub",
+      slug: "study-hub",
+      premium: true,
     },
   ],
   largeCollection: [
@@ -86,7 +88,7 @@ const templates = {
   ],
 };
 
-export default function TemplatesShowcase() {
+export default function TemplatesShowcase({ title, subtitle }) {
   const t = useTranslations("TemplatesShowcase");
   const tt = useTranslations("TemplateSlug");
   const locale = useLocale();
@@ -124,38 +126,19 @@ export default function TemplatesShowcase() {
     ));
 
   return (
-    <div className="w-full px-6 py-12 sm:mt-12 mt-10 text-center flex flex-col gap-5 sm:gap-20">
-      <div className="mt-20">
-        <div className="text-center max-w-3xl mx-auto px-2">
-          <AnimatedInView threshold={0.1}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-              {t("unlockTitle")}
-            </h2>
-          </AnimatedInView>
-          <AnimatedInView threshold={0.1}>
-            <p className="text-secondary mt-2 text-base sm:text-lg md:text-xl">
-              {t("unlockDescription")}
-            </p>
-          </AnimatedInView>
-        </div>
-        <AnimatedInView
-          threshold={0.1}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8"
-        >
-          {renderTemplates(templates.lifeChanging)}
-        </AnimatedInView>
-      </div>
+    <div id="templates-section" className="w-full px-6 py-12 sm:mt-12 mt-10 text-center flex flex-col gap-5 sm:gap-20 scroll-mt-32">
+
 
       <div className="mt-4">
         <div className="text-center max-w-3xl mx-auto px-4">
           <AnimatedInView threshold={0.1}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-              {t("popularTitle")}
+              {title || t("popularTitle")}
             </h2>
           </AnimatedInView>
           <AnimatedInView threshold={0.1}>
             <p className="text-secondary mt-2 text-base sm:text-lg md:text-xl">
-              {t("popularDescription")}
+              {subtitle || t("popularDescription")}
             </p>
           </AnimatedInView>
         </div>
@@ -163,28 +146,7 @@ export default function TemplatesShowcase() {
           threshold={0.1}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8"
         >
-          {renderTemplates(templates.moreTemplates)}
-        </AnimatedInView>
-      </div>
-
-      <div className="mt-4">
-        <div className="text-center max-w-3xl mx-auto px-4">
-          <AnimatedInView threshold={0.1}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-              {t("moreTitle")}
-            </h2>
-          </AnimatedInView>
-          <AnimatedInView threshold={0.1}>
-            <p className="text-secondary mt-2 text-base sm:text-lg md:text-xl">
-              {t("moreDescription")}
-            </p>
-          </AnimatedInView>
-        </div>
-        <AnimatedInView
-          threshold={0.01}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8"
-        >
-          {renderTemplates(templates.largeCollection)}
+          {renderTemplates([...templates.moreTemplates, ...templates.largeCollection].slice(0, 6))}
         </AnimatedInView>
       </div>
 

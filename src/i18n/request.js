@@ -24,6 +24,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
         .default,
       AboutPage: (await import(`../../messages/${locale}/AboutPage.json`))
         .default,
+      CaseStudiesPage: (
+        await import(`../../messages/${locale}/CaseStudiesPage.json`)
+      ).default,
       PrivacyPage: (await import(`../../messages/${locale}/PrivacyPage.json`))
         .default,
       TermsPage: (await import(`../../messages/${locale}/TermsPage.json`))
@@ -47,6 +50,28 @@ export default getRequestConfig(async ({ requestLocale }) => {
       NotFound: (await import(`../../messages/${locale}/NotFound.json`))
         .default,
       Auth: (await import(`../../messages/${locale}/Auth.json`)).default,
+      ToolsPage: (await import(`../../messages/${locale}/ToolsPage.json`)).default,
+      ServicesPage: (
+        await import(`../../messages/${locale}/ServicesPage.json`)
+      ).default,
+      RamadanPrayers: (
+        await import(`../../messages/${locale}/RamadanPrayers.json`)
+      ).default,
+      EventCountdown: (
+        await import(`../../messages/${locale}/EventCountdown.json`)
+      ).default,
+      HabitTracker: (
+        await import(`../../messages/${locale}/HabitTracker.json`)
+      ).default,
+      AssetTracker: (
+        await import(`../../messages/${locale}/AssetTracker.json`)
+      ).default,
+      WeatherWidget: (
+        await import(`../../messages/${locale}/WeatherWidget.json`)
+      ).default,
+      StudyPlanner: (
+        await import(`../../messages/${locale}/StudyPlanner.json`)
+      ).default,
     },
   };
 });

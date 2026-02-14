@@ -1,44 +1,36 @@
 {
   "title": "Terms and Conditions",
-  "effectiveDate": "Effective Date: April 8, 2025",
-
+  "effectiveDate": "Effective Date: February 13, 2026",
   "section1": {
-    "title": "1. Introduction",
-    "content": "Welcome to Mostafa Yasser. By accessing and using this website, you agree to comply with the following terms and conditions."
+    "title": "1. Acceptance of Terms",
+    "content": "By accessing this website and purchasing our services or templates, you agree to be bound by these Terms and Conditions. Our services are designed to help you optimize your personal and professional workflows using Notion."
   },
-
   "section2": {
-    "title": "2. Use of the Website",
-    "content": "You agree to use this website only for lawful purposes and in accordance with these terms. You are prohibited from using the website in any way that could damage, disable, or impair the website's functionality."
+    "title": "2. Digital Products & Licensing",
+    "content": "All Notion templates purchased from this website are granted under a single-user license. You may use them for personal or internal business purposes. Redistribution, resale, or sharing of the template structure with third parties is strictly prohibited."
   },
-
   "section3": {
-    "title": "3. Intellectual Property",
-    "content": "All content on this website, including text, graphics, logos, and images, is the property of Mostafa Yasser and is protected by copyright laws."
+    "title": "3. Consulting Services",
+    "content": "Consulting engagement is subject to a separate agreement regarding scope and timeline. We aim for the highest quality in system architecture, but the final implementation and data entry remain the responsibility of the client."
   },
-
   "section4": {
-    "title": "4. Limitations of Liability",
-    "content": "We are not liable for any damages arising from the use or inability to use this website. You use the website at your own risk."
+    "title": "4. Refunds & Cancellations",
+    "content": "Due to the digital nature of Notion templates, all sales are final and non-refundable once the access link is provided. For consulting services, cancellation terms are outlined in our individual service agreements."
   },
-
   "section5": {
-    "title": "5. Privacy",
-    "content": "Your use of this website is also governed by our Privacy Policy, which outlines how we collect and use your personal data."
+    "title": "5. Intellectual Property",
+    "content": "All content, including text, custom graphics, and system designs, are the intellectual property of Mostafa Yasser. Unauthorized use of our brand material is prohibited."
   },
-
   "section6": {
-    "title": "6. Governing Law",
-    "content": "These Terms and Conditions are governed by the laws of Egypt, and any disputes will be resolved in the courts located in Cairo."
+    "title": "6. Third-Party Platforms",
+    "content": "Our systems are built on Notion (notion.so). We are not affiliated with Notion Labs Inc. and are not responsible for any service interruptions, data loss, or changes to Notion's platform that may affect your system's functionality."
   },
-
   "section7": {
-    "title": "7. Changes to Terms",
-    "content": "We may update these Terms and Conditions at any time. The latest version will be posted on this page with the updated date."
+    "title": "7. Governing Law",
+    "content": "These terms are governed by the laws of Egypt. Any legal disputes shall be handled within the jurisdiction of the courts in Cairo, Egypt."
   },
-
   "contact": {
     "title": "Contact Us",
-    "text": "contactmostafayasser@gmail.com"
+    "text": "For any inquiries regarding these terms, contact us at: contactmostafayasser@gmail.com"
   }
 }
