@@ -6,9 +6,13 @@ import ToolExplorer from "../_components/ToolExplorer";
 import { getTranslations } from "next-intl/server";
 
 export function generateStaticParams() {
-    return tools.map((tool) => ({
-        tool: tool.slug,
-    }));
+    const locales = ["en", "ar"];
+    return tools.flatMap((tool) =>
+        locales.map((locale) => ({
+            locale,
+            tool: tool.slug,
+        }))
+    );
 }
 
 export async function generateMetadata({ params }) {
@@ -17,7 +21,7 @@ export async function generateMetadata({ params }) {
 
     if (!toolData) return {};
 
-    const t = await getTranslations("ToolsPage");
+    const t = await getTranslations({ locale, namespace: "ToolsPage" });
     const title = t(toolData.titleKey);
     const description = t(toolData.descriptionKey);
     const siteUrl = "https://www.mostafayasser.com";
