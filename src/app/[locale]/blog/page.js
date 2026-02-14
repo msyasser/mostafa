@@ -11,8 +11,8 @@ export async function generateMetadata({ params }) {
   const isArabic = locale === "ar";
 
   const title = isArabic
-    ? "المدونة | مصطفى ياسر | نصائح نوشن، الإنتاجية، والتصميم"
-    : "Blog | Mostafa Yasser | Notion Tips, Productivity, & Design";
+    ? "المدونة"
+    : "Blog";
 
   const description = isArabic
     ? "اكتشف أحدث مقالاتي حول قوالب نوشن، حلول الإنتاجية، سير العمل الرقمي، واستراتيجيات الأعمال عبر الإنترنت."

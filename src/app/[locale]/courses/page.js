@@ -15,8 +15,8 @@ export async function generateMetadata({ params }) {
     : `${baseUrl}/metaData/en/courses.webp`;
 
   const title = isArabic
-    ? "الدورات التدريبية | مصطفى ياسر"
-    : "Courses | Mostafa Yasser";
+    ? "الدورات التدريبية"
+    : "Courses";
 
   const description = isArabic
     ? "تعلم إتقان نوشن مع دورات مصطفى ياسر التدريبية. من المبتدئين إلى المتقدمين، اكتشف كيفية بناء أنظمة إنتاجية قوية."
@@ -70,7 +70,7 @@ export default function CoursesPage() {
         image={`https://www.mostafayasser.com/metaData/${locale === "ar" ? "ar" : "en"}/courses.webp`}
         locale={locale}
       />
-      
+
       <BlurText>
         <div className="w-full px-4 sm:px-6 py-8 sm:py-12 mt-4 sm:mt-6 lg:mt-12">
           <section className="text-center">

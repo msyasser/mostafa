@@ -1,6 +1,46 @@
 import { useTranslations } from "next-intl";
 import ToolsGallery from "./_components/ToolsGallery";
 
+export async function generateMetadata({ params }) {
+    const { locale } = await params;
+    const isArabic = locale === "ar";
+    const siteUrl = "https://www.mostafayasser.com";
+    const title = isArabic ? "الأدوات المجانية" : "Free Tools";
+    const description = isArabic
+        ? "مجموعة من الأدوات المجانية لزيادة إنتاجيتك وتنظيم حياتك. تتضمن مؤقت بومودورو، متتبع العادات، والمزيد."
+        : "A collection of free tools to boost your productivity and organize your life. Includes Pomodoro timer, habit tracker, and more.";
+    const url = `${siteUrl}/${locale}/tools`;
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+            siteName: "Mostafa Yasser",
+            images: [
+                {
+                    url: `${siteUrl}/icon.png`,
+                    width: 1200,
+                    height: 630,
+                    alt: title,
+                },
+            ],
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: [`${siteUrl}/icon.png`],
+        },
+    };
+}
+
 export default function ToolsPage() {
     const t = useTranslations("ToolsPage");
 
