@@ -11,9 +11,13 @@ import NotionCalendarButton from "@/src/app/[locale]/_components/NotionCalendarB
 import ProjectGallery from "../_components/ProjectGallery";
 
 export function generateStaticParams() {
-    return projects.map((project) => ({
-        slug: project.slug,
-    }));
+    const locales = ["en", "ar"];
+    return projects.flatMap((project) =>
+        locales.map((locale) => ({
+            locale,
+            slug: project.slug,
+        }))
+    );
 }
 
 export async function generateMetadata({ params }) {
@@ -22,7 +26,7 @@ export async function generateMetadata({ params }) {
 
     if (!project) return {};
 
-    const t = await getTranslations("CaseStudiesPage");
+    const t = await getTranslations({ locale, namespace: "CaseStudiesPage" });
     const title = `${t(project.titleKey)} | Case Study`;
     const description = t(project.descriptionKey);
     const siteUrl = "https://www.mostafayasser.com";
