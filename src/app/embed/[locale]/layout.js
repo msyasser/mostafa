@@ -46,9 +46,9 @@ export default async function EmbedLayout({ children, params }) {
             className={locale === "ar" ? tajawal.className : oswald.className}
             suppressHydrationWarning={true}
         >
-            <body className="bg-transparent min-h-screen flex flex-col overflow-hidden">
+            <body className="bg-transparent min-h-screen flex flex-col overflow-y-auto">
                 <NextIntlClientProvider locale={locale} messages={messages}>
-                    <main className="flex-1 flex justify-center items-center w-full h-full">
+                    <main className="flex-1 flex flex-col w-full">
                         {children}
                     </main>
                 </NextIntlClientProvider>

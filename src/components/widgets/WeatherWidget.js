@@ -7,6 +7,7 @@ import { Cloud, Sun, CloudRain, Wind, Droplets, MapPin, Loader2, RefreshCw, Sett
 
 export default function WeatherWidget({ theme = "dark", defaultCity = "", isPreview = false, isExplorer = false }) {
     const t = useTranslations("WeatherWidget");
+    const locale = useLocale();
     const isDark = theme === "dark";
 
     const [city, setCity] = useState("");
