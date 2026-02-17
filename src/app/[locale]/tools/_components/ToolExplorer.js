@@ -59,17 +59,14 @@ export default function ToolExplorer({ slug }) {
         const origin = window.location.origin;
         let url = `${origin}/embed/${locale}/${slug}?theme=${theme}`;
 
-        if (slug === 'ramadan-prayers' && configValues.city) {
-            url += `&city=${encodeURIComponent(configValues.city)}`;
-        } else if (slug === 'weather-widget' && configValues.city) {
-            url += `&city=${encodeURIComponent(configValues.city)}`;
-        } else if (slug === 'event-countdown') {
-            if (configValues.date) url += `&date=${encodeURIComponent(configValues.date)}`;
-            if (configValues.title) url += `&title=${encodeURIComponent(configValues.title)}`;
-        } else if (slug === 'quran-verse') {
-            if (configValues.displayMode) url += `&displayMode=${configValues.displayMode}`;
-            if (configValues.reciter) url += `&reciter=${configValues.reciter}`;
-            if (configValues.fontStyle) url += `&fontStyle=${configValues.fontStyle}`;
+        if (toolData.config) {
+            toolData.config.forEach(configItem => {
+                const key = configItem.key;
+                const value = configValues[key] || configItem.defaultValue || "";
+                if (value) {
+                    url += `&${key}=${encodeURIComponent(value)}`;
+                }
+            });
         }
 
         navigator.clipboard.writeText(url).then(() => {
