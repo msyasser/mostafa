@@ -38,7 +38,7 @@ export const viewport = {
 
 export default async function EmbedLayout({ children, params }) {
     const { locale } = await params;
-    const messages = await getMessages();
+    const messages = await getMessages({ locale });
     const dir = locale === "ar" ? "rtl" : "ltr";
 
     // Validate that the incoming `locale` parameter is valid
