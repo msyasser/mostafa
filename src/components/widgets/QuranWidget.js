@@ -139,7 +139,7 @@ export default function QuranWidget({ theme = "dark", isPreview = false, display
     return (
         <div className={`${containerClass} rounded-2xl ${isPreview ? 'p-4' : 'p-6 md:p-8'} w-full max-w-full mx-auto shadow-xl relative group transition-colors duration-300 flex flex-col items-center text-center`}>
             {/* Header / Actions */}
-            <div className="absolute top-4 right-4 z-20 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute top-4 right-4 z-20 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                 {!isPreview && (
                     <button
                         onClick={toggleAudio}
@@ -202,7 +202,7 @@ export default function QuranWidget({ theme = "dark", isPreview = false, display
             </div>
 
             {/* Hover gradient effect similar to Quote Widget */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-main via-tertiary to-main opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-main via-tertiary to-main opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
         </div>
     );
 }

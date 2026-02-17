@@ -63,7 +63,7 @@ export default function LifeProgressWidget({ theme = "dark" }) {
                 </h3>
                 <button
                     onClick={() => window.open(`/${locale}/tools/year-progress`, '_blank')}
-                    className="p-1.5 hover:bg-neutral-800/50 rounded-lg transition-colors text-neutral-500 hover:text-white cursor-pointer opacity-0 group-hover:opacity-100"
+                    className="p-1.5 hover:bg-neutral-800/50 rounded-lg transition-colors text-neutral-500 hover:text-white cursor-pointer opacity-100 md:opacity-0 md:group-hover:opacity-100"
                 >
                     <Settings size={16} />
                 </button>

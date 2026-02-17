@@ -29,6 +29,13 @@ export const metadata = {
     },
 };
 
+export const viewport = {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+};
+
 export default async function EmbedLayout({ children, params }) {
     const { locale } = await params;
     const messages = await getMessages();
