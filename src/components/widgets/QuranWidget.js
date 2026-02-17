@@ -1,11 +1,37 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { useLocale } from "next-intl";
-import { Settings, RefreshCw, Volume2, VolumeX } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Settings, RefreshCw, Volume2, VolumeX, Play, Pause, BookOpen } from "lucide-react";
 
-// Function to get a random verse ID seeded by the date for "Daily" consistency
-// Total verses in Quran: 6236
+// Google Fonts Configuration
+const googleFonts = {
+    uthmani: {
+        url: "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap",
+        family: "'Amiri', serif"
+    },
+    indopak: {
+        url: "https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap",
+        family: "'Noto Nastaliq Urdu', serif"
+    },
+    clean: {
+        url: "https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap",
+        family: "'Tajawal', sans-serif"
+    },
+    ruqaa: {
+        url: "https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&display=swap",
+        family: "'Aref Ruqaa', serif"
+    },
+    kufi: {
+        url: "https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;700&display=swap",
+        family: "'Reem Kufi', sans-serif"
+    },
+    messiri: {
+        url: "https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;700&display=swap",
+        family: "'El Messiri', sans-serif"
+    }
+};
+
 const getDailyVerseId = () => {
     const today = new Date();
     const startOfYear = new Date(today.getFullYear(), 0, 0);
@@ -17,10 +43,8 @@ const getDailyVerseId = () => {
     let hash = 0;
     for (let i = 0; i < dateString.length; i++) {
         hash = ((hash << 5) - hash) + dateString.charCodeAt(i);
-        hash |= 0; // Convert to 32bit integer
+        hash |= 0;
     }
-
-    // Ensure positive index within range 1-6236
     return (Math.abs(hash) % 6236) + 1;
 };
 
@@ -30,26 +54,28 @@ export default function QuranWidget({ theme = "dark", isPreview = false, display
     const audioRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
 
+    const t = useTranslations("ToolsPage");
+
+    // Determine active font config
+    const activeFont = googleFonts[fontStyle] || googleFonts.uthmani;
+
+
     // Theme classes
     const containerClass = isDark
-        ? "bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 text-white group-hover:border-main/30 transition-colors duration-500"
-        : "bg-white border border-gray-200 text-black";
+        ? "bg-neutral-950 border border-neutral-800 text-white shadow-2xl shadow-black/50"
+        : "bg-white border border-gray-100 text-black shadow-xl shadow-gray-200/50";
 
-    const arabicTextClass = isDark ? "text-white" : "text-black";
-    const translationTextClass = isDark ? "text-gray-400" : "text-gray-600";
-    const surahInfoClass = isDark ? "text-main" : "text-main"; // Use site's main gold color
-    const iconClass = isDark ? "text-neutral-500 hover:text-white" : "text-gray-400 hover:text-black";
+    const arabicTextClass = isDark ? "text-main" : "text-neutral-800";
+    const translationTextClass = isDark ? "text-neutral-400" : "text-neutral-600";
+    const surahInfoClass = isDark ? "text-main/80" : "text-main";
+    const controlsClass = isDark
+        ? "bg-neutral-900/50 border-t border-white/5 text-neutral-400"
+        : "bg-gray-50/80 border-t border-black/5 text-gray-500";
+    const buttonHoverClass = isDark ? "hover:text-white hover:bg-white/10" : "hover:text-black hover:bg-black/5";
 
     const [verseData, setVerseData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-
-    // Font Styles Map
-    const fontFamilies = {
-        uthmani: "'Amiri', 'Scheherazade New', serif",
-        indopak: "'Noto Nastaliq Urdu', serif", // Requires font import if not available, fallback to serif
-        clean: "'Tajawal', sans-serif"
-    };
 
     const fetchVerse = useCallback(async (id = null) => {
         setLoading(true);
@@ -63,8 +89,9 @@ export default function QuranWidget({ theme = "dark", isPreview = false, display
 
         try {
             const verseId = id || getDailyVerseId();
-            // Fetch Arabic (quran-uthmani), English (en.asad) and Audio
-            const edition = fontStyle === 'indopak' ? 'quran-indopak' : (fontStyle === 'clean' ? 'quran-simple-clean' : 'quran-uthmani');
+            // Use 'quran-uthmani' as base for text content to ensure consistency, 
+            // unless its Indopak which has specific glyphs
+            const edition = fontStyle === 'indopak' ? 'quran-indopak' : 'quran-uthmani';
 
             const response = await fetch(`https://api.alquran.cloud/v1/ayah/${verseId}/editions/${edition},en.asad,${reciter}`);
             if (!response.ok) throw new Error("Failed to fetch");
@@ -74,7 +101,7 @@ export default function QuranWidget({ theme = "dark", isPreview = false, display
                 setVerseData({
                     arabic: data.data[0],
                     english: data.data[1],
-                    audio: data.data[2], // Reciter audio
+                    audio: data.data[2],
                     surah: data.data[0].surah
                 });
             } else {
@@ -114,95 +141,138 @@ export default function QuranWidget({ theme = "dark", isPreview = false, display
         }
     };
 
+    // Inject Font Styles
+    useEffect(() => {
+        if (!document.getElementById(`font-${fontStyle}`)) {
+            const link = document.createElement('link');
+            link.id = `font-${fontStyle}`;
+            link.rel = 'stylesheet';
+            link.href = activeFont.url;
+            document.head.appendChild(link);
+        }
+    }, [fontStyle, activeFont.url]);
+
     if (loading) {
         return (
-            <div className={`${containerClass} rounded-2xl p-8 w-full max-w-full mx-auto shadow-xl flex items-center justify-center min-h-[200px]`}>
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-main"></div>
+            <div className={`${containerClass} rounded-2xl p-8 w-full max-w-full mx-auto flex items-center justify-center min-h-[200px]`}>
+                <div className="relative">
+                    <div className="h-10 w-10 rounded-full border-2 border-neutral-800 border-t-main animate-spin"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="h-2 w-2 bg-main rounded-full animate-pulse"></div>
+                    </div>
+                </div>
             </div>
         );
     }
 
     if (error || !verseData) {
         return (
-            <div className={`${containerClass} rounded-2xl p-8 w-full max-w-full mx-auto shadow-xl flex flex-col items-center justify-center min-h-[200px] gap-4`}>
-                <p className="text-red-500">Failed to load verse.</p>
+            <div className={`${containerClass} rounded-2xl p-8 w-full max-w-full mx-auto flex flex-col items-center justify-center min-h-[200px] gap-4`}>
+                <p className="text-red-500 font-medium">Unable to load verse</p>
                 <button
                     onClick={() => fetchVerse()}
-                    className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 rounded-lg text-sm transition-colors"
+                    className="px-5 py-2 bg-main/10 hover:bg-main/20 text-main rounded-full text-sm transition-colors duration-300 flex items-center gap-2"
                 >
-                    Retry
+                    <RefreshCw size={14} /> Retry
                 </button>
             </div>
         );
     }
 
     return (
-        <div className={`${containerClass} rounded-2xl ${isPreview ? 'p-4' : 'p-6 md:p-8'} w-full max-w-full mx-auto shadow-xl relative group transition-colors duration-300 flex flex-col items-center text-center`}>
-            {/* Header / Actions */}
-            <div className="absolute top-4 right-4 z-20 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
-                {!isPreview && (
-                    <button
-                        onClick={toggleAudio}
-                        title={isPlaying ? "Pause" : "Play"}
-                        className={`p-1.5 rounded-lg transition-colors cursor-pointer ${iconClass} ${isPlaying ? 'text-main animate-pulse' : ''}`}
-                    >
-                        {isPlaying ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                    </button>
-                )}
-                <button
-                    onClick={handleRefresh}
-                    title="Random Verse"
-                    className={`p-1.5 rounded-lg transition-colors cursor-pointer ${iconClass}`}
-                >
-                    <RefreshCw size={16} />
-                </button>
-                <button
-                    onClick={() => window.open(`/${locale}/tools/quran-verse`, '_blank')}
-                    title="Settings"
-                    className={`p-1.5 rounded-lg transition-colors cursor-pointer ${iconClass}`}
-                >
-                    <Settings size={16} />
-                </button>
-            </div>
+        <div className={`relative overflow-hidden rounded-2xl ${containerClass} transition-all duration-300 group`}>
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 30-15 30L0 30z' fill='%23d7b180' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+                    backgroundSize: '30px 30px'
+                }}
+            />
 
-            {/* Decorative Icon - Removed to match minimalist style, or use main color if kept */}
-            <div className={`text-4xl absolute top-6 left-6 font-serif opacity-20 ${arabicTextClass}`}>
-                ۞
-            </div>
+            <div className="relative z-10 flex flex-col h-full">
+                {/* Main Content */}
+                <div className={`${isPreview ? 'p-5 pb-3' : 'p-8 pb-6'} flex-1 flex flex-col items-center justify-center text-center`}>
 
-            {/* Content */}
-            <div className={`w-full ${isPreview ? 'space-y-3' : 'space-y-6'}`}>
-                {/* Arabic Text */}
-                {(displayMode === "both" || displayMode === "arabic") && (
-                    <p
-                        className={`text-2xl md:text-3xl font-bold leading-loose md:leading-loose font-serif ${arabicTextClass}`}
-                        dir="rtl"
-                        style={{ fontFamily: fontFamilies[fontStyle] || fontFamilies.uthmani }}
-                    >
-                        {isPreview && verseData.arabic.text.length > 50 ? verseData.arabic.text.substring(0, 50) + "..." : verseData.arabic.text}
-                    </p>
-                )}
+                    {/* Decorative Header */}
+                    <div className="mb-6 opacity-30 text-main font-serif text-sm tracking-[0.3em] uppercase">
+                        {t('dailyVerseLabel')}
+                    </div>
 
-                {/* Separator */}
-                {!isPreview && displayMode === "both" && <div className="w-16 h-1 bg-main/30 mx-auto rounded-full"></div>}
+                    {/* Arabic Text */}
+                    {(displayMode === "both" || displayMode === "arabic") && (
+                        <div className="relative mb-6 w-full">
+                            <p
+                                className={`text-3xl md:text-4xl leading-[2] md:leading-[2.2] ${arabicTextClass}`}
+                                dir="rtl"
+                                style={{ fontFamily: activeFont.family }}
+                            >
+                                {isPreview && verseData.arabic.text.length > 50 ? verseData.arabic.text.substring(0, 50) + "..." : verseData.arabic.text}
+                            </p>
+                            {/* Decorative End Mark */}
+                            <span className="inline-block mx-2 text-main opacity-80 text-xl">۝</span>
+                        </div>
+                    )}
 
-                {/* Translation */}
-                {(displayMode === "english" || (!isPreview && displayMode === "both")) && (
-                    <p className={`text-base md:text-lg italic leading-relaxed ${translationTextClass}`}>
-                        {isPreview && verseData.english.text.length > 50
-                            ? `"${verseData.english.text.substring(0, 50)}..."`
-                            : `"${verseData.english.text}"`}
-                    </p>
-                )}
+                    {/* Translation */}
+                    {(displayMode === "english" || (!isPreview && displayMode === "both")) && (
+                        <div className={`relative max-w-2xl mx-auto ${displayMode === "both" ? "pt-6 border-t border-dashed border-main/20" : ""}`}>
+                            <p className={`text-base md:text-lg italic font-light leading-relaxed ${translationTextClass}`}>
+                                {isPreview && verseData.english.text.length > 50
+                                    ? `"${verseData.english.text.substring(0, 50)}..."`
+                                    : `"${verseData.english.text}"`}
+                            </p>
+                        </div>
+                    )}
+                </div>
 
-                {/* Reference */}
-                <div className={`text-sm font-medium tracking-wide uppercase mt-4 ${surahInfoClass}`}>
-                    Surah {verseData.surah.englishName} ({verseData.surah.name}) • Verse {verseData.arabic.numberInSurah}
+                {/* Footer Controls */}
+                <div className={`mt-auto ${controlsClass} backdrop-blur-sm px-6 py-3 flex items-center justify-between`}>
+
+                    {/* Verse Info */}
+                    <div className="flex items-center gap-2">
+                        <div className={`flex items-center justify-center w-8 h-8 rounded-full bg-main/10 ${surahInfoClass}`}>
+                            <span className="text-xs font-bold">{verseData.arabic.numberInSurah}</span>
+                        </div>
+                        <div className="text-xs text-left">
+                            <div className={`font-bold uppercase tracking-wider ${surahInfoClass}`}>
+                                {verseData.surah.englishName}
+                            </div>
+                            <div className="opacity-60 font-serif">
+                                {verseData.surah.name}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-1 md:gap-2">
+                        {!isPreview && (
+                            <button
+                                onClick={toggleAudio}
+                                className={`p-2 rounded-full transition-all duration-300 ${buttonHoverClass} ${isPlaying ? 'text-main bg-main/10' : ''}`}
+                                title={isPlaying ? "Pause Recitation" : "Play Recitation"}
+                            >
+                                {isPlaying ? <Pause size={16} fill="currentColor" /> : <Play size={16} fill="currentColor" />}
+                            </button>
+                        )}
+
+                        <button
+                            onClick={handleRefresh}
+                            className={`p-2 rounded-full transition-all duration-300 ${buttonHoverClass}`}
+                            title="New Verse"
+                        >
+                            <RefreshCw size={16} />
+                        </button>
+
+                        <button
+                            onClick={() => window.open(`/${locale}/tools/quran-verse`, '_blank')}
+                            className={`p-2 rounded-full transition-all duration-300 ${buttonHoverClass}`}
+                            title="Widget Settings"
+                        >
+                            <Settings size={16} />
+                        </button>
+                    </div>
                 </div>
             </div>
-
-            {/* Hover gradient effect similar to Quote Widget */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-main via-tertiary to-main opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
         </div>
     );
 }

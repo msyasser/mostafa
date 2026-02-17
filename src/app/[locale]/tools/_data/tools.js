@@ -54,7 +54,10 @@ export const tools = [
                 options: [
                     { value: "uthmani", labelKey: "uthmaniSimple" },
                     { value: "indopak", labelKey: "indopak" },
-                    { value: "clean", labelKey: "cleanNoDiacritics" }
+                    { value: "clean", labelKey: "cleanNoDiacritics" },
+                    { value: "ruqaa", labelKey: "ruqaa" },
+                    { value: "kufi", labelKey: "kufi" },
+                    { value: "messiri", labelKey: "messiri" }
                 ]
             }
         ]
