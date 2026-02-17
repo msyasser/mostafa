@@ -7,6 +7,7 @@ import HabitTracker from "@/src/components/widgets/HabitTracker";
 import AssetTracker from "@/src/components/widgets/AssetTracker";
 import WeatherWidget from "@/src/components/widgets/WeatherWidget";
 import StudyPlanner from "@/src/components/widgets/StudyPlanner";
+import QuranWidget from "@/src/components/widgets/QuranWidget";
 
 export const tools = [
     {
@@ -14,6 +15,12 @@ export const tools = [
         titleKey: "pomodoroTitle",
         descriptionKey: "pomodoroDesc",
         component: PomodoroWidget,
+    },
+    {
+        slug: "quran-verse",
+        titleKey: "dailyQuranTitle",
+        descriptionKey: "dailyQuranDesc",
+        component: QuranWidget,
     },
     {
         slug: "ramadan-prayers",

@@ -22,7 +22,7 @@ export default function ToolsGallery() {
                             </Link>
                             <p className="text-gray-400 text-sm">{t(widget.descriptionKey)}</p>
                         </div>
-                        <div className="flex justify-center w-full">
+                        <div className="flex justify-center w-full max-h-[300px] overflow-y-auto category-scrollbar pr-2">
                             <widget.component isPreview={true} />
                         </div>
                     </div>
