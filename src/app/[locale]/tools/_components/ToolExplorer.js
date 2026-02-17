@@ -23,6 +23,11 @@ export default function ToolExplorer({ slug }) {
         } else if (slug === 'event-countdown') {
             initial.date = localStorage.getItem('countdownDate') || "2026-12-31T23:59";
             initial.title = localStorage.getItem('countdownTitle') || "New Year's Eve";
+        } else if (slug === 'quran-verse') {
+        } else if (slug === 'quran-verse') {
+            initial.displayMode = localStorage.getItem('quranDisplayMode') || "both";
+            initial.reciter = localStorage.getItem('quranReciter') || "ar.alafasy";
+            initial.fontStyle = localStorage.getItem('quranFontStyle') || "uthmani";
         }
         setConfigValues(initial);
     }, [slug]);
@@ -35,6 +40,11 @@ export default function ToolExplorer({ slug }) {
         if (slug === 'event-countdown') {
             if (key === 'date') localStorage.setItem('countdownDate', value);
             if (key === 'title') localStorage.setItem('countdownTitle', value);
+        }
+        if (slug === 'quran-verse') {
+            if (key === 'displayMode') localStorage.setItem('quranDisplayMode', value);
+            if (key === 'reciter') localStorage.setItem('quranReciter', value);
+            if (key === 'fontStyle') localStorage.setItem('quranFontStyle', value);
         }
     };
 
@@ -55,7 +65,11 @@ export default function ToolExplorer({ slug }) {
         } else if (slug === 'weather-widget' && configValues.city) {
             url += `&city=${encodeURIComponent(configValues.city)}`;
         } else if (slug === 'event-countdown') {
-            url += `&date=${encodeURIComponent(configValues.date || "")}&title=${encodeURIComponent(configValues.title || "")}`;
+        } else if (slug === 'quran-verse') {
+        } else if (slug === 'quran-verse') {
+            if (configValues.displayMode) url += `&displayMode=${configValues.displayMode}`;
+            if (configValues.reciter) url += `&reciter=${configValues.reciter}`;
+            if (configValues.fontStyle) url += `&fontStyle=${configValues.fontStyle}`;
         }
 
         navigator.clipboard.writeText(url).then(() => {
@@ -108,17 +122,38 @@ export default function ToolExplorer({ slug }) {
                                                     {t(item.labelKey)}
                                                 </label>
                                                 <div className="relative border-2 border-neutral-800 rounded-2xl bg-black/40 group-focus-within:border-main/50 transition-all overflow-hidden shadow-sm">
-                                                    <input
-                                                        type={item.type}
-                                                        value={configValues[item.key] || ""}
-                                                        onChange={(e) => handleConfigChange(item.key, e.target.value)}
-                                                        placeholder={item.placeholder}
-                                                        className={`
-                                                            w-full bg-transparent px-5 py-4 text-white font-medium focus:outline-none 
+                                                    {item.type !== 'select' ? (
+                                                        <input
+                                                            type={item.type}
+                                                            value={configValues[item.key] || ""}
+                                                            onChange={(e) => handleConfigChange(item.key, e.target.value)}
+                                                            placeholder={item.placeholder}
+                                                            className={`
+                                                                w-full bg-transparent px-5 py-4 text-white font-medium focus:outline-none 
                                                             [color-scheme:dark] transition-all placeholder:text-neutral-700
                                                             ${item.type === 'datetime-local' ? 'cursor-pointer uppercase text-xs tracking-widest' : ''}
                                                         `}
-                                                    />
+                                                        />
+                                                    ) : (
+                                                        <select
+                                                            value={configValues[item.key] || item.defaultValue || ""}
+                                                            onChange={(e) => handleConfigChange(item.key, e.target.value)}
+                                                            className="w-full bg-neutral-900 px-5 py-4 text-white font-medium focus:outline-none [color-scheme:dark] transition-all cursor-pointer appearance-none rounded-2xl"
+                                                        >
+                                                            {item.options.map((opt) => (
+                                                                <option key={opt.value} value={opt.value} className="bg-neutral-900 text-white">
+                                                                    {t(opt.labelKey)}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                    )}
+                                                    {item.type === 'select' && (
+                                                        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
+                                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                            </svg>
+                                                        </div>
+                                                    )}
                                                     {item.type === 'datetime-local' && (
                                                         <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none opacity-20">
                                                             <Calendar size={16} />
@@ -221,6 +256,9 @@ export default function ToolExplorer({ slug }) {
                         defaultCity={configValues.city}
                         initialTitle={configValues.title}
                         initialDate={configValues.date}
+                        displayMode={configValues.displayMode}
+                        reciter={configValues.reciter}
+                        fontStyle={configValues.fontStyle}
                         isExplorer={true}
                     />
                 </div>

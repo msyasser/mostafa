@@ -21,6 +21,43 @@ export const tools = [
         titleKey: "dailyQuranTitle",
         descriptionKey: "dailyQuranDesc",
         component: QuranWidget,
+        config: [
+            {
+                key: "displayMode",
+                type: "select",
+                labelKey: "displayMode",
+                defaultValue: "both",
+                options: [
+                    { value: "both", labelKey: "bothLanguages" },
+                    { value: "arabic", labelKey: "arabicOnly" },
+                    { value: "english", labelKey: "englishOnly" }
+                ]
+            },
+            {
+                key: "reciter",
+                type: "select",
+                labelKey: "selectReciter",
+                defaultValue: "ar.alafasy",
+                options: [
+                    { value: "ar.alafasy", labelKey: "misharyAlafasy" },
+                    { value: "ar.abdulbasitmurattal", labelKey: "abdulBasit" },
+                    { value: "ar.hudhaify", labelKey: "alHudhaify" },
+                    { value: "ar.husary", labelKey: "alHusary" },
+                    { value: "ar.minshawi", labelKey: "alMinshawi" }
+                ]
+            },
+            {
+                key: "fontStyle",
+                type: "select",
+                labelKey: "fontStyle",
+                defaultValue: "uthmani",
+                options: [
+                    { value: "uthmani", labelKey: "uthmaniSimple" },
+                    { value: "indopak", labelKey: "indopak" },
+                    { value: "clean", labelKey: "cleanNoDiacritics" }
+                ]
+            }
+        ]
     },
     {
         slug: "ramadan-prayers",

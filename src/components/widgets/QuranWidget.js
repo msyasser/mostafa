@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useLocale } from "next-intl";
-import { Settings, RefreshCw } from "lucide-react";
+import { Settings, RefreshCw, Volume2, VolumeX } from "lucide-react";
 
 // Function to get a random verse ID seeded by the date for "Daily" consistency
 // Total verses in Quran: 6236
@@ -24,13 +24,15 @@ const getDailyVerseId = () => {
     return (Math.abs(hash) % 6236) + 1;
 };
 
-export default function QuranWidget({ theme = "dark", isPreview = false }) {
+export default function QuranWidget({ theme = "dark", isPreview = false, displayMode = "both", reciter = "ar.alafasy", fontStyle = "uthmani" }) {
     const locale = useLocale();
     const isDark = theme === "dark";
+    const audioRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     // Theme classes
     const containerClass = isDark
-        ? "bg-neutral-900 border border-neutral-800 text-white"
+        ? "bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 text-white group-hover:border-main/30 transition-colors duration-500"
         : "bg-white border border-gray-200 text-black";
 
     const arabicTextClass = isDark ? "text-white" : "text-black";
@@ -42,22 +44,37 @@ export default function QuranWidget({ theme = "dark", isPreview = false }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-
+    // Font Styles Map
+    const fontFamilies = {
+        uthmani: "'Amiri', 'Scheherazade New', serif",
+        indopak: "'Noto Nastaliq Urdu', serif", // Requires font import if not available, fallback to serif
+        clean: "'Tajawal', sans-serif"
+    };
 
     const fetchVerse = useCallback(async (id = null) => {
         setLoading(true);
         setError(false);
+        setIsPlaying(false);
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+            audioRef.current = null;
+        }
+
         try {
             const verseId = id || getDailyVerseId();
-            // Fetch Arabic (quran-uthmani) and English (en.asad) editions
-            const response = await fetch(`https://api.alquran.cloud/v1/ayah/${verseId}/editions/quran-uthmani,en.asad`);
+            // Fetch Arabic (quran-uthmani), English (en.asad) and Audio
+            const edition = fontStyle === 'indopak' ? 'quran-indopak' : (fontStyle === 'clean' ? 'quran-simple-clean' : 'quran-uthmani');
+
+            const response = await fetch(`https://api.alquran.cloud/v1/ayah/${verseId}/editions/${edition},en.asad,${reciter}`);
             if (!response.ok) throw new Error("Failed to fetch");
 
             const data = await response.json();
-            if (data.status === "OK" && data.data && data.data.length >= 2) {
+            if (data.status === "OK" && data.data && data.data.length >= 3) {
                 setVerseData({
                     arabic: data.data[0],
                     english: data.data[1],
+                    audio: data.data[2], // Reciter audio
                     surah: data.data[0].surah
                 });
             } else {
@@ -69,17 +86,32 @@ export default function QuranWidget({ theme = "dark", isPreview = false }) {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [reciter, fontStyle]);
 
     useEffect(() => {
         fetchVerse();
     }, [fetchVerse]);
 
     const handleRefresh = (e) => {
-        e.stopPropagation(); // Prevent opening the link if there was one
-        // Pick a random verse for "shuffle" functionality
+        e.stopPropagation();
         const randomId = Math.floor(Math.random() * 6236) + 1;
         fetchVerse(randomId);
+    };
+
+    const toggleAudio = (e) => {
+        e.stopPropagation();
+        if (!audioRef.current && verseData?.audio?.audio) {
+            audioRef.current = new Audio(verseData.audio.audio);
+            audioRef.current.onended = () => setIsPlaying(false);
+        }
+
+        if (isPlaying) {
+            audioRef.current.pause();
+            setIsPlaying(false);
+        } else {
+            audioRef.current.play();
+            setIsPlaying(true);
+        }
     };
 
     if (loading) {
@@ -108,6 +140,15 @@ export default function QuranWidget({ theme = "dark", isPreview = false }) {
         <div className={`${containerClass} rounded-2xl ${isPreview ? 'p-4' : 'p-6 md:p-8'} w-full max-w-full mx-auto shadow-xl relative group transition-colors duration-300 flex flex-col items-center text-center`}>
             {/* Header / Actions */}
             <div className="absolute top-4 right-4 z-20 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                {!isPreview && (
+                    <button
+                        onClick={toggleAudio}
+                        title={isPlaying ? "Pause" : "Play"}
+                        className={`p-1.5 rounded-lg transition-colors cursor-pointer ${iconClass} ${isPlaying ? 'text-main animate-pulse' : ''}`}
+                    >
+                        {isPlaying ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                    </button>
+                )}
                 <button
                     onClick={handleRefresh}
                     title="Random Verse"
@@ -132,21 +173,25 @@ export default function QuranWidget({ theme = "dark", isPreview = false }) {
             {/* Content */}
             <div className={`w-full ${isPreview ? 'space-y-3' : 'space-y-6'}`}>
                 {/* Arabic Text */}
-                <p
-                    className={`text-2xl md:text-3xl font-bold leading-loose md:leading-loose font-serif ${arabicTextClass}`}
-                    dir="rtl"
-                    style={{ fontFamily: "'Amiri', 'Scheherazade New', serif" }} // Fallback fonts commonly used for Arabic
-                >
-                    {isPreview && verseData.arabic.text.length > 50 ? verseData.arabic.text.substring(0, 50) + "..." : verseData.arabic.text}
-                </p>
+                {(displayMode === "both" || displayMode === "arabic") && (
+                    <p
+                        className={`text-2xl md:text-3xl font-bold leading-loose md:leading-loose font-serif ${arabicTextClass}`}
+                        dir="rtl"
+                        style={{ fontFamily: fontFamilies[fontStyle] || fontFamilies.uthmani }}
+                    >
+                        {isPreview && verseData.arabic.text.length > 50 ? verseData.arabic.text.substring(0, 50) + "..." : verseData.arabic.text}
+                    </p>
+                )}
 
                 {/* Separator */}
-                {!isPreview && <div className="w-16 h-1 bg-main/30 mx-auto rounded-full"></div>}
+                {!isPreview && displayMode === "both" && <div className="w-16 h-1 bg-main/30 mx-auto rounded-full"></div>}
 
                 {/* Translation */}
-                {!isPreview && (
+                {(displayMode === "english" || (!isPreview && displayMode === "both")) && (
                     <p className={`text-base md:text-lg italic leading-relaxed ${translationTextClass}`}>
-                        &quot;{verseData.english.text}&quot;
+                        {isPreview && verseData.english.text.length > 50
+                            ? `"${verseData.english.text.substring(0, 50)}..."`
+                            : `"${verseData.english.text}"`}
                     </p>
                 )}
 
