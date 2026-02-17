@@ -18,6 +18,7 @@ export default function ToolExplorer({ slug }) {
         const initial = {};
         if (slug === 'ramadan-prayers') {
             initial.city = localStorage.getItem('savedCity') || "Cairo";
+            initial.lang = localStorage.getItem('ramadanLang') || "en";
         } else if (slug === 'weather-widget') {
             initial.city = localStorage.getItem('weatherCity') || "Cairo";
         } else if (slug === 'event-countdown') {
@@ -29,12 +30,15 @@ export default function ToolExplorer({ slug }) {
             initial.fontStyle = localStorage.getItem('quranFontStyle') || "uthmani";
         }
         setConfigValues(initial);
-    }, [slug]);
+    }, [slug, locale]);
 
     const handleConfigChange = (key, value) => {
         setConfigValues(prev => ({ ...prev, [key]: value }));
         // Sync to localStorage for consistency
-        if (slug === 'ramadan-prayers' && key === 'city') localStorage.setItem('savedCity', value);
+        if (slug === 'ramadan-prayers') {
+            if (key === 'city') localStorage.setItem('savedCity', value);
+            if (key === 'lang') localStorage.setItem('ramadanLang', value);
+        }
         if (slug === 'weather-widget' && key === 'city') localStorage.setItem('weatherCity', value);
         if (slug === 'event-countdown') {
             if (key === 'date') localStorage.setItem('countdownDate', value);
@@ -57,7 +61,9 @@ export default function ToolExplorer({ slug }) {
 
     const handleCopy = () => {
         const origin = window.location.origin;
-        let url = `${origin}/embed/${locale}/${slug}?theme=${theme}`;
+        // Use selected language for the embed URL if available, otherwise default to current page locale
+        const targetLocale = (slug === 'ramadan-prayers' && configValues.lang) ? configValues.lang : locale;
+        let url = `${origin}/embed/${targetLocale}/${slug}?theme=${theme}`;
 
         if (toolData.config) {
             toolData.config.forEach(configItem => {

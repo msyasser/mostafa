@@ -65,7 +65,17 @@ export const tools = [
         descriptionKey: "ramadanPrayersDesc",
         component: RamadanPrayers,
         config: [
-            { key: "city", type: "text", labelKey: "enterCity", placeholder: "Cairo, London..." }
+            { key: "city", type: "text", labelKey: "enterCity", placeholder: "Cairo, London..." },
+            {
+                key: "lang",
+                type: "select",
+                labelKey: "selectLanguage",
+                defaultValue: "en",
+                options: [
+                    { value: "ar", labelKey: "arabic" },
+                    { value: "en", labelKey: "english" }
+                ]
+            }
         ]
     },
     {
