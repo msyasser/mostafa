@@ -56,7 +56,7 @@ export const tools = [
         ]
     },
     {
-        slug: "life-progress",
+        slug: "year-progress",
         titleKey: "lifeProgressTitle",
         descriptionKey: "lifeProgressDesc",
         component: LifeProgressWidget,

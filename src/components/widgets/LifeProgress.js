@@ -59,10 +59,10 @@ export default function LifeProgressWidget({ theme = "dark" }) {
         <div className={`${containerClass} rounded-2xl p-6 w-full max-w-full mx-auto shadow-xl space-y-4 transition-colors duration-300 relative group`}>
             <div className="flex justify-between items-center mb-2">
                 <h3 className={`text-xl font-bold ${titleClass}`}>
-                    Progress
+                    Year Progress
                 </h3>
                 <button
-                    onClick={() => window.open(`/${locale}/tools/life-progress`, '_blank')}
+                    onClick={() => window.open(`/${locale}/tools/year-progress`, '_blank')}
                     className="p-1.5 hover:bg-neutral-800/50 rounded-lg transition-colors text-neutral-500 hover:text-white cursor-pointer opacity-0 group-hover:opacity-100"
                 >
                     <Settings size={16} />
