@@ -104,7 +104,12 @@ export default function RamadanPrayers({ theme = "dark", defaultCity = "", isPre
     const formatTime = (timeStr) => {
         if (!timeStr) return "--:--";
         const [hours, minutes] = timeStr.split(":").map(Number);
-        const period = hours >= 12 ? "PM" : "AM";
+
+        let period = hours >= 12 ? "PM" : "AM";
+        if (isArabic) {
+            period = hours >= 12 ? "م" : "ص";
+        }
+
         const h = hours % 12 || 12;
         return `${h}:${minutes.toString().padStart(2, "0")} ${period}`;
     };
