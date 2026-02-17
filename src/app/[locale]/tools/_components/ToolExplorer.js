@@ -24,7 +24,6 @@ export default function ToolExplorer({ slug }) {
             initial.date = localStorage.getItem('countdownDate') || "2026-12-31T23:59";
             initial.title = localStorage.getItem('countdownTitle') || "New Year's Eve";
         } else if (slug === 'quran-verse') {
-        } else if (slug === 'quran-verse') {
             initial.displayMode = localStorage.getItem('quranDisplayMode') || "both";
             initial.reciter = localStorage.getItem('quranReciter') || "ar.alafasy";
             initial.fontStyle = localStorage.getItem('quranFontStyle') || "uthmani";
@@ -65,7 +64,8 @@ export default function ToolExplorer({ slug }) {
         } else if (slug === 'weather-widget' && configValues.city) {
             url += `&city=${encodeURIComponent(configValues.city)}`;
         } else if (slug === 'event-countdown') {
-        } else if (slug === 'quran-verse') {
+            if (configValues.date) url += `&date=${encodeURIComponent(configValues.date)}`;
+            if (configValues.title) url += `&title=${encodeURIComponent(configValues.title)}`;
         } else if (slug === 'quran-verse') {
             if (configValues.displayMode) url += `&displayMode=${configValues.displayMode}`;
             if (configValues.reciter) url += `&reciter=${configValues.reciter}`;
