@@ -2271,5 +2271,177 @@
         }
       ]
     }
+  },
+  "Ramadan Competition": {
+    "homeSec": {
+      "logoURL": "/premiumTemplates/ramadan-competition-ar/Ramadan-Competition.webp",
+      "title": "شارك وتنافس في الخيرات مع مسابقة رمضان",
+      "description": "نظام تفاعلي شامل لإدارة ومتابعة مسابقات رمضان، مصمم لتحفيز المشاركة وتعزيز الروح الرمضانية.",
+      "heroImageURL": "/premiumTemplates/ramadan-competition-ar/heroImage.webp",
+      "dashboardButtonText": "لوحة التحكم"
+    },
+    "dashboardSec": {
+      "title": "نظرة شاملة على المسابقة",
+      "description": "تابع ترتيب المشاركين، النقاط، والتقدم في الوقت الفعلي من خلال لوحة تحكم مركزية.",
+      "dashboardImageURL": "/premiumTemplates/ramadan-competition-ar/Dashboard.webp"
+    },
+    "essentialsSec": {
+      "title": "كل ما تحتاجه لإدارة المسابقة",
+      "description": "اكتشف الأدوات والميزات التي تجعل تنظيم ومتابعة مسابقة رمضان أسهل وأكثر فاعلية.",
+      "features": {
+        "0": {
+          "title": "نظام نقاط ذكي",
+          "description": "خصص نقاطًا للصلوات، والصيام، والأعمال الصالحة—لتفصيل التحدي بما يناسب أهداف مجموعتك بدقة."
+        },
+        "1": {
+          "title": "لوحات متصدرين حية",
+          "description": "تعرف فوراً على من يتصدر السباق اليومي والماراثون الشهري، للحفاظ على الحماس وروح المنافسة."
+        },
+        "2": {
+          "title": "لوحة تحكم شخصية",
+          "description": "يحصل كل متسابق على مساحة مركزية لمتابعة تقدمه، وعرض مواقيت الصلاة، ورؤية إحصائياته الخاصة."
+        },
+        "3": {
+          "title": "سجل السباق المباشر",
+          "description": "راجع الفائزين اليوميين وسلاسل الاستمرارية للاحتفاء بكل إنجاز وضمان تقدير كل مجهود."
+        }
+      }
+    },
+    "walkthroughSec": {
+      "title": "جولة داخل المسابقة",
+      "description": "تعرف على كيفية عمل النظام وكيفية المشاركة والتفاعل.",
+      "rowBlocks": {
+        "0": {
+          "title": "نظام تتبع مرن وقابل للتخصيص",
+          "description": "سجّل عباداتك يومياً على تقويم مرئي، وتحكّم بالكامل في نظام النقاط لتخصيص التجربة بما يناسب أهداف مجموعتك وإيقاعها الخاص.",
+          "image": "/premiumTemplates/ramadan-competition-ar/designs/1.webp",
+          "reverse": false
+        },
+        "1": {
+          "title": "مساحتك الخاصة للنمو",
+          "description": "راقب استمراريتك طوال الشهر الفضيل، وتابع إحصائياتك الشخصية، وترتيبك الحالي، وعدد مرات فوزك في شاشة واحدة مركزة.",
+          "image": "/premiumTemplates/ramadan-competition-ar/designs/2.webp",
+          "reverse": true
+        },
+        "2": {
+          "title": "مجتمع تنافسي وتفاعلي",
+          "description": "أشعل روح المنافسة بلوحات صدارة مباشرة (Leaderboards)، وملفات شخصية تفاعلية، وسباقات يومية تحافظ على الحماس عالياً حتى ليلة العيد.",
+          "image": "/premiumTemplates/ramadan-competition-ar/designs/3.webp",
+          "reverse": false
+        }
+      }
+    },
+    "databasesSec": {
+      "title": "البنية التحتية للمسابقة",
+      "description": "قواعد بيانات مترابطة لضمان سلاسة العمل وتنظيم المعلومات.",
+      "features": {
+        "0": {
+          "title": "العبادات اليومية",
+          "description": "سجّل رحلتك الرمضانية الشخصية وراقب أداء الشهر بالكامل في لمحة واحدة، مع تتبع دقيق للاستمرارية.",
+          "image": "/premiumTemplates/ramadan-competition-ar/screenshots/2.webp"
+        },
+        "1": {
+          "title": "المتسابقون",
+          "description": "اطلع على جميع المشاركين في مكان واحد، مع ملفات شخصية مفصلة تعرض الترتيب الحالي، وسجل النقاط.",
+          "image": "/premiumTemplates/ramadan-competition-ar/screenshots/3.webp"
+        },
+        "2": {
+          "title": "لوحة اللاعب",
+          "description": "مركز قيادتك المخصص؛ يضم مواقيت الصلاة المباشرة، وشبكة تقدمك الشخصي، ونظرة على ترتيبك.",
+          "image": "/premiumTemplates/ramadan-competition-ar/screenshots/4.webp"
+        },
+        "3": {
+          "title": "الإعدادات",
+          "description": "تحكم في آليات المسابقة بالكامل عبر تخصيص نقاط محددة للصلوات والصيام بما يناسب مجموعتك.",
+          "image": "/premiumTemplates/ramadan-competition-ar/screenshots/5.webp"
+        },
+        "4": {
+          "title": "السباق",
+          "description": "أشعل روح التنافس بلوحات صدارة مباشرة تتبع السباقات اليومية وماراثون رمضان الكامل.",
+          "image": "/premiumTemplates/ramadan-competition-ar/screenshots/1.webp"
+        }
+      }
+    },
+    "pricingSec": {
+      "title": "اختر خطتك",
+      "description": "باقات تناسب الجميع.",
+      "plans": {
+        "basic": {
+          "label": "مجاني",
+          "description": "تتبع رحلتك الرمضانية الشخصية.",
+          "price": "مجاني",
+          "features": [
+            "لوحة تحكم شخصية",
+            "تتبع العبادات اليومية",
+            "إحصائيات التقدم"
+          ],
+          "missingFeatures": [
+            "ميزات المسابقة",
+            "لوحة المتصدرين الحية",
+            "إدارة المجموعات",
+            "أدوات التحكم للمنظم"
+          ],
+          "button": "شارك الآن",
+          "buttonLink": "https://www.notion.so/marketplace/templates/ramadan-tracker-931"
+        },
+        "more-advanced": {
+          "label": "بريميوم",
+          "description": "كل ما تحتاجه لإدارة مسابقة رمضانية ناجحة.",
+          "price": "$0",
+          "oldPrice": "$20",
+          "features": [
+            "نظام مسابقة متكامل",
+            "لوحات المتصدرين الحية",
+            "نظام نقاط ذكي",
+            "إدارة المشاركين",
+            "ترتيب تلقائي",
+            "فائزين يومي وشهري"
+          ],
+          "button": "احصل عليه الآن",
+          "buttonLink": "https://www.notion.so/templates/ramadan-competition",
+          "badge": "الأكثر طلباً"
+        }
+      }
+    },
+    "faqSec": {
+      "title": "الأسئلة الشائعة",
+      "faqs": [
+        {
+          "question": "ما هو نوشن؟",
+          "answer": "نوشن هو مساحة العمل الرقمية الشاملة — عقل ثاني حيث يمكنك تنظيم الملاحظات والمهام والأهداف والعادات وكل شيء بينهما."
+        },
+        {
+          "question": "كيف أحصل على الوصول للقالب؟",
+          "answer": "بمجرد إكمال عملية الشراء، ستحصل فورًا على بريد إلكتروني يحتوي على رابط لنسخ قالب مسابقة رمضان إلى مساحة عمل نوشن الخاصة بك."
+        },
+        {
+          "question": "هل أحتاج إلى حساب نوشن مدفوع؟",
+          "answer": "لا. يمكنك استخدام القالب مع خطة نوشن المجانية."
+        },
+        {
+          "question": "هل سأعرف كيفية استخدامه؟",
+          "answer": "نعم. يأتي مع إرشادات مفصلة لتوجيهك خلال كل شيء خطوة بخطوة."
+        },
+        {
+          "question": "هل يستحق السعر؟",
+          "answer": "بالتأكيد. توفر ساعات من بناء نظام مسابقات معقد من الصفر وتمتلك لوحة تحكم مصممة بشكل احترافي جاهزة للاستخدام فورًا."
+        },
+        {
+          "question": "ما هي سياسة الاسترداد الخاصة بك؟",
+          "answer": "يمكنك طلب استرداد خلال 14 يوماً من الشراء وفقاً لسياسة استرداد سوق نوشن."
+        },
+        {
+          "question": "لا تزال لديك أسئلة؟",
+          "answer": "راسلني على contact@mostafayasser.com أو راسلني على تويتر في أي وقت."
+        }
+      ]
+    },
+    "name": "مسابقة رمضان",
+    "description": "قالب شامل لإدارة وتنظيم مسابقات رمضان التفاعلية.",
+    "price": "$0",
+    "checkout": "احصل على القالب",
+    "checkoutLink": "https://www.notion.so/templates/ramadan-competition",
+    "moreDetails": "مزيد من التفاصيل",
+    "image": "/thumbnails/ARThumbnails/51.webp"
   }
 }

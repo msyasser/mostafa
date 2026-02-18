@@ -135,6 +135,12 @@ const iconsMap = {
     Calendar,        // Prayer Times Widget
     BarChart3,       // Spiritual Dashboard
   ],
+  "ramadan-competition": [
+    Star,            // Smart Point System
+    Trophy,          // Live Leaderboards
+    LayoutDashboard, // Personal Dashboard
+    CalendarDays,    // Daily Race History
+  ],
 };
 
 function Essentials({ template }) {

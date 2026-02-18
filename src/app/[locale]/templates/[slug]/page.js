@@ -45,6 +45,8 @@ export async function generateMetadata({ params }) {
     faviconPath = "/favicons/quran-tracker.webp";
   } else if (slug === "ibadat-hub") {
     faviconPath = "/favicons/ibadat-hub.webp";
+  } else if (slug === "ramadan-competition") {
+    faviconPath = "/favicons/ramadan-competition.webp";
   }
 
   return {
@@ -125,7 +127,8 @@ export default async function TemplateDetails({ params }) {
     template.slug === "second-brain-muslim-edition" ||
     template.slug === "finance-hub" ||
     template.slug === "quranhub" ||
-    template.slug === "ibadat-hub"
+    template.slug === "ibadat-hub" ||
+    template.slug === "ramadan-competition"
   ) {
     return <PremiumPage template={template} />;
   }

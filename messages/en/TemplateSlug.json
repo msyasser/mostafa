@@ -2270,5 +2270,177 @@
         }
       ]
     }
+  },
+  "Ramadan Competition": {
+    "homeSec": {
+      "logoURL": "/premiumTemplates/ramadan-competition/Ramadan-Competition.webp",
+      "title": "Compete and Connect this Ramadan",
+      "description": "An interactive system to manage and track Ramadan competitions, designed to boost engagement and spiritual growth.",
+      "heroImageURL": "/premiumTemplates/ramadan-competition/heroImage.webp",
+      "dashboardButtonText": "Dashboard"
+    },
+    "dashboardSec": {
+      "title": "Competition Overview",
+      "description": "Track participants, points, and real-time progress from a central dashboard.",
+      "dashboardImageURL": "/premiumTemplates/ramadan-competition/Dashboard.webp"
+    },
+    "essentialsSec": {
+      "title": "Everything You Need to Manage",
+      "description": "Discover the tools and features that make organizing Ramadan competitions easier and more effective.",
+      "features": {
+        "0": {
+          "title": "Smart Point System",
+          "description": "Assign custom points to prayers, fasting, and deeds—tailoring the challenge to your group’s goals with precision."
+        },
+        "1": {
+          "title": "Live Leaderboards",
+          "description": "Instantly see who’s leading the daily sprint and the monthly marathon, keeping the competitive spirit alive."
+        },
+        "2": {
+          "title": "Personal Dashboard",
+          "description": "Every racer gets a dedicated hub to track their own progress, view prayer times, and monitor their personal stats."
+        },
+        "3": {
+          "title": "Daily Race History",
+          "description": "Look back at daily winners and track consistency streaks to ensure no good deed goes unnoticed."
+        }
+      }
+    },
+    "walkthroughSec": {
+      "title": "Walkthrough",
+      "description": "Learn how the system works and how to participate.",
+      "rowBlocks": {
+        "0": {
+          "title": "Tailored Tracking System",
+          "description": "Log your daily deeds on a visual calendar and fully customize the point system to perfectly match your group’s goals and pace.",
+          "image": "/premiumTemplates/ramadan-competition/designs/1.webp",
+          "reverse": false
+        },
+        "1": {
+          "title": "Personal Growth Hub",
+          "description": "Visualize your consistency across the holy month and monitor your personal stats, rank, and race wins in one focused view.",
+          "image": "/premiumTemplates/ramadan-competition/designs/2.webp",
+          "reverse": true
+        },
+        "2": {
+          "title": "Gamified Community",
+          "description": "Ignite the competitive spirit with real-time leaderboards, dynamic player profiles, and daily races that keep motivation high till Eid.",
+          "image": "/premiumTemplates/ramadan-competition/designs/3.webp",
+          "reverse": false
+        }
+      }
+    },
+    "databasesSec": {
+      "title": "Infrastructure",
+      "description": "Interconnected databases for smooth operation.",
+      "features": {
+        "0": {
+          "title": "Daily Ibadat",
+          "description": "Log your daily worship journey and view your entire month at a glance, tracking consistency and total points earned for every day of Ramadan.",
+          "image": "/premiumTemplates/ramadan-competition/screenshots/2.webp"
+        },
+        "1": {
+          "title": "Competitors",
+          "description": "View all participants in one place with detailed player profiles displaying current rank, total points history, and race victory stats.",
+          "image": "/premiumTemplates/ramadan-competition/screenshots/3.webp"
+        },
+        "2": {
+          "title": "Player Dashboard",
+          "description": "Your dedicated command center featuring live prayer times, your personal progress grid, and a focused view of your current standing.",
+          "image": "/premiumTemplates/ramadan-competition/screenshots/4.webp"
+        },
+        "3": {
+          "title": "Settings",
+          "description": "Customize the competition mechanics by assigning specific point values to prayers, fasting, and deeds to perfectly tailor the challenge to your group.",
+          "image": "/premiumTemplates/ramadan-competition/screenshots/5.webp"
+        },
+        "4": {
+          "title": "The Race",
+          "description": "Fuel the competitive spirit with real-time leaderboards that track both daily sprints and the overall Ramadan marathon to keep everyone motivated.",
+          "image": "/premiumTemplates/ramadan-competition/screenshots/1.webp"
+        }
+      }
+    },
+    "pricingSec": {
+      "title": "Choose Your Plan",
+      "description": "Plans for everyone.",
+      "plans": {
+        "basic": {
+          "label": "Free",
+          "description": "Track your personal Ramadan journey.",
+          "price": "Free",
+          "features": [
+            "Personal Dashboard",
+            "Daily Ritual Tracking",
+            "Progress Analytics"
+          ],
+          "missingFeatures": [
+            "Competition Features",
+            "Live Leaderboards",
+            "Group Management",
+            "Admin Controls"
+          ],
+          "button": "Join Now",
+          "buttonLink": "https://www.notion.so/marketplace/templates/ramadan-tracker-931"
+        },
+        "more-advanced": {
+          "label": "Premium",
+          "description": "Everything you need to run a Ramadan competition.",
+          "price": "$0",
+          "oldPrice": "$20",
+          "features": [
+            "Complete Competition System",
+            "Live Leaderboards",
+            "Smart Point System",
+            "Participant Management",
+            "Automated Ranking",
+            "Daily & Monthly Winners"
+          ],
+          "button": "Get it Now",
+          "buttonLink": "https://www.notion.so/templates/ramadan-competition",
+          "badge": "Most Popular"
+        }
+      }
+    },
+    "faqSec": {
+      "title": "FAQs",
+      "faqs": [
+        {
+          "question": "What is Notion?",
+          "answer": "Notion is your all-in-one digital workspace — a second brain where you can organize notes, tasks, courses, goals, and everything in between."
+        },
+        {
+          "question": "How do I get access to the template?",
+          "answer": "Once you complete your purchase, you'll instantly receive an email with a link to duplicate the Ramadan Competition template to your Notion workspace."
+        },
+        {
+          "question": "Do I need a paid Notion account?",
+          "answer": "No. You can use this template with Notion's free plan."
+        },
+        {
+          "question": "Will I know how to use it?",
+          "answer": "Yes. It comes with detailed guidelines to walk you through everything step-by-step."
+        },
+        {
+          "question": "Is it worth the price?",
+          "answer": "Definitely. You save hours building a complex gamified system from scratch and get a professionally designed dashboard ready to use immediately."
+        },
+        {
+          "question": "What is your refund policy?",
+          "answer": "You can request a refund within 14 days of purchase following Notion Marketplace refund policy."
+        },
+        {
+          "question": "Still have questions?",
+          "answer": "Email me at contact@mostafayasser.com or DM me on Twitter anytime."
+        }
+      ]
+    },
+    "name": "Ramadan Competition",
+    "description": "Comprehensive template for managing and organizing interactive Ramadan competitions.",
+    "price": "$0",
+    "checkout": "Get Template",
+    "checkoutLink": "https://www.notion.so/templates/ramadan-competition",
+    "moreDetails": "More Details",
+    "image": "/thumbnails/ENThumbnails/51.webp"
   }
 }

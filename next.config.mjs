@@ -156,6 +156,11 @@ const nextConfig = {
         destination: "/en/templates",
         permanent: true,
       },
+      {
+        source: "/ramadan-competition",
+        destination: "/en/templates/ramadan-competition",
+        permanent: true,
+      },
     ];
   },
 };

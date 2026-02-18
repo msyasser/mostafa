@@ -642,6 +642,17 @@ const templates = [
     tags: ["goals", "planning", "2026", "vision", "self-improvement", "productivity"],
     tags_ar: ["أهداف", "تخطيط", "2026", "رؤية", "تطوير الذات", "إنتاجية"],
     detailsLink: "https://www.mostafayasser.com/en/templates/my-2026-goals"
+  },
+  {
+    id: 51,
+    name: "Ramadan Competition",
+    name_ar: "مسابقة رمضان",
+    slug: "ramadan-competition",
+    premium: true,
+    category: "islam",
+    tags: ["ramadan", "competition", "islam", "challenge", "interactive", "community"],
+    tags_ar: ["رمضان", "مسابقة", "إسلام", "تحدي", "تفاعلي", "مجتمع"],
+    detailsLink: "https://www.mostafayasser.com/en/templates/ramadan-competition"
   }
 ].map((template) => ({
   ...template,
