@@ -1,0 +1,14 @@
+{
+    "title": "مخطط قرآني",
+    "startLabel": "من أين تريد أن تبدأ؟",
+    "fatihaOption": "سورة الفاتحة",
+    "nasOption": "سورة الناس",
+    "daysLabel": "في كم يوم تريد ختم القرآن؟",
+    "startDateLabel": "تاريخ البداية:",
+    "calculateBtn": "احسب الخطة",
+    "resetBtn": "حذف البيانات",
+    "surah": "سورة",
+    "fromVerse": "من الآية",
+    "to": "إلى",
+    "day": "اليوم"
+}

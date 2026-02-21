@@ -72,6 +72,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
       StudyPlanner: (
         await import(`../../messages/${locale}/StudyPlanner.json`)
       ).default,
+      QuranPlanner: (
+        await import(`../../messages/${locale}/QuranPlanner.json`)
+      ).default,
     },
   };
 });

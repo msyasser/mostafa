@@ -1,0 +1,14 @@
+{
+    "title": "Quranic Planner",
+    "startLabel": "Where do you want to start?",
+    "fatihaOption": "Surah Al-Fatiha",
+    "nasOption": "Surah An-Nas",
+    "daysLabel": "In how many days do you want to finish?",
+    "startDateLabel": "Start Date:",
+    "calculateBtn": "Calculate Plan",
+    "resetBtn": "Reset Data",
+    "surah": "Surah",
+    "fromVerse": "From verse",
+    "to": "to",
+    "day": "Day"
+}

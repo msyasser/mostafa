@@ -42,6 +42,8 @@
     "quoteDesc": "Get a dose of inspiration with a new quote every time you load the page.",
     "studyPlannerTitle": "Study Planner",
     "studyPlannerDesc": "Organize your study sessions, track hours, and visualize your progress.",
+    "quranPlannerTitle": "Quranic Planner",
+    "quranPlannerDesc": "Generate a custom Quran reading plan based on your starting Surah and target completion days.",
     "copyEmbed": "Copy Embed Link",
     "copied": "Copied!",
     "openTool": "Open Tool",

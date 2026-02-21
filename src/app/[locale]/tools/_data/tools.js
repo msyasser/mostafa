@@ -8,6 +8,7 @@ import AssetTracker from "@/src/components/widgets/AssetTracker";
 import WeatherWidget from "@/src/components/widgets/WeatherWidget";
 import StudyPlanner from "@/src/components/widgets/StudyPlanner";
 import QuranWidget from "@/src/components/widgets/QuranWidget";
+import QuranicPlanner from "@/src/components/widgets/QuranicPlanner";
 
 export const tools = [
     {
@@ -129,5 +130,11 @@ export const tools = [
         titleKey: "studyPlannerTitle",
         descriptionKey: "studyPlannerDesc",
         component: StudyPlanner,
+    },
+    {
+        slug: "quran-planner",
+        titleKey: "quranPlannerTitle",
+        descriptionKey: "quranPlannerDesc",
+        component: QuranicPlanner,
     }
 ];
