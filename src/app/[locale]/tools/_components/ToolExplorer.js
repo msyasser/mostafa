@@ -28,6 +28,15 @@ export default function ToolExplorer({ slug }) {
             initial.displayMode = localStorage.getItem('quranDisplayMode') || "both";
             initial.reciter = localStorage.getItem('quranReciter') || "ar.alafasy";
             initial.fontStyle = localStorage.getItem('quranFontStyle') || "uthmani";
+        } else if (slug === 'quran-planner') {
+            initial.startSura = localStorage.getItem('quranStartSuraExplorer') || "fatiha";
+            initial.days = localStorage.getItem('quranDaysExplorer') || "30";
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            initial.startDate = localStorage.getItem('quranStartDateExplorer') || `${year}-${month}-${day}`;
+            initial.lang = localStorage.getItem('quranLangExplorer') || locale;
         }
         setConfigValues(initial);
     }, [slug, locale]);
@@ -49,6 +58,12 @@ export default function ToolExplorer({ slug }) {
             if (key === 'reciter') localStorage.setItem('quranReciter', value);
             if (key === 'fontStyle') localStorage.setItem('quranFontStyle', value);
         }
+        if (slug === 'quran-planner') {
+            if (key === 'startSura') localStorage.setItem('quranStartSuraExplorer', value);
+            if (key === 'days') localStorage.setItem('quranDaysExplorer', value);
+            if (key === 'startDate') localStorage.setItem('quranStartDateExplorer', value);
+            if (key === 'lang') localStorage.setItem('quranLangExplorer', value);
+        }
     };
 
     const toolData = tools.find((t) => t.slug === slug);
@@ -62,7 +77,8 @@ export default function ToolExplorer({ slug }) {
     const handleCopy = () => {
         const origin = window.location.origin;
         // Use selected language for the embed URL if available, otherwise default to current page locale
-        const targetLocale = (slug === 'ramadan-prayers' && configValues.lang) ? configValues.lang : locale;
+        const isLangConfigurable = slug === 'ramadan-prayers' || slug === 'quran-planner';
+        const targetLocale = (isLangConfigurable && configValues.lang) ? configValues.lang : locale;
         let url = `${origin}/embed/${targetLocale}/${slug}?theme=${theme}`;
 
         if (toolData.config) {
@@ -83,9 +99,9 @@ export default function ToolExplorer({ slug }) {
 
 
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 mt-12 mb-32 md:mb-40 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start pb-20">
             {/* Left Column: Controls & Info */}
-            <div className="flex flex-col justify-between lg:h-[600px] lg:sticky lg:top-24">
+            <div className="flex flex-col justify-between lg:min-h-[600px] lg:sticky lg:top-24 gap-8">
                 <div className="space-y-8">
                     <div>
                         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
@@ -262,6 +278,10 @@ export default function ToolExplorer({ slug }) {
                         displayMode={configValues.displayMode}
                         reciter={configValues.reciter}
                         fontStyle={configValues.fontStyle}
+                        initialStartSura={configValues.startSura}
+                        initialDays={configValues.days}
+                        initialStartDate={configValues.startDate}
+                        overrideLocale={configValues.lang}
                         isExplorer={true}
                     />
                 </div>

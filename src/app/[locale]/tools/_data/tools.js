@@ -136,5 +136,29 @@ export const tools = [
         titleKey: "quranPlannerTitle",
         descriptionKey: "quranPlannerDesc",
         component: QuranicPlanner,
+        config: [
+            {
+                key: "startSura",
+                type: "select",
+                labelKey: "startLabel",
+                defaultValue: "fatiha",
+                options: [
+                    { value: "fatiha", labelKey: "fatihaOption" },
+                    { value: "nas", labelKey: "nasOption" }
+                ]
+            },
+            { key: "days", type: "number", labelKey: "daysLabel", placeholder: "30" },
+            { key: "startDate", type: "date", labelKey: "startDateLabel" },
+            {
+                key: "lang",
+                type: "select",
+                labelKey: "selectLanguage",
+                defaultValue: "en",
+                options: [
+                    { value: "ar", labelKey: "arabic" },
+                    { value: "en", labelKey: "english" }
+                ]
+            }
+        ]
     }
 ];
