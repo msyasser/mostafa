@@ -59,6 +59,37 @@ const quranData = {
     ]
 };
 
+const localTranslations = {
+    en: {
+        title: "Quranic Planner",
+        startLabel: "Where do you want to start?",
+        fatihaOption: "Surah Al-Fatiha",
+        nasOption: "Surah An-Nas",
+        daysLabel: "In how many days do you want to finish?",
+        startDateLabel: "Start Date:",
+        calculateBtn: "Calculate Plan",
+        resetBtn: "Reset Data",
+        surah: "Surah",
+        fromVerse: "From verse",
+        to: "to",
+        day: "Day"
+    },
+    ar: {
+        title: "مخطط قرآني",
+        startLabel: "من أين تريد أن تبدأ؟",
+        fatihaOption: "سورة الفاتحة",
+        nasOption: "سورة الناس",
+        daysLabel: "في كم يوم تريد ختم القرآن؟",
+        startDateLabel: "تاريخ البداية:",
+        calculateBtn: "احسب الخطة",
+        resetBtn: "حذف البيانات",
+        surah: "سورة",
+        fromVerse: "من الآية",
+        to: "إلى",
+        day: "اليوم"
+    }
+};
+
 const totalVerses = quranData.en.reduce((sum, [, verses]) => sum + verses, 0);
 
 function toArabicNumerals(number) {
@@ -73,14 +104,18 @@ function toArabicDateString(date) {
     return `${day}/${month}/${year}`;
 }
 
-export default function QuranicPlanner({ theme = "dark", isPreview = false, isExplorer = false }) {
-    const t = useTranslations("QuranPlanner");
-    const locale = useLocale();
+export default function QuranicPlanner({ theme = "dark", initialStartSura = "fatiha", initialDays = "", initialStartDate = "", overrideLocale, isPreview = false, isExplorer = false }) {
+    const nextIntlT = useTranslations("QuranPlanner");
+    const windowLocale = useLocale();
+    const locale = overrideLocale || windowLocale;
     const isDark = theme === "dark";
 
-    const [startSura, setStartSura] = useState("fatiha");
-    const [days, setDays] = useState("");
-    const [startDate, setStartDate] = useState("");
+    // Custom translation resolver to support locale overrides without relying on NextIntl memory caching
+    const t = (key) => localTranslations[locale]?.[key] || nextIntlT(key);
+
+    const [startSura, setStartSura] = useState(initialStartSura || "fatiha");
+    const [days, setDays] = useState(initialDays || "");
+    const [startDate, setStartDate] = useState(initialStartDate || "");
     const [plan, setPlan] = useState([]);
 
     // Determine the current locale data
@@ -95,6 +130,13 @@ export default function QuranicPlanner({ theme = "dark", isPreview = false, isEx
             return;
         }
 
+        if (initialDays && initialStartDate) {
+            setStartSura(initialStartSura || "fatiha");
+            setDays(initialDays);
+            setStartDate(initialStartDate);
+            return;
+        }
+
         const savedStart = localStorage.getItem("quranStart");
         const savedDays = localStorage.getItem("quranDays");
         const savedStartDate = localStorage.getItem("quranStartDate");
@@ -103,14 +145,20 @@ export default function QuranicPlanner({ theme = "dark", isPreview = false, isEx
         if (savedStart) setStartSura(savedStart);
         if (savedDays) setDays(savedDays);
         if (savedStartDate) setStartDate(savedStartDate);
-        if (savedPlan) {
+        if (savedPlan && !initialDays) {
             try {
-                setPlan(JSON.parse(savedPlan));
+                const parsed = JSON.parse(savedPlan);
+                // invalidate old string-based caches simply
+                if (parsed.length > 0 && typeof parsed[0].dayPlan[0] === 'string') {
+                    localStorage.removeItem("quranPlan");
+                } else {
+                    setPlan(parsed);
+                }
             } catch (e) {
                 console.error("Could not parse saved plan");
             }
         }
-    }, [isPreview]);
+    }, [isPreview, initialDays, initialStartDate, initialStartSura]);
 
     const calculatePlan = useCallback((e) => {
         if (e) e.preventDefault();
@@ -155,11 +203,12 @@ export default function QuranicPlanner({ theme = "dark", isPreview = false, isEx
                 let startVerse = verseInSura + 1;
                 let endVerse = verseInSura + versesToRead;
 
-                let verseText = locale === "ar"
-                    ? `${t("surah")} ${sura}: ${t("fromVerse")} ${toArabicNumerals(startVerse)} ${t("to")} ${toArabicNumerals(endVerse)}`
-                    : `${t("surah")} ${sura}: ${t("fromVerse")} ${startVerse} ${t("to")} ${endVerse}`;
+                dayPlan.push({
+                    suraIndex: currentSuraIndex,
+                    startVerse,
+                    endVerse
+                });
 
-                dayPlan.push(verseText);
                 verseInSura += versesToRead;
                 totalProcessedVerses += versesToRead;
                 versesLeft -= versesToRead;
@@ -172,34 +221,29 @@ export default function QuranicPlanner({ theme = "dark", isPreview = false, isEx
 
             let currentDay = new Date(startD);
             currentDay.setDate(startD.getDate() + day);
-            let dateString = locale === "ar" ? toArabicDateString(currentDay) : currentDay.toLocaleDateString("en-US");
-
             currentDay.setHours(0, 0, 0, 0);
+
             let isToday = currentDay.getTime() === today.getTime();
 
-            let dayText = locale === "ar"
-                ? `${t("day")} ${toArabicNumerals(day + 1)} (${dateString})`
-                : `${t("day")} ${day + 1} (${dateString})`;
-
-            newPlan.push({ dayText, dayPlan, isToday });
+            newPlan.push({ dayIndex: day, date: currentDay.toISOString(), dayPlan, isToday });
         }
 
         setPlan(newPlan);
 
-        if (!isPreview) {
+        if (!isPreview && !initialDays) {
             localStorage.setItem("quranStart", startSura);
             localStorage.setItem("quranDays", days.toString());
             localStorage.setItem("quranStartDate", startDate);
             localStorage.setItem("quranPlan", JSON.stringify(newPlan));
         }
-    }, [days, startDate, startSura, isPreview, localeData, locale, t]);
+    }, [days, startDate, startSura, isPreview, initialDays, localeData]);
 
-    // Auto calculate plan when in preview mode
+    // Auto calculate plan when in preview or embed mode
     useEffect(() => {
-        if (isPreview && days && startDate) {
+        if (isPreview || initialDays) {
             calculatePlan();
         }
-    }, [isPreview, days, startDate, calculatePlan]);
+    }, [isPreview, initialDays, calculatePlan]);
 
     const resetData = () => {
         setStartSura("fatiha");
@@ -222,11 +266,28 @@ export default function QuranicPlanner({ theme = "dark", isPreview = false, isEx
         ? "bg-neutral-800 border-neutral-700 text-white focus:ring-main/50"
         : "bg-gray-100 border-gray-200 text-black focus:ring-main/50";
 
+    const getVerseText = (verseObj) => {
+        let suraName = localeData[verseObj.suraIndex][0];
+        if (locale === "ar") {
+            return `سورة ${suraName}: من الآية ${toArabicNumerals(verseObj.startVerse)} إلى ${toArabicNumerals(verseObj.endVerse)}`;
+        }
+        return `${t("surah")} ${suraName}: ${t("fromVerse")} ${verseObj.startVerse} ${t("to")} ${verseObj.endVerse}`;
+    };
+
+    const getDayText = (dayIndex, dateIso) => {
+        let currentDay = new Date(dateIso);
+        let dateString = locale === "ar" ? toArabicDateString(currentDay) : currentDay.toLocaleDateString("en-US");
+        if (locale === "ar") {
+            return `اليوم ${toArabicNumerals(dayIndex + 1)} (${dateString})`;
+        }
+        return `${t("day")} ${dayIndex + 1} (${dateString})`;
+    };
+
     if (isPreview) {
         return (
-            <div className={`relative overflow-hidden rounded-2xl border p-4 w-full scale-90 origin-top shadow-lg ${containerClasses}`}>
+            <div dir={locale === "ar" ? "rtl" : "ltr"} className={`relative overflow-hidden rounded-2xl border p-4 w-full scale-90 origin-top shadow-lg ${containerClasses}`}>
                 <div className="flex justify-between items-center mb-3">
-                    <h4 className="text-sm font-bold uppercase tracking-tighter">{t("title")}</h4>
+                    <h4 className={`text-sm font-bold uppercase ${locale === 'ar' ? '' : 'tracking-tighter'}`}>{t("title")}</h4>
                     <BookOpen className="text-main" size={16} />
                 </div>
                 <div className="h-1.5 w-full bg-black/20 rounded-full mb-3 overflow-hidden">
@@ -248,6 +309,7 @@ export default function QuranicPlanner({ theme = "dark", isPreview = false, isEx
 
     return (
         <motion.div
+            dir={locale === "ar" ? "rtl" : "ltr"}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className={`relative overflow-hidden rounded-[2.5rem] border p-8 shadow-2xl backdrop-blur-xl transition-all duration-500 w-full max-w-full mx-auto min-h-[450px] flex flex-col ${containerClasses}`}
@@ -260,73 +322,77 @@ export default function QuranicPlanner({ theme = "dark", isPreview = false, isEx
                         <div className="p-3 bg-main/10 rounded-2xl">
                             <BookOpen className="text-main" size={24} />
                         </div>
-                        <button
-                            onClick={() => window.open(`/${locale}/tools/quran-planner`, '_blank')}
-                            className="absolute right-0 top-0 p-2 hover:bg-neutral-800/50 rounded-xl transition-colors text-neutral-500 hover:text-white cursor-pointer"
-                        >
-                            <Settings size={18} />
-                        </button>
+                        {!isExplorer && (
+                            <button
+                                onClick={() => window.open(`/${locale}/tools/quran-planner`, '_blank')}
+                                className={`absolute top-0 p-2 hover:bg-neutral-800/50 rounded-xl transition-colors text-neutral-500 hover:text-white cursor-pointer ${locale === 'ar' ? 'left-0' : 'right-0'}`}
+                            >
+                                <Settings size={18} />
+                            </button>
+                        )}
                     </div>
-                    <h3 className="text-3xl font-black tracking-tighter uppercase leading-none mb-1">{t("title")}</h3>
+                    <h3 className={`text-3xl font-black uppercase leading-none mb-1 ${locale === 'ar' ? '' : 'tracking-tighter'}`}>{t("title")}</h3>
                 </div>
 
-                <form onSubmit={calculatePlan} className="space-y-5">
-                    <div className="flex flex-col gap-1.5">
-                        <label className="text-sm font-bold tracking-tight">{t("startLabel")}</label>
-                        <select
-                            value={startSura}
-                            onChange={(e) => setStartSura(e.target.value)}
-                            className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all ${inputClasses}`}
-                        >
-                            <option value="fatiha">{t("fatihaOption")}</option>
-                            <option value="nas">{t("nasOption")}</option>
-                        </select>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="flex flex-col gap-1.5 justify-end">
-                            <label className="text-sm font-bold tracking-tight">{t("daysLabel")}</label>
-                            <input
-                                type="number"
-                                min="1"
-                                required
-                                value={days}
-                                onChange={(e) => setDays(e.target.value)}
-                                className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all mt-auto ${inputClasses}`}
-                            />
+                {!isExplorer && !initialDays && (
+                    <form onSubmit={calculatePlan} className="space-y-5">
+                        <div className="flex flex-col gap-1.5">
+                            <label className={`text-sm font-bold ${locale === 'ar' ? '' : 'tracking-tight'}`}>{t("startLabel")}</label>
+                            <select
+                                value={startSura}
+                                onChange={(e) => setStartSura(e.target.value)}
+                                className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all ${inputClasses}`}
+                            >
+                                <option value="fatiha">{t("fatihaOption")}</option>
+                                <option value="nas">{t("nasOption")}</option>
+                            </select>
                         </div>
 
-                        <div className="flex flex-col gap-1.5 justify-end">
-                            <label className="text-sm font-bold tracking-tight">{t("startDateLabel")}</label>
-                            <input
-                                type="date"
-                                required
-                                value={startDate}
-                                onChange={(e) => setStartDate(e.target.value)}
-                                className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all mt-auto ${inputClasses}`}
-                                style={isDark ? { colorScheme: 'dark' } : {}}
-                            />
-                        </div>
-                    </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="flex flex-col gap-1.5 justify-end">
+                                <label className={`text-sm font-bold ${locale === 'ar' ? '' : 'tracking-tight'}`}>{t("daysLabel")}</label>
+                                <input
+                                    type="number"
+                                    min="1"
+                                    required
+                                    value={days}
+                                    onChange={(e) => setDays(e.target.value)}
+                                    className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all mt-auto ${inputClasses}`}
+                                />
+                            </div>
 
-                    <div className="flex gap-4 pt-2">
-                        <button
-                            type="submit"
-                            className="flex-1 bg-main text-black py-3 rounded-xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-                        >
-                            <Calendar size={18} />
-                            {t("calculateBtn")}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={resetData}
-                            className="flex-1 bg-red-500/10 text-red-500 border border-red-500/20 py-3 rounded-xl font-bold hover:bg-red-500/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-                        >
-                            <RefreshCcw size={18} />
-                            {t("resetBtn")}
-                        </button>
-                    </div>
-                </form>
+                            <div className="flex flex-col gap-1.5 justify-end">
+                                <label className={`text-sm font-bold ${locale === 'ar' ? '' : 'tracking-tight'}`}>{t("startDateLabel")}</label>
+                                <input
+                                    type="date"
+                                    required
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                    className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all mt-auto ${inputClasses}`}
+                                    style={isDark ? { colorScheme: 'dark' } : {}}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4 pt-2">
+                            <button
+                                type="submit"
+                                className="flex-1 bg-main text-black py-3 rounded-xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                            >
+                                <Calendar size={18} />
+                                {t("calculateBtn")}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={resetData}
+                                className="flex-1 bg-red-500/10 text-red-500 border border-red-500/20 py-3 rounded-xl font-bold hover:bg-red-500/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                            >
+                                <RefreshCcw size={18} />
+                                {t("resetBtn")}
+                            </button>
+                        </div>
+                    </form>
+                )}
 
                 {plan.length > 0 && (
                     <div className={`mt-6 space-y-4 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar p-1`}>
@@ -340,13 +406,13 @@ export default function QuranicPlanner({ theme = "dark", isPreview = false, isEx
                                 >
                                     <h5 className={`font-bold mb-3 flex items-center gap-2 ${dayPlan.isToday ? 'text-main text-lg' : ''}`}>
                                         <Clock size={16} />
-                                        {dayPlan.dayText}
+                                        {getDayText(dayPlan.dayIndex, dayPlan.date)}
                                     </h5>
                                     <div className="space-y-1">
                                         {dayPlan.dayPlan.map((verse, vIndex) => (
                                             <div key={vIndex} className="text-sm opacity-80 flex items-center gap-2">
                                                 <div className="w-1.5 h-1.5 rounded-full bg-main/50" />
-                                                {verse}
+                                                {getVerseText(verse)}
                                             </div>
                                         ))}
                                     </div>
