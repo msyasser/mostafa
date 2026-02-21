@@ -5,60 +5,6 @@ import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, Calendar, Clock, RefreshCcw, Settings } from "lucide-react";
 
-// Quran data for both languages
-const quranData = {
-    en: [
-        ["Al-Fatiha", 7], ["Al-Baqarah", 286], ["Aal-E-Imran", 200], ["An-Nisa", 176], ["Al-Ma'idah", 120],
-        ["Al-An'am", 165], ["Al-A'raf", 206], ["Al-Anfal", 75], ["At-Tawbah", 129], ["Yunus", 109],
-        ["Hud", 123], ["Yusuf", 111], ["Ar-Ra'd", 43], ["Ibrahim", 52], ["Al-Hijr", 99],
-        ["An-Nahl", 128], ["Al-Isra", 111], ["Al-Kahf", 110], ["Maryam", 98], ["Ta-Ha", 135],
-        ["Al-Anbiya", 112], ["Al-Hajj", 78], ["Al-Mu'minun", 118], ["An-Nur", 64], ["Al-Furqan", 77],
-        ["Ash-Shu'ara", 227], ["An-Naml", 93], ["Al-Qasas", 88], ["Al-Ankabut", 69], ["Ar-Rum", 60],
-        ["Luqman", 34], ["As-Sajda", 30], ["Al-Ahzab", 73], ["Saba", 54], ["Fatir", 45],
-        ["Ya-Sin", 83], ["As-Saffat", 182], ["Sad", 88], ["Az-Zumar", 75], ["Ghafir", 85],
-        ["Fussilat", 54], ["Ash-Shura", 53], ["Az-Zukhruf", 89], ["Ad-Dukhan", 59], ["Al-Jathiya", 37],
-        ["Al-Ahqaf", 35], ["Muhammad", 38], ["Al-Fath", 29], ["Al-Hujurat", 18], ["Qaf", 45],
-        ["Adh-Dhariyat", 60], ["At-Tur", 49], ["An-Najm", 62], ["Al-Qamar", 55], ["Ar-Rahman", 78],
-        ["Al-Waqi'a", 96], ["Al-Hadid", 29], ["Al-Mujadila", 22], ["Al-Hashr", 24], ["Al-Mumtahina", 13],
-        ["As-Saff", 14], ["Al-Jumu'a", 11], ["Al-Munafiqun", 11], ["At-Taghabun", 18], ["At-Talaq", 12],
-        ["At-Tahrim", 12], ["Al-Mulk", 30], ["Al-Qalam", 52], ["Al-Haqqa", 52], ["Al-Ma'arij", 44],
-        ["Nuh", 28], ["Al-Jinn", 28], ["Al-Muzzammil", 20], ["Al-Muddathir", 56], ["Al-Qiyama", 40],
-        ["Al-Insan", 31], ["Al-Mursalat", 50], ["An-Naba", 40], ["An-Nazi'at", 46], ["Abasa", 42],
-        ["At-Takwir", 29], ["Al-Infitar", 19], ["Al-Mutaffifin", 36], ["Al-Inshiqaq", 25], ["Al-Buruj", 22],
-        ["At-Tariq", 17], ["Al-A'la", 19], ["Al-Ghashiya", 26], ["Al-Fajr", 30], ["Al-Balad", 20],
-        ["Ash-Shams", 15], ["Al-Lail", 21], ["Ad-Duhaa", 11], ["Ash-Sharh", 8], ["At-Tin", 8],
-        ["Al-Alaq", 19], ["Al-Qadr", 5], ["Al-Bayyina", 8], ["Az-Zalzala", 8], ["Al-Adiyat", 11],
-        ["Al-Qari'a", 11], ["At-Takathur", 8], ["Al-Asr", 3], ["Al-Humaza", 9], ["Al-Fil", 5],
-        ["Quraish", 4], ["Al-Ma'un", 7], ["Al-Kawthar", 3], ["Al-Kafirun", 6], ["An-Nasr", 3],
-        ["Al-Masad", 5], ["Al-Ikhlas", 4], ["Al-Falaq", 5], ["An-Nas", 6]
-    ],
-    ar: [
-        ["الفاتحة", 7], ["البقرة", 286], ["آل عمران", 200], ["النساء", 176], ["المائدة", 120],
-        ["الأنعام", 165], ["الأعراف", 206], ["الأنفال", 75], ["التوبة", 129], ["يونس", 109],
-        ["هود", 123], ["يوسف", 111], ["الرعد", 43], ["إبراهيم", 52], ["الحجر", 99],
-        ["النحل", 128], ["الإسراء", 111], ["الكهف", 110], ["مريم", 98], ["طه", 135],
-        ["الأنبياء", 112], ["الحج", 78], ["المؤمنون", 118], ["النور", 64], ["الفرقان", 77],
-        ["الشعراء", 227], ["النمل", 93], ["القصص", 88], ["العنكبوت", 69], ["الروم", 60],
-        ["لقمان", 34], ["السجدة", 30], ["الأحزاب", 73], ["سبأ", 54], ["فاطر", 45],
-        ["يس", 83], ["الصافات", 182], ["ص", 88], ["الزمر", 75], ["غافر", 85],
-        ["فصلت", 54], ["الشورى", 53], ["الزخرف", 89], ["الدخان", 59], ["الجاثية", 37],
-        ["الأحقاف", 35], ["محمد", 38], ["الفتح", 29], ["الحجرات", 18], ["ق", 45],
-        ["الذاريات", 60], ["الطور", 49], ["النجم", 62], ["القمر", 55], ["الرحمن", 78],
-        ["الواقعة", 96], ["الحديد", 29], ["المجادلة", 22], ["الحشر", 24], ["الممتحنة", 13],
-        ["الصف", 14], ["الجمعة", 11], ["المنافقون", 11], ["التغابن", 18], ["الطلاق", 12],
-        ["التحريم", 12], ["الملك", 30], ["القلم", 52], ["الحاقة", 52], ["المعارج", 44],
-        ["نوح", 28], ["الجن", 28], ["المزمل", 20], ["المدثر", 56], ["القيامة", 40],
-        ["الإنسان", 31], ["المرسلات", 50], ["النبأ", 40], ["النازعات", 46], ["عبس", 42],
-        ["التكوير", 29], ["الانفطار", 19], ["المطففين", 36], ["الانشقاق", 25], ["البروج", 22],
-        ["الطارق", 17], ["الأعلى", 19], ["الغاشية", 26], ["الفجر", 30], ["البلد", 20],
-        ["الشمس", 15], ["الليل", 21], ["الضحى", 11], ["الشرح", 8], ["التين", 8],
-        ["العلق", 19], ["القدر", 5], ["البينة", 8], ["الزلزلة", 8], ["العاديات", 11],
-        ["القارعة", 11], ["التكاثر", 8], ["العصر", 3], ["الهمزة", 9], ["الفيل", 5],
-        ["قريش", 4], ["الماعون", 7], ["الكوثر", 3], ["الكافرون", 6], ["النصر", 3],
-        ["المسد", 5], ["الإخلاص", 4], ["الفلق", 5], ["الناس", 6]
-    ]
-};
-
 const localTranslations = {
     en: {
         title: "Quranic Planner",
@@ -90,8 +36,6 @@ const localTranslations = {
     }
 };
 
-const totalVerses = quranData.en.reduce((sum, [, verses]) => sum + verses, 0);
-
 function toArabicNumerals(number) {
     const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
     return String(number).split('').map(digit => arabicNumerals[digit] || digit).join('');
@@ -118,8 +62,48 @@ export default function QuranicPlanner({ theme = "dark", initialStartSura = "fat
     const [startDate, setStartDate] = useState(initialStartDate || "");
     const [plan, setPlan] = useState([]);
 
+    // API Data state
+    const [apiQuranData, setApiQuranData] = useState(null);
+    const [isLoadingData, setIsLoadingData] = useState(true);
+
+    // Fetch Alquran data
+    useEffect(() => {
+        let isMounted = true;
+        async function fetchQuranData() {
+            try {
+                const res = await fetch("https://api.alquran.cloud/v1/meta");
+                const json = await res.json();
+
+                if (json.data && json.data.surahs && json.data.surahs.references) {
+                    const enData = [];
+                    const arData = [];
+                    let total = 0;
+
+                    json.data.surahs.references.forEach((surah) => {
+                        enData.push([surah.englishName, surah.numberOfAyahs]);
+                        // Strip Harakat (diacritics) for cleaner UI
+                        const cleanArabicName = surah.name.replace(/[\u0617-\u061A\u064B-\u0652\u0656-\u065F\u0670]/g, "").replace("سُورَةُ ", "").replace("سورة ", "").trim();
+                        arData.push([cleanArabicName, surah.numberOfAyahs]);
+                        total += surah.numberOfAyahs;
+                    });
+
+                    if (isMounted) {
+                        setApiQuranData({ en: enData, ar: arData, totalVerses: total });
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to fetch Quran data", error);
+            } finally {
+                if (isMounted) setIsLoadingData(false);
+            }
+        }
+        fetchQuranData();
+        return () => { isMounted = false; };
+    }, []);
+
     // Determine the current locale data
-    const localeData = quranData[locale] || quranData.en;
+    const localeData = apiQuranData ? (apiQuranData[locale] || apiQuranData.en) : [];
+    const totalVerses = apiQuranData ? apiQuranData.totalVerses : 6236;
 
     useEffect(() => {
         if (isPreview) {
@@ -164,6 +148,10 @@ export default function QuranicPlanner({ theme = "dark", initialStartSura = "fat
         if (e) e.preventDefault();
         if (!days || !startDate) return;
 
+        let data = [...localeData];
+        // Ensure data is loaded from API before calculating
+        if (data.length === 0) return;
+
         const numDays = parseInt(days);
         const startD = new Date(startDate);
 
@@ -171,7 +159,6 @@ export default function QuranicPlanner({ theme = "dark", initialStartSura = "fat
 
         let versesPerDay = Math.ceil(totalVerses / numDays);
         let totalProcessedVerses = 0;
-        let data = [...localeData];
         let currentSuraIndex = 0;
         let verseInSura = 0;
 
@@ -282,6 +269,24 @@ export default function QuranicPlanner({ theme = "dark", initialStartSura = "fat
         }
         return `${t("day")} ${dayIndex + 1} (${dateString})`;
     };
+
+    if (isLoadingData) {
+        if (isPreview) {
+            return (
+                <div dir={locale === "ar" ? "rtl" : "ltr"} className={`relative overflow-hidden rounded-2xl border p-4 w-full scale-90 origin-top shadow-lg flex items-center justify-center min-h-[120px] ${containerClasses}`}>
+                    <div className="w-6 h-6 rounded-full border-2 border-main border-t-transparent animate-spin" />
+                </div>
+            );
+        }
+        return (
+            <div dir={locale === "ar" ? "rtl" : "ltr"} className={`relative overflow-hidden rounded-[2.5rem] border p-8 shadow-2xl backdrop-blur-xl flex items-center justify-center min-h-[450px] w-full max-w-full mx-auto ${containerClasses}`}>
+                <div className="flex flex-col items-center gap-4 animate-pulse">
+                    <BookOpen size={40} className="text-main opacity-50" />
+                    <span className="text-sm font-bold opacity-50">{locale === 'ar' ? 'جاري تحميل بيانات السور...' : 'Loading Quranic data...'}</span>
+                </div>
+            </div>
+        );
+    }
 
     if (isPreview) {
         return (
@@ -404,15 +409,32 @@ export default function QuranicPlanner({ theme = "dark", initialStartSura = "fat
                                     animate={{ opacity: 1, y: 0 }}
                                     className={`p-4 rounded-xl border ${dayPlan.isToday ? 'bg-main/20 border-main border-2 shadow-[0_0_20px_rgba(var(--main-rgb),0.3)]' : `${isDark ? 'bg-neutral-800/50 border-neutral-700' : 'bg-gray-50 border-gray-200'}`}`}
                                 >
-                                    <h5 className={`font-bold mb-3 flex items-center gap-2 ${dayPlan.isToday ? 'text-main text-lg' : ''}`}>
-                                        <Clock size={16} />
-                                        {getDayText(dayPlan.dayIndex, dayPlan.date)}
-                                    </h5>
-                                    <div className="space-y-1">
+                                    {/* Header Row */}
+                                    <div className="flex items-center justify-between mb-4 pb-4 border-b border-neutral-800/50">
+                                        <div className="flex items-center gap-3">
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${dayPlan.isToday ? 'bg-main text-black shadow-[0_0_15px_rgba(var(--main-rgb),0.5)]' : 'bg-neutral-800 text-main'}`}>
+                                                <BookOpen size={14} className={dayPlan.isToday ? 'text-black' : 'text-main'} />
+                                            </div>
+                                            <h5 className={`font-bold tracking-wide ${dayPlan.isToday ? 'text-main text-xl font-black' : 'text-white text-lg'}`}>
+                                                {getDayText(dayPlan.dayIndex, dayPlan.date)}
+                                            </h5>
+                                        </div>
+
+                                        {dayPlan.isToday && (
+                                            <span className="text-[10px] tracking-widest uppercase font-bold text-main border border-main/30 px-3 py-1 rounded-full bg-main/10 backdrop-blur-sm">
+                                                {locale === 'ar' ? 'ورد اليوم' : 'Daily Goal'}
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    {/* Verses List */}
+                                    <div className="space-y-3">
                                         {dayPlan.dayPlan.map((verse, vIndex) => (
-                                            <div key={vIndex} className="text-sm opacity-80 flex items-center gap-2">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-main/50" />
-                                                {getVerseText(verse)}
+                                            <div key={vIndex} className="flex items-start gap-3 group-hover:translate-x-1 transition-transform">
+                                                <span className="text-main/50 mt-1 select-none font-serif text-lg">✦</span>
+                                                <span className={`text-[17px] leading-relaxed font-medium ${dayPlan.isToday ? 'text-neutral-200' : 'text-neutral-400 text-[16px]'}`}>
+                                                    {getVerseText(verse)}
+                                                </span>
                                             </div>
                                         ))}
                                     </div>
