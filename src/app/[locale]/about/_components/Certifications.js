@@ -2,8 +2,10 @@
 
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function Certifications() {
+    const t = useTranslations("AboutPage");
     const certImages = [
         { src: "/about/certifications/2.webp", alt: "Workflow Certification" },
         { src: "/about/certifications/3.webp", alt: "PMP Certification" },
@@ -16,7 +18,7 @@ export default function Certifications() {
             <div className="max-w-6xl mx-auto px-6 lg:px-12 text-center">
                 <AnimatedWrapper>
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-16">
-                        Official Accreditations
+                        {t("accreditationsTitle")}
                     </h2>
                 </AnimatedWrapper>
 

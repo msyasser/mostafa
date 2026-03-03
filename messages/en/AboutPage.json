@@ -8,6 +8,7 @@
     "badge": "The Archive",
     "titleLine1": "THE",
     "titleLine2": "EVOLUTION",
+    "phase": "Phase",
     "chapters": [
       {
         "title": "I Was Always Building Something",
@@ -116,5 +117,6 @@
     "title": "Let’s Build Something Structured.",
     "workWithMe": "Work With Me",
     "exploreMyWork": "Explore My Work"
-  }
+  },
+  "accreditationsTitle": "Official Accreditations"
 }

@@ -48,6 +48,7 @@ const ScrapbookLayout = ({ chapter, index }) => {
    LAYOUT 2: THE STAGE (Cinematic & Immersive)
    ========================================== */
 const StageLayout = ({ chapter, index }) => {
+    const t = useTranslations("AboutPage.story");
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
     const scale = useTransform(scrollYProgress, [0, 0.5], [1.2, 1]);
@@ -62,7 +63,7 @@ const StageLayout = ({ chapter, index }) => {
             </motion.div>
             <div className="container mx-auto px-6 relative z-10 text-center">
                 <AnimatedInView>
-                    <span className="text-main font-mono text-sm tracking-[0.5em] uppercase mb-6 block drop-shadow-lg">Phase {index + 1}</span>
+                    <span className="text-main font-mono text-sm tracking-[0.5em] uppercase mb-6 block drop-shadow-lg">{t("phase")} {index + 1}</span>
                     <h2 className="text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter uppercase italic outline-text">{chapter.title}</h2>
                     <div className="max-w-3xl mx-auto">
                         <p className="text-neutral-200 text-xl md:text-2xl leading-relaxed italic font-extralight drop-shadow-md">
