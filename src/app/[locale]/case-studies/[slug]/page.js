@@ -86,7 +86,7 @@ export default async function CaseStudyPage({ params }) {
                     className="inline-flex items-center gap-2 text-neutral-500 hover:text-white transition-colors mb-12 hover:-translate-x-1 duration-300"
                 >
                     <BsArrowLeft />
-                    <span>Back to Case Studies</span>
+                    <span>{t("backLink")}</span>
                 </Link>
 
                 {/* Header Section - Title, Desc, Gallery */}
@@ -145,7 +145,7 @@ export default async function CaseStudyPage({ params }) {
                                 </ReactMarkdown>
 
                                 <div className="lg:hidden mt-12 py-8 border-t border-[#333]">
-                                    <NotionCalendarButton label="Book Consultation" />
+                                    <NotionCalendarButton label={t("bookConsultation")} />
                                 </div>
                             </div>
                         </div>
@@ -157,35 +157,35 @@ export default async function CaseStudyPage({ params }) {
 
                             {/* Metadata Properties - Notion Style */}
                             <div className="bg-[#202020] rounded-lg border border-[#333] p-6 space-y-4 shadow-xl">
-                                <h3 className="text-white font-bold mb-4 uppercase text-xs tracking-widest opacity-50">Project Details</h3>
+                                <h3 className="text-white font-bold mb-4 uppercase text-xs tracking-widest opacity-50">{t("projectDetails")}</h3>
 
                                 {project.metadata && (
                                     <>
                                         <div className="flex items-start gap-4">
                                             <div className="mt-1 text-gray-500"><FaBriefcase /></div>
                                             <div>
-                                                <span className="block text-xs uppercase text-gray-500 mb-1">Client</span>
+                                                <span className="block text-xs uppercase text-gray-500 mb-1">{t("client")}</span>
                                                 <span className="text-white font-medium">{project.metadata.client}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-4">
                                             <div className="mt-1 text-gray-500"><FaMapMarkerAlt /></div>
                                             <div>
-                                                <span className="block text-xs uppercase text-gray-500 mb-1">Location</span>
+                                                <span className="block text-xs uppercase text-gray-500 mb-1">{t("location")}</span>
                                                 <span className="text-white font-medium">{project.metadata.location}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-4">
                                             <div className="mt-1 text-gray-500"><FaCalendarAlt /></div>
                                             <div>
-                                                <span className="block text-xs uppercase text-gray-500 mb-1">Date</span>
+                                                <span className="block text-xs uppercase text-gray-500 mb-1">{t("date")}</span>
                                                 <span className="text-white font-medium">{project.metadata.date}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-4">
                                             <div className="mt-1 text-gray-500"><FaTools /></div>
                                             <div>
-                                                <span className="block text-xs uppercase text-gray-500 mb-1">Tools</span>
+                                                <span className="block text-xs uppercase text-gray-500 mb-1">{t("tools")}</span>
                                                 <div className="flex flex-wrap gap-2">
                                                     {project.metadata.tools.split('·').map((tool, i) => (
                                                         <span key={i} className="inline-block bg-[#2C2C2C] text-gray-300 text-xs px-2 py-1 rounded border border-[#333]">
@@ -201,7 +201,7 @@ export default async function CaseStudyPage({ params }) {
 
                             {/* CTA */}
                             <div className="hidden lg:block">
-                                <NotionCalendarButton label="Book Consultation" />
+                                <NotionCalendarButton label={t("bookConsultation")} />
                             </div>
                         </div>
                     </div>

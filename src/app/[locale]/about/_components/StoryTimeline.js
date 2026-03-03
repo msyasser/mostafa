@@ -204,11 +204,11 @@ export default function StoryTimeline() {
                 <AnimatedInView>
                     <div className="flex justify-center items-center gap-4 mb-8">
                         <div className="h-px w-12 bg-neutral-800"></div>
-                        <span className="text-main text-[10px] font-mono uppercase tracking-[0.5em]">The Archive</span>
+                        <span className="text-main text-[10px] font-mono uppercase tracking-[0.5em]">{t("badge")}</span>
                         <div className="h-px w-12 bg-neutral-800"></div>
                     </div>
                     <h2 className="text-6xl md:text-9xl font-black text-white uppercase tracking-tighter leading-none mb-12">
-                        THE <br /> <span className="text-main">EVOLUTION</span>
+                        {t("titleLine1") && <>{t("titleLine1")} <br /></>} <span className="text-main">{t("titleLine2")}</span>
                     </h2>
                 </AnimatedInView>
             </div>

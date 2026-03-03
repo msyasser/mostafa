@@ -1,11 +1,13 @@
 "use client";
 
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
 
 export default function ProcessSteps() {
     const t = useTranslations("ServicesPage.process");
+    const locale = useLocale();
+    const isArabic = locale === "ar";
 
     const steps = [0, 1, 2, 3, 4];
 
@@ -16,7 +18,9 @@ export default function ProcessSteps() {
             <div className="max-w-6xl mx-auto px-6 lg:px-12">
                 <AnimatedWrapper>
                     <div className="text-center mb-20">
-                        <span className="text-main font-mono text-sm tracking-widest uppercase mb-4 block">Methodology</span>
+                        <span className="text-main font-mono text-sm tracking-widest uppercase mb-4 block">
+                            {t("badge")}
+                        </span>
                         <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
                             {t("title")}
                         </h2>
@@ -39,11 +43,11 @@ export default function ProcessSteps() {
                                     </div>
 
                                     {/* Step Content Wrapper */}
-                                    <div className={`w-full md:w-1/2 ${stepIndex % 2 === 0 ? "md:pr-16" : "md:pl-16"}`}>
-                                        <div className={`p-6 md:p-8 rounded-2xl bg-neutral-800/20 border border-neutral-700 hover:bg-neutral-800/40 transition-all duration-300 text-left relative group h-full`}>
-                                            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-main/10 to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <div className={`w-full md:w-1/2 ${stepIndex % 2 === 0 ? (isArabic ? "md:pl-16" : "md:pr-16") : (isArabic ? "md:pr-16" : "md:pl-16")}`}>
+                                        <div className={`p-6 md:p-8 rounded-2xl bg-neutral-800/20 border border-neutral-700 hover:bg-neutral-800/40 transition-all duration-300 relative group h-full ${isArabic ? "text-right" : "text-left"}`}>
+                                            <div className={`absolute top-0 w-24 h-24 bg-gradient-to-br from-main/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${isArabic ? "left-0 rounded-br-[100px]" : "right-0 rounded-bl-[100px]"}`}></div>
 
-                                            <div className="text-6xl font-black text-neutral-800 absolute -top-10 -left-4 z-0 opacity-20 group-hover:text-neutral-700 transition-colors pointer-events-none select-none">
+                                            <div className={`text-6xl font-black text-neutral-800 absolute -top-10 z-0 opacity-20 group-hover:text-neutral-700 transition-colors pointer-events-none select-none ${isArabic ? "-right-4" : "-left-4"}`}>
                                                 0{stepIndex + 1}
                                             </div>
 

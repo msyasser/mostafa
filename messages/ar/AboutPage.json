@@ -5,12 +5,15 @@
     "badge": "قصة خلف الأنظمة"
   },
   "story": {
+    "badge": "الأرشيف",
+    "titleLine1": "",
+    "titleLine2": "الـتـطـور",
     "chapters": [
       {
         "title": "كنت دائماً أبني شيئاً ما",
         "date": "البدايات",
-        "image": "/about/10yearsold01.JPG",
-        "image2": "/about/IMG0296A.jpg",
+        "image": "/about/early-days.webp",
+        "image2": "/about/IMG0296A.webp",
         "content": [
           "قبل أن أصبح مهندس تخطيط مشاريع،",
           "وقبل أن أصبح خبيراً معتمداً في نوشن،",
@@ -25,7 +28,7 @@
       {
         "title": "تحول الفضول إلى مهارة",
         "date": "رحلة التعلم",
-        "image": "/about/learning.png",
+        "image": "/about/learning.webp",
         "content": [
           "لم أكن ألعب الألعاب فقط.",
           "كنت أتعلم: مايكروسوفت أوفيس، التصميم الجرافيكي، أدوات ثلاثية الأبعاد، التسويق، العلامات التجارية، كتابة النصوص.",
@@ -37,8 +40,8 @@
       {
         "title": "الهندسة شكلت طريقة تفكيري",
         "date": "الجامعة والعمل",
-        "image": "/about/engneeringsite01.png",
-        "image2": "/about/23yearsold01.jpg",
+        "image": "/about/engneeringsite01.webp",
+        "image2": "/about/engineering.webp",
         "content": [
           "لاحقاً، درست الهندسة المدنية.",
           "هناك حيث ترابط كل شيء.",
@@ -51,7 +54,7 @@
       {
         "title": "لحظة نوشن (2020)",
         "date": "اكتشاف نوشن",
-        "image": "/about/discovery.png",
+        "image": "/about/notion-moment.webp",
         "content": [
           "في عامي الجامعي الأول، اكتشفت نوشن.",
           "في ذلك الوقت، كنت أجرب كل تطبيقات الإنتاجية المتاحة: TickTick، Microsoft To Do، وغيرها الكثير.",
@@ -66,7 +69,7 @@
         "title": "من صانع محتوى إلى مهندس أنظمة",
         "date": "المرحلة الانتقالية",
         "image": "/about/23yearsold02.webp",
-        "image2": "/about/creator.png",
+        "image2": "/about/Certifications.webp",
         "content": [
           "بحلول عام 2024، عندما أطلقت نوشن سوقها،",
           "كنت من بين أوائل المبدعين.",
@@ -79,7 +82,7 @@
       {
         "title": "بناء المجتمعات",
         "date": "توسيع الأثر",
-        "image": "/about/community.png",
+        "image": "/about/community.webp",
         "content": [
           "لقد قمت بتأسيس:",
           "- Arab Notion – لتنمية مجتمع نوشن العربي",
@@ -91,8 +94,8 @@
       {
         "title": "اليوم",
         "date": "المهمة",
-        "image": "/certifications/notion-certifications.png",
-        "image2": "/about/community.png",
+        "image": "/about/23yearsold01.webp",
+        "image2": "/about/IMG-20240227-WA0032.webp",
         "content": [
           "اليوم، أساعد الأفراد والفرق والشركات على بناء أنظمة نوشن هيكلية مصممة خصيصاً لطريقة تفكيرهم وعملهم.",
           "ليست قوالب.",

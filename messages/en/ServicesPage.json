@@ -3,7 +3,8 @@
         "title": "Custom Notion Systems Built Around How You Think & Work",
         "subtitle": "I design structured, scalable systems that bring clarity to your workflow — whether you're an individual or a growing company.",
         "ctaBook": "Book a Call",
-        "ctaCaseStudies": "View Case Studies"
+        "ctaCaseStudies": "View Case Studies",
+        "badge": "System Architect & Notion Certified"
     },
     "whatIDo": {
         "title": "What I Help You Achieve",
@@ -27,6 +28,7 @@
         ]
     },
     "process": {
+        "badge": "Methodology",
         "title": "How We Build Your System",
         "steps": [
             {
@@ -52,6 +54,7 @@
         ]
     },
     "caseStudies": {
+        "badge": "Portfolio",
         "title": "Selected Projects",
         "viewAll": "View Full Case Studies"
     },
@@ -65,7 +68,9 @@
         ]
     },
     "whyMe": {
+        "badge": "Differentiators",
         "title": "Why Work With Me",
+        "subtitle": "I don't just build databases. I architect comprehensive operating systems tailored to your unique context.",
         "points": [
             {
                 "title": "No Generic Templates",

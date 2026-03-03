@@ -37,7 +37,7 @@ function Footer() {
             </p>
           </div>
 
-          <div className="scale-90 origin-left">
+          <div className={`scale-90 ${locale === 'ar' ? 'origin-right' : 'origin-left'}`}>
             <FooterSubscriptionForm />
           </div>
 

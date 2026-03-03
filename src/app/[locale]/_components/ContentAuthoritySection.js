@@ -59,7 +59,7 @@ export default function ContentAuthoritySection() {
                                     </h3>
                                 </div>
                                 <p className="text-neutral-400 text-base leading-relaxed mb-4 flex-1">
-                                    Watch tutorials and productivity tips
+                                    {t("youtubeDesc")}
                                 </p>
                                 <Link
                                     href="https://www.youtube.com/@engmsyasser"
@@ -95,11 +95,11 @@ export default function ContentAuthoritySection() {
                                             <FaBlog className="text-xl text-main" />
                                         </div>
                                         <h3 className="text-xl font-bold text-white group-hover:text-main transition-colors">
-                                            What is Notion?
+                                            {t("blogTitle")}
                                         </h3>
                                     </div>
                                     <p className="text-neutral-400 text-base leading-relaxed mb-4 flex-1">
-                                        Your comprehensive guide to the productivity tool you can&apos;t miss in 2025
+                                        {t("blogDesc")}
                                     </p>
                                 </div>
                             </Link>

@@ -4,11 +4,7 @@ import { useTranslations } from "next-intl";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
 
 export default function CaseStudiesHero() {
-    const t = useTranslations("CaseStudiesHero"); // You will need to add this to your json
-
-    // Fallback if translations are missing for now
-    const title = "Selected Works";
-    const subtitle = "A collection of Notion systems built to solve complex problems for businesses and individuals.";
+    const t = useTranslations("CaseStudiesPage");
 
     return (
         <section className="relative pt-32 pb-20 px-6 overflow-hidden">
@@ -20,13 +16,13 @@ export default function CaseStudiesHero() {
             <div className="max-w-4xl mx-auto text-center relative z-10">
                 <AnimatedWrapper>
                     <span className="text-main font-mono text-sm tracking-widest uppercase mb-6 block">
-                        Portfolio
+                        {t("portfolioBadge")}
                     </span>
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-                        Selected <span className="text-main">Works</span>
+                        {t("selected")} <span className="text-main">{t("works")}</span>
                     </h1>
                     <p className="text-neutral-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
-                        A collection of Notion systems built to solve complex problems for businesses and individuals.
+                        {t("heroDesc")}
                     </p>
                 </AnimatedWrapper>
             </div>

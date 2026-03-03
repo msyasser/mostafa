@@ -21,12 +21,14 @@ export default function WhyWorkWithMe() {
                     <div className="flex flex-col md:flex-row gap-16 items-start">
                         {/* Title & Headline */}
                         <div className="w-full md:w-1/3 sticky top-32">
-                            <span className="text-main font-mono text-sm tracking-widest uppercase mb-4 block">Differentiators</span>
+                            <span className="text-main font-mono text-sm tracking-widest uppercase mb-4 block">
+                                {t("badge")}
+                            </span>
                             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
                                 {t("title")}
                             </h2>
                             <p className="text-neutral-400 text-lg leading-relaxed mb-8">
-                                I don&apos;t just build databases. I architect comprehensive operating systems tailored to your unique context.
+                                {t("subtitle")}
                             </p>
                             <div className="h-1 w-20 bg-gradient-to-r from-main to-transparent rounded-full"></div>
                         </div>

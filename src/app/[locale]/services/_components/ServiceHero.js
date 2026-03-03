@@ -22,7 +22,7 @@ export default function ServiceHero() {
             <AnimatedWrapper>
                 <div className="relative z-10 max-w-5xl flex flex-col items-center">
                     <span className="px-4 py-2 rounded-full border border-neutral-800 bg-neutral-900/80 text-main text-sm font-mono tracking-widest uppercase mb-8 backdrop-blur-md">
-                        System Architect & Notion Certified
+                        {t("badge")}
                     </span>
 
                     <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">

@@ -37,7 +37,7 @@ export default function CaseStudiesList() {
                                 <div className="flex items-center gap-2 mb-3 text-xs font-mono text-main/80">
                                     <BsBriefcase />
                                     <span className="uppercase tracking-wider">
-                                        {project.metadata?.client || "Client Project"}
+                                        {project.metadata?.client || t("clientProject")}
                                     </span>
                                 </div>
 
@@ -59,7 +59,7 @@ export default function CaseStudiesList() {
                             </div>
 
                             <div className="flex items-center text-sm font-medium text-white group-hover:text-main transition-colors mt-auto pt-4 border-t border-neutral-800">
-                                {isArabic ? "عرض المشروع" : "View Case Study"}
+                                {t("viewCaseStudy")}
                                 <ArrowIcon className="ml-2 rtl:mr-2 rtl:ml-0 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
                             </div>
                         </div>

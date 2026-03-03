@@ -20,7 +20,7 @@ export default function CaseStudiesPreview() {
                 <AnimatedWrapper>
                     <div className="flex flex-col md:flex-row justify-between items-end mb-12">
                         <div>
-                            <span className="text-main font-mono text-sm tracking-widest uppercase mb-2 block">Portfolio</span>
+                            <span className="text-main font-mono text-sm tracking-widest uppercase mb-2 block">{t("badge")}</span>
                             <h2 className="text-3xl md:text-5xl font-bold text-white">
                                 {t("title")}
                             </h2>

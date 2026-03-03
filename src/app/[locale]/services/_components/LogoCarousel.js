@@ -30,7 +30,7 @@ export default function LogoCarousel() {
                 <motion.div
                     className="flex whitespace-nowrap gap-16 md:gap-32 items-center"
                     animate={{
-                        x: isArabic ? ["0%", "-50%"] : ["-50%", "0%"],
+                        x: isArabic ? ["0%", "50%"] : ["-50%", "0%"],
                     }}
                     transition={{
                         duration: 30,
