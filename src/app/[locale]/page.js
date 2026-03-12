@@ -155,7 +155,7 @@ export default function HomePage() {
 
               <div className="bg-white rounded-xl overflow-hidden shadow-2xl border-4 border-neutral-800">
                 <iframe
-                  src="https://calendar.notion.so/meet/mostafa-yasser/discovery-call"
+                  src="https://calendar.notion.so/meet/mostafa-yasser/consultation"
                   style={{ border: 0 }}
                   width="100%"
                   height="600"

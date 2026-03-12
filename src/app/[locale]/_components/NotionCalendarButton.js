@@ -59,7 +59,7 @@ export default function NotionCalendarButton({
                                 {/* Iframe Container */}
                                 <div className="flex-1 bg-white w-full relative">
                                     <iframe
-                                        src="https://calendar.notion.so/meet/mostafa-yasser/discovery-call"
+                                        src="https://calendar.notion.so/meet/mostafa-yasser/consultation"
                                         className="absolute inset-0 w-full h-full border-0"
                                         title="Notion Calendar Scheduling"
                                         allowFullScreen
