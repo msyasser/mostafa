@@ -177,14 +177,14 @@ function Footer() {
       >
         <p className="text-center md:text-left">{t("copyright")}</p>
         <p className="text-center md:text-right">
-          {t("developedBy")}{" "}
           <a
-            href="https://hazem.vip/"
+            href="https://arab-os.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white font-medium hover:text-main transition"
+            className="text-gray-400 hover:text-main transition flex items-center justify-center md:justify-end gap-1.5 group"
           >
-            {t("developer")}
+            <span className="text-xs font-light">{t("poweredBy")}</span>
+            <span className="text-white font-medium group-hover:text-main transition-colors">Arab OS</span>
           </a>
         </p>
       </div>
