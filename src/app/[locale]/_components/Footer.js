@@ -184,12 +184,14 @@ function Footer() {
             className="text-gray-400 hover:text-main transition flex items-center justify-center md:justify-end gap-1.5 group"
           >
             <span className="text-xs font-light">{t("poweredBy")}</span>
+            <span className="text-gray-600 self-center hidden md:inline">•</span>
             <span className="text-white font-medium group-hover:text-main transition-colors flex items-center gap-1">
               Arab OS
               <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[10px]">
                 ↗
               </span>
             </span>
+
           </a>
         </p>
 
