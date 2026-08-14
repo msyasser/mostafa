@@ -18,14 +18,21 @@ export default function Navigation() {
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
 
+  const isLocalDev = typeof window !== "undefined" && window.location.hostname === "localhost";
+
+  const subdomainUrl = (sub) =>
+    isLocalDev
+      ? `/${locale}/${sub}`
+      : `https://${sub}.mostafayasser.com/${locale}`;
+
   const links = [
     { name: t("HOME"), to: "" },
     {
       name: t("CONTENT"),
       dropdown: true,
       items: [
-        { name: t("TEMPLATES"), href: `https://templates.mostafayasser.com/${locale}` },
-        { name: t("COURSES"), href: `https://courses.mostafayasser.com/${locale}` },
+        { name: t("TEMPLATES"), href: subdomainUrl("templates") },
+        { name: t("COURSES"), href: subdomainUrl("courses") },
         { name: t("TOOLS"), to: "tools" },
         { name: t("BLOGS"), to: "blog" }
       ]
