@@ -1,78 +1,60 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "@/src/i18n/navigation";
+import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
-import PhoneInput from "react-phone-number-input";
-import { Mail, ArrowLeft, RotateCw } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function SignInForm() {
   const t = useTranslations("Auth");
   const locale = useLocale();
   const router = useRouter();
+  const isArabic = locale === "ar";
 
-  const [isSignup, setIsSignup] = useState(false);
-  const [step, setStep] = useState("form"); // "form" | "verify"
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-
-  const [verificationToken, setVerificationToken] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
-  const [resendCooldown, setResendCooldown] = useState(0);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
-    phone: "",
   });
 
-  // Countdown timer for resend code
-  useEffect(() => {
-    if (resendCooldown <= 0) return;
-    const timer = setInterval(() => {
-      setResendCooldown((prev) => prev - 1);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [resendCooldown]);
-
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  // Step 1: Send verification code via Resend
-  const handleSendVerification = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
     setError("");
 
+    const formEl = e.currentTarget;
+    const currentEmail = formData.email?.trim() || formEl.elements?.email?.value?.trim() || "";
+    const currentPassword = formData.password || formEl.elements?.password?.value || "";
+
     try {
-      const res = await fetch("/api/auth/send-verification", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: formData.email,
-          name: formData.name,
-          locale: locale,
-        }),
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: currentEmail,
+        password: currentPassword,
+        action: "login",
+        callbackUrl: `/${locale}`,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || t("AUTH_ERROR"));
+      if (result?.error) {
+        setError(result.error);
+      } else if (result?.ok) {
+        router.replace(`/`);
+        router.refresh();
       }
-
-      setVerificationToken(data.verificationToken);
-      setStep("verify");
-      setResendCooldown(60); // 60s cooldown
-      setSuccessMessage(data.message || t("VERIFICATION_SENT_TO") + " " + formData.email);
     } catch (err) {
       setError(err.message || t("AUTH_ERROR"));
     } finally {
@@ -80,309 +62,97 @@ export default function SignInForm() {
     }
   };
 
-  // Step 2: Finalize signup with verification code or login directly
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccessMessage("");
-
-    // LOGIN Flow
-    if (!isSignup) {
-      setIsLoading(true);
-      try {
-        const result = await signIn("credentials", {
-          redirect: false,
-          email: formData.email,
-          password: formData.password,
-          action: "login",
-          callbackUrl: `/`,
-        });
-
-        if (result?.error) {
-          setError(result.error);
-        } else if (result?.ok) {
-          router.replace(`/`);
-        }
-      } catch (err) {
-        setError(err.message || t("AUTH_ERROR"));
-      } finally {
-        setIsLoading(false);
-      }
-      return;
-    }
-
-    // SIGNUP Flow - Step 1: Validate inputs and send code
-    if (step === "form") {
-      if (!formData.name || !formData.email || !formData.password) {
-        setError(t("ALL_FIELDS_REQUIRED"));
-        return;
-      }
-
-      if (formData.password !== formData.confirmPassword) {
-        setError(t("PASSWORDS_DONT_MATCH"));
-        return;
-      }
-
-      if (formData.password.length < 6) {
-        setError(t("PASSWORD_TOO_SHORT"));
-        return;
-      }
-
-      await handleSendVerification();
-      return;
-    }
-
-    // SIGNUP Flow - Step 2: Verify code and create user
-    if (step === "verify") {
-      if (!verificationCode || verificationCode.trim().length !== 6) {
-        setError(t("ENTER_CODE_ERROR"));
-        return;
-      }
-
-      setIsLoading(true);
-
-      try {
-        const result = await signIn("credentials", {
-          redirect: false,
-          email: formData.email,
-          password: formData.password,
-          name: formData.name,
-          phone: formData.phone,
-          action: "signup",
-          verificationToken: verificationToken,
-          verificationCode: verificationCode.trim(),
-          callbackUrl: `/`,
-        });
-
-        if (result?.error) {
-          setError(result.error);
-        } else if (result?.ok) {
-          router.replace(`/`);
-        }
-      } catch (err) {
-        setError(err.message || t("AUTH_ERROR"));
-      } finally {
-        setIsLoading(false);
-      }
-    }
-  };
-
-  const handleResendCode = async () => {
-    if (resendCooldown > 0 || isLoading) return;
-    setError("");
-    setVerificationCode("");
-    await handleSendVerification();
-  };
-
   return (
-    <BlurText duration={1}>
-      <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* VERIFY CODE STEP */}
-          {isSignup && step === "verify" ? (
-            <div className="space-y-5">
-              <div className="text-center">
-                <div className="w-14 h-14 mx-auto mb-3 rounded-full bg-main/10 border border-main/30 flex items-center justify-center text-main">
-                  <Mail size={26} />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-1">{t("VERIFICATION_CODE")}</h3>
-                <p className="text-gray-300 text-sm">
-                  {t("VERIFICATION_SENT_TO")}{" "}
-                  <span className="text-main font-semibold block mt-0.5">{formData.email}</span>
-                </p>
+    <BlurText duration={0.8}>
+      <div className="relative bg-neutral-900/70 backdrop-blur-2xl rounded-3xl p-6 sm:p-10 border border-neutral-800/80 shadow-[0_20px_60px_rgba(0,0,0,0.8)]">
+        {/* Subtle top brand accent line */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[2px] bg-gradient-to-r from-transparent via-main to-transparent rounded-full" />
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email field */}
+          <div className="space-y-2">
+            <label htmlFor="email" className="block text-sm font-medium text-neutral-300">
+              {t("EMAIL")} <span className="text-main">*</span>
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-500">
+                <Mail size={18} />
               </div>
-
-              <div>
-                <input
-                  id="verificationCode"
-                  name="verificationCode"
-                  type="text"
-                  maxLength={6}
-                  autoComplete="one-time-code"
-                  value={verificationCode}
-                  onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, ""))}
-                  className="w-full text-center tracking-[8px] font-mono text-2xl px-4 py-3.5 rounded-xl bg-white/10 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-main border border-white/20"
-                  placeholder={t("VERIFICATION_CODE_PLACEHOLDER")}
-                  autoFocus
-                  required
-                />
-              </div>
-
-              {error && (
-                <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 text-red-400 text-sm text-center">
-                  {error}
-                </div>
-              )}
-
-              {successMessage && !error && (
-                <div className="bg-main/10 border border-main/30 rounded-lg p-3 text-main text-xs text-center">
-                  {successMessage}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full px-6 py-3.5 bg-main text-black font-bold rounded-xl shadow-md hover:bg-white transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? t("LOADING") : t("VERIFY_AND_CREATE")}
-              </button>
-
-              <div className="flex items-center justify-between text-xs pt-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStep("form");
-                    setError("");
-                    setSuccessMessage("");
-                  }}
-                  className="text-gray-400 hover:text-white flex items-center gap-1 transition-colors"
-                >
-                  <ArrowLeft size={14} />
-                  {t("CHANGE_EMAIL")}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleResendCode}
-                  disabled={resendCooldown > 0 || isLoading}
-                  className="text-main hover:underline disabled:opacity-50 disabled:no-underline flex items-center gap-1"
-                >
-                  <RotateCw size={12} className={isLoading ? "animate-spin" : ""} />
-                  {resendCooldown > 0
-                    ? `${t("RESEND_IN")} ${resendCooldown}s`
-                    : t("RESEND_CODE")}
-                </button>
-              </div>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+                className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#141414] text-white placeholder:text-neutral-500 focus:outline-none focus:border-main focus:ring-1 focus:ring-main/30 border border-neutral-800 transition-all duration-200 text-sm sm:text-base"
+                placeholder={t("EMAIL_PLACEHOLDER")}
+              />
             </div>
-          ) : (
-            /* STANDARD FORM (LOGIN OR SIGNUP STEP 1) */
-            <>
-              {isSignup && (
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    {t("NAME")}
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-main border border-white/20"
-                    placeholder={t("NAME_PLACEHOLDER")}
-                  />
-                </div>
-              )}
+          </div>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  {t("EMAIL")}
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-main border border-white/20"
-                  placeholder={t("EMAIL_PLACEHOLDER")}
-                />
+          {/* Password field */}
+          <div className="space-y-2">
+            <label htmlFor="password" className="block text-sm font-medium text-neutral-300">
+              {t("PASSWORD")} <span className="text-main">*</span>
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-500">
+                <Lock size={18} />
               </div>
-
-              {isSignup && (
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                    {t("PHONE")}
-                  </label>
-                  <PhoneInput
-                    id="phone"
-                    international
-                    defaultCountry="EG"
-                    value={formData.phone}
-                    onChange={(value) => {
-                      setFormData({
-                        ...formData,
-                        phone: value || "",
-                      });
-                    }}
-                    className="phone-input-custom"
-                  />
-                </div>
-              )}
-
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium mb-2">
-                  {t("PASSWORD")}
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-main border border-white/20"
-                  placeholder={t("PASSWORD_PLACEHOLDER")}
-                />
-              </div>
-
-              {isSignup && (
-                <div>
-                  <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
-                    {t("CONFIRM_PASSWORD")}
-                  </label>
-                  <input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    value={formData.confirmPassword}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-main border border-white/20"
-                    placeholder={t("CONFIRM_PASSWORD_PLACEHOLDER")}
-                  />
-                </div>
-              )}
-
-              {error && (
-                <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 text-red-400 text-sm">
-                  {error}
-                </div>
-              )}
-
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+                className="w-full pl-11 pr-11 py-3.5 rounded-xl bg-[#141414] text-white placeholder:text-neutral-500 focus:outline-none focus:border-main focus:ring-1 focus:ring-main/30 border border-neutral-800 transition-all duration-200 text-sm sm:text-base"
+                placeholder={t("PASSWORD_PLACEHOLDER")}
+              />
               <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full px-6 py-3 bg-main text-black font-semibold rounded-lg shadow-md hover:bg-transparent hover:text-main border border-main transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-neutral-500 hover:text-neutral-300 transition-colors cursor-pointer"
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {isLoading ? t("LOADING") : isSignup ? t("SIGN_UP") : t("SIGN_IN")}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
+            </div>
+          </div>
 
-              <div className="text-center">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsSignup(!isSignup);
-                    setStep("form");
-                    setError("");
-                    setSuccessMessage("");
-                    setVerificationCode("");
-                    setFormData({
-                      name: "",
-                      email: "",
-                      password: "",
-                      confirmPassword: "",
-                      phone: "",
-                    });
-                  }}
-                  className="text-main hover:underline text-sm"
-                >
-                  {isSignup ? t("HAVE_ACCOUNT") : t("NO_ACCOUNT")}
-                </button>
-              </div>
-            </>
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3.5 text-red-400 text-sm text-center">
+              {error}
+            </div>
           )}
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-4 bg-main text-neutral-950 font-bold text-base rounded-xl shadow-[0_0_20px_rgba(215,177,128,0.25)] hover:shadow-[0_0_30px_rgba(215,177,128,0.4)] hover:bg-white transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
+          >
+            {isLoading ? (
+              <span className="inline-flex items-center gap-2">{t("LOADING")}</span>
+            ) : (
+              <span className="inline-flex items-center gap-2">
+                {t("SIGN_IN")}
+                {isArabic ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
+              </span>
+            )}
+          </button>
+
+          {/* Link to Sign Up */}
+          <div className="text-center pt-2">
+            <Link
+              href={`/${locale}/auth/signup`}
+              className="text-sm text-neutral-400 hover:text-main transition-colors inline-flex items-center gap-1.5"
+            >
+              {t("NO_ACCOUNT")}
+            </Link>
+          </div>
         </form>
       </div>
     </BlurText>
