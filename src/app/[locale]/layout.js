@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { routing } from "@/src/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 
 import Navigation from "@/src/app/[locale]/_components/Navigation";
 import Footer from "@/src/app/[locale]/_components/Footer";
@@ -91,6 +91,7 @@ export async function generateMetadata({ params }) {
 
 export default async function LocaleLayout({ children, params }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const messages = await getMessages();
   const dir = locale === "ar" ? "rtl" : "ltr";
   const isArabic = locale === "ar";

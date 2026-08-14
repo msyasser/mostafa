@@ -30,10 +30,21 @@ export default function middleware(request) {
       return intlMiddleware(request);
     }
 
+    // Set locale headers for next-intl
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-next-intl-locale", locale);
+
     // Rewrite: templates.mostafayasser.com/ar → /ar/templates
     const rewriteUrl = request.nextUrl.clone();
     rewriteUrl.pathname = `/${locale}/${section}${rest}`;
-    return NextResponse.rewrite(rewriteUrl);
+    
+    const response = NextResponse.rewrite(rewriteUrl, {
+      request: {
+        headers: requestHeaders,
+      },
+    });
+    response.headers.set("x-next-intl-locale", locale);
+    return response;
   }
 
   return intlMiddleware(request);
