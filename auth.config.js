@@ -1,5 +1,6 @@
 import Credentials from "next-auth/providers/credentials";
 import crypto from "crypto";
+import { verifyToken } from "@/src/lib/email";
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const NOTION_USERS_DB_ID = process.env.NOTION_USERS_DB_ID;
@@ -240,13 +241,15 @@ export const authConfig = {
         name: { label: "Name", type: "text" },
         phone: { label: "Phone", type: "text" },
         action: { label: "Action", type: "text" },
+        verificationToken: { label: "Verification Token", type: "text" },
+        verificationCode: { label: "Verification Code", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials) {
           return null;
         }
 
-        const { email, password, name, phone, action } = credentials;
+        const { email, password, name, phone, action, verificationToken, verificationCode } = credentials;
 
         if (!email || !password) {
           throw new Error("Email and password are required");
@@ -256,6 +259,13 @@ export const authConfig = {
         if (action === "signup") {
           if (!name) {
             throw new Error("Name is required for signup");
+          }
+
+          if (verificationToken && verificationCode) {
+            const verification = verifyToken(verificationToken, email, verificationCode);
+            if (!verification.valid) {
+              throw new Error(verification.error || "Email verification failed");
+            }
           }
 
           // Try Notion first, fallback to in-memory
