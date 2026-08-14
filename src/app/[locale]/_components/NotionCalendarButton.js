@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function NotionCalendarButton({
     label = "Book Consultation",
-    className = ""
+    className = "",
+    url = "https://calendar.notion.so/meet/mostafa-yasser/consultation"
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
@@ -59,7 +60,7 @@ export default function NotionCalendarButton({
                                 {/* Iframe Container */}
                                 <div className="flex-1 bg-white w-full relative">
                                     <iframe
-                                        src="https://calendar.notion.so/meet/mostafa-yasser/consultation"
+                                        src={url}
                                         className="absolute inset-0 w-full h-full border-0"
                                         title="Notion Calendar Scheduling"
                                         allowFullScreen
