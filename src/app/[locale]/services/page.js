@@ -7,6 +7,7 @@ import TargetAudience from "./_components/TargetAudience";
 import WhyWorkWithMe from "./_components/WhyWorkWithMe";
 import FAQ from "./_components/FAQ";
 import LogoCarousel from "./_components/LogoCarousel";
+import CalConsultation from "./_components/CalConsultation";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
 import { useTranslations } from "next-intl";
 
@@ -97,15 +98,8 @@ export default function ServicesPage() {
                                 </p>
                             </div>
 
-                            <div className="bg-white rounded-xl overflow-hidden shadow-2xl border-4 border-neutral-800">
-                                <iframe
-                                    src="https://calendar.notion.com/meet/mostafa-yasser/consultation"
-                                    style={{ border: 0 }}
-                                    width="100%"
-                                    height="600"
-                                    frameBorder="0"
-                                    title="Scheduling Calendar"
-                                ></iframe>
+                            <div className="bg-neutral-950 rounded-2xl overflow-hidden shadow-2xl border border-neutral-800 p-2 sm:p-4 min-h-[650px]">
+                                <CalConsultation />
                             </div>
                         </AnimatedWrapper>
                     </div>

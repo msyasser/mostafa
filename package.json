@@ -13,6 +13,7 @@
     "audit": "lighthouse http://localhost:3000 --output html --output-path ./lighthouse-report.html"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@fillout/react": "^3.0.0",
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0",
@@ -44,4 +45,3 @@
     "tailwindcss": "^4"
   }
 }
-
