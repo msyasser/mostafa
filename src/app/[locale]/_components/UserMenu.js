@@ -57,7 +57,7 @@ export default function UserMenu({ inline = false }) {
     return (
       <a
         href={`/${locale}/auth/signin`}
-        className={`px-4 py-2 bg-main text-black font-semibold rounded-lg hover:bg-transparent hover:text-main border border-main transition-all duration-300 ${inline ? "block mx-auto text-center" : ""}`}
+        className={`rounded-full font-semibold border border-main/60 text-main hover:bg-main hover:text-black transition-all duration-200 ${inline ? "text-base px-10 py-3" : "text-sm px-4 py-2"}`}
       >
         {t("SIGN_IN")}
       </a>

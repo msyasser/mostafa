@@ -20,7 +20,6 @@ export default function Navigation() {
 
   const links = [
     { name: t("HOME"), to: "" },
-    { name: t("SERVICES"), to: "services" },
     {
       name: t("CONTENT"),
       dropdown: true,
@@ -108,6 +107,12 @@ export default function Navigation() {
 
             <div className="flex items-center gap-3 ml-2">
               <LanguageSwitcher />
+              <Link
+                href={`/${locale}/services`}
+                className="px-5 py-2 rounded-full text-sm font-semibold bg-main text-black hover:brightness-110 hover:scale-105 transition-all duration-200 shadow-lg shadow-main/30"
+              >
+                {t("HIRE_ME")}
+              </Link>
               <UserMenu />
             </div>
           </div>
@@ -200,7 +205,14 @@ export default function Navigation() {
                 </Link>
               );
             })}
-            <div className="pt-4 w-full max-w-sm">
+            <div className="mt-8 flex flex-col items-center gap-3">
+              <Link
+                href={`/${locale}/services`}
+                className="px-10 py-3 rounded-full text-base font-bold bg-main text-black hover:brightness-110 active:scale-95 transition-all duration-200 shadow-xl shadow-main/25"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t("HIRE_ME")}
+              </Link>
               <UserMenu inline />
             </div>
           </div>
