@@ -88,7 +88,7 @@ export async function generateMetadata({ params }) {
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
-  const tCalendar = useTranslations("CaseStudiesPage");
+
   const locale = useLocale();
 
   return (
@@ -123,7 +123,7 @@ export default function HomePage() {
                 {locale === "ar" ? <BsArrowLeft className="text-xl" /> : <BsArrowRight className="text-xl" />}
               </a>
               <a
-                href="#calendar-section"
+                href={`/${locale}/services`}
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/20 hover:border-white text-white font-medium text-lg transition-all duration-300 hover:bg-white/10 w-full sm:w-auto min-w-[200px]"
               >
                 {t("workWithUsButton")}
@@ -140,32 +140,7 @@ export default function HomePage() {
 
         <ContentAuthoritySection />
 
-        {/* Calendar Section (Replaces ContactCTASection) */}
-        <div id="calendar-section" className="py-24 px-6 bg-neutral-900 border-t border-neutral-800 scroll-mt-32">
-          <div className="max-w-5xl mx-auto">
-            <AnimatedWrapper>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                  {tCalendar("calendarTitle")}
-                </h2>
-                <p className="text-gray-400 max-w-xl mx-auto text-lg">
-                  {tCalendar("calendarDescription")}
-                </p>
-              </div>
 
-              <div className="bg-white rounded-xl overflow-hidden shadow-2xl border-4 border-neutral-800">
-                <iframe
-                  src="https://calendar.notion.so/meet/mostafa-yasser/consultation"
-                  style={{ border: 0 }}
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
-                  title="Scheduling Calendar"
-                ></iframe>
-              </div>
-            </AnimatedWrapper>
-          </div>
-        </div>
       </BlurText>
     </>
   );

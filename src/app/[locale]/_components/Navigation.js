@@ -7,6 +7,7 @@ import BlurText from "@/src/app/[locale]/_components/BlurText";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 import UserMenu from "./UserMenu";
+import AnimatedLogo from "./AnimatedLogo";
 import { useTranslations } from "next-intl";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -113,12 +114,7 @@ export default function Navigation() {
             href={mainUrl("")}
             className="hidden lg:flex items-center gap-2 pl-1 mt-0.5"
           >
-            <Image
-              src="/logos/lightLogo.webp"
-              alt="Mostafa Yasser logo"
-              height={180}
-              width={180}
-            />
+            <AnimatedLogo className="h-7 w-auto" />
           </Link>
 
           {/* Desktop Menu */}
@@ -193,32 +189,30 @@ export default function Navigation() {
           </div>
 
           {/* Hamburger Icon */}
-          <div className="lg:hidden flex justify-between items-center w-full px-2">
-            <div className="flex items-center space-x-2">
-              <LanguageSwitcher />
-            </div>
-            <Link href={mainUrl("")}>
-              <p className="mx-auto px-0.5 font-bold text-xl uppercase mt-0.5">
-                {t("MOSTAFA")}
-              </p>
+          <div dir="ltr" className="lg:hidden flex justify-between items-center w-full px-2">
+            <Link href={mainUrl("")} className="flex items-center">
+              <AnimatedLogo className="h-6 w-auto" />
             </Link>
 
-            <div
-              className="relative flex flex-col justify-center items-center space-y-1 z-50"
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
+            <div className="flex items-center gap-3">
+              <LanguageSwitcher />
               <div
-                className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out transform rounded-full mt-0.5 ${menuOpen ? "rotate-45 absolute" : ""
-                  }`}
-              />
-              <div
-                className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out rounded-full ${menuOpen ? "opacity-0" : ""
-                  }`}
-              />
-              <div
-                className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out transform rounded-full ${menuOpen ? "rotate-135 absolute bottom-[3.1px]" : ""
-                  }`}
-              />
+                className="relative flex flex-col justify-center items-center space-y-1 z-50"
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
+                <div
+                  className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out transform rounded-full mt-0.5 ${menuOpen ? "rotate-45 absolute" : ""
+                    }`}
+                />
+                <div
+                  className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out rounded-full ${menuOpen ? "opacity-0" : ""
+                    }`}
+                />
+                <div
+                  className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out transform rounded-full ${menuOpen ? "rotate-135 absolute bottom-[3.1px]" : ""
+                    }`}
+                />
+              </div>
             </div>
           </div>
         </div>

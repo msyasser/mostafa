@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function NotionCalendarButton({
     label = "Book Consultation",
     className = "",
-    url = "https://calendar.notion.so/meet/mostafa-yasser/consultation"
+    url = "https://calendar.notion.com/meet/mostafa-yasser/consultation"
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
