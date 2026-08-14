@@ -61,7 +61,7 @@ export async function sendVerificationEmail({ email, name, code, locale = "en" }
   }
 
   const isArabic = locale === "ar";
-  const fromEmail = process.env.RESEND_FROM_EMAIL || "Mostafa Yasser <onboarding@resend.dev>";
+  const fromEmail = process.env.RESEND_FROM_EMAIL || "Mostafa Yasser <auth@mostafayasser.com>";
 
   const subject = isArabic
     ? `${code} هو رمز التحقق الخاص بك | مصطفى ياسر`
