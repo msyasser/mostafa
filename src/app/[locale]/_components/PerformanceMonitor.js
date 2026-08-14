@@ -4,62 +4,68 @@ import { useEffect } from 'react';
 
 export default function PerformanceMonitor() {
   useEffect(() => {
-    // Web Vitals monitoring
-    if (typeof window !== 'undefined') {
-      // LCP (Largest Contentful Paint)
-      new PerformanceObserver((entryList) => {
-        for (const entry of entryList.getEntries()) {
-          // Send to analytics
-          if (window.gtag) {
-            window.gtag('event', 'web_vitals', {
-              name: 'LCP',
-              value: Math.round(entry.startTime),
-              event_category: 'Web Vitals',
-            });
-          }
-        }
-      }).observe({ entryTypes: ['largest-contentful-paint'] });
+    if (typeof window === 'undefined') return;
 
-      // FID (First Input Delay)
-      new PerformanceObserver((entryList) => {
-        for (const entry of entryList.getEntries()) {
-          if (window.gtag) {
-            window.gtag('event', 'web_vitals', {
-              name: 'FID',
-              value: Math.round(entry.processingStart - entry.startTime),
-              event_category: 'Web Vitals',
-            });
-          }
-        }
-      }).observe({ entryTypes: ['first-input'] });
+    const observers = [];
 
-      // CLS (Cumulative Layout Shift)
-      let clsValue = 0;
-      new PerformanceObserver((entryList) => {
-        for (const entry of entryList.getEntries()) {
-          if (!entry.hadRecentInput) {
-            clsValue += entry.value;
-          }
-        }
+    const observe = (types, callback) => {
+      try {
+        const obs = new PerformanceObserver(callback);
+        obs.observe({ entryTypes: types });
+        observers.push(obs);
+      } catch {
+        // Browser may not support certain entry types
+      }
+    };
+
+    // LCP (Largest Contentful Paint)
+    observe(['largest-contentful-paint'], (list) => {
+      for (const entry of list.getEntries()) {
         if (window.gtag) {
           window.gtag('event', 'web_vitals', {
-            name: 'CLS',
-            value: Math.round(clsValue * 1000),
+            name: 'LCP',
+            value: Math.round(entry.startTime),
             event_category: 'Web Vitals',
           });
         }
-      }).observe({ entryTypes: ['layout-shift'] });
+      }
+    });
 
-      // Monitor resource loading
-      new PerformanceObserver((entryList) => {
-        for (const entry of entryList.getEntries()) {
-          if (entry.duration > 1000) { // Track slow resources
-            // Could send to analytics if needed
-          }
+    // FID (First Input Delay)
+    observe(['first-input'], (list) => {
+      for (const entry of list.getEntries()) {
+        if (window.gtag) {
+          window.gtag('event', 'web_vitals', {
+            name: 'FID',
+            value: Math.round(entry.processingStart - entry.startTime),
+            event_category: 'Web Vitals',
+          });
         }
-      }).observe({ entryTypes: ['resource'] });
-    }
+      }
+    });
+
+    // CLS (Cumulative Layout Shift)
+    let clsValue = 0;
+    observe(['layout-shift'], (list) => {
+      for (const entry of list.getEntries()) {
+        if (!entry.hadRecentInput) {
+          clsValue += entry.value;
+        }
+      }
+      if (window.gtag) {
+        window.gtag('event', 'web_vitals', {
+          name: 'CLS',
+          value: Math.round(clsValue * 1000),
+          event_category: 'Web Vitals',
+        });
+      }
+    });
+
+    // Cleanup: disconnect all observers on unmount
+    return () => {
+      observers.forEach((obs) => obs.disconnect());
+    };
   }, []);
 
-  return null; // This component doesn't render anything
+  return null;
 }

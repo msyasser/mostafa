@@ -1,12 +1,58 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
-import { FaYoutube, FaBlog, FaTools } from "react-icons/fa";
+import { FaYoutube, FaBlog, FaTools, FaPlay } from "react-icons/fa";
 import AnimatedWrapper from "./AnimatedWrapper";
 import AnimatedInView from "./AnimatedInView";
 import PomodoroWidget from "@/src/components/widgets/Pomodoro";
+
+const YOUTUBE_ID = "Ocl3MNGa2Fg";
+
+function YouTubeFacade() {
+  const [active, setActive] = useState(false);
+
+  if (active) {
+    return (
+      <iframe
+        width="100%"
+        height="100%"
+        src={`https://www.youtube.com/embed/${YOUTUBE_ID}?si=7_5ndgHZu1m1JWu_&autoplay=1`}
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        className="w-full h-full"
+      />
+    );
+  }
+
+  return (
+    <button
+      onClick={() => setActive(true)}
+      className="relative w-full h-full group/yt cursor-pointer"
+      aria-label="Play YouTube video"
+    >
+      <Image
+        src={`https://img.youtube.com/vi/${YOUTUBE_ID}/hqdefault.jpg`}
+        alt="YouTube video thumbnail"
+        fill
+        className="object-cover"
+        loading="lazy"
+      />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/30 group-hover/yt:bg-black/10 transition-colors duration-300" />
+      {/* Play button */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center shadow-lg group-hover/yt:scale-110 transition-transform duration-200">
+          <FaPlay className="text-white text-xl ml-1" />
+        </div>
+      </div>
+    </button>
+  );
+}
 
 export default function ContentAuthoritySection() {
     const t = useTranslations("HomePage");
@@ -35,18 +81,10 @@ export default function ContentAuthoritySection() {
                     {/* Left: YouTube Video Embed */}
                     <AnimatedWrapper delay={0.1}>
                         <div className="h-full bg-neutral-900 border border-neutral-800 rounded-3xl overflow-hidden hover:border-main/50 transition-all duration-500 hover:shadow-2xl hover:shadow-main/10 flex flex-col group">
-                            {/* YouTube Video */}
+                            {/* YouTube Facade */}
                             <div className="relative aspect-video w-full bg-black border-b border-neutral-800">
-                                <iframe
-                                    width="100%"
-                                    height="100%"
-                                    src="https://www.youtube.com/embed/Ocl3MNGa2Fg?si=7_5ndgHZu1m1JWu_"
-                                    title="YouTube video player"
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowFullScreen
-                                    className="w-full h-full"
-                                ></iframe>
+                                <YouTubeFacade />
+
                             </div>
                             {/* Content */}
                             <div className="p-6 flex flex-col flex-1">

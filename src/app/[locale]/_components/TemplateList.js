@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Fuse from "fuse.js";
 import { Suspense } from "react";
@@ -15,6 +15,11 @@ function TemplateList({ filter, pricingFilter, sortOrder = "newest" }) {
   const locale = useLocale();
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [isTemplatesSubdomain, setIsTemplatesSubdomain] = useState(false);
+
+  useEffect(() => {
+    setIsTemplatesSubdomain(window.location.hostname === "templates.mostafayasser.com");
+  }, []);
 
   // First filter by category
   let filteredTemplates =
@@ -95,6 +100,7 @@ function TemplateList({ filter, pricingFilter, sortOrder = "newest" }) {
                   key={template.id}
                   template={template}
                   index={index}
+                  isTemplatesSubdomain={isTemplatesSubdomain}
                 />
               );
             })

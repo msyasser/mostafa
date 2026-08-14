@@ -1,18 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-export default function TemplateCard({ template, index }) {
+export default function TemplateCard({ template, index, isTemplatesSubdomain = false }) {
   const t = useTranslations("TemplateSlug");
   const locale = useLocale();
-  const [isTemplatesSubdomain, setIsTemplatesSubdomain] = useState(false);
-
-  useEffect(() => {
-    setIsTemplatesSubdomain(window.location.hostname === "templates.mostafayasser.com");
-  }, []);
 
   const templateHref = isTemplatesSubdomain
     ? `/${locale}/${template.slug}`

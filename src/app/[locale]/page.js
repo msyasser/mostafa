@@ -9,24 +9,19 @@ import BlurText from "@/src/app/[locale]/_components/BlurText";
 import SEOOptimizer from "./_components/SEOOptimizer";
 
 // Lazy load components that are not immediately visible
-// Lazy load components that are not immediately visible
 const TemplatesShowcase = dynamic(() => import("@/src/app/[locale]/_components/TempaltesShowCase"), {
-  loading: () => <div className="animate-pulse h-96 bg-gray-800 rounded-lg"></div>
+  loading: () => <div className="animate-pulse h-96 bg-gray-800 rounded-lg"></div>,
 });
 const SubscriptionForm = dynamic(() => import("@/src/app/[locale]/_components/SubscriptionForm"), {
-  loading: () => <div className="animate-pulse h-32 bg-gray-800 rounded-lg"></div>
+  loading: () => <div className="animate-pulse h-32 bg-gray-800 rounded-lg"></div>,
 });
 const HomeServicesSection = dynamic(() => import("@/src/app/[locale]/_components/HomeServicesSection"), {
-  loading: () => <div className="animate-pulse h-96 bg-gray-800 rounded-lg"></div>
+  loading: () => <div className="animate-pulse h-96 bg-gray-800 rounded-lg"></div>,
 });
-
-// ... inside component ...
-
-{/* Services Summary Section */ }
-<HomeServicesSection />
 const ContentAuthoritySection = dynamic(() => import("@/src/app/[locale]/_components/ContentAuthoritySection"), {
-  loading: () => <div className="animate-pulse h-64 bg-gray-800 rounded-lg"></div>
+  loading: () => <div className="animate-pulse h-64 bg-gray-800 rounded-lg"></div>,
 });
+
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;

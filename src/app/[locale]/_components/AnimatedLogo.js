@@ -5,8 +5,33 @@ import Image from "next/image";
 
 const ANIMATION_DURATION = 5300; // 5.3s - one full loop
 
+// Module-level cache: SVG is fetched only once per session
+let _cachedSvg = null;
+let _fetchPromise = null;
+
+function getSvgContent() {
+  if (_cachedSvg) return Promise.resolve(_cachedSvg);
+  if (!_fetchPromise) {
+    _fetchPromise = fetch("/logos/White Logo Animation.svg")
+      .then((res) => res.text())
+      .then((svg) => {
+        _cachedSvg = svg
+          .replace(/<\?xml.*?\?>/i, "")
+          .replace(/<!--[\s\S]*?-->/g, "")
+          .trim();
+        return _cachedSvg;
+      })
+      .catch((err) => {
+        _fetchPromise = null; // allow retry on failure
+        console.error("Failed to load logo SVG:", err);
+        return null;
+      });
+  }
+  return _fetchPromise;
+}
+
 export default function AnimatedLogo({ className = "h-10 w-auto" }) {
-  const [svgContent, setSvgContent] = useState("");
+  const [svgContent, setSvgContent] = useState(_cachedSvg || "");
   const [isPlaying, setIsPlaying] = useState(false);
 
   const isHoveredRef = useRef(false);
@@ -14,16 +39,13 @@ export default function AnimatedLogo({ className = "h-10 w-auto" }) {
   const hasPlayedOnMountRef = useRef(false);
 
   useEffect(() => {
-    fetch("/logos/White Logo Animation.svg")
-      .then((res) => res.text())
-      .then((svg) => {
-        const clean = svg
-          .replace(/<\?xml.*?\?>/i, "")
-          .replace(/<!--[\s\S]*?-->/g, "")
-          .trim();
-        setSvgContent(clean);
-      })
-      .catch((err) => console.error("Failed to load logo SVG:", err));
+    if (_cachedSvg) {
+      setSvgContent(_cachedSvg);
+    } else {
+      getSvgContent().then((content) => {
+        if (content) setSvgContent(content);
+      });
+    }
 
     return () => {
       if (cycleTimerRef.current) clearTimeout(cycleTimerRef.current);
@@ -38,7 +60,6 @@ export default function AnimatedLogo({ className = "h-10 w-auto" }) {
     setIsPlaying(true);
 
     cycleTimerRef.current = setTimeout(() => {
-      // After one cycle, only continue if user is hovering
       if (isHoveredRef.current) {
         startCycle();
       } else {
@@ -53,9 +74,9 @@ export default function AnimatedLogo({ className = "h-10 w-auto" }) {
 
     cycleTimerRef.current = setTimeout(() => {
       if (isHoveredRef.current) {
-        startCycle(); // keep looping while hovered
+        startCycle();
       } else {
-        setIsPlaying(false); // pause cleanly at end of loop
+        setIsPlaying(false);
         cycleTimerRef.current = null;
       }
     }, ANIMATION_DURATION);
@@ -71,7 +92,6 @@ export default function AnimatedLogo({ className = "h-10 w-auto" }) {
 
   const handleMouseLeave = () => {
     isHoveredRef.current = false;
-    // Let the ongoing cycle finish naturally via the timer
   };
 
   if (!svgContent) {
