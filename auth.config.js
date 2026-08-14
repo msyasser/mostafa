@@ -232,7 +232,42 @@ async function findUserByEmail(email) {
   return data.results[0];
 }
 
+const useSecureCookies = process.env.NODE_ENV === "production";
+const cookiePrefix = useSecureCookies ? "__Secure-" : "";
+const cookieDomain = process.env.NODE_ENV === "production" ? ".mostafayasser.com" : undefined;
+
 export const authConfig = {
+  cookies: {
+    sessionToken: {
+      name: `${cookiePrefix}authjs.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: useSecureCookies,
+        domain: cookieDomain,
+      },
+    },
+    callbackUrl: {
+      name: `${cookiePrefix}authjs.callback-url`,
+      options: {
+        sameSite: "lax",
+        path: "/",
+        secure: useSecureCookies,
+        domain: cookieDomain,
+      },
+    },
+    csrfToken: {
+      name: `${cookiePrefix}authjs.csrf-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: useSecureCookies,
+        domain: cookieDomain,
+      },
+    },
+  },
   providers: [
     Credentials({
       name: "Credentials",
@@ -408,6 +443,24 @@ export const authConfig = {
     }),
   ],
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Allow relative paths
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allow redirects to mostafayasser.com subdomains and dev hosts
+      try {
+        const parsed = new URL(url);
+        if (
+          parsed.hostname.endsWith("mostafayasser.com") ||
+          parsed.hostname === "localhost" ||
+          parsed.hostname.endsWith(".vercel.app")
+        ) {
+          return url;
+        }
+      } catch {
+        // fallback to baseUrl on malformed URL
+      }
+      return baseUrl;
+    },
     async signIn({ user, account }) {
       if (account?.provider === "google") {
         const email = user?.email;

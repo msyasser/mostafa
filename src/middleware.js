@@ -30,9 +30,35 @@ export default function middleware(request) {
       return intlMiddleware(request);
     }
 
-    // Shared routes (auth, api, legal) should not be rewritten into /[locale]/[section]/...
+    // Centralize auth on main domain in production so Google OAuth & sessions work across subdomains
+    if (rest.startsWith("/auth")) {
+      const isDevOrLocal =
+        process.env.NODE_ENV === "development" ||
+        hostname.includes("localhost") ||
+        hostname.includes("127.0.0.1") ||
+        hostname.includes(".vercel.app");
+
+      if (!isDevOrLocal) {
+        const protocol = request.headers.get("x-forwarded-proto") || "https";
+        const mainAuthUrl = new URL(
+          `https://www.mostafayasser.com/${locale}${rest}`
+        );
+        const existingCallback = request.nextUrl.searchParams.get("callbackUrl");
+        if (existingCallback) {
+          mainAuthUrl.searchParams.set("callbackUrl", existingCallback);
+        } else {
+          mainAuthUrl.searchParams.set(
+            "callbackUrl",
+            `${protocol}://${hostname}/${locale}`
+          );
+        }
+        return NextResponse.redirect(mainAuthUrl);
+      }
+      return intlMiddleware(request);
+    }
+
+    // Shared routes (api, legal) should not be rewritten into /[locale]/[section]/...
     if (
-      rest.startsWith("/auth") ||
       rest.startsWith("/api") ||
       rest.startsWith("/privacy-policy") ||
       rest.startsWith("/terms-of-service")

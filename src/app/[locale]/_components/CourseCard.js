@@ -61,7 +61,16 @@ export default function CourseCard({ course }) {
               {isArabic ? "يرجى تسجيل الدخول لمشاهدة هذه الدورة" : "Please login to access this course"}
             </p>
             <Link
-              href={`/${locale}/auth/signin?callbackUrl=/${locale}/courses/${course.slug}`}
+              href={
+                typeof window !== "undefined" &&
+                !window.location.hostname.includes("localhost") &&
+                !window.location.hostname.includes(".vercel.app") &&
+                (window.location.hostname.startsWith("courses.") || window.location.hostname.startsWith("templates."))
+                  ? `https://www.mostafayasser.com/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
+                      window.location.origin + `/${locale}/courses/${course.slug}`
+                    )}`
+                  : `/${locale}/auth/signin?callbackUrl=/${locale}/courses/${course.slug}`
+              }
               className="inline-block bg-main text-black font-semibold py-2 px-6 rounded-lg hover:bg-white transition-colors"
               onClick={(e) => e.stopPropagation()}
             >

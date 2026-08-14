@@ -54,9 +54,21 @@ export default function UserMenu({ inline = false }) {
   }
 
   if (!session) {
+    const isSubdomain =
+      typeof window !== "undefined" &&
+      !window.location.hostname.includes("localhost") &&
+      !window.location.hostname.includes(".vercel.app") &&
+      (window.location.hostname.startsWith("courses.") || window.location.hostname.startsWith("templates."));
+
+    const signinHref = isSubdomain
+      ? `https://www.mostafayasser.com/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
+          window.location.href
+        )}`
+      : `/${locale}/auth/signin`;
+
     return (
       <a
-        href={`/${locale}/auth/signin`}
+        href={signinHref}
         className={`rounded-full font-semibold border border-main/60 text-main hover:bg-main hover:text-black transition-all duration-200 ${inline ? "text-base px-10 py-3" : "text-sm px-4 py-2"}`}
       >
         {t("SIGN_IN")}
