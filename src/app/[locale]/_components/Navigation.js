@@ -24,8 +24,8 @@ export default function Navigation() {
       name: t("CONTENT"),
       dropdown: true,
       items: [
-        { name: t("TEMPLATES"), to: "templates" },
-        { name: t("COURSES"), to: "courses" },
+        { name: t("TEMPLATES"), href: `https://templates.mostafayasser.com/${locale}` },
+        { name: t("COURSES"), href: `https://courses.mostafayasser.com/${locale}` },
         { name: t("TOOLS"), to: "tools" },
         { name: t("BLOGS"), to: "blog" }
       ]
@@ -76,15 +76,15 @@ export default function Navigation() {
                                   transition-all duration-300 ease-out origin-top">
                       <div className="flex flex-col gap-0.5">
                         {link.items.map((subItem, subIndex) => (
-                          <Link
+                          <a
                             key={subIndex}
-                            href={`/${locale}/${subItem.to}`}
+                            href={subItem.href || `/${locale}/${subItem.to}`}
                             className="px-4 py-2.5 rounded-xl text-sm font-medium text-gray-300 
                                      hover:bg-white/10 hover:text-white hover:pl-5
                                      transition-all duration-200"
                           >
                             {subItem.name}
-                          </Link>
+                          </a>
                         ))}
                       </div>
                     </div>
@@ -176,14 +176,14 @@ export default function Navigation() {
                           className="flex flex-col items-center space-y-4 mt-4 w-full bg-white/5 rounded-xl py-4 overflow-hidden"
                         >
                           {link.items.map((subItem, subIndex) => (
-                            <Link
+                            <a
                               key={subIndex}
-                              href={`/${locale}/${subItem.to}`}
+                              href={subItem.href || `/${locale}/${subItem.to}`}
                               className="text-lg hover:text-main transition-colors"
                               onClick={() => setMenuOpen(false)}
                             >
                               {subItem.name}
-                            </Link>
+                            </a>
                           ))}
                         </motion.div>
                       )}
