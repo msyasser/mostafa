@@ -1,4 +1,5 @@
 import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 import crypto from "crypto";
 import { verifyToken } from "@/src/lib/email";
 
@@ -400,13 +401,45 @@ export const authConfig = {
         return null;
       },
     }),
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID || process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET || process.env.GOOGLE_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true,
+    }),
   ],
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        const email = user?.email;
+        const name = user?.name || "Google User";
+
+        if (NOTION_TOKEN && NOTION_USERS_DB_ID && email) {
+          try {
+            const existingUser = await findUserByEmail(email);
+            if (!existingUser) {
+              await createUserInNotion({
+                name,
+                email,
+                password: crypto.randomBytes(16).toString("hex"),
+                phone: "",
+              });
+              console.log("✅ New Google user registered in Notion:", email);
+            }
+          } catch (err) {
+            console.error("❌ Error syncing Google user to Notion:", err);
+          }
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token.id = user.id || token.sub;
         token.email = user.email;
         token.name = user.name;
+        if (user.image) {
+          token.picture = user.image;
+        }
       }
       return token;
     },
@@ -415,6 +448,9 @@ export const authConfig = {
         session.user.id = token.id;
         session.user.email = token.email;
         session.user.name = token.name;
+        if (token.picture) {
+          session.user.image = token.picture;
+        }
       }
       return session;
     },
@@ -425,5 +461,5 @@ export const authConfig = {
   pages: {
     signIn: "/en/auth/signin",
   },
-  secret: process.env.NEXTAUTH_SECRET || "fallback-secret-for-development",
+  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET || "fallback-secret-for-development",
 };
