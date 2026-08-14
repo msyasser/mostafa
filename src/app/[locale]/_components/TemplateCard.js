@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +8,15 @@ import { useLocale, useTranslations } from "next-intl";
 export default function TemplateCard({ template, index }) {
   const t = useTranslations("TemplateSlug");
   const locale = useLocale();
+  const [isTemplatesSubdomain, setIsTemplatesSubdomain] = useState(false);
+
+  useEffect(() => {
+    setIsTemplatesSubdomain(window.location.hostname === "templates.mostafayasser.com");
+  }, []);
+
+  const templateHref = isTemplatesSubdomain
+    ? `/${locale}/${template.slug}`
+    : `/${locale}/templates/${template.slug}`;
 
   // Fallback function to get template name
   const getTemplateName = () => {
@@ -58,7 +68,7 @@ export default function TemplateCard({ template, index }) {
       transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
     >
       <div className="relative rounded-2xl overflow-hidden shadow-lg transition-all duration-300 transform hover:scale-[1.01] hover:-translate-y-2 ease-in-out cursor-pointer hover:shadow-main">
-        <Link href={`/${locale}/templates/${template.slug}`}>
+        <Link href={templateHref}>
           {/* Price Label */}
           {template.premium && (
             <span
