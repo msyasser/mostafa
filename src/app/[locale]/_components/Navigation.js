@@ -25,10 +25,14 @@ export default function Navigation() {
     setHostname(window.location.hostname);
   }, []);
 
-  const isTemplatesSubdomain = mounted && hostname.startsWith("templates.");
-  const isCoursesSubdomain = mounted && hostname.startsWith("courses.");
+  const isDev = process.env.NODE_ENV === "development";
+  const isLocalHost = mounted && (hostname === "localhost" || hostname === "127.0.0.1" || hostname.includes("localhost"));
+  const isPreview = mounted && hostname.includes(".vercel.app");
+  const isLocalOrPreview = isDev || isLocalHost || isPreview;
+
+  const isTemplatesSubdomain = !isLocalOrPreview && mounted && hostname.startsWith("templates.");
+  const isCoursesSubdomain = !isLocalOrPreview && mounted && hostname.startsWith("courses.");
   const isSubdomain = isTemplatesSubdomain || isCoursesSubdomain;
-  const isLocalDev = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
 
   const mainUrl = (path = "") => {
     const cleanPath = path ? (path.startsWith("/") ? path : `/${path}`) : "";
@@ -39,7 +43,7 @@ export default function Navigation() {
   };
 
   const subdomainUrl = (sub) => {
-    if (isLocalDev) {
+    if (isLocalOrPreview) {
       return `/${locale}/${sub}`;
     }
     return `https://${sub}.mostafayasser.com/${locale}`;
