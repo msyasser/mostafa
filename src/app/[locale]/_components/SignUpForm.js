@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "@/src/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
@@ -13,6 +14,8 @@ export default function SignUpForm() {
   const t = useTranslations("Auth");
   const locale = useLocale();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || `/${locale}`;
   const isArabic = locale === "ar";
 
   const [step, setStep] = useState("form"); // "form" | "verify"
@@ -166,13 +169,13 @@ export default function SignUpForm() {
           action: "signup",
           verificationToken: verificationToken,
           verificationCode: verificationCode.trim(),
-          callbackUrl: `/${locale}`,
+          callbackUrl,
         });
 
         if (result?.error) {
           setError(result.error);
         } else if (result?.ok) {
-          router.replace(`/`);
+          router.replace(callbackUrl);
           router.refresh();
         }
       } catch (err) {
@@ -196,7 +199,7 @@ export default function SignUpForm() {
     setIsGoogleLoading(true);
     setError("");
     try {
-      await signIn("google", { callbackUrl: `/${locale}` });
+      await signIn("google", { callbackUrl });
     } catch (err) {
       setError(err.message || t("AUTH_ERROR"));
       setIsGoogleLoading(false);
@@ -497,7 +500,7 @@ export default function SignUpForm() {
               {/* Link to Sign In */}
               <div className="text-center pt-2">
                 <Link
-                  href={`/${locale}/auth/signin`}
+                  href={`/${locale}/auth/signin${callbackUrl && callbackUrl !== `/${locale}` ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ""}`}
                   className="text-sm text-neutral-400 hover:text-main transition-colors inline-flex items-center gap-1.5"
                 >
                   {t("HAVE_ACCOUNT")}

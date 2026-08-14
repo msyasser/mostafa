@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import SignUpForm from "@/src/app/[locale]/_components/SignUpForm";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
@@ -35,7 +36,9 @@ export default async function SignUpPage({ params }) {
           </div>
         </AnimatedWrapper>
 
-        <SignUpForm />
+        <Suspense fallback={<div className="h-96 rounded-3xl bg-neutral-900/40 animate-pulse border border-neutral-800" />}>
+          <SignUpForm />
+        </Suspense>
       </div>
     </div>
   );

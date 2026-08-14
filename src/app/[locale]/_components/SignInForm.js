@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "@/src/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
@@ -12,6 +13,8 @@ export default function SignInForm() {
   const t = useTranslations("Auth");
   const locale = useLocale();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || `/${locale}`;
   const isArabic = locale === "ar";
 
   const [isLoading, setIsLoading] = useState(false);
@@ -46,13 +49,13 @@ export default function SignInForm() {
         email: currentEmail,
         password: currentPassword,
         action: "login",
-        callbackUrl: `/${locale}`,
+        callbackUrl,
       });
 
       if (result?.error) {
         setError(result.error);
       } else if (result?.ok) {
-        router.replace(`/`);
+        router.replace(callbackUrl);
         router.refresh();
       }
     } catch (err) {
@@ -68,7 +71,7 @@ export default function SignInForm() {
     setIsGoogleLoading(true);
     setError("");
     try {
-      await signIn("google", { callbackUrl: `/${locale}` });
+      await signIn("google", { callbackUrl });
     } catch (err) {
       setError(err.message || t("AUTH_ERROR"));
       setIsGoogleLoading(false);
@@ -208,7 +211,7 @@ export default function SignInForm() {
           {/* Link to Sign Up */}
           <div className="text-center pt-2">
             <Link
-              href={`/${locale}/auth/signup`}
+              href={`/${locale}/auth/signup${callbackUrl && callbackUrl !== `/${locale}` ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ""}`}
               className="text-sm text-neutral-400 hover:text-main transition-colors inline-flex items-center gap-1.5"
             >
               {t("NO_ACCOUNT")}

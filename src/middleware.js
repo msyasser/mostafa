@@ -30,6 +30,16 @@ export default function middleware(request) {
       return intlMiddleware(request);
     }
 
+    // Shared routes (auth, api, legal) should not be rewritten into /[locale]/[section]/...
+    if (
+      rest.startsWith("/auth") ||
+      rest.startsWith("/api") ||
+      rest.startsWith("/privacy-policy") ||
+      rest.startsWith("/terms-of-service")
+    ) {
+      return intlMiddleware(request);
+    }
+
     // Set locale headers for next-intl
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("x-next-intl-locale", locale);
