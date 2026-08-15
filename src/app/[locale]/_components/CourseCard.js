@@ -4,14 +4,35 @@ import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { ClockIcon, UserIcon, AcademicCapIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function CourseCard({ course }) {
+export default function CourseCard({ course, isCoursesSubdomain = false }) {
   const t = useTranslations("CoursesPage");
   const locale = useLocale();
   const isArabic = locale === "ar";
   const { data: session } = useSession();
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [isCoursesHost, setIsCoursesHost] = useState(isCoursesSubdomain);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsCoursesHost(
+        window.location.hostname === "courses.mostafayasser.com" ||
+        window.location.hostname.startsWith("courses.")
+      );
+    }
+  }, []);
+
+  const isSubdomain =
+    typeof window !== "undefined" &&
+    !window.location.hostname.includes("localhost") &&
+    !window.location.hostname.includes(".vercel.app") &&
+    (window.location.hostname.startsWith("courses.") || window.location.hostname.startsWith("templates."));
+
+  const onCoursesDomain = isCoursesHost || isCoursesSubdomain;
+  const courseHref = onCoursesDomain
+    ? `/${locale}/${course.slug}`
+    : `/${locale}/courses/${course.slug}`;
 
   const courseName = isArabic ? course.name_ar : course.name;
   const courseDescription = isArabic ? course.description_ar : course.description;
@@ -27,6 +48,16 @@ export default function CourseCard({ course }) {
       setShowLoginPrompt(true);
     }
   };
+
+  const signinCallbackPath = onCoursesDomain
+    ? `/${locale}/${course.slug}`
+    : `/${locale}/courses/${course.slug}`;
+
+  const signinHref = isSubdomain
+    ? `https://www.mostafayasser.com/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
+        window.location.origin + signinCallbackPath
+      )}`
+    : `/${locale}/auth/signin?callbackUrl=${encodeURIComponent(signinCallbackPath)}`;
 
   return (
     <div className="group relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-main/50 transition-all duration-300 hover:shadow-2xl hover:shadow-main/10">
@@ -61,16 +92,7 @@ export default function CourseCard({ course }) {
               {isArabic ? "يرجى تسجيل الدخول لمشاهدة هذه الدورة" : "Please login to access this course"}
             </p>
             <Link
-              href={
-                typeof window !== "undefined" &&
-                !window.location.hostname.includes("localhost") &&
-                !window.location.hostname.includes(".vercel.app") &&
-                (window.location.hostname.startsWith("courses.") || window.location.hostname.startsWith("templates."))
-                  ? `https://www.mostafayasser.com/${locale}/auth/signin?callbackUrl=${encodeURIComponent(
-                      window.location.origin + `/${locale}/courses/${course.slug}`
-                    )}`
-                  : `/${locale}/auth/signin?callbackUrl=/${locale}/courses/${course.slug}`
-              }
+              href={signinHref}
               className="inline-block bg-main text-black font-semibold py-2 px-6 rounded-lg hover:bg-white transition-colors"
               onClick={(e) => e.stopPropagation()}
             >
@@ -81,7 +103,7 @@ export default function CourseCard({ course }) {
       )}
 
       {/* Clickable Card Content */}
-      <Link href={session ? `/${locale}/courses/${course.slug}` : `#`} className="block" onClick={handleCardClick}>
+      <Link href={session ? courseHref : `#`} className="block" onClick={handleCardClick}>
         {/* Course Icon */}
         <div className="relative h-48 overflow-hidden">
           <div className="w-full h-full bg-gradient-to-br from-main/20 to-main/5 flex items-center justify-center">

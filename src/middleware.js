@@ -45,7 +45,10 @@ export default function middleware(request) {
         );
         const existingCallback = request.nextUrl.searchParams.get("callbackUrl");
         if (existingCallback) {
-          mainAuthUrl.searchParams.set("callbackUrl", existingCallback);
+          const fullCallbackUrl = existingCallback.startsWith("http")
+            ? existingCallback
+            : `${protocol}://${hostname}${existingCallback.startsWith("/") ? "" : "/"}${existingCallback}`;
+          mainAuthUrl.searchParams.set("callbackUrl", fullCallbackUrl);
         } else {
           mainAuthUrl.searchParams.set(
             "callbackUrl",

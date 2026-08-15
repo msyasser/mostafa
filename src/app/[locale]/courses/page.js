@@ -1,4 +1,5 @@
-import { useTranslations, useLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
 import CourseCard from "@/src/app/[locale]/_components/CourseCard";
@@ -9,10 +10,10 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const isArabic = locale === "ar";
 
-  const baseUrl = "https://www.mostafayasser.com";
+  const baseUrl = "https://courses.mostafayasser.com";
   const imageUrl = isArabic
-    ? `${baseUrl}/metaData/ar/courses.webp`
-    : `${baseUrl}/metaData/en/courses.webp`;
+    ? `https://www.mostafayasser.com/metaData/ar/courses.webp`
+    : `https://www.mostafayasser.com/metaData/en/courses.webp`;
 
   const title = isArabic
     ? "الدورات التدريبية"
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }) {
       title,
       description,
       type: "website",
-      url: `${baseUrl}/${locale}/courses`,
+      url: `${baseUrl}/${locale}`,
       images: [
         {
           url: imageUrl,
@@ -48,14 +49,18 @@ export async function generateMetadata({ params }) {
       images: [imageUrl],
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/courses`,
+      canonical: `${baseUrl}/${locale}`,
     },
   };
 }
 
-export default function CoursesPage() {
-  const t = useTranslations("CoursesPage");
-  const locale = useLocale();
+export default async function CoursesPage({ params }) {
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale;
+  const t = await getTranslations({ locale, namespace: "CoursesPage" });
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const isCoursesSubdomain = host.startsWith("courses.");
 
   // Filter courses by status
   const activeCourses = courses.filter(course => course.status === "active");
@@ -66,7 +71,7 @@ export default function CoursesPage() {
         type="website"
         title={t("title")}
         description={t("subtitle")}
-        url={`https://www.mostafayasser.com/${locale}/courses`}
+        url={isCoursesSubdomain ? `https://courses.mostafayasser.com/${locale}` : `https://www.mostafayasser.com/${locale}/courses`}
         image={`https://www.mostafayasser.com/metaData/${locale === "ar" ? "ar" : "en"}/courses.webp`}
         locale={locale}
       />
@@ -84,7 +89,11 @@ export default function CoursesPage() {
             <AnimatedWrapper delay={0.1}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                 {activeCourses.map((course) => (
-                  <CourseCard key={course.id} course={course} />
+                  <CourseCard
+                    key={course.id}
+                    course={course}
+                    isCoursesSubdomain={isCoursesSubdomain}
+                  />
                 ))}
               </div>
             </AnimatedWrapper>

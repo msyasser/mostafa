@@ -1,5 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
+import { headers } from "next/headers";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import SEOOptimizer from "@/src/app/[locale]/_components/SEOOptimizer";
 import courses from "@/src/app/[locale]/_data/coursesData";
@@ -7,6 +8,47 @@ import { StarIcon, ClockIcon, UserIcon, AcademicCapIcon } from "@heroicons/react
 import VideoPlayer from "./VideoPlayer";
 import { getLocale } from "next-intl/server";
 import { auth } from "@/src/app/api/auth/[...nextauth]/route";
+
+export async function generateMetadata({ params }) {
+  const { locale, slug } = await params;
+  const course = courses.find((c) => c.slug === slug);
+  if (!course) return {};
+
+  const isArabic = locale === "ar";
+  const courseName = isArabic ? course.name_ar : course.name;
+  const courseDescription = isArabic ? course.description_ar : course.description;
+  const url = `https://courses.mostafayasser.com/${locale}/${slug}`;
+  const imageUrl = `https://www.mostafayasser.com${course.thumbnail}`;
+
+  return {
+    title: courseName,
+    description: courseDescription,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: courseName,
+      description: courseDescription,
+      url,
+      siteName: "Mostafa Yasser",
+      type: "website",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: courseName,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: courseName,
+      description: courseDescription,
+      images: [imageUrl],
+    },
+  };
+}
 
 // YouTube course videos data - Real video IDs from your course
 const playlistVideos = [
@@ -96,10 +138,15 @@ export default async function CourseSlugPage({ params }) {
   const locale = await getLocale();
   const isArabic = locale === "ar";
 
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const isCoursesSubdomain = host.startsWith("courses.");
+
   // Check authentication
   const session = await auth();
   if (!session) {
-    redirect(`/${locale}/auth/signin?callbackUrl=/${locale}/courses/${slug}`);
+    const callbackPath = isCoursesSubdomain ? `/${locale}/${slug}` : `/${locale}/courses/${slug}`;
+    redirect(`/${locale}/auth/signin?callbackUrl=${encodeURIComponent(callbackPath)}`);
   }
 
   const courseName = isArabic ? course.name_ar : course.name;
@@ -116,7 +163,7 @@ export default async function CourseSlugPage({ params }) {
         type="website"
         title={courseName}
         description={courseDescription}
-        url={`https://www.mostafayasser.com/${locale}/courses/${slug}`}
+        url={isCoursesSubdomain ? `https://courses.mostafayasser.com/${locale}/${slug}` : `https://www.mostafayasser.com/${locale}/courses/${slug}`}
         image={`https://www.mostafayasser.com${course.thumbnail}`}
         locale={locale}
       />
