@@ -39,12 +39,12 @@ export async function generateMetadata({ params }) {
     title: {
       template: isArabic ? "%s | مصطفى ياسر" : "%s | Mostafa Yasser",
       default: isArabic
-        ? "مصطفى ياسر | قوالب نوشن لتنظيم حياتك"
-        : "Mostafa Yasser | Notion Templates to Organize Your Life",
+        ? "مصطفى ياسر | قوالب وأنظمة نوشن لتنظيم الحياة والعمل"
+        : "Mostafa Yasser | Notion Templates & Custom Systems",
     },
     description: isArabic
-      ? "استكشف قوالب نوشن المصممة بعناية لتعزيز الإنتاجية وتنظيم سير عملك وجعل حياتك أكثر وضوحًا. من تصميم مصطفى ياسر."
-      : "Explore beautifully crafted Notion templates designed to boost productivity, streamline your workflow, and bring clarity to your life. Created by Mostafa Yasser.",
+      ? "يقدم مصطفى ياسر قوالب نوشن احترافية مصممة لتعزيز الإنتاجية وتنظيم سير العمل، وأنظمة مخصصة لإدارة المشاريع والمهام والماليات."
+      : "Mostafa Yasser offers beautifully crafted Notion templates designed to boost productivity and streamline workflows, plus custom systems for projects, tasks, and finances.",
     metadataBase: new URL(siteUrl),
     alternates: {
       canonical: `${siteUrl}/${locale}`,
@@ -55,11 +55,11 @@ export async function generateMetadata({ params }) {
     },
     openGraph: {
       title: isArabic
-        ? "مصطفى ياسر | قوالب نوشن لتنظيم حياتك"
-        : "Mostafa Yasser | Notion Templates to Organize Your Life",
+        ? "مصطفى ياسر | قوالب وأنظمة نوشن لتنظيم الحياة والعمل"
+        : "Mostafa Yasser | Notion Templates & Custom Systems",
       description: isArabic
-        ? "عزز إنتاجيتك مع قوالب نوشن الاحترافية من مصطفى ياسر. بسيطة وفعالة وجميلة."
-        : "Boost your productivity with premium Notion templates by Mostafa Yasser. Simple, effective, and beautifully designed.",
+        ? "يقدم مصطفى ياسر قوالب نوشن احترافية مصممة لتعزيز الإنتاجية وتنظيم سير العمل، وأنظمة مخصصة للمشاريع والمهام والماليات."
+        : "Mostafa Yasser offers beautifully crafted Notion templates designed to boost productivity and streamline workflows.",
       url: `${siteUrl}/${locale}`,
       siteName: "Mostafa Yasser",
       images: [

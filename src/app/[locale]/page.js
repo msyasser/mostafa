@@ -33,12 +33,12 @@ export async function generateMetadata({ params }) {
     : `${siteUrl}/metaData/en/1.webp`;
 
   const title = isArabic
-    ? "مصطفى ياسر | قوالب نوشن لتنظيم حياتك"
-    : "Mostafa Yasser | Notion Templates to Organize Your Life";
+    ? "مصطفى ياسر | قوالب وأنظمة نوشن لتعزيز الإنتاجية وتنظيم الحياة"
+    : "Mostafa Yasser | Notion Templates & Custom Productivity Systems";
 
   const description = isArabic
-    ? "استكشف قوالب نوشن المصممة بعناية لتعزيز الإنتاجية وتنظيم سير عملك وجعل حياتك أكثر وضوحًا. من تصميم مصطفى ياسر."
-    : "Explore beautifully crafted Notion templates designed to boost productivity, streamline your workflow, and bring clarity to your life. Created by Mostafa Yasser.";
+    ? "يقدم مصطفى ياسر قوالب نوشن احترافية لتعزيز الإنتاجية وتنظيم سير العمل. تشمل الخدمات أنظمة مخصصة لإدارة المشاريع والمهام والماليات ومصادر تعليمية متكاملة."
+    : "Mostafa Yasser offers beautifully crafted Notion templates designed to boost productivity and streamline workflows. Services include custom systems to organize projects, tasks, and finances, and productivity tutorials.";
 
   return {
     title: {
@@ -46,15 +46,16 @@ export async function generateMetadata({ params }) {
       default: title,
     },
     description,
+    keywords: isArabic
+      ? ["قوالب نوشن", "نوشن", "أنظمة نوشن مخصصة", "تنظيم المهام", "إدارة المشاريع", "تنظيم الماليات", "مصطفى ياسر"]
+      : ["Notion templates", "Notion systems", "Custom Notion systems", "Productivity templates", "Workflow automation", "Mostafa Yasser"],
     metadataBase: new URL(siteUrl),
     alternates: {
       canonical: `${siteUrl}/${locale}`,
     },
     openGraph: {
       title,
-      description: isArabic
-        ? "عزز إنتاجيتك مع قوالب نوشن الاحترافية من مصطفى ياسر. بسيطة وفعالة وجميلة."
-        : "Boost your productivity with premium Notion templates by Mostafa Yasser. Simple, effective, and beautifully designed.",
+      description,
       url: `${siteUrl}/${locale}`,
       siteName: "Mostafa Yasser",
       images: [
@@ -63,8 +64,8 @@ export async function generateMetadata({ params }) {
           width: 1200,
           height: 630,
           alt: isArabic
-            ? "مصطفى ياسر - قوالب نوشن"
-            : "Mostafa Yasser - Notion Templates",
+            ? "مصطفى ياسر - قوالب وأنظمة نوشن"
+            : "Mostafa Yasser - Notion Templates & Systems",
         },
       ],
       type: "website",

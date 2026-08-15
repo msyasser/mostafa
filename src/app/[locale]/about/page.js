@@ -9,10 +9,12 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const isArabic = locale === "ar";
   const siteUrl = "https://www.mostafayasser.com";
-  const title = isArabic ? "عنّي" : "About";
+  const title = isArabic
+    ? "متخصص أنظمة وقوالب نوشن"
+    : "Notion Specialist & Digital Architect";
   const description = isArabic
-    ? "مرحبًا، أنا مصطفى ياسر. أساعد الفرق والأفراد على تحسين سير العمل باستخدام أنظمة Notion قابلة للتوسع."
-    : "Hi, I'm Mostafa Yasser. I help teams and individuals optimize workflows using scalable Notion systems.";
+    ? "أنا مصطفى ياسر، متخصص في تصميم وبناء أنظمة وقوالب نوشن المخصصة لإدارة المشاريع والمهام والماليات وتبسيط مساحات العمل للأفراد والشركات."
+    : "I'm Mostafa Yasser. I engineer custom Notion systems to organize projects, tasks, and finances, helping individuals and teams achieve workflow clarity.";
   const url = `${siteUrl}/${locale}/about`;
   const imageUrl = `${siteUrl}/certifications/notion-certifications.png`;
 

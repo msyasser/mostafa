@@ -5,11 +5,11 @@ export async function generateMetadata({ params }) {
   const isArabic = locale === "ar";
   const siteUrl = "https://www.mostafayasser.com";
   const title = isArabic
-    ? "قوالب نوشن"
-    : "Notion Templates";
+    ? "قوالب نوشن الاحترافية لتعزيز الإنتاجية"
+    : "Premium Notion Templates for Productivity";
   const description = isArabic
-    ? "اكتشف قوالب نوشن المميزة المصممة لمساعدتك على البقاء منظمًا ومنتجًا وملهمًا. استعرض أحدث التصاميم وارتقِ بتنظيمك الرقمي."
-    : "Discover premium Notion templates designed to help you stay organized, productive, and inspired. Explore my latest creations and boost your digital workflow.";
+    ? "استكشف قوالب نوشن المصممة بعناية لتعزيز الإنتاجية وتنظيم سير العمل والمهام والمشاريع للأفراد وفرق العمل. من تصميم مصطفى ياسر."
+    : "Explore beautifully crafted Notion templates designed to boost productivity, streamline workflows, and bring clarity to projects and daily tasks. By Mostafa Yasser.";
   const url = `${siteUrl}/${locale}/templates`;
   const imageUrl = isArabic
     ? `${siteUrl}/thumbnails/ARThumbnails/2.webp`

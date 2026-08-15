@@ -13,19 +13,81 @@ export default function SEOOptimizer({
 }) {
   const isArabic = locale === "ar";
 
-  // Base structured data for organization
+  // Base structured data for organization & brand
   const organizationData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "Person",
     "name": "Mostafa Yasser",
+    "alternateName": isArabic ? "مصطفى ياسر" : "Mostafa Yasser",
+    "jobTitle": isArabic ? "متخصص ومطور أنظمة نوشن" : "Notion Specialist & Digital Architect",
     "url": "https://www.mostafayasser.com",
-    "logo": "https://www.mostafayasser.com/icon.png",
+    "image": "https://www.mostafayasser.com/icon.png",
     "description": isArabic
-      ? "قوالب نوشن لتنظيم حياتك وزيادة إنتاجيتك"
-      : "Notion templates to organize your life and boost productivity",
+      ? "يقدم مصطفى ياسر قوالب نوشن احترافية مصممة لتعزيز الإنتاجية وتنظيم سير العمل، وأنظمة مخصصة لإدارة المشاريع والمهام والماليات، بالإضافة إلى مصادر تعليمية لبناء أنظمتك الخاصة."
+      : "Mostafa Yasser offers beautifully crafted Notion templates designed to boost productivity and streamline workflows. Services include custom systems to organize projects, tasks, and finances, as well as resources to help users build their own systems.",
     "sameAs": [
-      "https://twitter.com/engmsyasser"
+      "https://twitter.com/engmsyasser",
+      "https://www.youtube.com/@engmsyasser"
     ],
+    "knowsAbout": [
+      "Notion",
+      "Notion Templates",
+      "Custom Notion Systems",
+      "Productivity Workflows",
+      "Project Management Systems",
+      "Task Management",
+      "Financial Tracking Systems"
+    ],
+    "areaServed": [
+      {
+        "@type": "Country",
+        "name": "Egypt"
+      },
+      {
+        "@type": "Country",
+        "name": "Saudi Arabia"
+      },
+      {
+        "@type": "Country",
+        "name": "United States"
+      }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": isArabic ? "خدمات ومنتجات مصطفى ياسر" : "Mostafa Yasser Services & Products",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": isArabic ? "أنظمة نوشن مخصصة" : "Custom Notion systems",
+            "description": isArabic
+              ? "تصميم وبناء أنظمة مخصصة لإدارة المشاريع، والمهام، والماليات."
+              : "Custom systems designed to organize projects, tasks, and finances."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": isArabic ? "قوالب نوشن جاهزة للاستخدام" : "Ready-to-use Notion templates",
+            "description": isArabic
+              ? "قوالب نوشن مصممة بعناية لتعزيز الإنتاجية وتنظيم سير العمل فورياً."
+              : "Beautifully crafted Notion templates designed to boost productivity and streamline workflows."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": isArabic ? "مصادر تعليمية وشروحات الإنتاجية" : "Productivity resources and tutorials",
+            "description": isArabic
+              ? "شروحات ومصادر لمساعدة المستخدمين على بناء وتطوير أنظمتهم الخاصة في نوشن."
+              : "Tutorials and productivity resources to help users build and optimize their own Notion systems."
+          }
+        }
+      ]
+    },
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer service",
