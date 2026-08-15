@@ -5,8 +5,8 @@ export async function generateMetadata({ params }) {
   const isArabic = locale === "ar";
 
   const title = isArabic
-    ? "سياسة الخصوصية | مصطفى ياسر"
-    : "Privacy Policy | Mostafa Yasser";
+    ? "سياسة الخصوصية"
+    : "Privacy Policy";
 
   const description = isArabic
     ? "افهم كيف يجمع مصطفى ياسر بياناتك الشخصية ويستخدمها ويحميها."

@@ -6,15 +6,15 @@ export async function generateMetadata({ params }) {
 
   return {
     title: isArabic
-      ? "الشروط والأحكام | مصطفى ياسر"
-      : "Terms and Conditions | Mostafa Yasser",
+      ? "الشروط والأحكام"
+      : "Terms and Conditions",
     description: isArabic
       ? "اقرأ الشروط والأحكام الخاصة باستخدام موقع مصطفى ياسر، بما في ذلك حقوق الاستخدام والمسؤوليات وحدود المسؤولية."
       : "Read the Terms and Conditions for using the Mostafa Yasser website, including usage rights, responsibilities, and limitations of liability.",
     openGraph: {
       title: isArabic
-        ? "الشروط والأحكام | مصطفى ياسر"
-        : "Terms and Conditions | Mostafa Yasser",
+        ? "الشروط والأحكام"
+        : "Terms and Conditions",
       description: isArabic
         ? "راجع الشروط المتعلقة باستخدام خدمات وموقع مصطفى ياسر."
         : "Review the terms of using Mostafa Yasser’s services and website.",

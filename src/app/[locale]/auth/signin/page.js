@@ -9,7 +9,7 @@ export async function generateMetadata({ params }) {
   const isArabic = locale === "ar";
 
   return {
-    title: isArabic ? "تسجيل الدخول | مصطفى ياسر" : "Sign In | Mostafa Yasser",
+    title: isArabic ? "تسجيل الدخول" : "Sign In",
     description: t("SIGNIN_DESCRIPTION"),
   };
 }

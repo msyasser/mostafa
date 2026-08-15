@@ -5,8 +5,8 @@ export async function generateMetadata({ params }) {
   const isArabic = locale === "ar";
 
   const title = isArabic
-    ? "الصفحة غير موجودة | مصطفى ياسر"
-    : "Page Not Found | Mostafa Yasser";
+    ? "الصفحة غير موجودة"
+    : "Page Not Found";
   const description = isArabic
     ? "عذرًا، الصفحة التي تبحث عنها غير موجودة. تحقق من الرابط أو الرجوع إلى الصفحة الرئيسية."
     : "Sorry, the page you are looking for does not exist. Check the URL or return to the homepage.";
