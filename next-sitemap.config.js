@@ -15,6 +15,10 @@ module.exports = {
     await config.transform(config, "/ar", { priority: 1.0, changefreq: "daily" }),
     await config.transform(config, "/en/templates", { priority: 0.9, changefreq: "weekly" }),
     await config.transform(config, "/ar/templates", { priority: 0.9, changefreq: "weekly" }),
+    await config.transform(config, "/en/courses", { priority: 0.9, changefreq: "weekly" }),
+    await config.transform(config, "/ar/courses", { priority: 0.9, changefreq: "weekly" }),
+    await config.transform(config, "/en/courses/complete-notion-learning-playlist", { priority: 0.9, changefreq: "weekly" }),
+    await config.transform(config, "/ar/courses/complete-notion-learning-playlist", { priority: 0.9, changefreq: "weekly" }),
 
     // Medium priority routes
     await config.transform(config, "/en/blogs", { priority: 0.8, changefreq: "weekly" }),

@@ -23,8 +23,16 @@ export async function generateMetadata({ params }) {
   return {
     title: courseName,
     description: courseDescription,
+    keywords: isArabic
+      ? [...course.tags_ar, "دورات نوشن", "تعلم نوشن", "مصطفى ياسر"]
+      : [...course.tags, "Notion course", "Learn Notion", "Mostafa Yasser"],
     alternates: {
       canonical: url,
+      languages: {
+        en: `https://courses.mostafayasser.com/en/${slug}`,
+        ar: `https://courses.mostafayasser.com/ar/${slug}`,
+        "x-default": `https://courses.mostafayasser.com/en/${slug}`,
+      },
     },
     openGraph: {
       title: courseName,
@@ -48,6 +56,16 @@ export async function generateMetadata({ params }) {
       images: [imageUrl],
     },
   };
+}
+
+export async function generateStaticParams() {
+  const locales = ["en", "ar"];
+  return courses.flatMap((course) =>
+    locales.map((locale) => ({
+      locale,
+      slug: course.slug,
+    }))
+  );
 }
 
 // YouTube course videos data - Real video IDs from your course
@@ -166,6 +184,7 @@ export default async function CourseSlugPage({ params }) {
         url={isCoursesSubdomain ? `https://courses.mostafayasser.com/${locale}/${slug}` : `https://www.mostafayasser.com/${locale}/courses/${slug}`}
         image={`https://www.mostafayasser.com${course.thumbnail}`}
         locale={locale}
+        courseData={course}
       />
       
       <BlurText>

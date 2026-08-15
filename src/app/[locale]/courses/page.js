@@ -26,6 +26,9 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
+    keywords: isArabic
+      ? ["دورات نوشن", "تعلم نوشن", "كورس نوشن مجاني", "شرح نوشن بالعربي", "مصطفى ياسر", "إنتاجية وتنسيق العمل"]
+      : ["Notion courses", "Learn Notion", "Free Notion course", "Notion tutorial", "Mostafa Yasser", "Productivity systems"],
     openGraph: {
       title,
       description,
@@ -50,6 +53,11 @@ export async function generateMetadata({ params }) {
     },
     alternates: {
       canonical: `${baseUrl}/${locale}`,
+      languages: {
+        en: `${baseUrl}/en`,
+        ar: `${baseUrl}/ar`,
+        "x-default": `${baseUrl}/en`,
+      },
     },
   };
 }

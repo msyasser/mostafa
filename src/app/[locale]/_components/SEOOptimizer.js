@@ -8,7 +8,8 @@ export default function SEOOptimizer({
   image,
   locale = "en",
   templateData = null,
-  blogData = null
+  blogData = null,
+  courseData = null
 }) {
   const isArabic = locale === "ar";
 
@@ -31,6 +32,39 @@ export default function SEOOptimizer({
       "availableLanguage": ["English", "Arabic"]
     }
   };
+
+  // Course-specific structured data
+  const courseStructuredData = courseData ? {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": title || courseData.name,
+    "description": description || courseData.description,
+    "provider": {
+      "@type": "Person",
+      "name": isArabic ? courseData.instructor_ar || "مصطفى ياسر" : courseData.instructor || "Mostafa Yasser",
+      "sameAs": "https://www.mostafayasser.com"
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": isArabic ? courseData.instructor_ar || "مصطفى ياسر" : courseData.instructor || "Mostafa Yasser"
+    },
+    "inLanguage": isArabic ? "ar" : "en",
+    "image": image,
+    "url": url,
+    "educationalLevel": isArabic ? courseData.level_ar || "مبتدئ إلى متقدم" : courseData.level || "Beginner to Advanced",
+    "offers": {
+      "@type": "Offer",
+      "price": courseData.price ? String(courseData.price) : "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "category": courseData.premium ? "Paid" : "Free"
+    },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "Online",
+      "courseWorkload": isArabic ? courseData.duration_ar : courseData.duration
+    }
+  } : null;
 
   // Template-specific structured data
   const templateStructuredData = templateData ? {
@@ -110,8 +144,23 @@ export default function SEOOptimizer({
     ]
   };
 
-  // Add template or blog specific breadcrumbs
-  if (templateData) {
+  // Add course, template or blog specific breadcrumbs
+  if (courseData) {
+    breadcrumbData.itemListElement.push(
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": isArabic ? "الدورات التدريبية" : "Courses",
+        "item": `https://courses.mostafayasser.com/${locale}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": title,
+        "item": url
+      }
+    );
+  } else if (templateData) {
     breadcrumbData.itemListElement.push(
       {
         "@type": "ListItem",
@@ -171,6 +220,17 @@ export default function SEOOptimizer({
           __html: JSON.stringify(breadcrumbData)
         }}
       />
+
+      {/* Course-specific structured data */}
+      {courseStructuredData && (
+        <Script
+          id="course-structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(courseStructuredData)
+          }}
+        />
+      )}
 
       {/* Template-specific structured data */}
       {templateStructuredData && (
