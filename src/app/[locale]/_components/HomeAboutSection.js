@@ -134,7 +134,7 @@ export default function HomeAboutSection() {
                 <div className="text-xs sm:text-sm text-neutral-400 mt-1">{t("statRank")}</div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-main">5+</div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-main">7+</div>
                 <div className="text-xs sm:text-sm text-neutral-400 mt-1">{t("statExperience")}</div>
               </div>
               <div>
