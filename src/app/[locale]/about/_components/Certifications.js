@@ -7,11 +7,11 @@ import { useTranslations } from "next-intl";
 export default function Certifications() {
     const t = useTranslations("AboutPage");
     const certImages = [
-        { src: "/about/certifications/6.webp", alt: "Notion Certified Consultant" },
-        { src: "/about/certifications/5.webp", alt: "Notion Certified Admin" },
-        { src: "/about/certifications/4.webp", alt: "Notion Advanced" },
+        { src: "/about/certifications/2.webp", alt: "Notion Essentials" },
         { src: "/about/certifications/3.webp", alt: "Notion Workflows" },
-        { src: "/about/certifications/2.webp", alt: "Notion Essentials" }
+        { src: "/about/certifications/4.webp", alt: "Notion Advanced" },
+        { src: "/about/certifications/5.webp", alt: "Notion Certified Admin" },
+        { src: "/about/certifications/6.webp", alt: "Notion Consulting Partner" }
     ];
 
     return (

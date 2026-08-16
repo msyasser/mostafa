@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import BlurText from "@/src/app/[locale]/_components/BlurText";
 
-function SubscriptionForm({ children, className }) {
+function SubscriptionForm({ children, className, includeName = false, buttonText }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -12,6 +11,8 @@ function SubscriptionForm({ children, className }) {
   const [showMessage, setShowMessage] = useState(false);
   const t = useTranslations("Subscription");
   const locale = useLocale();
+
+  const submitLabel = buttonText || t("button");
 
   useEffect(() => {
     setIsMounted(true);
@@ -36,6 +37,7 @@ function SubscriptionForm({ children, className }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.email.value;
+    const name = event.target.name?.value || "";
 
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setErrorMessage(t("error"));
@@ -52,6 +54,7 @@ function SubscriptionForm({ children, className }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          name,
           email,
           language: locale === 'ar' ? 'Arabic' : 'English'
         }),
@@ -76,49 +79,69 @@ function SubscriptionForm({ children, className }) {
   // Prevent hydration mismatch by not rendering until mounted
   if (!isMounted) {
     return (
-      <BlurText duration={3}>
+      <div>
         <form className={className}>
+          {includeName && (
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              required
+              disabled
+              className="w-full px-5 py-3.5 rounded-xl shadow-md bg-white/5 border border-white/10 text-white placeholder:text-gray-400 focus:outline-none transition disabled:opacity-50"
+            />
+          )}
           <input
             type="email"
             name="email"
             placeholder="Your email address"
             required
             disabled
-            className="flex-1 w-full sm:w-auto px-5 py-3 rounded-lg shadow-md bg-white/10 text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-5 py-3.5 rounded-xl shadow-md bg-white/5 border border-white/10 text-white placeholder:text-gray-400 focus:outline-none transition disabled:opacity-50"
           />
           <button
             type="submit"
             disabled
-            className="w-full sm:w-auto px-6 py-3 bg-white text-black font-semibold rounded-lg shadow-md hover:bg-transparent hover:text-white border border-white transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-6 py-3.5 bg-main text-black font-bold rounded-xl shadow-md transition disabled:opacity-50"
           >
             Subscribe
           </button>
         </form>
         {children}
-      </BlurText>
+      </div>
     );
   }
 
   return (
-    <BlurText duration={3}>
+    <div>
       <form
         className={className}
         onSubmit={handleSubmit}
       >
+        {includeName && (
+          <input
+            type="text"
+            name="name"
+            placeholder={t("namePlaceholder")}
+            required
+            disabled={isLoading}
+            className="w-full px-5 py-3.5 rounded-xl shadow-md bg-neutral-800/80 border border-neutral-700/80 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent transition duration-200"
+          />
+        )}
         <input
           type="email"
           name="email"
           placeholder={t("placeholder")}
           required
           disabled={isLoading}
-          className="flex-1 w-full sm:w-auto px-5 py-3 rounded-lg shadow-md bg-white/10 text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-5 py-3.5 rounded-xl shadow-md bg-neutral-800/80 border border-neutral-700/80 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent transition duration-200"
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full sm:w-auto px-6 py-3 bg-white text-black font-semibold rounded-lg shadow-md hover:bg-transparent hover:text-white border border-white transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-6 py-3.5 bg-main text-black font-bold rounded-xl shadow-[0_0_20px_rgba(215,177,128,0.3)] hover:bg-white transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
         >
-          {isLoading ? t("loading") || "Loading..." : t("button")}
+          {isLoading ? t("loading") || "Loading..." : submitLabel}
         </button>
       </form>
 
@@ -154,7 +177,7 @@ function SubscriptionForm({ children, className }) {
       )}
 
       {children}
-    </BlurText>
+    </div>
   );
 }
 

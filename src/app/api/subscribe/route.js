@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
-const NOTION_DB_ID = process.env.NOTION_DB_ID;
+const NOTION_DB_ID = process.env.NOTION_USERS_DB_ID || process.env.NOTION_DB_ID;
 
 export async function POST(request) {
   try {
-    const { email, language } = await request.json();
+    const { name, email, language } = await request.json();
 
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       return NextResponse.json(
@@ -239,6 +239,24 @@ export async function POST(request) {
       console.log('ℹ️ No source property found - continuing without source');
     }
 
+    // Check for separate Name property (rich_text)
+    const nameProp = availableProps.find(prop =>
+      prop.toLowerCase() === 'name' && dbData.properties[prop].type !== 'title'
+    );
+
+    if (nameProp && name) {
+      properties[nameProp] = {
+        rich_text: [
+          {
+            text: {
+              content: name,
+            },
+          },
+        ],
+      };
+      console.log(`✅ Using name property: "${nameProp}" with value: "${name}"`);
+    }
+
     // Check for title property (optional)
     const titleProp = availableProps.find(prop =>
       dbData.properties[prop].type === 'title'
@@ -249,12 +267,12 @@ export async function POST(request) {
         title: [
           {
             text: {
-              content: `Subscriber: ${email}`,
+              content: name || `Subscriber: ${email}`,
             },
           },
         ],
       };
-      console.log(`✅ Using title property: "${titleProp}"`);
+      console.log(`✅ Using title property: "${titleProp}" with: "${name || `Subscriber: ${email}`}"`);
     } else {
       console.log('ℹ️ No title property found - continuing without title');
     }

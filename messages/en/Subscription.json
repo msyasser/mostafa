@@ -1,4 +1,5 @@
 {
+  "namePlaceholder": "Your name",
   "placeholder": "Your email address",
   "button": "Subscribe",
   "loading": "Subscribing...",
