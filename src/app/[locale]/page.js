@@ -9,19 +9,21 @@ import BlurText from "@/src/app/[locale]/_components/BlurText";
 import SEOOptimizer from "./_components/SEOOptimizer";
 
 // Lazy load components that are not immediately visible
+const HomeRoutingSection = dynamic(() => import("@/src/app/[locale]/_components/HomeRoutingSection"), {
+  loading: () => <div className="animate-pulse h-64 bg-gray-800/40 rounded-3xl my-8"></div>,
+});
 const TemplatesShowcase = dynamic(() => import("@/src/app/[locale]/_components/TempaltesShowCase"), {
-  loading: () => <div className="animate-pulse h-96 bg-gray-800 rounded-lg"></div>,
+  loading: () => <div className="animate-pulse h-96 bg-gray-800/40 rounded-3xl my-8"></div>,
 });
-const SubscriptionForm = dynamic(() => import("@/src/app/[locale]/_components/SubscriptionForm"), {
-  loading: () => <div className="animate-pulse h-32 bg-gray-800 rounded-lg"></div>,
+const HomeCoursesSection = dynamic(() => import("@/src/app/[locale]/_components/HomeCoursesSection"), {
+  loading: () => <div className="animate-pulse h-96 bg-gray-800/40 rounded-3xl my-8"></div>,
 });
-const HomeServicesSection = dynamic(() => import("@/src/app/[locale]/_components/HomeServicesSection"), {
-  loading: () => <div className="animate-pulse h-96 bg-gray-800 rounded-lg"></div>,
+const HomeAboutSection = dynamic(() => import("@/src/app/[locale]/_components/HomeAboutSection"), {
+  loading: () => <div className="animate-pulse h-96 bg-gray-800/40 rounded-3xl my-8"></div>,
 });
-const ContentAuthoritySection = dynamic(() => import("@/src/app/[locale]/_components/ContentAuthoritySection"), {
-  loading: () => <div className="animate-pulse h-64 bg-gray-800 rounded-lg"></div>,
+const ContactCTASection = dynamic(() => import("@/src/app/[locale]/_components/ContactCTASection"), {
+  loading: () => <div className="animate-pulse h-64 bg-gray-800/40 rounded-3xl my-8"></div>,
 });
-
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -84,8 +86,8 @@ export async function generateMetadata({ params }) {
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
-
   const locale = useLocale();
+  const isArabic = locale === "ar";
 
   return (
     <>
@@ -98,7 +100,8 @@ export default function HomePage() {
         locale={locale}
       />
       <BlurText>
-        <div className="text-center min-h-[calc(100vh-160px)] flex flex-col justify-center items-center">
+        {/* 1. HERO SECTION */}
+        <div className="text-center min-h-[calc(100vh-160px)] flex flex-col justify-center items-center relative overflow-hidden px-4">
           <AnimatedText className="max-w-5xl mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-7xl px-4 font-extrabold leading-tight tracking-tight">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
               <TypewriterText text={t("title")} />
@@ -116,27 +119,32 @@ export default function HomePage() {
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-main text-black font-bold text-lg transition-all duration-300 hover:bg-white hover:scale-105 w-full sm:w-auto min-w-[200px] shadow-[0_0_20px_rgba(215,177,128,0.4)]"
               >
                 {t("searchTemplatesButton")}
-                {locale === "ar" ? <BsArrowLeft className="text-xl" /> : <BsArrowRight className="text-xl" />}
+                {isArabic ? <BsArrowLeft className="text-xl" /> : <BsArrowRight className="text-xl" />}
               </a>
-              <a
-                href={`/${locale}/services`}
+              <Link
+                href={`/${locale}/courses`}
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/20 hover:border-white text-white font-medium text-lg transition-all duration-300 hover:bg-white/10 w-full sm:w-auto min-w-[200px]"
               >
-                {t("workWithUsButton")}
-              </a>
+                {isArabic ? "الدورات التعليمية" : "Explore Courses"}
+              </Link>
             </div>
           </AnimatedWrapper>
         </div>
 
-        {/* Services Section */}
-        {/* Services Summary Section */}
-        <HomeServicesSection />
+        {/* 2. ROUTING / PATH FINDER SECTION */}
+        <HomeRoutingSection />
 
+        {/* 3. TEMPLATES SHOWCASE SECTION */}
         <TemplatesShowcase title={t("templatesTitle")} subtitle={t("templatesSubtitle")} />
 
-        <ContentAuthoritySection />
+        {/* 4. COURSES & ACADEMY SECTION */}
+        <HomeCoursesSection />
 
+        {/* 5. ABOUT ME & CREDIBILITY SECTION */}
+        <HomeAboutSection />
 
+        {/* 6. FINAL HIGH-CONVERSION CTA SECTION */}
+        <ContactCTASection />
       </BlurText>
     </>
   );

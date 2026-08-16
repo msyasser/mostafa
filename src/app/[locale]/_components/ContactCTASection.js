@@ -19,7 +19,7 @@ export default function ContactCTASection() {
                         {t("finalCtaTitle")}
                     </h2>
                     <Link
-                        href={`/${locale}/contact`}
+                        href={`/${locale}/services`}
                         className="inline-flex items-center gap-3 px-10 py-5 bg-main text-black font-bold text-xl rounded-full hover:scale-105 hover:bg-white transition-all duration-300 shadow-[0_0_30px_rgba(215,177,128,0.3)] mt-8 group"
                     >
                         <span>{t("finalCtaButton")}</span>
