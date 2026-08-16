@@ -14,10 +14,11 @@ export default function HomeAboutSection() {
   const ArrowIcon = isArabic ? BsArrowLeft : BsArrowRight;
 
   const certImages = [
-    { src: "/about/certifications/4.webp", alt: "Notion Certified" },
+    { src: "/about/certifications/6.webp", alt: "Notion Certified Consultant" },
     { src: "/about/certifications/5.webp", alt: "Notion Certified Admin" },
-    { src: "/about/certifications/3.webp", alt: "PMP Certification" },
-    { src: "/about/certifications/2.webp", alt: "Workflow Certification" },
+    { src: "/about/certifications/4.webp", alt: "Notion Advanced" },
+    { src: "/about/certifications/3.webp", alt: "Notion Workflows" },
+    { src: "/about/certifications/2.webp", alt: "Notion Essentials" },
   ];
 
   const highlights = isArabic
@@ -26,14 +27,14 @@ export default function HomeAboutSection() {
         "صانع قوالب ومحتوى معتمد ومميز (Featured Creator)",
         "المنشئ رقم #1 في متجر قوالب نوشن العربي (1st in Arabic Marketplace)",
         "أكثر من 100,000+ عملية تحميل واستخدام حول العالم",
-        "مهندس تخطيط ومؤسس مجتمع عرب نوشن (Arab Notion)",
+        "مهندس أنظمة رقمية ومؤسس مجتمع عرب نوشن (Arab Notion)",
       ]
     : [
         "Official Notion Certified Consultant",
         "Official Featured Notion Creator",
         "#1 Creator in the Arabic Notion Marketplace",
         "100,000+ Downloads & Global Users",
-        "Civil Planning Engineer & Founder of Arab Notion",
+        "Digital Systems Architect & Founder of Arab Notion",
       ];
 
   return (
@@ -46,15 +47,16 @@ export default function HomeAboutSection() {
           
           {/* Left Column: Visuals & Certs */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <AnimatedWrapper delay={0.2} className="w-full max-w-md">
+            <AnimatedInView threshold={0.1} className="w-full max-w-md">
               <div className="relative rounded-3xl overflow-hidden border border-neutral-800 bg-neutral-900/90 p-3 shadow-2xl group">
-                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-950">
+                <div className="relative w-full aspect-[4/5] min-h-[380px] rounded-2xl overflow-hidden bg-neutral-950">
                   <Image
-                    src="/about/23yearsold01.webp"
+                    src="/about/posts-images.webp"
                     alt="Mostafa Yasser"
                     fill
-                    className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     unoptimized={true}
+                    priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent" />
                   
@@ -72,14 +74,14 @@ export default function HomeAboutSection() {
                   </div>
                 </div>
               </div>
-            </AnimatedWrapper>
+            </AnimatedInView>
 
             {/* Certifications preview */}
             <div className="w-full max-w-md mt-6">
               <p className="text-xs text-neutral-400 font-mono text-center mb-3 uppercase tracking-wider">
                 {t("officialCerts")}
               </p>
-              <div className="grid grid-cols-4 gap-3 bg-neutral-900/60 p-3 rounded-2xl border border-neutral-800/80">
+              <div className="grid grid-cols-5 gap-2.5 bg-neutral-900/60 p-3 rounded-2xl border border-neutral-800/80">
                 {certImages.map((cert, index) => (
                   <div key={index} className="relative h-12 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300">
                     <Image
