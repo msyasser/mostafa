@@ -50,6 +50,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
       NotFound: (await import(`../../messages/${locale}/NotFound.json`))
         .default,
       Auth: (await import(`../../messages/${locale}/Auth.json`)).default,
+      ProfilePage: (
+        await import(`../../messages/${locale}/ProfilePage.json`)
+      ).default,
       ToolsPage: (await import(`../../messages/${locale}/ToolsPage.json`)).default,
       ServicesPage: (
         await import(`../../messages/${locale}/ServicesPage.json`)

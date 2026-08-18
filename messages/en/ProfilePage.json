@@ -1,0 +1,86 @@
+{
+  "badge": "Account Management",
+  "title": "Profile & Settings",
+  "subtitle": "Manage your personal information, security, and account preferences.",
+  "tabs": {
+    "profile": "Profile Info",
+    "security": "Security",
+    "preferences": "Preferences",
+    "hub": "My Hub"
+  },
+  "personalInfo": {
+    "title": "Personal Details",
+    "description": "Update your name and contact details.",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Your full name",
+    "email": "Email Address",
+    "emailHint": "Your email address is managed via your primary login provider.",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+1 234 567 8900",
+    "saveChanges": "Save Changes",
+    "saving": "Saving changes...",
+    "saveSuccess": "Profile updated successfully!",
+    "saveError": "Failed to update profile. Please try again."
+  },
+  "security": {
+    "title": "Security & Password",
+    "description": "Manage your password and security settings.",
+    "currentPassword": "Current Password",
+    "currentPasswordPlaceholder": "••••••••",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "••••••••",
+    "confirmPassword": "Confirm New Password",
+    "confirmPasswordPlaceholder": "••••••••",
+    "updatePassword": "Update Password",
+    "updatingPassword": "Updating...",
+    "passwordSuccess": "Password updated successfully!",
+    "passwordMismatch": "New passwords do not match.",
+    "passwordTooShort": "Password must be at least 6 characters.",
+    "currentPasswordRequired": "Current password is required.",
+    "googleAccount": "Google Managed Account",
+    "googleAccountDesc": "You are logged in with Google. Password and authentication settings are securely managed by Google."
+  },
+  "preferences": {
+    "title": "Language & Preferences",
+    "description": "Configure your language and experience settings.",
+    "language": "Interface Language",
+    "languageDesc": "Select your preferred language for navigating the platform.",
+    "arabic": "العربية (Arabic)",
+    "english": "English",
+    "timezone": "Timezone",
+    "theme": "Theme",
+    "themeDark": "Dark Mode (Default)"
+  },
+  "hub": {
+    "title": "Quick Hub",
+    "description": "Quickly jump to your resources, templates, and courses.",
+    "templatesTitle": "Templates Showcase",
+    "templatesDesc": "Explore premium and free Notion templates engineered for scale.",
+    "coursesTitle": "Video Courses",
+    "coursesDesc": "Master Notion systems and workflows with structured guides.",
+    "toolsTitle": "Interactive Tools",
+    "toolsDesc": "Use built-in productivity and tracker widgets directly in your workspace.",
+    "contactTitle": "Consulting & Custom Systems",
+    "contactDesc": "Get in touch for bespoke workspace architecture tailored to your needs.",
+    "browse": "Explore"
+  },
+  "stats": {
+    "memberSince": "Member Since",
+    "accountType": "Account Type",
+    "standardClient": "Verified Client",
+    "status": "Status",
+    "active": "Active"
+  },
+  "dangerZone": {
+    "title": "Danger Zone",
+    "description": "Permanent actions regarding your account.",
+    "deleteTitle": "Delete Account",
+    "deleteDesc": "Permanently delete your account, saved preferences, and profile data. This action is irreversible.",
+    "deleteBtn": "Delete Account",
+    "modalTitle": "Are you absolutely sure?",
+    "modalDesc": "This action cannot be undone. This will permanently remove your account and active session from our platform.",
+    "confirmDelete": "Yes, Delete My Account",
+    "cancel": "Cancel",
+    "deleting": "Deleting account..."
+  }
+}
