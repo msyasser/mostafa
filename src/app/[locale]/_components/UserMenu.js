@@ -84,9 +84,9 @@ export default function UserMenu({ inline = false }) {
   // Inline variant for mobile menus: render inline content instead of floating dropdown
   if (inline) {
     return (
-      <div className={`w-full bg-black/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 ${isArabic ? "text-right" : "text-left"}`}>
-        <div className={`px-5 py-4 border-b border-white/10 bg-black/50 flex items-center gap-3 ${isArabic ? "flex-row-reverse" : ""}`}>
-          <div className="w-11 h-11 rounded-full bg-main flex items-center justify-center text-black font-bold text-lg shadow-lg ring-2 ring-main/30">
+      <div className="w-full bg-black/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20">
+        <div className="px-5 py-4 border-b border-white/10 bg-black/50 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-main flex items-center justify-center text-black font-bold text-base shadow-lg ring-2 ring-main/30 shrink-0">
             {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || "U"}
           </div>
           <div className="min-w-0 flex-1">
@@ -94,19 +94,19 @@ export default function UserMenu({ inline = false }) {
               {session.user.name || session.user.email}
             </p>
             {session.user.email && session.user.name && (
-              <p className="text-xs text-gray-400 truncate mt-0.5">
+              <p className="text-xs text-gray-400 truncate mt-0.5" dir="ltr">
                 {session.user.email}
               </p>
             )}
           </div>
         </div>
-        <div className="py-2 space-y-1">
+        <div className="p-2 space-y-1">
           <Link
             href={profileHref}
-            className={`w-full ${isArabic ? "text-right" : "text-left"} px-5 py-3 text-sm font-medium text-neutral-200 hover:text-white hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg mx-2 flex items-center gap-2.5 ${isArabic ? "justify-end" : "justify-start"}`}
+            className="w-full px-3 py-2.5 text-sm font-medium text-neutral-200 hover:text-white hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg flex items-center gap-3"
           >
             <svg
-              className="w-4 h-4 text-main"
+              className="w-4 h-4 text-main shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -125,15 +125,15 @@ export default function UserMenu({ inline = false }) {
                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <span>{t("PROFILE_SETTINGS")}</span>
+            <span className="truncate">{t("PROFILE_SETTINGS")}</span>
           </Link>
 
           <button
             onClick={() => signOut({ callbackUrl: `/${locale}` })}
-            className={`w-full ${isArabic ? "text-right" : "text-left"} px-5 py-3 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 cursor-pointer rounded-lg mx-2 flex items-center gap-2.5 ${isArabic ? "justify-end" : "justify-start"}`}
+            className="w-full px-3 py-2.5 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 cursor-pointer rounded-lg flex items-center gap-3"
           >
             <svg
-              className="w-4 h-4"
+              className="w-4 h-4 shrink-0 rtl:rotate-180"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -146,7 +146,7 @@ export default function UserMenu({ inline = false }) {
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
               />
             </svg>
-            <span>{t("SIGN_OUT")}</span>
+            <span className="truncate">{t("SIGN_OUT")}</span>
           </button>
         </div>
       </div>
@@ -166,7 +166,7 @@ export default function UserMenu({ inline = false }) {
       </button>
 
       <div
-        className={`absolute ${isArabic ? "left-0" : "right-0"} mt-2 w-72 bg-black/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 z-50 overflow-hidden ${isArabic ? "text-right" : "text-left"} transition-all duration-300 ease-in-out ${
+        className={`absolute ${isArabic ? "left-0" : "right-0"} mt-2 w-72 bg-black/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 z-50 overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-2 pointer-events-none"
@@ -174,8 +174,8 @@ export default function UserMenu({ inline = false }) {
       >
         {/* Profile Section */}
         <div className="px-5 py-4 border-b border-white/10 bg-black/50">
-          <div className={`flex items-center gap-3 ${isArabic ? "flex-row-reverse" : ""}`}>
-            <div className="w-11 h-11 rounded-full bg-main flex items-center justify-center text-black font-bold text-lg shadow-lg ring-2 ring-main/30">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-main flex items-center justify-center text-black font-bold text-base shadow-lg ring-2 ring-main/30 shrink-0">
               {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || "U"}
             </div>
             <div className="min-w-0 flex-1">
@@ -183,7 +183,7 @@ export default function UserMenu({ inline = false }) {
                 {session.user.name || session.user.email}
               </p>
               {session.user.email && session.user.name && (
-                <p className="text-xs text-gray-400 truncate mt-0.5">
+                <p className="text-xs text-gray-400 truncate mt-0.5" dir="ltr">
                   {session.user.email}
                 </p>
               )}
@@ -192,14 +192,14 @@ export default function UserMenu({ inline = false }) {
         </div>
 
         {/* Actions Section */}
-        <div className="py-2 space-y-1">
+        <div className="p-2 space-y-1">
           <Link
             href={profileHref}
             onClick={() => setIsOpen(false)}
-            className={`w-full ${isArabic ? "text-right" : "text-left"} px-5 py-2.5 text-sm font-medium text-neutral-200 hover:text-white hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg mx-2 flex items-center gap-2.5 ${isArabic ? "justify-end" : "justify-start"}`}
+            className="w-full px-3 py-2.5 text-sm font-medium text-neutral-200 hover:text-white hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg flex items-center gap-3"
           >
             <svg
-              className="w-4 h-4 text-main"
+              className="w-4 h-4 text-main shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -218,15 +218,15 @@ export default function UserMenu({ inline = false }) {
                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <span>{t("PROFILE_SETTINGS")}</span>
+            <span className="truncate">{t("PROFILE_SETTINGS")}</span>
           </Link>
 
           <button
             onClick={() => signOut({ callbackUrl: `/${locale}` })}
-            className={`w-full ${isArabic ? "text-right" : "text-left"} px-5 py-2.5 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 cursor-pointer rounded-lg mx-2 flex items-center gap-2.5 ${isArabic ? "justify-end" : "justify-start"}`}
+            className="w-full px-3 py-2.5 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 cursor-pointer rounded-lg flex items-center gap-3"
           >
             <svg
-              className="w-4 h-4"
+              className="w-4 h-4 shrink-0 rtl:rotate-180"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -239,7 +239,7 @@ export default function UserMenu({ inline = false }) {
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
               />
             </svg>
-            <span>{t("SIGN_OUT")}</span>
+            <span className="truncate">{t("SIGN_OUT")}</span>
           </button>
         </div>
       </div>
