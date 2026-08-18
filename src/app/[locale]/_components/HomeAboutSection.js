@@ -19,6 +19,7 @@ export default function HomeAboutSection() {
     { src: "/about/certifications/4.webp", alt: "Notion Advanced" },
     { src: "/about/certifications/5.webp", alt: "Notion Certified Admin" },
     { src: "/about/certifications/6.webp", alt: "Notion Consulting Partner" },
+    { src: "/about/certifications/7.webp", alt: "Notion Academy AI" },
   ];
 
   const highlights = isArabic
@@ -81,7 +82,7 @@ export default function HomeAboutSection() {
               <p className="text-xs text-neutral-400 font-mono text-center mb-3 uppercase tracking-wider">
                 {t("officialCerts")}
               </p>
-              <div className="grid grid-cols-5 gap-2.5 bg-neutral-900/60 p-3 rounded-2xl border border-neutral-800/80">
+              <div className="grid grid-cols-6 gap-2 bg-neutral-900/60 p-3 rounded-2xl border border-neutral-800/80">
                 {certImages.map((cert, index) => (
                   <div key={index} className="relative h-12 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300">
                     <Image
