@@ -22,6 +22,10 @@ const tajawal = Tajawal({
     fallback: ["system-ui", "arial"],
 });
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export const metadata = {
     robots: {
         index: false,

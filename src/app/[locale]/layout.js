@@ -28,6 +28,10 @@ const tajawal = Tajawal({
   fallback: ["system-ui", "arial"],
 });
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const isArabic = locale === "ar";

@@ -1,10 +1,7 @@
 import createNextIntlPlugin from "next-intl/plugin";
 import bundleAnalyzer from "@next/bundle-analyzer";
 
-const withNextIntl = createNextIntlPlugin({
-  // This should point to the request configuration
-  requestConfig: './src/i18n/request.js'
-});
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.js');
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -24,38 +21,6 @@ const nextConfig = {
   // Bundle optimization
   experimental: {
     optimizePackageImports: ['framer-motion', 'react-icons', 'lucide-react'],
-  },
-
-  // Webpack optimization
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Optimize bundle splitting
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        ...config.optimization.splitChunks,
-        cacheGroups: {
-          ...config.optimization.splitChunks.cacheGroups,
-          animations: {
-            test: /[\/\\]node_modules[\/\\](framer-motion|gsap)[\/\\]/,
-            name: 'animations',
-            chunks: 'all',
-            priority: 20,
-          },
-          icons: {
-            test: /[\/\\]node_modules[\/\\](react-icons|lucide-react|@heroicons)[\/\\]/,
-            name: 'icons',
-            chunks: 'all',
-            priority: 15,
-          },
-          vendor: {
-            test: /[\/\\]node_modules[\/\\]/,
-            name: 'vendor',
-            chunks: 'all',
-            priority: 10,
-          },
-        },
-      };
-    }
-    return config;
   },
 
 
