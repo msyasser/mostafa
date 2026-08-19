@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-export default function UserMenu({ inline = false }) {
+export default function UserMenu({ inline = false, onItemClick }) {
   const { data: session, status } = useSession();
   const t = useTranslations("Auth");
   const pathname = usePathname();
@@ -74,6 +74,7 @@ export default function UserMenu({ inline = false }) {
     return (
       <a
         href={signinHref}
+        onClick={onItemClick}
         className={`rounded-full font-semibold border border-main/60 text-main hover:bg-main hover:text-black transition-all duration-200 ${inline ? "text-base px-10 py-3" : "text-sm px-4 py-2"}`}
       >
         {t("SIGN_IN")}
@@ -103,6 +104,7 @@ export default function UserMenu({ inline = false }) {
         <div className="p-2 space-y-1">
           <Link
             href={profileHref}
+            onClick={onItemClick}
             className="w-full px-3 py-2.5 text-sm font-medium text-neutral-200 hover:text-white hover:bg-white/10 transition-all duration-200 cursor-pointer rounded-lg flex items-center gap-3"
           >
             <svg
@@ -129,7 +131,10 @@ export default function UserMenu({ inline = false }) {
           </Link>
 
           <button
-            onClick={() => signOut({ callbackUrl: `/${locale}` })}
+            onClick={() => {
+              onItemClick?.();
+              signOut({ callbackUrl: `/${locale}` });
+            }}
             className="w-full px-3 py-2.5 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 cursor-pointer rounded-lg flex items-center gap-3"
           >
             <svg

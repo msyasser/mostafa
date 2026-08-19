@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { FaCalendarAlt, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import Cal, { getCalApi } from "@calcom/embed-react";
 
 export default function NotionCalendarButton({
     label = "Book Consultation",
     className = "",
-    url = "https://calendar.notion.com/meet/mostafa-yasser/consultation"
+    calLink = "mostafayasser/discovery-call"
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
@@ -15,6 +16,23 @@ export default function NotionCalendarButton({
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    useEffect(() => {
+        if (isOpen) {
+            (async function () {
+                const cal = await getCalApi({ namespace: "discovery-call" });
+                cal("ui", {
+                    theme: "dark",
+                    cssVarsPerTheme: {
+                        light: { "cal-brand": "#d7b180" },
+                        dark: { "cal-brand": "#d7b180" },
+                    },
+                    hideEventTypeDetails: false,
+                    layout: "month_view",
+                });
+            })();
+        }
+    }, [isOpen]);
 
     return (
         <>
@@ -57,14 +75,18 @@ export default function NotionCalendarButton({
                                     </button>
                                 </div>
 
-                                {/* Iframe Container */}
-                                <div className="flex-1 bg-white w-full relative">
-                                    <iframe
-                                        src={url}
-                                        className="absolute inset-0 w-full h-full border-0"
-                                        title="Notion Calendar Scheduling"
-                                        allowFullScreen
-                                    ></iframe>
+                                {/* Cal Container */}
+                                <div className="flex-1 bg-neutral-950 w-full relative overflow-y-auto p-2">
+                                    <Cal
+                                        namespace="discovery-call"
+                                        calLink={calLink}
+                                        style={{ width: "100%", height: "100%", minHeight: "100%", overflow: "scroll" }}
+                                        config={{
+                                            layout: "month_view",
+                                            useSlotsViewOnSmallScreen: "true",
+                                            theme: "dark",
+                                        }}
+                                    />
                                 </div>
                             </motion.div>
                         </div>

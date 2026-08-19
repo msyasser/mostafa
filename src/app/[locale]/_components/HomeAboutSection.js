@@ -26,16 +26,12 @@ export default function HomeAboutSection() {
     ? [
         "استشاري معتمد رسمياً من نوشن (Notion Certified Consultant)",
         "صانع قوالب ومحتوى معتمد ومميز (Featured Creator)",
-        "المنشئ رقم #1 في متجر قوالب نوشن العربي (1st in Arabic Marketplace)",
-        "أكثر من 100,000+ عملية تحميل واستخدام حول العالم",
-        "مهندس أنظمة رقمية ومؤسس مجتمع عرب نوشن (Arab Notion)",
+        "مهندس أنظمة رقمية ومؤسس مجتمع Notion Arabs",
       ]
     : [
         "Official Notion Certified Consultant",
         "Official Featured Notion Creator",
-        "#1 Creator in the Arabic Notion Marketplace",
-        "100,000+ Downloads & Global Users",
-        "Digital Systems Architect & Founder of Arab Notion",
+        "Digital Systems Architect & Founder of Notion Arabs",
       ];
 
   return (

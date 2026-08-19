@@ -26,6 +26,11 @@ export default function Navigation() {
     setHostname(window.location.hostname);
   }, []);
 
+  useEffect(() => {
+    setMenuOpen(false);
+    setActiveDropdown(null);
+  }, [pathname]);
+
   const isDev = process.env.NODE_ENV === "development";
   const isLocalHost = mounted && (hostname === "localhost" || hostname === "127.0.0.1" || hostname.includes("localhost"));
   const isPreview = mounted && hostname.includes(".vercel.app");
@@ -290,7 +295,7 @@ export default function Navigation() {
               >
                 {t("HIRE_ME")}
               </Link>
-              <UserMenu inline />
+              <UserMenu inline onItemClick={() => setMenuOpen(false)} />
             </div>
           </div>
         </div>

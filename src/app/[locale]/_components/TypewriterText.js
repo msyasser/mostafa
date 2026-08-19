@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-function TypewriterText({ text }) {
+function TypewriterText({ text = "", highlightText = "" }) {
   const sentence = {
     hidden: { opacity: 1 },
     visible: {
@@ -20,22 +20,29 @@ function TypewriterText({ text }) {
   };
 
   return (
-    <motion.div
+    <motion.span
       variants={sentence}
       initial="hidden"
       animate="visible"
-      className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl px-2 font-extrabold leading-tight"
+      className="inline"
     >
-      {text.split("\n").map((line, index) => (
-        <span key={index} className="block">
-          {line.split("").map((char, i) => (
-            <motion.span key={i} variants={letter}>
+      <span className="text-white inline">
+        {text.split("").map((char, i) => (
+          <motion.span key={`text-${i}`} variants={letter} className="inline">
+            {char}
+          </motion.span>
+        ))}
+      </span>
+      {highlightText && (
+        <span className="text-main inline">
+          {highlightText.split("").map((char, i) => (
+            <motion.span key={`hl-${i}`} variants={letter} className="inline">
               {char}
             </motion.span>
           ))}
         </span>
-      ))}
-    </motion.div>
+      )}
+    </motion.span>
   );
 }
 

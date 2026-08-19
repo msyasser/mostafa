@@ -52,7 +52,7 @@ export default function HomeRoutingSection() {
   ];
 
   return (
-    <section className="w-full py-16 px-4 md:px-8 relative z-10">
+    <section id="routing-section" className="w-full py-16 px-4 md:px-8 relative z-10 scroll-mt-20">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <AnimatedInView threshold={0.1}>

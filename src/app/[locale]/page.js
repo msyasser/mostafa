@@ -1,10 +1,9 @@
 import { useTranslations, useLocale } from "next-intl";
-import Link from "next/link";
-import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import dynamic from "next/dynamic";
 import AnimatedText from "@/src/app/[locale]/_components/AnimatedText";
 import TypewriterText from "@/src/app/[locale]/_components/TypewriterText";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
+import HeroScrollIndicator from "@/src/app/[locale]/_components/HeroScrollIndicator";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import SEOOptimizer from "./_components/SEOOptimizer";
 
@@ -102,9 +101,12 @@ export default function HomePage() {
       <BlurText>
         {/* 1. HERO SECTION */}
         <div className="text-center min-h-[calc(100vh-160px)] flex flex-col justify-center items-center relative overflow-hidden px-4">
+          {/* Ambient Gold Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[800px] h-[350px] bg-main/10 blur-[140px] -z-10 rounded-full pointer-events-none" />
+
           <AnimatedText className="max-w-5xl mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-7xl px-4 font-extrabold leading-tight tracking-tight">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
-              <TypewriterText text={t("title")} />
+              <TypewriterText text={t("titlePrefix")} highlightText={t("titleHighlight")} />
             </h1>
           </AnimatedText>
 
@@ -113,21 +115,7 @@ export default function HomePage() {
               {t("subtitle")}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-10 relative z-10">
-              <a
-                href="#templates-section"
-                className="flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-main text-black font-bold text-lg transition-all duration-300 hover:bg-white hover:scale-105 w-full sm:w-auto min-w-[200px] shadow-[0_0_20px_rgba(215,177,128,0.4)]"
-              >
-                {t("searchTemplatesButton")}
-                {isArabic ? <BsArrowLeft className="text-xl" /> : <BsArrowRight className="text-xl" />}
-              </a>
-              <Link
-                href={`/${locale}/courses`}
-                className="flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/20 hover:border-white text-white font-medium text-lg transition-all duration-300 hover:bg-white/10 w-full sm:w-auto min-w-[200px]"
-              >
-                {isArabic ? "الدورات التعليمية" : "Explore Courses"}
-              </Link>
-            </div>
+            <HeroScrollIndicator />
           </AnimatedWrapper>
         </div>
 
