@@ -11,7 +11,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedInView from "./AnimatedInView";
-import FooterSubscriptionForm from "./FooterSubscriptionForm";
 
 function Footer() {
   const t = useTranslations("Footer");
@@ -35,10 +34,6 @@ function Footer() {
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
               {t("description")}
             </p>
-          </div>
-
-          <div className={`scale-90 ${locale === 'ar' ? 'origin-right' : 'origin-left'}`}>
-            <FooterSubscriptionForm />
           </div>
 
           <div className="space-y-4 pt-2">
