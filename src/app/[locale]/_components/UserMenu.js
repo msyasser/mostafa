@@ -26,31 +26,15 @@ export default function UserMenu({ inline = false, onItemClick }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Show skeleton while loading
+  // Show skeleton while loading (preserves layout and dimensions)
   if (status === "loading") {
     if (inline) {
       return (
-        <div className={`w-full bg-black/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 ${isArabic ? "text-right" : "text-left"}`}>
-          <div className="px-5 py-4 border-b border-white/10 bg-black/50 flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full bg-white/10 animate-pulse"></div>
-            <div className="min-w-0 flex-1">
-              <div className="h-4 bg-white/10 rounded animate-pulse mb-2"></div>
-              <div className="h-3 bg-white/10 rounded animate-pulse w-3/4"></div>
-            </div>
-          </div>
-          <div className="py-2">
-            <div className="h-10 bg-white/10 rounded-lg animate-pulse mx-2"></div>
-          </div>
-        </div>
+        <div className="w-40 h-12 rounded-full bg-white/10 animate-pulse mx-auto" />
       );
     }
-    // Skeleton for desktop - matches either login button or avatar size
     return (
-      <div className="flex items-center">
-        <div className="px-4 py-2 rounded-lg bg-white/10 animate-pulse">
-          <div className="h-4 w-20"></div>
-        </div>
-      </div>
+      <div className="w-9 h-9 rounded-full bg-white/10 animate-pulse shrink-0 border border-white/10" />
     );
   }
 
@@ -75,7 +59,7 @@ export default function UserMenu({ inline = false, onItemClick }) {
       <a
         href={signinHref}
         onClick={onItemClick}
-        className={`rounded-full font-semibold border border-main/60 text-main hover:bg-main hover:text-black transition-all duration-200 ${inline ? "text-base px-10 py-3" : "text-sm px-4 py-2"}`}
+        className={`rounded-full font-semibold border border-main/60 text-main hover:bg-main hover:text-black transition-all duration-200 shrink-0 ${inline ? "text-base px-10 py-3" : "text-sm px-4 py-2"}`}
       >
         {t("SIGN_IN")}
       </a>
@@ -159,10 +143,10 @@ export default function UserMenu({ inline = false, onItemClick }) {
   }
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div className="relative shrink-0" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-white/10 transition-all duration-200 cursor-pointer border border-white/20"
+        className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-white/10 transition-all duration-200 cursor-pointer border border-white/20 shrink-0"
         aria-label="User menu"
       >
         <div className="w-8 h-8 rounded-full bg-main flex items-center justify-center text-black font-bold text-sm shadow-sm">
