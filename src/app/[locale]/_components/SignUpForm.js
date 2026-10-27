@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "@/src/i18n/navigation";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
+import { getAuthErrorMessage } from "@/src/lib/auth-errors";
+import { getSafeCallbackUrl } from "@/src/lib/redirect";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import CustomPhoneInput from "@/src/app/[locale]/_components/CustomPhoneInput";
 import { Mail, User, Lock, Eye, EyeOff, RotateCw, ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react";
@@ -15,7 +16,7 @@ export default function SignUpForm() {
   const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || `/${locale}`;
+  const callbackUrl = getSafeCallbackUrl(searchParams.get("callbackUrl"), locale);
   const isArabic = locale === "ar";
 
   const [step, setStep] = useState("form"); // "form" | "verify"
@@ -173,10 +174,16 @@ export default function SignUpForm() {
         });
 
         if (result?.error) {
-          setError(result.error);
+          setError(getAuthErrorMessage(t, result.code));
         } else if (result?.ok) {
-          router.replace(callbackUrl);
-          router.refresh();
+          // Absolute callbacks point at another subdomain; the locale-aware router
+          // would mangle them and prefix the locale twice on paths like "/en".
+          if (/^https?:\/\//.test(callbackUrl)) {
+            window.location.assign(callbackUrl);
+          } else {
+            router.replace(callbackUrl);
+            router.refresh();
+          }
         }
       } catch (err) {
         setError(err.message || t("AUTH_ERROR"));
