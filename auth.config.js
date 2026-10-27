@@ -231,7 +231,13 @@ function isAllowedRedirectHost(hostname) {
 
 const useSecureCookies = process.env.NODE_ENV === "production";
 const cookiePrefix = useSecureCookies ? "__Secure-" : "";
-const cookieDomain = process.env.NODE_ENV === "production" ? ".mostafayasser.com" : undefined;
+// Share the session across *.mostafayasser.com only on the production deployment.
+// A cookie whose Domain doesn't match the host is dropped by the browser, which
+// makes sign-in fail with MissingCSRF on *.vercel.app preview deployments.
+const cookieDomain =
+  process.env.NODE_ENV === "production" && process.env.VERCEL_ENV !== "preview"
+    ? ".mostafayasser.com"
+    : undefined;
 
 export const authConfig = {
   cookies: {
