@@ -381,3 +381,22 @@ input:-webkit-autofill:active,
   direction: ltr !important;
   text-align: right !important;
 }
+
+/* Profile tabs: a horizontal scroller on small screens, a vertical list from 1024px.
+   Plain CSS on purpose: on some Edge builds the equivalent Tailwind lg: utilities
+   (flex-col, overflow-visible) matched the element but were not applied. */
+.profile-tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 0.375rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+@media (min-width: 1024px) {
+  .profile-tabs {
+    flex-direction: column;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+}
