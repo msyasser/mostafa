@@ -334,7 +334,7 @@ export default function ProfileClient({ user: initialUser, locale }) {
           {/* Navigation Tabs (Sidebar on desktop) */}
           <div className="lg:col-span-4">
             <div className="bg-neutral-900/70 border border-neutral-800/80 rounded-2xl p-2.5 backdrop-blur-xl shadow-xl sticky top-28">
-              <nav className="flex flex-row lg:flex-col gap-1.5 overflow-x-auto lg:overflow-visible pb-1 lg:pb-0">
+              <nav className="profile-tabs">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
