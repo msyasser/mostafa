@@ -1,6 +1,8 @@
+import { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import crypto from "crypto";
+import { isAllowedRedirectHost, isSameSitePath } from "@/src/lib/redirect";
 import { verifyToken } from "@/src/lib/email";
 import {
   hashPassword,
@@ -216,17 +218,14 @@ async function upgradePasswordHash(pageId, propertyName, password) {
   }
 }
 
-// Redirect targets are limited to our own hosts. Compare the parsed hostname
-// exactly: a suffix check on the raw string would also accept evilmostafayasser.com.
-function isAllowedRedirectHost(hostname) {
-  if (hostname === "mostafayasser.com" || hostname.endsWith(".mostafayasser.com")) {
-    return true;
+// A plain Error thrown from authorize() ends up on Auth.js's "Configuration" error
+// page. CredentialsSignin is returned to signIn() instead, with `code` identifying
+// the failure so the form can show a proper message (see src/lib/auth-errors.js).
+class CredentialsError extends CredentialsSignin {
+  constructor(code) {
+    super();
+    this.code = code;
   }
-  // Vercel domains of this project/team only (production alias, previews, branch URLs)
-  if (hostname === "mostafa-sigma.vercel.app") return true;
-  if (/^mostafa(-[a-z0-9]+)*-engmsyasser\.vercel\.app$/.test(hostname)) return true;
-  if (process.env.NODE_ENV !== "production" && hostname === "localhost") return true;
-  return false;
 }
 
 const useSecureCookies = process.env.NODE_ENV === "production";
@@ -292,11 +291,11 @@ export const authConfig = {
         const email = typeof credentials.email === "string" ? credentials.email.trim() : "";
 
         if (!email || !password) {
-          throw new Error("Email and password are required");
+          throw new CredentialsError("missing_fields");
         }
 
         if (typeof password !== "string" || password.length > MAX_PASSWORD_LENGTH) {
-          throw new Error("Invalid email or password");
+          throw new CredentialsError("invalid_credentials");
         }
 
         const ip = getClientIp(request?.headers);
@@ -304,22 +303,22 @@ export const authConfig = {
         // For signup
         if (action === "signup") {
           if (!isValidEmail(email)) {
-            throw new Error("Invalid email address");
+            throw new CredentialsError("invalid_email");
           }
 
           if (typeof name !== "string" || !name.trim() || name.trim().length > MAX_NAME_LENGTH) {
-            throw new Error("Name is required for signup");
+            throw new CredentialsError("name_required");
           }
 
           if (password.length < MIN_PASSWORD_LENGTH) {
-            throw new Error("Password must be at least 6 characters");
+            throw new CredentialsError("password_too_short");
           }
 
           // Email verification is mandatory: without it anyone could register
           // an address they don't own.
           if (typeof verificationToken !== "string" || typeof verificationCode !== "string" ||
               !verificationToken || !verificationCode) {
-            throw new Error("Email verification is required");
+            throw new CredentialsError("verification_required");
           }
 
           const normalizedEmail = normalizeEmail(email);
@@ -328,12 +327,14 @@ export const authConfig = {
           const attempts = rateLimit(`verify:${normalizedEmail}`, { limit: 5, windowMs: VERIFY_WINDOW_MS });
           const ipAttempts = rateLimit(`verify-ip:${ip}`, { limit: 20, windowMs: VERIFY_WINDOW_MS });
           if (!attempts.ok || !ipAttempts.ok) {
-            throw new Error("Too many attempts. Please try again later.");
+            throw new CredentialsError("too_many_attempts");
           }
 
           const verification = verifyToken(verificationToken, normalizedEmail, verificationCode);
           if (!verification.valid) {
-            throw new Error(verification.error || "Email verification failed");
+            throw new CredentialsError(
+              verification.error === "Verification code has expired" ? "verification_expired" : "verification_invalid"
+            );
           }
 
           const cleanName = name.trim();
@@ -346,7 +347,7 @@ export const authConfig = {
             // Check if user exists in Notion
             const existingUser = await findUserByEmail(normalizedEmail);
             if (existingUser) {
-              throw new Error("User with this email already exists");
+              throw new CredentialsError("user_exists");
             }
 
             try {
@@ -365,13 +366,13 @@ export const authConfig = {
               };
             } catch (error) {
               console.error('❌ Notion signup error:', error.message);
-              throw new Error("Failed to create account. Please try again later.");
+              throw new CredentialsError("signup_failed");
             }
           } else {
             // Fallback to in-memory storage
             const existingUser = users.find(u => u.email === normalizedEmail);
             if (existingUser) {
-              throw new Error("User with this email already exists");
+              throw new CredentialsError("user_exists");
             }
 
             newUser = {
@@ -397,7 +398,7 @@ export const authConfig = {
           const byIp = rateLimit(`login-ip:${ip}`, { limit: 30, windowMs: LOGIN_WINDOW_MS });
           const byPair = rateLimit(`login:${ip}:${normalizeEmail(email)}`, { limit: 8, windowMs: LOGIN_WINDOW_MS });
           if (!byIp.ok || !byPair.ok) {
-            throw new Error("Too many attempts. Please try again later.");
+            throw new CredentialsError("too_many_attempts");
           }
 
           let user = null;
@@ -406,7 +407,7 @@ export const authConfig = {
             const notionUser = await findUserByEmail(email);
 
             if (!notionUser) {
-              throw new Error("Invalid email or password");
+              throw new CredentialsError("invalid_credentials");
             }
 
             // Resolve property keys dynamically
@@ -422,7 +423,7 @@ export const authConfig = {
               : undefined;
 
             if (!storedPassword || !(await verifyPassword(password, storedPassword))) {
-              throw new Error("Invalid email or password");
+              throw new CredentialsError("invalid_credentials");
             }
 
             if (needsRehash(storedPassword)) {
@@ -439,7 +440,7 @@ export const authConfig = {
             const inMemoryUser = users.find(u => u.email === normalizeEmail(email));
 
             if (!inMemoryUser || !(await verifyPassword(password, inMemoryUser.password))) {
-              throw new Error("Invalid email or password");
+              throw new CredentialsError("invalid_credentials");
             }
 
             user = {
@@ -465,7 +466,7 @@ export const authConfig = {
   callbacks: {
     async redirect({ url, baseUrl }) {
       // Allow relative paths
-      if (url.startsWith("/") && !url.startsWith("//") && !url.startsWith("/\\")) {
+      if (isSameSitePath(url)) {
         return `${baseUrl}${url}`;
       }
       try {
