@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/src/app/api/auth/[...nextauth]/route";
-import crypto from "crypto";
+import { hashPassword, verifyPassword, findPasswordPropertyName } from "@/src/lib/password";
+import { rateLimit } from "@/src/lib/rate-limit";
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const NOTION_USERS_DB_ID = process.env.NOTION_USERS_DB_ID;
 
-function hashPassword(password) {
-  return crypto.createHash("sha256").update(password).digest("hex");
-}
+const MAX_PASSWORD_LENGTH = 200;
+const MAX_NAME_LENGTH = 100;
+const MAX_PHONE_LENGTH = 30;
 
 async function findUserInNotion(email) {
   if (!NOTION_TOKEN || !NOTION_USERS_DB_ID || !email) return null;
@@ -127,6 +128,9 @@ export async function PATCH(request) {
 
     // 1. Update Name if provided
     if (typeof name === "string" && name.trim()) {
+      if (name.trim().length > MAX_NAME_LENGTH) {
+        return NextResponse.json({ error: "Name is too long" }, { status: 400 });
+      }
       const nameKey = Object.keys(propertiesSchema).find((k) => propertiesSchema[k].type === "title");
       if (nameKey) {
         updatedProps[nameKey] = {
@@ -137,6 +141,9 @@ export async function PATCH(request) {
 
     // 2. Update Phone if provided
     if (typeof phone === "string") {
+      if (phone.length > MAX_PHONE_LENGTH) {
+        return NextResponse.json({ error: "Phone number is too long" }, { status: 400 });
+      }
       const phoneKey = Object.keys(propertiesSchema).find((k) => propertiesSchema[k].type === "phone_number");
       if (phoneKey) {
         const cleanPhone = phone.replace(/\s+/g, "");
@@ -148,30 +155,34 @@ export async function PATCH(request) {
 
     // 3. Update Password if provided
     if (newPassword) {
-      if (newPassword.length < 6) {
+      if (typeof newPassword !== "string" || newPassword.length < 6) {
         return NextResponse.json({ error: "Password must be at least 6 characters" }, { status: 400 });
+      }
+      if (newPassword.length > MAX_PASSWORD_LENGTH) {
+        return NextResponse.json({ error: "Password is too long" }, { status: 400 });
+      }
+
+      // The current password is checked on every change, so cap guessing
+      // from a hijacked session.
+      const attempts = rateLimit(`profile-password:${email.toLowerCase()}`, { limit: 5, windowMs: 15 * 60 * 1000 });
+      if (!attempts.ok) {
+        return NextResponse.json({ error: "Too many attempts. Please try again later." }, { status: 429 });
       }
 
       // Check current password
-      const passwordKey = Object.keys(props).find(
-        (k) =>
-          props[k]?.type === "rich_text" ||
-          props[k]?.type === "text" ||
-          k.toLowerCase().includes("password")
-      );
+      const passwordKey = findPasswordPropertyName(props);
 
       if (passwordKey) {
         const storedPassword =
           props[passwordKey]?.rich_text?.[0]?.text?.content ||
           props[passwordKey]?.text?.[0]?.text?.content;
 
-        if (storedPassword && storedPassword !== hashPassword(currentPassword || "")) {
+        if (storedPassword && !(await verifyPassword(typeof currentPassword === "string" ? currentPassword : "", storedPassword))) {
           return NextResponse.json({ error: "Current password is incorrect" }, { status: 400 });
         }
 
-        const propType = propertiesSchema[passwordKey]?.type === "rich_text" ? "rich_text" : "text";
         updatedProps[passwordKey] = {
-          [propType]: [{ text: { content: hashPassword(newPassword) } }],
+          rich_text: [{ text: { content: await hashPassword(newPassword) } }],
         };
       }
     }

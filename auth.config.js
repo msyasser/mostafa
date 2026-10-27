@@ -2,69 +2,60 @@ import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import crypto from "crypto";
 import { verifyToken } from "@/src/lib/email";
+import {
+  hashPassword,
+  verifyPassword,
+  needsRehash,
+  findPasswordPropertyName,
+} from "@/src/lib/password";
+import { rateLimit, getClientIp } from "@/src/lib/rate-limit";
+import { isValidEmail, normalizeEmail } from "@/src/lib/validation";
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const NOTION_USERS_DB_ID = process.env.NOTION_USERS_DB_ID;
 
-// Simple password hashing function
-function hashPassword(password) {
-  return crypto.createHash('sha256').update(password).digest('hex');
-}
+const MIN_PASSWORD_LENGTH = 6;
+const MAX_PASSWORD_LENGTH = 200;
+const MAX_NAME_LENGTH = 100;
+const MAX_PHONE_LENGTH = 30;
+
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
+const VERIFY_WINDOW_MS = 10 * 60 * 1000;
 
 // Fallback in-memory storage if Notion is not available
 let users = [];
 
+function notionHeaders() {
+  return {
+    'Authorization': `Bearer ${NOTION_TOKEN}`,
+    'Content-Type': 'application/json',
+    'Notion-Version': '2022-06-28',
+  };
+}
+
 async function getNotionDatabaseSchema() {
   if (!NOTION_TOKEN || !NOTION_USERS_DB_ID) {
-    console.error('❌ Missing Notion credentials:', {
-      hasToken: !!NOTION_TOKEN,
-      hasDbId: !!NOTION_USERS_DB_ID,
-      tokenPrefix: NOTION_TOKEN ? NOTION_TOKEN.substring(0, 10) : 'none'
-    });
+    console.error('❌ Missing Notion credentials');
     return null;
   }
 
   try {
     const response = await fetch(`https://api.notion.com/v1/databases/${NOTION_USERS_DB_ID}`, {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${NOTION_TOKEN}`,
-        'Content-Type': 'application/json',
-        'Notion-Version': '2022-06-28',
-      },
+      headers: notionHeaders(),
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      let errorJson;
-      try {
-        errorJson = JSON.parse(errorText);
-      } catch (e) {
-        errorJson = { raw: errorText };
-      }
-      
       console.error('❌ Notion API error response:', {
         status: response.status,
         statusText: response.statusText,
-        error: errorJson,
-        dbId: NOTION_USERS_DB_ID,
-        tokenLength: NOTION_TOKEN?.length
       });
       return null;
     }
 
-    const schema = await response.json();
-    console.log('✅ Successfully accessed Notion database:', {
-      dbId: NOTION_USERS_DB_ID,
-      dbTitle: schema.title?.[0]?.plain_text || 'Unknown',
-      properties: Object.keys(schema.properties || {})
-    });
-    return schema;
+    return await response.json();
   } catch (error) {
-    console.error('❌ Failed to fetch Notion database:', {
-      message: error.message,
-      dbId: NOTION_USERS_DB_ID
-    });
+    console.error('❌ Failed to fetch Notion database:', error.message);
     return null;
   }
 }
@@ -82,19 +73,16 @@ async function createUserInNotion({ name, email, password, phone }) {
 
   // Find the actual property names in your database
   const properties = dbSchema.properties;
-  console.log('📋 Available properties in your database:', Object.keys(properties));
-  console.log('📋 Property types:', Object.entries(properties).map(([key, value]) => `${key}: ${value.type}`));
 
   // Build properties object dynamically based on what exists
   const userProperties = {};
-  
+
   // Look for Name/Title property (required)
   const nameProp = Object.keys(properties).find(p => properties[p].type === 'title');
   if (!nameProp) {
     throw new Error("Database must have a Title property for user names");
   }
   userProperties[nameProp] = { title: [{ text: { content: name } }] };
-  console.log(`✅ Found name property: "${nameProp}"`);
 
   // Look for Email property (required)
   const emailProp = Object.keys(properties).find(p => properties[p].type === 'email');
@@ -102,28 +90,13 @@ async function createUserInNotion({ name, email, password, phone }) {
     throw new Error("Database must have an Email property");
   }
   userProperties[emailProp] = { email: email };
-  console.log(`✅ Found email property: "${emailProp}"`);
 
   // Look for Password property - prioritize by name first, then by type
-  let passwordProp = Object.keys(properties).find(p => 
-    p.toLowerCase().includes('password') && 
-    (properties[p].type === 'rich_text' || properties[p].type === 'text')
-  );
-  
-  // If not found by name, find any rich_text or text property
-  if (!passwordProp) {
-    passwordProp = Object.keys(properties).find(p => 
-      properties[p].type === 'rich_text' || properties[p].type === 'text'
-    );
-  }
-  
+  const passwordProp = findPasswordPropertyName(properties);
   if (passwordProp) {
-    userProperties[passwordProp] = { 
-      [properties[passwordProp].type === 'rich_text' ? 'rich_text' : 'text']: [{ 
-        text: { content: hashPassword(password) } 
-      }] 
+    userProperties[passwordProp] = {
+      rich_text: [{ text: { content: await hashPassword(password) } }],
     };
-    console.log(`✅ Found password property: "${passwordProp}"`);
   } else {
     console.warn('⚠️ No password property found in database');
   }
@@ -134,29 +107,20 @@ async function createUserInNotion({ name, email, password, phone }) {
     // Remove any spaces or special formatting from phone number
     const cleanPhone = phone.replace(/\s+/g, '');
     userProperties[phoneProp] = { phone_number: cleanPhone };
-    console.log(`✅ Found phone property: "${phoneProp}"`);
   }
 
   // Look for Date property (for registration date)
-  const dateProp = Object.keys(properties).find(p => 
-    properties[p].type === 'date' && 
+  const dateProp = Object.keys(properties).find(p =>
+    properties[p].type === 'date' &&
     (p.toLowerCase().includes('date') || p.toLowerCase().includes('created') || p.toLowerCase().includes('registered'))
   );
   if (dateProp) {
     userProperties[dateProp] = { date: { start: new Date().toISOString().split('T')[0] } };
-    console.log(`✅ Found date property: "${dateProp}"`);
   }
-
-  console.log('📝 Creating user with properties:', Object.keys(userProperties));
-  console.log('📝 Properties data:', JSON.stringify(userProperties, null, 2));
 
   const response = await fetch(`https://api.notion.com/v1/pages`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${NOTION_TOKEN}`,
-      'Content-Type': 'application/json',
-      'Notion-Version': '2022-06-28',
-    },
+    headers: notionHeaders(),
     body: JSON.stringify({
       parent: { database_id: NOTION_USERS_DB_ID },
       properties: userProperties,
@@ -164,26 +128,42 @@ async function createUserInNotion({ name, email, password, phone }) {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    let error;
-    try {
-      error = JSON.parse(errorText);
-    } catch (e) {
-      error = { raw: errorText };
-    }
+    const error = await response.json().catch(() => ({}));
+    // Never log the request body: it contains the password hash and PII.
     console.error('❌ Notion API error response:', {
       status: response.status,
       statusText: response.statusText,
-      error: error,
-      propertiesSent: Object.keys(userProperties),
-      propertiesData: userProperties
+      code: error.code,
+      message: error.message,
     });
-    throw new Error(`Failed to create user in Notion: ${error.message || response.statusText}`);
+    throw new Error("Failed to create user in Notion");
   }
 
-  const result = await response.json();
-  console.log('✅ Successfully created user in Notion:', result.id);
-  return result;
+  return await response.json();
+}
+
+async function queryUserByEmail(emailProp, email) {
+  const response = await fetch(
+    `https://api.notion.com/v1/databases/${NOTION_USERS_DB_ID}/query`,
+    {
+      method: 'POST',
+      headers: notionHeaders(),
+      body: JSON.stringify({
+        filter: {
+          property: emailProp,
+          email: { equals: email },
+        },
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    console.error('Notion query error:', response.status);
+    return null;
+  }
+
+  const data = await response.json();
+  return data.results[0] || null;
 }
 
 async function findUserByEmail(email) {
@@ -199,42 +179,65 @@ async function findUserByEmail(email) {
 
   const properties = dbSchema.properties;
   const emailProp = Object.keys(properties).find(p => properties[p].type === 'email');
-  
+
   if (!emailProp) {
     console.error('Could not find email property in database');
     return null;
   }
 
-  const response = await fetch(
-    `https://api.notion.com/v1/databases/${NOTION_USERS_DB_ID}/query`,
-    {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${NOTION_TOKEN}`,
-        'Content-Type': 'application/json',
-        'Notion-Version': '2022-06-28',
-      },
+  const trimmed = email.trim();
+  const found = await queryUserByEmail(emailProp, trimmed);
+  if (found) return found;
+
+  // Older accounts may have been stored with the casing the user typed
+  const lowered = normalizeEmail(email);
+  return lowered !== trimmed ? queryUserByEmail(emailProp, lowered) : null;
+}
+
+// Accounts created before salted hashing hold an unsalted SHA-256 digest. After
+// a successful login, silently replace it with a salted scrypt hash.
+async function upgradePasswordHash(pageId, propertyName, password) {
+  try {
+    const response = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
+      method: 'PATCH',
+      headers: notionHeaders(),
       body: JSON.stringify({
-        filter: {
-          property: emailProp,
-          email: { equals: email },
+        properties: {
+          [propertyName]: { rich_text: [{ text: { content: await hashPassword(password) } }] },
         },
       }),
+    });
+
+    if (!response.ok) {
+      console.error('Password hash upgrade failed:', response.status);
     }
-  );
-
-  if (!response.ok) {
-    console.error('Notion query error:', await response.json());
-    return null;
+  } catch (error) {
+    console.error('Password hash upgrade failed:', error.message);
   }
+}
 
-  const data = await response.json();
-  return data.results[0];
+// Redirect targets are limited to our own hosts. Compare the parsed hostname
+// exactly: a suffix check on the raw string would also accept evilmostafayasser.com.
+function isAllowedRedirectHost(hostname) {
+  if (hostname === "mostafayasser.com" || hostname.endsWith(".mostafayasser.com")) {
+    return true;
+  }
+  // Vercel domains of this project/team only (production alias, previews, branch URLs)
+  if (hostname === "mostafa-sigma.vercel.app") return true;
+  if (/^mostafa(-[a-z0-9]+)*-engmsyasser\.vercel\.app$/.test(hostname)) return true;
+  if (process.env.NODE_ENV !== "production" && hostname === "localhost") return true;
+  return false;
 }
 
 const useSecureCookies = process.env.NODE_ENV === "production";
 const cookiePrefix = useSecureCookies ? "__Secure-" : "";
-const cookieDomain = process.env.NODE_ENV === "production" ? ".mostafayasser.com" : undefined;
+// Share the session across *.mostafayasser.com only on the production deployment.
+// A cookie whose Domain doesn't match the host is dropped by the browser, which
+// makes sign-in fail with MissingCSRF on *.vercel.app preview deployments.
+const cookieDomain =
+  process.env.NODE_ENV === "production" && process.env.VERCEL_ENV !== "preview"
+    ? ".mostafayasser.com"
+    : undefined;
 
 export const authConfig = {
   cookies: {
@@ -280,77 +283,106 @@ export const authConfig = {
         verificationToken: { label: "Verification Token", type: "text" },
         verificationCode: { label: "Verification Code", type: "text" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, request) {
         if (!credentials) {
           return null;
         }
 
-        const { email, password, name, phone, action, verificationToken, verificationCode } = credentials;
+        const { password, name, phone, action, verificationToken, verificationCode } = credentials;
+        const email = typeof credentials.email === "string" ? credentials.email.trim() : "";
 
         if (!email || !password) {
           throw new Error("Email and password are required");
         }
 
+        if (typeof password !== "string" || password.length > MAX_PASSWORD_LENGTH) {
+          throw new Error("Invalid email or password");
+        }
+
+        const ip = getClientIp(request?.headers);
+
         // For signup
         if (action === "signup") {
-          if (!name) {
+          if (!isValidEmail(email)) {
+            throw new Error("Invalid email address");
+          }
+
+          if (typeof name !== "string" || !name.trim() || name.trim().length > MAX_NAME_LENGTH) {
             throw new Error("Name is required for signup");
           }
 
-          if (verificationToken && verificationCode) {
-            const verification = verifyToken(verificationToken, email, verificationCode);
-            if (!verification.valid) {
-              throw new Error(verification.error || "Email verification failed");
-            }
+          if (password.length < MIN_PASSWORD_LENGTH) {
+            throw new Error("Password must be at least 6 characters");
           }
+
+          // Email verification is mandatory: without it anyone could register
+          // an address they don't own.
+          if (typeof verificationToken !== "string" || typeof verificationCode !== "string" ||
+              !verificationToken || !verificationCode) {
+            throw new Error("Email verification is required");
+          }
+
+          const normalizedEmail = normalizeEmail(email);
+
+          // The code is only 6 digits, so cap how many guesses one address gets.
+          const attempts = rateLimit(`verify:${normalizedEmail}`, { limit: 5, windowMs: VERIFY_WINDOW_MS });
+          const ipAttempts = rateLimit(`verify-ip:${ip}`, { limit: 20, windowMs: VERIFY_WINDOW_MS });
+          if (!attempts.ok || !ipAttempts.ok) {
+            throw new Error("Too many attempts. Please try again later.");
+          }
+
+          const verification = verifyToken(verificationToken, normalizedEmail, verificationCode);
+          if (!verification.valid) {
+            throw new Error(verification.error || "Email verification failed");
+          }
+
+          const cleanName = name.trim();
+          const cleanPhone = typeof phone === "string" ? phone.trim().slice(0, MAX_PHONE_LENGTH) : "";
 
           // Try Notion first, fallback to in-memory
           let newUser;
 
           if (NOTION_TOKEN && NOTION_USERS_DB_ID) {
-            try {
-              // Check if user exists in Notion
-              const existingUser = await findUserByEmail(email);
-              if (existingUser) {
-                throw new Error("User with this email already exists");
-              }
+            // Check if user exists in Notion
+            const existingUser = await findUserByEmail(normalizedEmail);
+            if (existingUser) {
+              throw new Error("User with this email already exists");
+            }
 
+            try {
               // Create user in Notion
-              const notionUser = await createUserInNotion({ name, email, password, phone });
-              console.log('✅ New user registered in Notion:', email);
+              const notionUser = await createUserInNotion({
+                name: cleanName,
+                email: normalizedEmail,
+                password,
+                phone: cleanPhone,
+              });
 
               newUser = {
                 id: notionUser.id,
-                name: name,
-                email: email,
+                name: cleanName,
+                email: normalizedEmail,
               };
             } catch (error) {
-              console.error('❌ Notion error details:', {
-                message: error.message,
-                status: error.status || 'unknown',
-                code: error.code || 'unknown',
-                stack: error.stack
-              });
-              // Don't fallback - show the error to user
-              throw new Error(error.message || "Failed to create account. Please check server logs for details.");
+              console.error('❌ Notion signup error:', error.message);
+              throw new Error("Failed to create account. Please try again later.");
             }
           } else {
             // Fallback to in-memory storage
-            const existingUser = users.find(u => u.email === email);
+            const existingUser = users.find(u => u.email === normalizedEmail);
             if (existingUser) {
               throw new Error("User with this email already exists");
             }
 
             newUser = {
               id: Date.now().toString(),
-              name: name,
-              email: email,
-              password: hashPassword(password),
+              name: cleanName,
+              email: normalizedEmail,
+              password: await hashPassword(password),
               createdAt: new Date().toISOString(),
             };
 
             users.push(newUser);
-            console.log('✅ New user registered (in-memory):', email);
           }
 
           return {
@@ -362,66 +394,53 @@ export const authConfig = {
 
         // For login
         if (action === "login") {
+          const byIp = rateLimit(`login-ip:${ip}`, { limit: 30, windowMs: LOGIN_WINDOW_MS });
+          const byPair = rateLimit(`login:${ip}:${normalizeEmail(email)}`, { limit: 8, windowMs: LOGIN_WINDOW_MS });
+          if (!byIp.ok || !byPair.ok) {
+            throw new Error("Too many attempts. Please try again later.");
+          }
+
           let user = null;
 
           if (NOTION_TOKEN && NOTION_USERS_DB_ID) {
-            try {
-              // Try Notion first
-              const notionUser = await findUserByEmail(email);
+            const notionUser = await findUserByEmail(email);
 
-              if (!notionUser) {
-                throw new Error("Invalid email or password");
-              }
-
-              // Resolve property keys dynamically
-              const props = notionUser.properties || {};
-              const propKeys = Object.keys(props);
-              const titleKey = propKeys.find(k => props[k]?.type === 'title');
-              const emailKey = propKeys.find(k => props[k]?.type === 'email');
-              const passwordKey = propKeys.find(k => {
-                const t = props[k]?.type;
-                return t === 'rich_text' || t === 'text';
-              });
-
-              // Extract stored password safely
-              const storedPassword = passwordKey
-                ? ((props[passwordKey].rich_text?.[0]?.text?.content) ?? (props[passwordKey].text?.[0]?.text?.content))
-                : undefined;
-
-              if (!storedPassword) {
-                throw new Error("Invalid email or password");
-              }
-
-              // Verify password
-              if (hashPassword(password) !== storedPassword) {
-                throw new Error("Invalid email or password");
-              }
-
-              console.log('✅ User logged in (Notion):', email);
-
-              user = {
-                id: notionUser.id,
-                name: titleKey ? (props[titleKey]?.title?.[0]?.text?.content || name) : name,
-                email: emailKey ? (props[emailKey]?.email || email) : email,
-              };
-            } catch (error) {
-              console.error('Notion login error:', error.message);
-              throw error;
+            if (!notionUser) {
+              throw new Error("Invalid email or password");
             }
+
+            // Resolve property keys dynamically
+            const props = notionUser.properties || {};
+            const propKeys = Object.keys(props);
+            const titleKey = propKeys.find(k => props[k]?.type === 'title');
+            const emailKey = propKeys.find(k => props[k]?.type === 'email');
+            const passwordKey = findPasswordPropertyName(props);
+
+            // Extract stored password safely
+            const storedPassword = passwordKey
+              ? (props[passwordKey].rich_text?.[0]?.text?.content ?? props[passwordKey].text?.[0]?.text?.content)
+              : undefined;
+
+            if (!storedPassword || !(await verifyPassword(password, storedPassword))) {
+              throw new Error("Invalid email or password");
+            }
+
+            if (needsRehash(storedPassword)) {
+              await upgradePasswordHash(notionUser.id, passwordKey, password);
+            }
+
+            user = {
+              id: notionUser.id,
+              name: titleKey ? (props[titleKey]?.title?.[0]?.text?.content || name) : name,
+              email: emailKey ? (props[emailKey]?.email || email) : email,
+            };
           } else {
             // Fallback to in-memory storage
-            const inMemoryUser = users.find(u => u.email === email);
+            const inMemoryUser = users.find(u => u.email === normalizeEmail(email));
 
-            if (!inMemoryUser) {
+            if (!inMemoryUser || !(await verifyPassword(password, inMemoryUser.password))) {
               throw new Error("Invalid email or password");
             }
-
-            const hashedPassword = hashPassword(password);
-            if (inMemoryUser.password !== hashedPassword) {
-              throw new Error("Invalid email or password");
-            }
-
-            console.log('✅ User logged in (in-memory):', email);
 
             user = {
               id: inMemoryUser.id,
@@ -436,23 +455,25 @@ export const authConfig = {
         return null;
       },
     }),
+    // Sessions are JWT-only (no adapter), so there are no stored accounts to
+    // link and allowDangerousEmailAccountLinking is deliberately not enabled.
     Google({
       clientId: process.env.AUTH_GOOGLE_ID || process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET || process.env.GOOGLE_CLIENT_SECRET,
-      allowDangerousEmailAccountLinking: true,
     }),
   ],
   callbacks: {
     async redirect({ url, baseUrl }) {
       // Allow relative paths
-      if (url.startsWith("/")) return `${baseUrl}${url}`;
-      // Allow redirects to mostafayasser.com subdomains and dev hosts
+      if (url.startsWith("/") && !url.startsWith("//") && !url.startsWith("/\\")) {
+        return `${baseUrl}${url}`;
+      }
       try {
         const parsed = new URL(url);
+        const isLocalDev = process.env.NODE_ENV !== "production" && parsed.hostname === "localhost";
         if (
-          parsed.hostname.endsWith("mostafayasser.com") ||
-          parsed.hostname === "localhost" ||
-          parsed.hostname.endsWith(".vercel.app")
+          (parsed.protocol === "https:" || (isLocalDev && parsed.protocol === "http:")) &&
+          isAllowedRedirectHost(parsed.hostname)
         ) {
           return url;
         }
@@ -461,8 +482,13 @@ export const authConfig = {
       }
       return baseUrl;
     },
-    async signIn({ user, account }) {
+    async signIn({ user, account, profile }) {
       if (account?.provider === "google") {
+        // Only trust Google identities whose email Google has verified
+        if (profile?.email_verified === false) {
+          return false;
+        }
+
         const email = user?.email;
         const name = user?.name || "Google User";
 
@@ -472,14 +498,13 @@ export const authConfig = {
             if (!existingUser) {
               await createUserInNotion({
                 name,
-                email,
+                email: normalizeEmail(email),
                 password: crypto.randomBytes(16).toString("hex"),
                 phone: "",
               });
-              console.log("✅ New Google user registered in Notion:", email);
             }
           } catch (err) {
-            console.error("❌ Error syncing Google user to Notion:", err);
+            console.error("❌ Error syncing Google user to Notion:", err.message);
           }
         }
       }
@@ -514,5 +539,9 @@ export const authConfig = {
   pages: {
     signIn: "/en/auth/signin",
   },
-  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET || "fallback-secret-for-development",
+  // No hardcoded fallback in production: Auth.js refuses to run without a secret.
+  secret:
+    process.env.NEXTAUTH_SECRET ||
+    process.env.AUTH_SECRET ||
+    (process.env.NODE_ENV === "production" ? undefined : "dev-only-insecure-secret"),
 };

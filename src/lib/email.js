@@ -1,31 +1,53 @@
 import { Resend } from "resend";
 import crypto from "crypto";
+import { escapeHtml } from "@/src/lib/validation";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 export const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
-const VERIFICATION_SECRET = process.env.NEXTAUTH_SECRET || "verification-secret-key-32-chars-min!";
+function getVerificationSecret() {
+  const secret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET;
+  if (secret) return secret;
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("NEXTAUTH_SECRET (or AUTH_SECRET) must be set");
+  }
+  return "dev-only-insecure-verification-secret";
+}
+
+function signPayload(email, code, expiresAt) {
+  return crypto
+    .createHmac("sha256", getVerificationSecret())
+    .update(`${email}:${code}:${expiresAt}`)
+    .digest("hex");
+}
 
 // Generate a 6-digit code
 export function generateVerificationCode() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  return crypto.randomInt(100000, 1000000).toString();
 }
 
-// Generate a signed token containing email, code, and expiry
+// The token carries only the email, expiry and an HMAC over email+code+expiry.
+// The code itself is never in the token, so the client can't read it back out;
+// it can only be confirmed by submitting the right code.
 export function createVerificationToken(email, code) {
+  const normalizedEmail = email.toLowerCase().trim();
   const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
-  const payload = `${email.toLowerCase().trim()}:${code}:${expiresAt}`;
-  const hmac = crypto.createHmac("sha256", VERIFICATION_SECRET).update(payload).digest("hex");
-  return Buffer.from(`${payload}:${hmac}`).toString("base64");
+  const hmac = signPayload(normalizedEmail, code, expiresAt);
+  return Buffer.from(JSON.stringify({ e: normalizedEmail, x: expiresAt, h: hmac })).toString("base64url");
 }
 
 // Verify the signed token and code
 export function verifyToken(token, email, code) {
   try {
-    const decoded = Buffer.from(token, "base64").toString("utf-8");
-    const [tokenEmail, tokenCode, expiresAtStr, hmac] = decoded.split(":");
-    
-    if (!tokenEmail || !tokenCode || !expiresAtStr || !hmac) {
+    if (typeof token !== "string" || typeof code !== "string") {
+      return { valid: false, error: "Invalid token format" };
+    }
+
+    const { e: tokenEmail, x: expiresAt, h: hmac } = JSON.parse(
+      Buffer.from(token, "base64url").toString("utf-8")
+    );
+
+    if (!tokenEmail || !expiresAt || !hmac) {
       return { valid: false, error: "Invalid token format" };
     }
 
@@ -33,18 +55,14 @@ export function verifyToken(token, email, code) {
       return { valid: false, error: "Email mismatch" };
     }
 
-    if (Date.now() > parseInt(expiresAtStr, 10)) {
+    if (Date.now() > Number(expiresAt)) {
       return { valid: false, error: "Verification code has expired" };
     }
 
-    const payload = `${tokenEmail}:${tokenCode}:${expiresAtStr}`;
-    const expectedHmac = crypto.createHmac("sha256", VERIFICATION_SECRET).update(payload).digest("hex");
+    const expected = Buffer.from(signPayload(tokenEmail, code.trim(), expiresAt), "hex");
+    const actual = Buffer.from(String(hmac), "hex");
 
-    if (hmac !== expectedHmac) {
-      return { valid: false, error: "Invalid verification token" };
-    }
-
-    if (tokenCode !== code.trim()) {
+    if (expected.length !== actual.length || !crypto.timingSafeEqual(expected, actual)) {
       return { valid: false, error: "Incorrect verification code" };
     }
 
@@ -88,7 +106,7 @@ export async function sendVerificationEmail({ email, name, code, locale = "en" }
         <tr>
           <td style="padding: 36px 32px; text-align: ${isArabic ? "right" : "left"};">
             <h2 style="color: #ffffff; font-size: 20px; font-weight: 600; margin: 0 0 12px 0;">
-              ${isArabic ? `مرحباً ${name || ""}،` : `Hello ${name || ""},`}
+              ${isArabic ? `مرحباً ${escapeHtml(name)}،` : `Hello ${escapeHtml(name)},`}
             </h2>
             <p style="color: #a3a3a3; font-size: 15px; line-height: 1.6; margin: 0 0 28px 0;">
               ${
