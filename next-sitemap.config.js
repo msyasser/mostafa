@@ -1,105 +1,48 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: "https://www.mostafayasser.com",
-  generateRobotsTxt: false, // We're using a static robots.txt file
+  generateRobotsTxt: false, // public/robots.txt is maintained by hand
   generateIndexSitemap: true, // Enable index sitemap for better organization
   changefreq: "weekly",
   priority: 0.7,
   sitemapSize: 5000,
 
-  // Define all routes with proper priorities
+  // Real pages (blog posts, templates, tools, courses, ...) are discovered from the
+  // Next.js build output, so they are not listed by hand here: a hand-written list
+  // drifts from the content and ends up advertising URLs that return "Page Not Found".
+  // Keep pages that shouldn't be indexed out of the sitemap.
+  exclude: ["/*/auth/*", "/*/profile", "/api/*", "/embed/*"],
+
+  // The locale home pages are the only ones the build output doesn't expose
   additionalPaths: async (config) => [
-    // High priority routes
-    await config.transform(config, "/", { priority: 1.0, changefreq: "daily" }),
-    await config.transform(config, "/en", { priority: 1.0, changefreq: "daily" }),
-    await config.transform(config, "/ar", { priority: 1.0, changefreq: "daily" }),
-    await config.transform(config, "/en/templates", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/ar/templates", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/en/courses", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/ar/courses", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/en/courses/complete-notion-learning-playlist", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/ar/courses/complete-notion-learning-playlist", { priority: 0.9, changefreq: "weekly" }),
-
-    // Medium priority routes
-    await config.transform(config, "/en/blogs", { priority: 0.8, changefreq: "weekly" }),
-    await config.transform(config, "/ar/blogs", { priority: 0.8, changefreq: "weekly" }),
-    await config.transform(config, "/en/about", { priority: 0.7, changefreq: "monthly" }),
-    await config.transform(config, "/ar/about", { priority: 0.7, changefreq: "monthly" }),
-    await config.transform(config, "/en/contact", { priority: 0.7, changefreq: "monthly" }),
-    await config.transform(config, "/ar/contact", { priority: 0.7, changefreq: "monthly" }),
-    await config.transform(config, "/en/privacy-policy", { priority: 0.5, changefreq: "yearly" }),
-    await config.transform(config, "/ar/privacy-policy", { priority: 0.5, changefreq: "yearly" }),
-    await config.transform(config, "/en/terms-of-service", { priority: 0.5, changefreq: "yearly" }),
-    await config.transform(config, "/ar/terms-of-service", { priority: 0.5, changefreq: "yearly" }),
-
-    // Premium templates (high priority)
-    await config.transform(config, "/en/templates/second-brain", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/ar/templates/second-brain", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/en/templates/finance-hub", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/ar/templates/finance-hub", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/en/templates/study-hub", { priority: 0.9, changefreq: "weekly" }),
-    await config.transform(config, "/ar/templates/study-hub", { priority: 0.9, changefreq: "weekly" }),
-
-    // Regular templates (medium priority)
-    await config.transform(config, "/en/templates/quranhub", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/quranhub", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/90-day-challenge-premium", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/90-day-challenge-premium", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/priority-compass", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/priority-compass", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/task-manager", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/task-manager", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/prayer-times", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/prayer-times", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/ibadat-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/ibadat-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/quranhub", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/quranhub", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/study-planner", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/study-planner", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/weekly-planner", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/weekly-planner", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/habit-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/habit-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/reading-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/reading-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/90-day-challenge", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/90-day-challenge", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/quran-memorization", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/quran-memorization", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/ramadan-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/ramadan-tracker", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/notion-starter-pack", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/notion-starter-pack", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/idea-flow-team", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/idea-flow-team", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/idea-flow-solo", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/idea-flow-solo", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/notion-me", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/notion-me", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/studyhub-minimal", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/studyhub-minimal", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/second-brain-minimal", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/second-brain-minimal", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/templates/finance-hub-minimal", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/templates/finance-hub-minimal", { priority: 0.8, changefreq: "monthly" }),
-
-    // All Blog posts (medium priority) - Added missing ones
-    await config.transform(config, "/en/blog/what-is-notion", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/blog/what-is-notion", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/blog/notion-external-tools", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/blog/notion-external-tools", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/blog/best-notion-widgets-2025", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/blog/best-notion-widgets-2025", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/blog/notion-productivity-tips", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/blog/notion-productivity-tips", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/blog/notion-templates-guide", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/blog/notion-templates-guide", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/blog/notion-for-students", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/blog/notion-for-students", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/blog/notion-business-tools", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/blog/notion-business-tools", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/en/blog/notion-mobile-app", { priority: 0.8, changefreq: "monthly" }),
-    await config.transform(config, "/ar/blog/notion-mobile-app", { priority: 0.8, changefreq: "monthly" }),
+    await config.transform(config, "/en"),
+    await config.transform(config, "/ar"),
   ],
+
+  transform: async (config, path) => {
+    // "/" permanently redirects to /en, so only the locale roots belong in the sitemap
+    if (path === "/") return null;
+
+    let priority = config.priority;
+    let changefreq = config.changefreq;
+
+    if (/^\/(en|ar)$/.test(path)) {
+      priority = 1.0;
+      changefreq = "daily";
+    } else if (/^\/(en|ar)\/(templates|courses)(\/|$)/.test(path)) {
+      priority = 0.9;
+    } else if (/^\/(en|ar)\/(privacy-policy|terms-of-service)$/.test(path)) {
+      priority = 0.5;
+      changefreq = "yearly";
+    } else if (/^\/(en|ar)\/(about|contact)$/.test(path)) {
+      changefreq = "monthly";
+    }
+
+    return {
+      loc: path,
+      changefreq,
+      priority,
+      lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+    };
+  },
 };

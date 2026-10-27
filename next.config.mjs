@@ -7,6 +7,40 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const EMBED_FRAME_ANCESTORS = "*";
+const SITE_FRAME_ANCESTORS = "'self' https://*.mostafayasser.com";
+
+const FRAME_SRC = "'self' https://www.notion.so https://notion.so https://mostafayasser.notion.site https://www.youtube.com https://youtube.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://vercel.live";
+const SCRIPT_HOSTS = "https://www.googletagmanager.com https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://vercel.live https://vercel.com";
+const CONNECT_SRC = "'self' https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://api.opencagedata.com https://api.aladhan.com https://nominatim.openstreetmap.org https://api.coingecko.com https://api.open-meteo.com https://vercel.live https://vercel.com https://api.alquran.cloud";
+
+function buildCsp({ frameAncestors, allowEval }) {
+  return [
+    `frame-ancestors ${frameAncestors}`,
+    "object-src 'none'",
+    "base-uri 'self'",
+    `frame-src ${FRAME_SRC}`,
+    `script-src 'self' 'unsafe-inline'${allowEval ? " 'unsafe-eval'" : ''} ${SCRIPT_HOSTS}`,
+    `connect-src ${CONNECT_SRC}`,
+  ].join('; ') + ';';
+}
+
+// The enforced policy still allows 'unsafe-eval' so nothing that works today breaks.
+// The report-only copy drops it: browsers log would-be violations to the console
+// without blocking, so 'unsafe-eval' can be removed once the console stays clean.
+function cspHeaders(frameAncestors) {
+  return [
+    {
+      key: 'Content-Security-Policy',
+      value: buildCsp({ frameAncestors, allowEval: true }),
+    },
+    {
+      key: 'Content-Security-Policy-Report-Only',
+      value: buildCsp({ frameAncestors, allowEval: false }),
+    },
+  ];
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // ✅ Don't include i18n manually here; let next-intl handle it
@@ -49,10 +83,6 @@ const nextConfig = {
         source: '/(.*)',
         headers: [
           {
-            key: 'Content-Security-Policy',
-            value: "frame-ancestors *; frame-src 'self' https://www.notion.so https://notion.so https://mostafayasser.notion.site https://www.youtube.com https://youtube.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://vercel.live; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://vercel.live https://vercel.com; connect-src 'self' https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://api.opencagedata.com https://api.aladhan.com https://nominatim.openstreetmap.org https://api.coingecko.com https://api.open-meteo.com https://vercel.live https://vercel.com https://api.alquran.cloud;",
-          },
-          {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
@@ -64,7 +94,23 @@ const nextConfig = {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
           },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=()',
+          },
         ],
+      },
+      // The /embed widgets are meant to be iframed from anywhere (Notion pages),
+      // so they keep frame-ancestors *.
+      {
+        source: '/embed/:path*',
+        headers: cspHeaders(EMBED_FRAME_ANCESTORS),
+      },
+      // Every other page may only be framed by this site and its subdomains,
+      // which prevents clickjacking on sign-in, profile and checkout pages.
+      {
+        source: '/:path((?!embed/).*)',
+        headers: cspHeaders(SITE_FRAME_ANCESTORS),
       },
       {
         source: '/sitemap.xml',
