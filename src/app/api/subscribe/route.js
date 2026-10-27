@@ -1,47 +1,67 @@
 import { NextResponse } from 'next/server';
+import { rateLimit, getClientIp } from '@/src/lib/rate-limit';
+import { isValidEmail, normalizeEmail } from '@/src/lib/validation';
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const NOTION_DB_ID = process.env.NOTION_USERS_DB_ID || process.env.NOTION_DB_ID;
 
+const ALLOWED_LANGUAGES = ['en', 'ar'];
+const MAX_NAME_LENGTH = 100;
+
+function notionHeaders() {
+  return {
+    'Authorization': `Bearer ${NOTION_TOKEN}`,
+    'Content-Type': 'application/json',
+    'Notion-Version': '2022-06-28',
+  };
+}
+
+// Build a Notion value for a property depending on how the database defines it
+function textValue(propType, content) {
+  if (propType === 'select') return { select: { name: content } };
+  if (propType === 'title') return { title: [{ text: { content } }] };
+  return { rich_text: [{ text: { content } }] };
+}
+
 export async function POST(request) {
   try {
-    const { name, email, language } = await request.json();
+    const body = await request.json();
+    const { name } = body;
 
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+    if (!isValidEmail(body.email)) {
       return NextResponse.json(
         { error: 'Invalid email address' },
         { status: 400 }
       );
     }
 
-    console.log('📧 New subscription request for:', email);
-    console.log('🌐 Language:', language || 'Not specified');
-    console.log('🗄️ Using Notion database ID:', NOTION_DB_ID);
-    console.log('📅 Subscription date:', new Date().toISOString());
+    const email = normalizeEmail(body.email);
+    const language = ALLOWED_LANGUAGES.includes(body.language) ? body.language : undefined;
+    const cleanName = typeof name === 'string' ? name.trim().slice(0, MAX_NAME_LENGTH) : '';
 
-    // First, let's try to get the database schema to understand the structure
+    const limit = rateLimit(`subscribe:${getClientIp(request.headers)}`, { limit: 5, windowMs: 10 * 60 * 1000 });
+    if (!limit.ok) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } }
+      );
+    }
+
+    // Get the database schema to understand the structure
     const dbResponse = await fetch(`https://api.notion.com/v1/databases/${NOTION_DB_ID}`, {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${NOTION_TOKEN}`,
-        'Content-Type': 'application/json',
-        'Notion-Version': '2022-06-28',
-      },
+      headers: notionHeaders(),
     });
 
     if (!dbResponse.ok) {
-      const dbError = await dbResponse.json();
-      console.error('Database access error:', dbError);
+      console.error('Database access error:', dbResponse.status);
       return NextResponse.json(
-        { error: `Database access failed: ${dbError.message || 'Unknown error'}` },
+        { error: 'Failed to save subscription. Please try again later.' },
         { status: 500 }
       );
     }
 
     const dbData = await dbResponse.json();
-    console.log('Database properties:', Object.keys(dbData.properties));
-
-    // Get available properties for duplicate check
     const availableProps = Object.keys(dbData.properties);
 
     // Check if email already exists in the database
@@ -53,11 +73,7 @@ export async function POST(request) {
     if (emailProp) {
       const checkDuplicateResponse = await fetch(`https://api.notion.com/v1/databases/${NOTION_DB_ID}/query`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${NOTION_TOKEN}`,
-          'Content-Type': 'application/json',
-          'Notion-Version': '2022-06-28',
-        },
+        headers: notionHeaders(),
         body: JSON.stringify({
           filter: {
             property: emailProp,
@@ -71,7 +87,6 @@ export async function POST(request) {
       if (checkDuplicateResponse.ok) {
         const duplicateData = await checkDuplicateResponse.json();
         if (duplicateData.results && duplicateData.results.length > 0) {
-          console.log('⚠️ Email already exists in database:', email);
           return NextResponse.json(
             {
               error: 'Email already subscribed',
@@ -81,27 +96,16 @@ export async function POST(request) {
             { status: 409 }
           );
         }
-      } else {
-        console.log('⚠️ Could not check for duplicates, continuing with subscription');
       }
-    } else {
-      console.log('⚠️ No email property found, cannot check for duplicates');
     }
 
     // Build properties object dynamically based on what's available
     const properties = {};
 
-    // Check for email property (reuse the one found earlier)
     if (emailProp) {
-      properties[emailProp] = {
-        email: email,
-      };
-      console.log(`✅ Using email property: "${emailProp}"`);
-    } else {
-      console.log('⚠️ No email property found');
+      properties[emailProp] = { email };
     }
 
-    // Check for date property
     const dateProp = availableProps.find(prop =>
       dbData.properties[prop].type === 'date' ||
       prop.toLowerCase().includes('date')
@@ -113,12 +117,8 @@ export async function POST(request) {
           start: new Date().toISOString().split('T')[0],
         },
       };
-      console.log(`✅ Using date property: "${dateProp}"`);
-    } else {
-      console.log('⚠️ No date property found');
     }
 
-    // Check for status property
     const statusProp = availableProps.find(prop =>
       dbData.properties[prop].type === 'select' &&
       prop.toLowerCase().includes('status')
@@ -130,172 +130,57 @@ export async function POST(request) {
           name: 'Active',
         },
       };
-      console.log(`✅ Using status property: "${statusProp}"`);
-    } else {
-      console.log('⚠️ No status property found');
     }
 
-    // Check for Language property
     const languageProp = availableProps.find(prop =>
       prop.toLowerCase() === 'language'
     );
 
     if (languageProp && language) {
-      const propType = dbData.properties[languageProp].type;
-
-      // Handle different property types
-      if (propType === 'select') {
-        properties[languageProp] = {
-          select: {
-            name: language,
-          },
-        };
-      } else if (propType === 'rich_text') {
-        properties[languageProp] = {
-          rich_text: [
-            {
-              text: {
-                content: language,
-              },
-            },
-          ],
-        };
-      } else if (propType === 'title') {
-        properties[languageProp] = {
-          title: [
-            {
-              text: {
-                content: language,
-              },
-            },
-          ],
-        };
-      } else {
-        // Fallback to rich text for other types
-        properties[languageProp] = {
-          rich_text: [
-            {
-              text: {
-                content: language,
-              },
-            },
-          ],
-        };
-      }
-
-      console.log(`✅ Language set: "${language}" in property "${languageProp}"`);
+      properties[languageProp] = textValue(dbData.properties[languageProp].type, language);
     }
 
-    // Check for Source property
     const sourceProp = availableProps.find(prop =>
       prop.toLowerCase().includes('source')
     );
 
     if (sourceProp) {
-      const propType = dbData.properties[sourceProp].type;
-
-      // Handle different property types for Source
-      if (propType === 'select') {
-        properties[sourceProp] = {
-          select: {
-            name: 'Website',
-          },
-        };
-      } else if (propType === 'rich_text') {
-        properties[sourceProp] = {
-          rich_text: [
-            {
-              text: {
-                content: 'Website',
-              },
-            },
-          ],
-        };
-      } else if (propType === 'title') {
-        properties[sourceProp] = {
-          title: [
-            {
-              text: {
-                content: 'Website',
-              },
-            },
-          ],
-        };
-      } else {
-        // Fallback to rich text for other types
-        properties[sourceProp] = {
-          rich_text: [
-            {
-              text: {
-                content: 'Website',
-              },
-            },
-          ],
-        };
-      }
-
-      console.log(`✅ Source set to "Website" in property "${sourceProp}"`);
-    } else {
-      console.log('ℹ️ No source property found - continuing without source');
+      properties[sourceProp] = textValue(dbData.properties[sourceProp].type, 'Website');
     }
 
-    // Check for separate Name property (rich_text)
+    // Separate Name property (rich_text)
     const nameProp = availableProps.find(prop =>
       prop.toLowerCase() === 'name' && dbData.properties[prop].type !== 'title'
     );
 
-    if (nameProp && name) {
+    if (nameProp && cleanName) {
       properties[nameProp] = {
-        rich_text: [
-          {
-            text: {
-              content: name,
-            },
-          },
-        ],
+        rich_text: [{ text: { content: cleanName } }],
       };
-      console.log(`✅ Using name property: "${nameProp}" with value: "${name}"`);
     }
 
-    // Check for title property (optional)
     const titleProp = availableProps.find(prop =>
       dbData.properties[prop].type === 'title'
     );
 
     if (titleProp) {
       properties[titleProp] = {
-        title: [
-          {
-            text: {
-              content: name || `Subscriber: ${email}`,
-            },
-          },
-        ],
+        title: [{ text: { content: cleanName || `Subscriber: ${email}` } }],
       };
-      console.log(`✅ Using title property: "${titleProp}" with: "${name || `Subscriber: ${email}`}"`);
-    } else {
-      console.log('ℹ️ No title property found - continuing without title');
     }
 
     // Ensure we have at least one property for Notion
     if (Object.keys(properties).length === 0) {
-      console.log('❌ No properties found to create page');
+      console.error('Subscribe: no suitable properties found in database');
       return NextResponse.json(
-        { error: 'Database configuration error: No suitable properties found' },
+        { error: 'Failed to save subscription. Please try again later.' },
         { status: 500 }
       );
     }
 
-    console.log('📝 Final properties being sent:', JSON.stringify(properties, null, 2));
-
-    // Create a new page in the Notion database
     const response = await fetch(`https://api.notion.com/v1/pages`, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${NOTION_TOKEN}`,
-        'Content-Type': 'application/json',
-        'Notion-Version': '2022-06-28',
-      },
+      headers: notionHeaders(),
       body: JSON.stringify({
         parent: {
           database_id: NOTION_DB_ID,
@@ -305,34 +190,25 @@ export async function POST(request) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Notion API error:', errorData);
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Notion API error:', response.status, errorData.code);
       return NextResponse.json(
-        { error: `Failed to save subscription: ${errorData.message || 'Unknown error'}` },
+        { error: 'Failed to save subscription. Please try again later.' },
         { status: 500 }
       );
     }
 
-    const data = await response.json();
-    console.log('✅ Subscription successfully added to Notion database');
-    console.log('🆔 Notion page ID:', data.id);
-
     return NextResponse.json(
       {
         message: 'Subscription successful',
-        id: data.id,
-        email: email,
         subscriptionDate: new Date().toISOString()
       },
       { status: 200 }
     );
   } catch (error) {
-    console.error('❌ Subscription processing error:', error);
+    console.error('❌ Subscription processing error:', error.message);
     return NextResponse.json(
-      {
-        error: `Failed to process subscription: ${error.message}`,
-        details: 'Please try again later or contact support if the issue persists'
-      },
+      { error: 'Failed to process subscription. Please try again later.' },
       { status: 500 }
     );
   }

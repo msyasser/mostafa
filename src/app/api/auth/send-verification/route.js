@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { generateVerificationCode, createVerificationToken, sendVerificationEmail } from "@/src/lib/email";
+import { rateLimit, getClientIp } from "@/src/lib/rate-limit";
+import { isValidEmail, normalizeEmail } from "@/src/lib/validation";
+
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_NAME_LENGTH = 100;
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const NOTION_USERS_DB_ID = process.env.NOTION_USERS_DB_ID;
@@ -51,12 +56,33 @@ async function checkUserExistsInNotion(email) {
 
 export async function POST(request) {
   try {
-    const { email, name, locale } = await request.json();
+    const body = await request.json();
+    const { name } = body;
+    const locale = body.locale === "ar" ? "ar" : "en";
 
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+    if (!isValidEmail(body.email)) {
       return NextResponse.json(
         { error: locale === "ar" ? "البريد الإلكتروني غير صالح" : "Invalid email address" },
         { status: 400 }
+      );
+    }
+
+    const email = normalizeEmail(body.email);
+
+    // Each request sends a real email from our domain, so limit per IP and per address.
+    const ip = getClientIp(request.headers);
+    const byIp = rateLimit(`send-verification-ip:${ip}`, { limit: 10, windowMs: WINDOW_MS });
+    const byEmail = rateLimit(`send-verification-email:${email}`, { limit: 3, windowMs: WINDOW_MS });
+    if (!byIp.ok || !byEmail.ok) {
+      const retryAfter = Math.max(byIp.retryAfter, byEmail.retryAfter);
+      return NextResponse.json(
+        {
+          error:
+            locale === "ar"
+              ? "محاولات كثيرة. يرجى المحاولة لاحقاً."
+              : "Too many requests. Please try again later.",
+        },
+        { status: 429, headers: { "Retry-After": String(retryAfter) } }
       );
     }
 
@@ -80,10 +106,10 @@ export async function POST(request) {
 
     // Send email via Resend
     const emailResult = await sendVerificationEmail({
-      email: email.trim().toLowerCase(),
-      name: name || "",
+      email,
+      name: typeof name === "string" ? name.trim().slice(0, MAX_NAME_LENGTH) : "",
       code,
-      locale: locale || "en",
+      locale,
     });
 
     if (emailResult.error) {
@@ -111,9 +137,9 @@ export async function POST(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Send verification code error:", error);
+    console.error("Send verification code error:", error.message);
     return NextResponse.json(
-      { error: error.message || "Failed to process verification request" },
+      { error: "Failed to process verification request" },
       { status: 500 }
     );
   }
