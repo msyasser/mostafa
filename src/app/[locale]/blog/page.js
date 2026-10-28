@@ -22,9 +22,12 @@ export async function generateMetadata({ params }) {
     ? "اكتشف رؤى وأفكار قابلة للتنفيذ لتحسين مساحة عمل نوشن وزيادة إنتاجيتك الرقمية."
     : "Discover actionable insights and ideas to level up your Notion workspace and digital productivity.";
 
+  const url = `https://www.mostafayasser.com/${locale}/blog`;
+
   return {
     title,
     description,
+    alternates: { canonical: url },
     keywords: isArabic
       ? [
         "مدونة نوشن",
@@ -47,7 +50,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title,
       description: openGraphDescription,
-      url: `https://mostafayasser.com/${locale}/blog`,
+      url,
       siteName: "Mostafa Yasser",
       images: [
         {

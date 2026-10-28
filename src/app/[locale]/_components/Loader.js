@@ -9,10 +9,10 @@ const Loader = ({ className = "min-h-[60vh]" }) => {
 
         {/* Animated Brand Logo Loader */}
         <Image
-          src="/logos/Loading-ezgif.com-crop.svg"
+          src="/logos/loader.webp"
           alt="Loading..."
-          width={84}
-          height={84}
+          width={80}
+          height={80}
           unoptimized
           priority
           className="relative z-10 w-20 h-20 object-contain drop-shadow-[0_0_15px_rgba(215,177,128,0.3)]"
