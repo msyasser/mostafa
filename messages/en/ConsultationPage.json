@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "title": "Book a 30-min Notion consultation",
+    "description": "A focused 30-minute video call with Mostafa Yasser, Notion Certified Consultant, to talk through your needs and explore Notion, AI and automation for your work."
+  },
+  "hero": {
+    "badge": "Notion Certified Consultant",
+    "note": "You leave with clear next steps.",
+    "titleStart": "See what Notion could do for",
+    "titleHighlight": "your work.",
+    "subtitle": "A focused 30-minute call to talk through your needs, challenges and goals, and explore how we could work together.",
+    "cta": "Book your call",
+    "badgeAlt": "Notion Consulting Partner badge"
+  },
+  "details": {
+    "price": "Price",
+    "priceValue": "$30",
+    "duration": "Duration",
+    "durationValue": "30 minutes",
+    "meeting": "Meeting",
+    "meetingValue": "Google Meet",
+    "languages": "Languages",
+    "languagesValue": "Arabic · English"
+  },
+  "book": {
+    "title": "Book a time",
+    "subtitle": "Pick a day and time that suit you. Your timezone is detected automatically."
+  },
+  "cover": {
+    "title": "What we'll cover",
+    "items": [
+      "How you work today: your tools, your team and where things get stuck",
+      "Where Notion fits, and where it doesn't",
+      "What's worth building first",
+      "Exploring AI with Notion, the integrations between them, and how it can help you",
+      "Automation: what could run on its own in your workflow",
+      "Clear next steps you can act on"
+    ]
+  },
+  "audience": {
+    "title": "Who it's for",
+    "intro": "This call is a good fit if:",
+    "items": [
+      "You manage complex workflows",
+      "Your operations feel scattered",
+      "You rely on manual tracking",
+      "You need clarity before scaling"
+    ],
+    "outro": "It's also a good fit if you're curious about AI and automation in Notion, or want to talk about a custom system or about working together."
+  },
+  "final": {
+    "title": "Ready to pick a time?",
+    "text": "Choose a day and time that suit you, and you'll get a confirmation right away.",
+    "cta": "Book your call"
+  },
+  "reviews": {
+    "title": "What people say about me",
+    "subtitle": "Words from people on the Notion Marketplace.",
+    "rating": "{rating} out of 5 stars"
+  }
+}
