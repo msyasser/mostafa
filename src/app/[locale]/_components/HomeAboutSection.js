@@ -48,7 +48,7 @@ export default function HomeAboutSection() {
               <div className="relative rounded-3xl overflow-hidden border border-neutral-800 bg-neutral-900/90 p-3 shadow-2xl group">
                 <div className="relative w-full aspect-[4/5] min-h-[380px] rounded-2xl overflow-hidden bg-neutral-950">
                   <Image
-                    src="/about/mostafa-portrait.svg"
+                    src="/about/mostafa-portrait.webp"
                     alt="Mostafa Yasser"
                     fill
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-700"

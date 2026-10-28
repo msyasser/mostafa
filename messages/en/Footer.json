@@ -10,6 +10,7 @@
     "services": "Services",
     "caseStudies": "Case Studies",
     "templates": "Templates",
+    "courses": "Courses",
     "tools": "Tools",
     "blogs": "Blogs",
     "contact": "Contact"
@@ -24,6 +25,6 @@
     "studyHub": "StudyHub",
     "financeHub": "FinanceHub"
   },
-  "copyright": "© 2025 Mostafa Yasser. All rights reserved.",
+  "copyright": "© {year} Mostafa Yasser. All rights reserved.",
   "poweredBy": "Powered by"
 }
