@@ -52,5 +52,12 @@
     "title": "Ready to pick a time?",
     "text": "Choose a day and time that suit you, and you'll get a confirmation right away.",
     "cta": "Book your call"
+  },
+  "reviews": {
+    "title": "What people say about my templates",
+    "subtitle": "Reviews from the Notion Marketplace.",
+    "seeAll": "See all on Notion Marketplace",
+    "rating": "{rating} out of 5 stars",
+    "on": "on {template}"
   }
 }

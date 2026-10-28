@@ -14,6 +14,7 @@ import {
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
 import ConsultationCalendar from "./_components/ConsultationCalendar";
+import Reviews from "./_components/Reviews";
 
 const SITE_URL = "https://www.mostafayasser.com";
 
@@ -179,6 +180,9 @@ export default function ConsultationPage() {
             <p className="mt-6 max-w-2xl text-neutral-400">{t("audience.outro")}</p>
           </div>
         </section>
+
+        {/* Reviews of the templates, from the Notion Marketplace */}
+        <Reviews />
 
         {/* Final call to action */}
         <section className="px-6 pb-28">

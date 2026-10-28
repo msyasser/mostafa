@@ -52,5 +52,12 @@
     "title": "جاهز تختار ميعاد؟",
     "text": "اختار اليوم والوقت المناسبين ليك، وهتوصلك رسالة تأكيد على طول.",
     "cta": "احجز مكالمتك"
+  },
+  "reviews": {
+    "title": "رأي الناس في قوالبي",
+    "subtitle": "تقييمات من Notion Marketplace",
+    "seeAll": "شوف كل التقييمات على Notion Marketplace",
+    "rating": "{rating} من 5 نجوم",
+    "on": "على قالب {template}"
   }
 }
