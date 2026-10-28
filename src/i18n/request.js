@@ -57,6 +57,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ServicesPage: (
         await import(`../../messages/${locale}/ServicesPage.json`)
       ).default,
+      ConsultationPage: (
+        await import(`../../messages/${locale}/ConsultationPage.json`)
+      ).default,
       RamadanPrayers: (
         await import(`../../messages/${locale}/RamadanPrayers.json`)
       ).default,
