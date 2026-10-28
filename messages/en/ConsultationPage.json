@@ -10,10 +10,11 @@
     "titleHighlight": "your work.",
     "subtitle": "A focused 30-minute call to talk through your needs, challenges and goals, and explore how we could work together.",
     "cta": "Book your call",
-    "badgeAlt": "Notion Consulting Partner badge"
+    "badgeAlt": "Notion Consulting Partner badge",
+    "ticker": "Notion • AI • Automation • Systems • Notion • AI • Automation • Systems • Notion • AI • Automation"
   },
   "details": {
-    "price": "Price",
+    "price": "Session fee",
     "priceValue": "$30",
     "duration": "Duration",
     "durationValue": "30 minutes",

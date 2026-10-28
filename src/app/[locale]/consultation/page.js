@@ -2,17 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import {
-  BsArrowDown,
-  BsCameraVideo,
-  BsCheck2,
-  BsClock,
-  BsPatchCheckFill,
-  BsTag,
-  BsTranslate,
-} from "react-icons/bs";
+import { BsArrowDown } from "react-icons/bs";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
-import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
 import ConsultationCalendar from "./_components/ConsultationCalendar";
 import Reviews from "./_components/Reviews";
 
@@ -46,153 +37,154 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const primaryButton =
-  "inline-flex min-h-11 items-center justify-center gap-3 rounded-full bg-main px-8 py-3 font-bold text-neutral-900 shadow-xl shadow-main/20 transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-main";
+const container = "mx-auto w-full max-w-6xl px-6 sm:px-10";
+const sectionTitle =
+  "text-3xl font-bold uppercase leading-none tracking-tight sm:text-5xl rtl:normal-case rtl:leading-tight";
+const buttonBase =
+  "inline-flex min-h-12 items-center gap-3 px-7 py-3.5 text-base font-bold uppercase tracking-wide transition-transform duration-150 hover:translate-x-0.5 hover:translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none sm:px-9 sm:py-4 sm:text-xl rtl:normal-case";
+const primaryButton = `${buttonBase} bg-main text-neutral-950 shadow-[6px_6px_0_#644334] hover:shadow-[4px_4px_0_#644334]`;
+const darkButton = `${buttonBase} bg-neutral-950 text-[#F4D9B6] shadow-[6px_6px_0_#644334] hover:shadow-[4px_4px_0_#644334]`;
 
 export default function ConsultationPage() {
   const t = useTranslations("ConsultationPage");
 
   const details = [
-    { icon: BsTag, label: t("details.price"), value: t("details.priceValue") },
-    { icon: BsClock, label: t("details.duration"), value: t("details.durationValue") },
-    { icon: BsCameraVideo, label: t("details.meeting"), value: t("details.meetingValue") },
-    { icon: BsTranslate, label: t("details.languages"), value: t("details.languagesValue") },
+    { label: t("details.price"), value: t("details.priceValue") },
+    { label: t("details.duration"), value: t("details.durationValue") },
+    { label: t("details.meeting"), value: t("details.meetingValue") },
+    { label: t("details.languages"), value: t("details.languagesValue") },
   ];
 
   return (
     <BlurText>
-      <main className="min-h-screen bg-neutral-950 text-white selection:bg-main selection:text-neutral-900">
+      <main className="min-h-screen overflow-x-clip bg-[#0C0B0A] text-white selection:bg-main selection:text-neutral-950">
+        {/* Ticker */}
+        <div
+          aria-hidden="true"
+          className="-mx-10 mt-24 -rotate-[1.2deg] overflow-hidden whitespace-nowrap bg-main py-2.5 text-base font-bold uppercase tracking-[0.18em] text-neutral-950 shadow-[0_14px_40px_#000c] sm:text-xl"
+        >
+          {t("hero.ticker")}
+        </div>
+
         {/* Hero */}
-        <section className="relative overflow-hidden px-6 pb-14 pt-32 sm:pt-40">
-          <div className="pointer-events-none absolute inset-0 bg-grid-pattern opacity-40" />
-          <div className="pointer-events-none absolute left-1/2 top-0 h-[640px] w-[640px] -translate-x-1/2 rounded-full bg-main/10 blur-[130px]" />
+        <section className={`${container} pb-8 pt-12`}>
+          <p className="mb-3 text-sm uppercase tracking-[0.25em] text-main sm:text-base rtl:tracking-normal">
+            {t("hero.badge")}
+          </p>
+          <h1 className="text-[clamp(2.6rem,7.2vw,6.5rem)] font-bold uppercase leading-[0.95] tracking-tight rtl:text-[clamp(2.3rem,6vw,5.2rem)] rtl:font-extrabold rtl:normal-case rtl:leading-[1.15] rtl:tracking-normal">
+            {t("hero.titleStart")}{" "}
+            <span className="inline-block border-b-[7px] border-main bg-gradient-to-r from-[#F4D9B6] via-[#D7B180] to-[#C49C6A] bg-clip-text text-transparent sm:border-b-[9px]">
+              {t("hero.titleHighlight")}
+            </span>
+          </h1>
 
-          <div className="relative z-10 mx-auto max-w-4xl">
-            <AnimatedWrapper>
-              <div className="mb-8 flex items-center gap-10">
-                <div className="relative shrink-0">
-                  <div className="relative size-24 overflow-hidden rounded-full bg-neutral-900 ring-2 ring-main/70 ring-offset-4 ring-offset-neutral-950 sm:size-28">
-                    <Image
-                      src="/about/mostafa-portrait.svg"
-                      alt="Mostafa Yasser"
-                      fill
-                      sizes="112px"
-                      className="object-cover"
-                      unoptimized
-                      priority
-                    />
-                  </div>
-                  <Image
-                    src="/badges/notion-consulting-partner.webp"
-                    alt={t("hero.badgeAlt")}
-                    width={272}
-                    height={480}
-                    unoptimized
-                    className="absolute -bottom-4 -end-8 h-20 w-auto drop-shadow-[0_6px_14px_rgba(0,0,0,0.7)] sm:h-24"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/80 px-3 py-1.5 text-xs text-main sm:text-sm">
-                    <BsPatchCheckFill aria-hidden="true" />
-                    {t("hero.badge")}
-                  </span>
-                  <p className="text-sm text-neutral-300 sm:text-base">{t("hero.note")}</p>
-                </div>
-              </div>
-
-              <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-                {t("hero.titleStart")} <span className="text-main">{t("hero.titleHighlight")}</span>
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-300 sm:text-xl">
+          <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_380px] lg:gap-16">
+            <div className="order-2 lg:order-1">
+              <p className="max-w-2xl text-lg leading-relaxed text-neutral-300 sm:text-2xl sm:leading-snug">
                 {t("hero.subtitle")}
               </p>
 
-              <dl className="mt-10 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
-                {details.map(({ icon: Icon, label, value }) => (
+              <dl className="mt-8 border-t-[3px] border-white">
+                {details.map(({ label, value }) => (
                   <div
                     key={label}
-                    className="flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900/70 px-4 py-3"
+                    className="flex items-baseline justify-between gap-6 border-b border-neutral-800 py-3.5 text-base sm:text-2xl"
                   >
-                    <Icon aria-hidden="true" className="shrink-0 text-lg text-main" />
-                    <div>
-                      <dt className="text-xs text-neutral-400">{label}</dt>
-                      <dd className="font-semibold text-white">{value}</dd>
-                    </div>
+                    <dt className="text-neutral-300">{label}</dt>
+                    <dd className="font-bold text-main">{value}</dd>
                   </div>
                 ))}
               </dl>
 
-              <Link href="#book" className={`${primaryButton} mt-10`}>
-                {t("hero.cta")}
-                <BsArrowDown aria-hidden="true" />
-              </Link>
-            </AnimatedWrapper>
+              <div className="mt-9 flex flex-col items-start gap-4">
+                <Link href="#book" className={primaryButton}>
+                  {t("hero.cta")}
+                  <BsArrowDown aria-hidden="true" />
+                </Link>
+                <p className="text-sm text-neutral-300 sm:text-base">{t("hero.note")}</p>
+              </div>
+            </div>
+
+            <div className="order-1 mx-auto w-full max-w-[380px] lg:order-2 lg:max-w-none">
+              <div className="relative border-[3px] border-main shadow-[8px_8px_0_#644334] sm:shadow-[12px_12px_0_#644334]">
+                <Image
+                  src="/about/mostafa-portrait.svg"
+                  alt="Mostafa Yasser"
+                  width={760}
+                  height={850}
+                  sizes="(min-width: 1024px) 380px, 90vw"
+                  className="aspect-[1/1.12] w-full bg-neutral-900 object-cover"
+                  unoptimized
+                  priority
+                />
+                <Image
+                  src="/badges/notion-consulting-partner.webp"
+                  alt={t("hero.badgeAlt")}
+                  width={272}
+                  height={480}
+                  unoptimized
+                  className="absolute -bottom-6 -start-5 h-24 w-auto drop-shadow-[0_10px_18px_rgba(0,0,0,0.8)] sm:-start-8 sm:h-32"
+                />
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Calendar */}
-        <section id="book" className="scroll-mt-28 px-6 pb-24">
-          <div className="mx-auto max-w-5xl">
-            <div className="mb-6">
-              <h2 className="text-3xl font-bold md:text-4xl">{t("book.title")}</h2>
-              <p className="mt-2 text-neutral-400">{t("book.subtitle")}</p>
-            </div>
-            <div className="min-h-[650px] overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 p-2 shadow-2xl sm:p-4">
-              <ConsultationCalendar />
-            </div>
+        <section id="book" className={`${container} scroll-mt-28 py-16`}>
+          <h2 className={sectionTitle}>{t("book.title")}</h2>
+          <p className="mb-7 mt-3 text-base text-neutral-300 sm:text-xl">{t("book.subtitle")}</p>
+          <div className="min-h-[650px] border-[3px] border-white bg-neutral-900 p-2 shadow-[6px_6px_0_#D7B180] sm:p-4 sm:shadow-[10px_10px_0_#D7B180]">
+            <ConsultationCalendar />
           </div>
         </section>
 
         {/* What we'll cover */}
-        <section className="border-t border-neutral-800 bg-neutral-900/40 px-6 py-20">
-          <div className="mx-auto max-w-4xl">
-            <h2 className="text-3xl font-bold md:text-4xl">{t("cover.title")}</h2>
-            <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-              {t.raw("cover.items").map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-4 rounded-2xl border border-neutral-800 bg-neutral-900 p-5"
-                >
-                  <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-main/15 text-main">
-                    <BsCheck2 aria-hidden="true" className="text-xl" />
-                  </span>
-                  <span className="text-lg leading-relaxed text-neutral-100">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <section className={`${container} py-14`}>
+          <h2 className={`${sectionTitle} mb-8 text-main`}>{t("cover.title")}</h2>
+          <ol className="border-b-2 border-white">
+            {t.raw("cover.items").map((item, i) => (
+              <li
+                key={item}
+                className="grid grid-cols-[3.5rem_1fr] items-center gap-4 border-t-2 border-white py-4 sm:grid-cols-[6rem_1fr] sm:gap-6"
+              >
+                <span aria-hidden="true" className="text-4xl font-bold leading-none text-main sm:text-6xl">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-xl leading-snug sm:text-3xl">{item}</span>
+              </li>
+            ))}
+          </ol>
         </section>
 
         {/* Who it's for */}
-        <section className="px-6 py-20">
-          <div className="mx-auto max-w-4xl">
-            <h2 className="text-3xl font-bold md:text-4xl">{t("audience.title")}</h2>
-            <p className="mt-6 text-lg text-neutral-300">{t("audience.intro")}</p>
-            <ul className="mt-4 space-y-3">
-              {t.raw("audience.items").map((item) => (
-                <li key={item} className="flex items-start gap-3 text-lg text-neutral-100">
-                  <BsCheck2 aria-hidden="true" className="mt-1 shrink-0 text-xl text-main" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 max-w-2xl text-neutral-400">{t("audience.outro")}</p>
-          </div>
+        <section className={`${container} py-14`}>
+          <h2 className={`${sectionTitle} mb-6`}>{t("audience.title")}</h2>
+          <p className="mb-5 text-lg text-neutral-300 sm:text-2xl">{t("audience.intro")}</p>
+          <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
+            {t.raw("audience.items").map((item) => (
+              <li key={item} className="flex items-start gap-3 border-t border-neutral-700 pt-3 text-lg sm:text-2xl">
+                <span aria-hidden="true" className="mt-2 size-2.5 shrink-0 bg-main sm:mt-2.5" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 max-w-3xl text-base text-neutral-300 sm:text-xl">{t("audience.outro")}</p>
         </section>
 
-        {/* Reviews of the templates, from the Notion Marketplace */}
+        {/* Reviews */}
         <Reviews />
 
         {/* Final call to action */}
-        <section className="px-6 pb-28">
-          <div className="mx-auto max-w-4xl rounded-3xl border border-neutral-800 bg-neutral-900 p-8 text-center sm:p-12">
-            <h2 className="text-3xl font-bold md:text-4xl">{t("final.title")}</h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-neutral-300">{t("final.text")}</p>
-            <Link href="#book" className={`${primaryButton} mt-8`}>
-              {t("final.cta")}
-            </Link>
-          </div>
+        <section className="mt-8 bg-main px-6 py-16 text-center text-neutral-950 sm:py-20">
+          <h2 className="text-[clamp(2.1rem,5.6vw,4.8rem)] font-bold uppercase leading-[1] tracking-tight rtl:text-[clamp(1.9rem,4.8vw,4rem)] rtl:font-extrabold rtl:normal-case rtl:leading-[1.2] rtl:tracking-normal">
+            {t("final.title")}
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-base font-medium sm:text-xl">{t("final.text")}</p>
+          <Link href="#book" className={`${darkButton} mt-8`}>
+            {t("final.cta")}
+            <BsArrowDown aria-hidden="true" className="rotate-180" />
+          </Link>
         </section>
       </main>
     </BlurText>

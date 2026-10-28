@@ -12,17 +12,19 @@ export default function Reviews() {
   });
 
   return (
-    <section className="border-t border-neutral-800 bg-neutral-900/40 px-6 py-20">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="text-3xl font-bold md:text-4xl">{t("title")}</h2>
-        <p className="mt-2 text-neutral-400">{t("subtitle")}</p>
+    <section className="mx-auto w-full max-w-6xl px-6 py-14 sm:px-10">
+      <h2 className="text-3xl font-bold uppercase leading-none tracking-tight sm:text-5xl rtl:normal-case rtl:leading-tight">
+        {t("title")}
+      </h2>
+      <p className="mb-8 mt-3 text-base text-neutral-300 sm:text-xl">{t("subtitle")}</p>
 
-        <ul className="mt-10 gap-4 [column-fill:_balance] md:columns-2 lg:columns-3">
-          {reviews.map((review) => (
-            <li
-              key={`${review.author}-${review.date}`}
-              className="mb-4 break-inside-avoid rounded-2xl border border-neutral-800 bg-neutral-900 p-6"
-            >
+      <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {reviews.map((review) => (
+          <li
+            key={`${review.author}-${review.date}`}
+            className="flex flex-col justify-between border-2 border-white p-5 sm:p-6"
+          >
+            <div>
               <div
                 role="img"
                 aria-label={t("rating", { rating: review.rating })}
@@ -32,19 +34,23 @@ export default function Reviews() {
                   <BsStarFill key={i} aria-hidden="true" className="text-sm" />
                 ))}
               </div>
-              <blockquote dir="auto" className="mt-4 leading-relaxed text-neutral-100">
+              <blockquote
+                dir="auto"
+                className="mt-4 text-xl font-medium leading-snug text-[#F4D9B6] sm:text-2xl"
+              >
                 {review.text}
               </blockquote>
-              <p className="mt-5 text-sm font-semibold text-white">
-                <bdi>{review.author}</bdi>
-              </p>
-              <p className="text-sm text-neutral-400">
+            </div>
+            <p className="mt-5 text-sm text-white">
+              <bdi className="font-bold">{review.author}</bdi>
+              <span className="text-neutral-400">
+                {" · "}
                 <time dateTime={review.date}>{dateFormat.format(new Date(review.date))}</time>
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
+              </span>
+            </p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
