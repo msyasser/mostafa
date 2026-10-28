@@ -48,7 +48,8 @@ const LAST_UPDATED_OVERRIDES = {
   "flashcards": "2025-09-12",
   "second-brain": "2025-10-15",
   "second-brain-minimal": "2025-10-12",
-  "second-brain-muslim-edition": "2025-10-17"
+  "second-brain-muslim-edition": "2025-10-17",
+  "notion-roadmap": "2026-10-28"
 };
 
 const getLastUpdatedForTemplate = (template) => {
@@ -653,6 +654,16 @@ const templates = [
     tags: ["ramadan", "competition", "islam", "challenge", "interactive", "community"],
     tags_ar: ["رمضان", "مسابقة", "إسلام", "تحدي", "تفاعلي", "مجتمع"],
     detailsLink: "https://www.mostafayasser.com/en/templates/ramadan-competition"
+  },
+  {
+    id: 52,
+    name: "Notion Roadmap",
+    name_ar: "خريطة تعلم نوشن",
+    slug: "notion-roadmap",
+    category: "education",
+    tags: ["roadmap", "learn notion", "course", "learning", "playlists", "education"],
+    tags_ar: ["خريطة تعلم", "تعلم نوشن", "كورس", "تعلّم", "قوائم تشغيل", "تعليم"],
+    detailsLink: "https://www.mostafayasser.com/en/templates/notion-roadmap"
   }
 ].map((template) => ({
   ...template,
