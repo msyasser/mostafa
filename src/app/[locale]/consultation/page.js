@@ -68,20 +68,30 @@ export default function ConsultationPage() {
 
           <div className="relative z-10 mx-auto max-w-4xl">
             <AnimatedWrapper>
-              <div className="mb-8 flex items-center gap-5">
-                <div className="relative size-24 shrink-0 overflow-hidden rounded-full bg-neutral-900 ring-2 ring-main/70 ring-offset-4 ring-offset-neutral-950 sm:size-28">
+              <div className="mb-8 flex items-center gap-10">
+                <div className="relative shrink-0">
+                  <div className="relative size-24 overflow-hidden rounded-full bg-neutral-900 ring-2 ring-main/70 ring-offset-4 ring-offset-neutral-950 sm:size-28">
+                    <Image
+                      src="/about/mostafa-portrait.svg"
+                      alt="Mostafa Yasser"
+                      fill
+                      sizes="112px"
+                      className="object-cover"
+                      unoptimized
+                      priority
+                    />
+                  </div>
                   <Image
-                    src="/about/mostafa-portrait.svg"
-                    alt="Mostafa Yasser"
-                    fill
-                    sizes="112px"
-                    className="object-cover"
+                    src="/badges/notion-consulting-partner.webp"
+                    alt={t("hero.badgeAlt")}
+                    width={272}
+                    height={480}
                     unoptimized
-                    priority
+                    className="absolute -bottom-4 -end-8 h-20 w-auto drop-shadow-[0_6px_14px_rgba(0,0,0,0.7)] sm:h-24"
                   />
                 </div>
                 <div className="space-y-2">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/80 px-3 py-1.5 text-sm text-main">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/80 px-3 py-1.5 text-xs text-main sm:text-sm">
                     <BsPatchCheckFill aria-hidden="true" />
                     {t("hero.badge")}
                   </span>
