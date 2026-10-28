@@ -54,10 +54,8 @@
     "cta": "Book your call"
   },
   "reviews": {
-    "title": "What people say about my work",
-    "subtitle": "Reviews of my templates on the Notion Marketplace.",
-    "seeAll": "See all on Notion Marketplace",
-    "rating": "{rating} out of 5 stars",
-    "on": "on {template}"
+    "title": "What people say about me",
+    "subtitle": "Words from people on the Notion Marketplace.",
+    "rating": "{rating} out of 5 stars"
   }
 }

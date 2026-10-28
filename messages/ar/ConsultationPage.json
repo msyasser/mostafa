@@ -54,10 +54,8 @@
     "cta": "احجز مكالمتك"
   },
   "reviews": {
-    "title": "رأي الناس في شغلي",
-    "subtitle": "تقييمات قوالبي على Notion Marketplace",
-    "seeAll": "شوف كل التقييمات على Notion Marketplace",
-    "rating": "{rating} من 5 نجوم",
-    "on": "على قالب {template}"
+    "title": "رأي الناس فيا",
+    "subtitle": "كلام من ناس على Notion Marketplace",
+    "rating": "{rating} من 5 نجوم"
   }
 }
