@@ -37,13 +37,13 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const container = "mx-auto w-full max-w-[1400px] px-6 sm:px-12 lg:px-20";
+const container = "mx-auto w-full max-w-6xl px-6 sm:px-10";
 const sectionTitle =
-  "text-4xl font-bold uppercase leading-none tracking-tight sm:text-6xl rtl:normal-case rtl:leading-tight";
+  "text-3xl font-bold uppercase leading-none tracking-tight sm:text-5xl rtl:normal-case rtl:leading-tight";
 const buttonBase =
-  "inline-flex min-h-14 items-center gap-3 px-8 py-4 text-lg font-bold uppercase tracking-wide transition-transform duration-150 hover:translate-x-0.5 hover:translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none sm:px-12 sm:py-6 sm:text-2xl rtl:normal-case";
-const primaryButton = `${buttonBase} bg-main text-neutral-950 shadow-[8px_8px_0_#644334] hover:shadow-[5px_5px_0_#644334]`;
-const darkButton = `${buttonBase} bg-neutral-950 text-[#F4D9B6] shadow-[8px_8px_0_#644334] hover:shadow-[5px_5px_0_#644334]`;
+  "inline-flex min-h-12 items-center gap-3 px-7 py-3.5 text-base font-bold uppercase tracking-wide transition-transform duration-150 hover:translate-x-0.5 hover:translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none sm:px-9 sm:py-4 sm:text-xl rtl:normal-case";
+const primaryButton = `${buttonBase} bg-main text-neutral-950 shadow-[6px_6px_0_#644334] hover:shadow-[4px_4px_0_#644334]`;
+const darkButton = `${buttonBase} bg-neutral-950 text-[#F4D9B6] shadow-[6px_6px_0_#644334] hover:shadow-[4px_4px_0_#644334]`;
 
 export default function ConsultationPage() {
   const t = useTranslations("ConsultationPage");
@@ -61,34 +61,34 @@ export default function ConsultationPage() {
         {/* Ticker */}
         <div
           aria-hidden="true"
-          className="-mx-10 mt-24 -rotate-[1.4deg] overflow-hidden whitespace-nowrap bg-main py-3 text-xl font-bold uppercase tracking-[0.2em] text-neutral-950 shadow-[0_18px_50px_#000c] sm:text-3xl"
+          className="-mx-10 mt-24 -rotate-[1.2deg] overflow-hidden whitespace-nowrap bg-main py-2.5 text-base font-bold uppercase tracking-[0.18em] text-neutral-950 shadow-[0_14px_40px_#000c] sm:text-xl"
         >
           {t("hero.ticker")}
         </div>
 
         {/* Hero */}
-        <section className={`${container} pb-10 pt-14`}>
-          <p className="mb-3 text-sm uppercase tracking-[0.3em] text-main sm:text-xl rtl:tracking-normal">
+        <section className={`${container} pb-8 pt-12`}>
+          <p className="mb-3 text-sm uppercase tracking-[0.25em] text-main sm:text-base rtl:tracking-normal">
             {t("hero.badge")}
           </p>
-          <h1 className="text-[clamp(3.2rem,10.4vw,11rem)] font-bold uppercase leading-[0.9] tracking-tight rtl:text-[clamp(2.7rem,8.2vw,8.2rem)] rtl:font-extrabold rtl:normal-case rtl:leading-[1.12] rtl:tracking-normal">
+          <h1 className="text-[clamp(2.6rem,7.2vw,6.5rem)] font-bold uppercase leading-[0.95] tracking-tight rtl:text-[clamp(2.3rem,6vw,5.2rem)] rtl:font-extrabold rtl:normal-case rtl:leading-[1.15] rtl:tracking-normal">
             {t("hero.titleStart")}{" "}
-            <span className="inline-block border-b-[10px] border-main bg-gradient-to-r from-[#F4D9B6] via-[#D7B180] to-[#C49C6A] bg-clip-text text-transparent sm:border-b-[14px]">
+            <span className="inline-block border-b-[7px] border-main bg-gradient-to-r from-[#F4D9B6] via-[#D7B180] to-[#C49C6A] bg-clip-text text-transparent sm:border-b-[9px]">
               {t("hero.titleHighlight")}
             </span>
           </h1>
 
-          <div className="mt-12 grid gap-14 lg:grid-cols-[1fr_430px] lg:gap-20">
+          <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_380px] lg:gap-16">
             <div className="order-2 lg:order-1">
-              <p className="max-w-3xl text-xl leading-relaxed text-neutral-300 sm:text-3xl sm:leading-snug">
+              <p className="max-w-2xl text-lg leading-relaxed text-neutral-300 sm:text-2xl sm:leading-snug">
                 {t("hero.subtitle")}
               </p>
 
-              <dl className="mt-9 border-t-[3px] border-white">
+              <dl className="mt-8 border-t-[3px] border-white">
                 {details.map(({ label, value }) => (
                   <div
                     key={label}
-                    className="flex items-baseline justify-between gap-6 border-b border-neutral-800 py-4 text-lg sm:text-3xl"
+                    className="flex items-baseline justify-between gap-6 border-b border-neutral-800 py-3.5 text-base sm:text-2xl"
                   >
                     <dt className="text-neutral-300">{label}</dt>
                     <dd className="font-bold text-main">{value}</dd>
@@ -96,42 +96,34 @@ export default function ConsultationPage() {
                 ))}
               </dl>
 
-              <div className="mt-10 flex flex-col items-start gap-5">
+              <div className="mt-9 flex flex-col items-start gap-4">
                 <Link href="#book" className={primaryButton}>
                   {t("hero.cta")}
                   <BsArrowDown aria-hidden="true" />
                 </Link>
-                <p className="text-base text-neutral-300 sm:text-lg">{t("hero.note")}</p>
+                <p className="text-sm text-neutral-300 sm:text-base">{t("hero.note")}</p>
               </div>
             </div>
 
-            <div className="order-1 mx-auto w-full max-w-[430px] lg:order-2 lg:max-w-none">
-              <div className="relative border-4 border-main shadow-[10px_10px_0_#644334] sm:shadow-[18px_18px_0_#644334]">
+            <div className="order-1 mx-auto w-full max-w-[380px] lg:order-2 lg:max-w-none">
+              <div className="relative border-[3px] border-main shadow-[8px_8px_0_#644334] sm:shadow-[12px_12px_0_#644334]">
                 <Image
                   src="/about/mostafa-portrait.svg"
                   alt="Mostafa Yasser"
-                  width={860}
-                  height={960}
-                  sizes="(min-width: 1024px) 430px, 90vw"
+                  width={760}
+                  height={850}
+                  sizes="(min-width: 1024px) 380px, 90vw"
                   className="aspect-[1/1.12] w-full bg-neutral-900 object-cover"
                   unoptimized
                   priority
                 />
-                <div className="absolute -top-8 -end-4 flex size-28 rotate-12 flex-col items-center justify-center rounded-full bg-main text-neutral-950 shadow-[0_14px_34px_#000a] sm:-top-11 sm:-end-10 sm:size-40">
-                  <span className="text-xs font-bold uppercase tracking-widest sm:text-base rtl:tracking-normal">
-                    {t("hero.sticker")}
-                  </span>
-                  <span className="text-5xl font-bold leading-none sm:text-7xl">
-                    {t("details.priceValue")}
-                  </span>
-                </div>
                 <Image
                   src="/badges/notion-consulting-partner.webp"
                   alt={t("hero.badgeAlt")}
                   width={272}
                   height={480}
                   unoptimized
-                  className="absolute -bottom-8 -start-6 h-28 w-auto drop-shadow-[0_12px_22px_rgba(0,0,0,0.8)] sm:-start-10 sm:h-40"
+                  className="absolute -bottom-6 -start-5 h-24 w-auto drop-shadow-[0_10px_18px_rgba(0,0,0,0.8)] sm:-start-8 sm:h-32"
                 />
               </div>
             </div>
@@ -139,57 +131,57 @@ export default function ConsultationPage() {
         </section>
 
         {/* Calendar */}
-        <section id="book" className={`${container} scroll-mt-28 py-20`}>
+        <section id="book" className={`${container} scroll-mt-28 py-16`}>
           <h2 className={sectionTitle}>{t("book.title")}</h2>
-          <p className="mb-8 mt-3 text-lg text-neutral-300 sm:text-2xl">{t("book.subtitle")}</p>
-          <div className="min-h-[650px] border-4 border-white bg-neutral-900 p-2 shadow-[8px_8px_0_#D7B180] sm:p-4 sm:shadow-[14px_14px_0_#D7B180]">
+          <p className="mb-7 mt-3 text-base text-neutral-300 sm:text-xl">{t("book.subtitle")}</p>
+          <div className="min-h-[650px] border-[3px] border-white bg-neutral-900 p-2 shadow-[6px_6px_0_#D7B180] sm:p-4 sm:shadow-[10px_10px_0_#D7B180]">
             <ConsultationCalendar />
           </div>
         </section>
 
         {/* What we'll cover */}
-        <section className={`${container} py-16`}>
-          <h2 className={`${sectionTitle} mb-10 text-main`}>{t("cover.title")}</h2>
-          <ol className="border-b-[3px] border-white">
+        <section className={`${container} py-14`}>
+          <h2 className={`${sectionTitle} mb-8 text-main`}>{t("cover.title")}</h2>
+          <ol className="border-b-2 border-white">
             {t.raw("cover.items").map((item, i) => (
               <li
                 key={item}
-                className="grid grid-cols-[4.5rem_1fr] items-center gap-4 border-t-[3px] border-white py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
+                className="grid grid-cols-[3.5rem_1fr] items-center gap-4 border-t-2 border-white py-4 sm:grid-cols-[6rem_1fr] sm:gap-6"
               >
-                <span aria-hidden="true" className="text-6xl font-bold leading-none text-main sm:text-8xl">
+                <span aria-hidden="true" className="text-4xl font-bold leading-none text-main sm:text-6xl">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="text-2xl leading-tight sm:text-4xl">{item}</span>
+                <span className="text-xl leading-snug sm:text-3xl">{item}</span>
               </li>
             ))}
           </ol>
         </section>
 
         {/* Who it's for */}
-        <section className={`${container} py-16`}>
-          <h2 className={`${sectionTitle} mb-8`}>{t("audience.title")}</h2>
-          <p className="mb-6 text-xl text-neutral-300 sm:text-3xl">{t("audience.intro")}</p>
-          <ul className="grid gap-x-12 gap-y-4 sm:grid-cols-2">
+        <section className={`${container} py-14`}>
+          <h2 className={`${sectionTitle} mb-6`}>{t("audience.title")}</h2>
+          <p className="mb-5 text-lg text-neutral-300 sm:text-2xl">{t("audience.intro")}</p>
+          <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
             {t.raw("audience.items").map((item) => (
-              <li key={item} className="flex items-start gap-4 border-t border-neutral-700 pt-4 text-xl sm:text-3xl">
-                <span aria-hidden="true" className="mt-2 size-3 shrink-0 bg-main sm:mt-3 sm:size-4" />
+              <li key={item} className="flex items-start gap-3 border-t border-neutral-700 pt-3 text-lg sm:text-2xl">
+                <span aria-hidden="true" className="mt-2 size-2.5 shrink-0 bg-main sm:mt-2.5" />
                 <span>{item}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-8 max-w-3xl text-lg text-neutral-300 sm:text-2xl">{t("audience.outro")}</p>
+          <p className="mt-6 max-w-3xl text-base text-neutral-300 sm:text-xl">{t("audience.outro")}</p>
         </section>
 
         {/* Reviews */}
         <Reviews />
 
         {/* Final call to action */}
-        <section className="mt-10 bg-main px-6 py-20 text-center text-neutral-950 sm:py-28">
-          <h2 className="text-[clamp(2.8rem,9vw,8.5rem)] font-bold uppercase leading-[0.95] tracking-tight rtl:text-[clamp(2.4rem,7vw,6.5rem)] rtl:font-extrabold rtl:normal-case rtl:leading-[1.15] rtl:tracking-normal">
+        <section className="mt-8 bg-main px-6 py-16 text-center text-neutral-950 sm:py-20">
+          <h2 className="text-[clamp(2.1rem,5.6vw,4.8rem)] font-bold uppercase leading-[1] tracking-tight rtl:text-[clamp(1.9rem,4.8vw,4rem)] rtl:font-extrabold rtl:normal-case rtl:leading-[1.2] rtl:tracking-normal">
             {t("final.title")}
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg font-medium sm:text-2xl">{t("final.text")}</p>
-          <Link href="#book" className={`${darkButton} mt-10`}>
+          <p className="mx-auto mt-5 max-w-xl text-base font-medium sm:text-xl">{t("final.text")}</p>
+          <Link href="#book" className={`${darkButton} mt-8`}>
             {t("final.cta")}
             <BsArrowDown aria-hidden="true" className="rotate-180" />
           </Link>

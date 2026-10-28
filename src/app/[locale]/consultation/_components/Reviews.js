@@ -12,17 +12,17 @@ export default function Reviews() {
   });
 
   return (
-    <section className="mx-auto w-full max-w-[1400px] px-6 py-16 sm:px-12 lg:px-20">
-      <h2 className="text-4xl font-bold uppercase leading-none tracking-tight sm:text-6xl rtl:normal-case rtl:leading-tight">
+    <section className="mx-auto w-full max-w-6xl px-6 py-14 sm:px-10">
+      <h2 className="text-3xl font-bold uppercase leading-none tracking-tight sm:text-5xl rtl:normal-case rtl:leading-tight">
         {t("title")}
       </h2>
-      <p className="mb-10 mt-3 text-lg text-neutral-300 sm:text-2xl">{t("subtitle")}</p>
+      <p className="mb-8 mt-3 text-base text-neutral-300 sm:text-xl">{t("subtitle")}</p>
 
-      <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {reviews.map((review) => (
           <li
             key={`${review.author}-${review.date}`}
-            className="flex flex-col justify-between border-[3px] border-white p-6 sm:p-8"
+            className="flex flex-col justify-between border-2 border-white p-5 sm:p-6"
           >
             <div>
               <div
@@ -31,17 +31,17 @@ export default function Reviews() {
                 className="flex gap-1 text-main"
               >
                 {Array.from({ length: review.rating }, (_, i) => (
-                  <BsStarFill key={i} aria-hidden="true" className="text-base" />
+                  <BsStarFill key={i} aria-hidden="true" className="text-sm" />
                 ))}
               </div>
               <blockquote
                 dir="auto"
-                className="mt-5 text-2xl font-medium leading-snug text-[#F4D9B6] sm:text-[1.7rem]"
+                className="mt-4 text-xl font-medium leading-snug text-[#F4D9B6] sm:text-2xl"
               >
                 {review.text}
               </blockquote>
             </div>
-            <p className="mt-6 text-base text-white">
+            <p className="mt-5 text-sm text-white">
               <bdi className="font-bold">{review.author}</bdi>
               <span className="text-neutral-400">
                 {" · "}
