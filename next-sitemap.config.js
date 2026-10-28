@@ -11,13 +11,18 @@ module.exports = {
   // Next.js build output, so they are not listed by hand here: a hand-written list
   // drifts from the content and ends up advertising URLs that return "Page Not Found".
   // Keep pages that shouldn't be indexed out of the sitemap.
-  exclude: ["/*/auth/*", "/*/profile", "/api/*", "/embed/*"],
+  exclude: ["/*/auth/*", "/*/profile", "/api/*", "/embed/*", "/robots.txt"],
 
-  // The locale home pages are the only ones the build output doesn't expose
-  additionalPaths: async (config) => [
-    await config.transform(config, "/en"),
-    await config.transform(config, "/ar"),
-  ],
+  // Pages the build output doesn't expose (they are rendered on demand, not prerendered),
+  // so auto-discovery misses them. Keep this list to those index pages only.
+  additionalPaths: async (config) => {
+    const pages = ["", "services", "consultation", "courses", "tools", "blog", "privacy-policy", "terms-of-service"];
+    return Promise.all(
+      ["en", "ar"].flatMap((locale) =>
+        pages.map((page) => config.transform(config, `/${locale}${page ? "/" + page : ""}`))
+      )
+    );
+  },
 
   transform: async (config, path) => {
     // "/" permanently redirects to /en, so only the locale roots belong in the sitemap

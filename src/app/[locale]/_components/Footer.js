@@ -35,13 +35,16 @@ function Footer() {
 
   const mainUrl = (path = "") =>
     isSubdomain ? `https://www.mostafayasser.com/${locale}${path}` : `/${locale}${path}`;
-  const templatesUrl = isTemplatesSubdomain
-    ? `/${locale}`
-    : isCoursesSubdomain
-      ? `https://templates.mostafayasser.com/${locale}`
-      : `/${locale}/templates`;
+  // Templates and Courses live on their own subdomains in production (same as the header).
+  const sectionUrl = (section) =>
+    (section === "templates" ? isTemplatesSubdomain : isCoursesSubdomain)
+      ? `/${locale}`
+      : isLocalOrPreview || !hostname
+        ? `/${locale}/${section}`
+        : `https://${section}.mostafayasser.com/${locale}`;
 
   return (
+    <footer>
     <AnimatedInView threshold={0.3}>
       <div className="max-w-7xl mx-auto px-6 pt-20 lg:pt-40 pb-18 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
         {/* Column 1: Logo & About */}
@@ -101,12 +104,13 @@ function Footer() {
               { label: t("links.services"), href: "/services" },
               { label: t("links.caseStudies"), href: "/case-studies" },
               { label: t("links.templates"), href: "/templates" },
+              { label: t("links.courses"), href: "/courses" },
               { label: t("links.blogs"), href: "/blog" },
               { label: t("links.tools"), href: "/tools" },
             ].map((link, idx) => (
               <Link
                 key={idx}
-                href={link.href === "/templates" ? templatesUrl : mainUrl(link.href === "/" ? "" : link.href)}
+                href={link.href === "/templates" || link.href === "/courses" ? sectionUrl(link.href.slice(1)) : mainUrl(link.href === "/" ? "" : link.href)}
                 className="text-gray-400 hover:text-white transition-colors duration-300 text-sm flex items-center gap-2 group"
               >
                 <span className="w-1.5 h-px bg-gray-700 group-hover:bg-main group-hover:w-3 transition-all duration-300"></span>
@@ -195,7 +199,7 @@ function Footer() {
         className="max-w-7xl mx-auto px-6 pb-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-400"
         dir="ltr"
       >
-        <p className="text-center md:text-left">{t("copyright")}</p>
+        <p dir="auto" suppressHydrationWarning className="text-center md:text-start">{t("copyright", { year: new Date().getFullYear() })}</p>
         <p className="text-center md:text-right">
           <a
             href="https://arab-os.com/"
@@ -217,6 +221,7 @@ function Footer() {
 
       </div>
     </AnimatedInView>
+    </footer>
   );
 }
 

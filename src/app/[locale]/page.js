@@ -1,5 +1,6 @@
 import { useTranslations, useLocale } from "next-intl";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import AnimatedText from "@/src/app/[locale]/_components/AnimatedText";
 import TypewriterText from "@/src/app/[locale]/_components/TypewriterText";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
@@ -115,6 +116,20 @@ export default function HomePage() {
               {t("subtitle")}
             </p>
 
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href={`/${locale}/templates`}
+                className="rounded-full bg-main px-8 py-3.5 text-lg font-bold text-neutral-900 shadow-lg shadow-main/20 transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-main"
+              >
+                {t("heroCtaTemplates")}
+              </Link>
+              <Link
+                href={`/${locale}/services`}
+                className="rounded-full border border-white/25 bg-neutral-900/70 px-8 py-3.5 text-lg font-medium text-white transition-colors duration-300 hover:border-main/60 hover:text-main focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-main"
+              >
+                {t("heroCtaWork")}
+              </Link>
+            </div>
             <HeroScrollIndicator />
           </AnimatedWrapper>
         </div>

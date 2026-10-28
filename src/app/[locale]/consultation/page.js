@@ -108,7 +108,7 @@ export default function ConsultationPage() {
             <div className="order-1 mx-auto w-full max-w-[380px] lg:order-2 lg:max-w-none">
               <div className="relative border-[3px] border-main shadow-[8px_8px_0_#644334] sm:shadow-[12px_12px_0_#644334]">
                 <Image
-                  src="/about/mostafa-portrait.svg"
+                  src="/about/mostafa-portrait.webp"
                   alt="Mostafa Yasser"
                   width={760}
                   height={850}
