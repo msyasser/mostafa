@@ -11,12 +11,13 @@ module.exports = {
   // Next.js build output, so they are not listed by hand here: a hand-written list
   // drifts from the content and ends up advertising URLs that return "Page Not Found".
   // Keep pages that shouldn't be indexed out of the sitemap.
-  exclude: ["/*/auth/*", "/*/profile", "/api/*", "/embed/*", "/robots.txt"],
+  exclude: ["/*/auth/*", "/*/profile", "/api/*", "/embed/*", "/robots.txt", "/*/consultation"],
 
   // Pages the build output doesn't expose (they are rendered on demand, not prerendered),
   // so auto-discovery misses them. Keep this list to those index pages only.
   additionalPaths: async (config) => {
-    const pages = ["", "services", "consultation", "courses", "tools", "blog", "privacy-policy", "terms-of-service"];
+    // /consultation is deliberately left out: it is a landing page for social media campaigns only.
+    const pages = ["", "services", "courses", "tools", "blog", "privacy-policy", "terms-of-service"];
     return Promise.all(
       ["en", "ar"].flatMap((locale) =>
         pages.map((page) => config.transform(config, `/${locale}${page ? "/" + page : ""}`))
