@@ -10,6 +10,13 @@ const SUBDOMAIN_MAP = {
   courses: "courses",
 };
 
+// Pages that only exist on the main site, plus each subdomain's sibling section.
+// A relative link to one of them clicked on a subdomain (e.g. /en/about) would be
+// rewritten to /en/templates/about and 404, so send it to the main site instead.
+const MAIN_SITE_ONLY = ["about", "contact", "services", "case-studies", "blog", "tools", "resources", "profile"];
+const SIBLING_SECTION = { templates: "courses", courses: "templates" };
+const MAIN_SITE_ORIGIN = "https://www.mostafayasser.com";
+
 export default function middleware(request) {
   const hostname = request.headers.get("host") || "";
 
@@ -24,6 +31,11 @@ export default function middleware(request) {
     const localeMatch = pathname.match(/^\/(en|ar)(\/.*)?$/);
     const locale = localeMatch ? localeMatch[1] : "en";
     const rest = localeMatch ? localeMatch[2] || "" : pathname;
+
+    const firstSegment = rest.split("/")[1] || "";
+    if (MAIN_SITE_ONLY.includes(firstSegment) || firstSegment === SIBLING_SECTION[section]) {
+      return NextResponse.redirect(new URL(`${MAIN_SITE_ORIGIN}/${locale}${rest}${search}`));
+    }
 
     // Avoid infinite rewrite loops — already pointing to the section
     if (rest.startsWith(`/${section}`)) {

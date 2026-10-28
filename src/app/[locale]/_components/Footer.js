@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 import {
@@ -16,12 +19,34 @@ function Footer() {
   const t = useTranslations("Footer");
   const locale = useLocale();
 
+  // On templates.mostafayasser.com and courses.mostafayasser.com a relative link like
+  // /en/about is rewritten to /en/templates/about (a 404), so links to pages that
+  // live on the main site must be absolute there. Same logic as Navigation.
+  const [hostname, setHostname] = useState("");
+  useEffect(() => {
+    setHostname(window.location.hostname);
+  }, []);
+
+  const isLocalOrPreview =
+    hostname.includes("localhost") || hostname.includes("127.0.0.1") || hostname.includes(".vercel.app");
+  const isTemplatesSubdomain = !isLocalOrPreview && hostname.startsWith("templates.");
+  const isCoursesSubdomain = !isLocalOrPreview && hostname.startsWith("courses.");
+  const isSubdomain = isTemplatesSubdomain || isCoursesSubdomain;
+
+  const mainUrl = (path = "") =>
+    isSubdomain ? `https://www.mostafayasser.com/${locale}${path}` : `/${locale}${path}`;
+  const templatesUrl = isTemplatesSubdomain
+    ? `/${locale}`
+    : isCoursesSubdomain
+      ? `https://templates.mostafayasser.com/${locale}`
+      : `/${locale}/templates`;
+
   return (
     <AnimatedInView threshold={0.3}>
       <div className="max-w-7xl mx-auto px-6 pt-20 lg:pt-40 pb-18 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
         {/* Column 1: Logo & About */}
         <div className="space-y-6">
-          <Link href={`/${locale}`} className="inline-block">
+          <Link href={mainUrl()} className="inline-block">
             <Image
               src="/logos/lightLogo.webp"
               alt="Mostafa Yasser logo"
@@ -81,7 +106,7 @@ function Footer() {
             ].map((link, idx) => (
               <Link
                 key={idx}
-                href={`/${locale}${link.href === "/" ? "" : link.href}`}
+                href={link.href === "/templates" ? templatesUrl : mainUrl(link.href === "/" ? "" : link.href)}
                 className="text-gray-400 hover:text-white transition-colors duration-300 text-sm flex items-center gap-2 group"
               >
                 <span className="w-1.5 h-px bg-gray-700 group-hover:bg-main group-hover:w-3 transition-all duration-300"></span>
@@ -104,7 +129,7 @@ function Footer() {
               ].map((link, idx) => (
                 <Link
                   key={idx}
-                  href={`/${locale}${link.href}`}
+                  href={mainUrl(link.href)}
                   className="text-gray-400 hover:text-white transition-colors duration-300 text-sm flex items-center gap-2 group"
                 >
                   <span className="w-1.5 h-px bg-gray-700 group-hover:bg-main group-hover:w-3 transition-all duration-300"></span>
@@ -125,7 +150,7 @@ function Footer() {
               ].map((link, idx) => (
                 <Link
                   key={idx}
-                  href={`/${locale}${link.href}`}
+                  href={mainUrl(link.href)}
                   className="text-gray-400 hover:text-white transition-colors duration-300 text-sm flex items-center gap-2 group"
                 >
                   <span className="w-1.5 h-px bg-gray-700 group-hover:bg-main group-hover:w-3 transition-all duration-300"></span>
@@ -149,7 +174,7 @@ function Footer() {
             ].map((template, idx) => (
               <Link
                 key={idx}
-                href={`/${locale}${template.href}`}
+                href={mainUrl(template.href)}
                 className="p-3 bg-white/5 rounded-xl border border-gray-800 hover:border-main/50 hover:bg-white/[0.08] transition-all duration-300 group"
               >
                 <span className="block text-white font-medium text-sm group-hover:text-main transition-colors">
