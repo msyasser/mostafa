@@ -9,6 +9,9 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const EMBED_FRAME_ANCESTORS = "*";
 const SITE_FRAME_ANCESTORS = "'self' https://*.mostafayasser.com";
+// Template product pages are embedded in the Notion template pages (upsell
+// block at the bottom of the free templates), so Notion may frame them.
+const NOTION_FRAME_ANCESTORS = `${SITE_FRAME_ANCESTORS} https://www.notion.so https://notion.so https://*.notion.site https://www.notion.com https://*.notion.com`;
 
 const FRAME_SRC = "'self' https://www.notion.so https://notion.so https://mostafayasser.notion.site https://www.youtube.com https://youtube.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://vercel.live";
 const SCRIPT_HOSTS = "https://www.googletagmanager.com https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://vercel.live https://vercel.com";
@@ -111,6 +114,13 @@ const nextConfig = {
       {
         source: '/:path((?!embed/).*)',
         headers: cspHeaders(SITE_FRAME_ANCESTORS),
+      },
+      // Listed after the rule above so these headers override it: only the
+      // public template detail pages (/en|ar/templates/<slug>) may be framed
+      // by Notion.
+      {
+        source: '/:locale(en|ar)/templates/:slug',
+        headers: cspHeaders(NOTION_FRAME_ANCESTORS),
       },
       {
         source: '/sitemap.xml',
