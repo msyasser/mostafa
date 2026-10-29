@@ -13,6 +13,7 @@ import { useTranslations } from "next-intl";
 export default function Navigation() {
   const t = useTranslations("Navigation");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [resOpen, setResOpen] = useState(false);
   const [hostname, setHostname] = useState("");
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -25,6 +26,7 @@ export default function Navigation() {
 
   useEffect(() => {
     setMenuOpen(false);
+    setResOpen(false);
   }, [pathname]);
 
   const isDev = process.env.NODE_ENV === "development";
@@ -59,6 +61,10 @@ export default function Navigation() {
     { id: "blog", name: t("BLOGS"), to: "blog", href: mainUrl("blog") },
   ];
 
+  // Desktop header: Templates and Courses stay on the bar, Tools and Blog sit under "Resources"
+  const primaryLinks = links.filter((l) => l.id === "templates" || l.id === "courses");
+  const resourceLinks = links.filter((l) => l.id === "tools" || l.id === "blog");
+
   const isLinkActive = (link) => {
     if (link.id === "home" || link.to === "") {
       if (isSubdomain) return false;
@@ -82,7 +88,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-50 p-3 transition-all duration-300 ease-in-out">
+    <nav className="fixed top-0 left-0 w-full bg-black/80 backdrop-blur-md border-b border-main/25 z-50 p-3 transition-all duration-300 ease-in-out">
       <BlurText duration={1}>
         <div className="flex justify-between items-center mx-auto max-w-7xl transition-all duration-300 ease-in-out">
           <Link
@@ -92,33 +98,68 @@ export default function Navigation() {
             <AnimatedLogo className="h-7 w-auto" />
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-6 shrink-0">
-            {links.map((link, index) => {
+          {/* Desktop Menu: centered links, one quiet action on the right */}
+          <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2 gap-8">
+            {primaryLinks.map((link) => {
               const active = isLinkActive(link);
               return (
                 <Link
                   href={link.href}
-                  key={index}
-                  className={`hover:text-main transition-all duration-300 ease-in-out font-medium ${
-                    active ? "text-main" : ""
-                  }`}
+                  key={link.id}
+                  className={`hover:text-main transition-colors duration-300 font-medium ${active ? "text-main" : ""}`}
                 >
                   {link.name}
                 </Link>
               );
             })}
 
-            <div className="flex items-center gap-3 ml-2 shrink-0 min-h-[36px]">
-              <LanguageSwitcher />
-              <Link
-                href={mainUrl("services")}
-                className="px-5 py-2 rounded-full text-sm font-semibold bg-main text-black hover:brightness-110 hover:scale-105 transition-all duration-200 shadow-lg shadow-main/30 shrink-0"
+            <div
+              className="relative"
+              onMouseEnter={() => setResOpen(true)}
+              onMouseLeave={() => setResOpen(false)}
+            >
+              <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={resOpen}
+                onClick={() => setResOpen((v) => !v)}
+                className={`flex items-center gap-1.5 font-medium hover:text-main transition-colors duration-300 cursor-pointer ${
+                  resourceLinks.some(isLinkActive) ? "text-main" : ""
+                }`}
               >
-                {t("HIRE_ME")}
-              </Link>
-              <UserMenu />
+                {t("RESOURCES_MENU")}
+                <svg className={`w-3 h-3 transition-transform duration-200 ${resOpen ? "rotate-180" : ""}`} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.5 4.5L6 8l3.5-3.5" />
+                </svg>
+              </button>
+              {resOpen && (
+                <div role="menu" className="absolute top-full start-0 pt-3 z-50">
+                  <div className="min-w-44 rounded-xl border border-white/10 bg-neutral-950/95 backdrop-blur-md shadow-2xl py-2">
+                    {resourceLinks.map((link) => (
+                      <Link
+                        role="menuitem"
+                        href={link.href}
+                        key={link.id}
+                        className={`block px-5 py-2.5 hover:bg-white/5 hover:text-main transition-colors ${isLinkActive(link) ? "text-main" : ""}`}
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-3 shrink-0 min-h-[36px] ms-auto">
+            <LanguageSwitcher />
+            <UserMenu />
+            <Link
+              href={mainUrl("services")}
+              className="px-5 py-2 rounded-full text-sm font-semibold border border-neutral-700 text-[#F4D9B6] hover:border-main hover:text-main transition-colors duration-200 shrink-0"
+            >
+              {t("HIRE_ME")}
+            </Link>
           </div>
 
           {/* Hamburger Icon */}

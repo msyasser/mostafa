@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import GoToTemplatesPageButton from "@/src/app/[locale]/_components/GoToTemplatesPageButton";
+import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import { useLocale, useTranslations } from "next-intl";
 import AnimatedInView from "./AnimatedInView";
 
@@ -92,68 +92,81 @@ export default function TemplatesShowcase({ title, subtitle }) {
   const t = useTranslations("TemplatesShowcase");
   const tt = useTranslations("TemplateSlug");
   const locale = useLocale();
+  const isArabic = locale === "ar";
+  const ArrowIcon = isArabic ? BsArrowLeft : BsArrowRight;
+
+  // "$0" reads as a price tag; "Free" says what it is
+  const priceLabel = (name) => {
+    const price = tt(`${name}.price`);
+    return price === "$0" ? "Free" : price;
+  };
 
   const renderTemplates = (list) =>
-    list.map((template) => (
-      <Link
-        key={template.id}
-        href={`/${locale}/templates/${template.slug}`}
-        className="relative rounded-2xl shadow-lg transition-all duration-300 transform hover:scale-[1.01] hover:-translate-y-2 overflow-hidden ease-in-out cursor-pointer hover:shadow-main"
-      >
-        {template.premium && (
-          <span className="absolute top-9 right-0 rounded-tl-xl rounded-bl-xl border border-[#D7B180] text-[#D7B180] text-sm font-semibold px-4 py-1 -mr-1 z-50">
-            PRO
-          </span>
-        )}
-
-        <div className="w-full aspect-[4/3] relative">
-          <Image
-            src={tt(`${template.name}.image`)}
-            alt={`Template ${tt(`${template.name}.name`)}`}
-            width={800}
-            height={800}
-            className="object-cover w-full h-full"
-            unoptimized={true}
-          />
-        </div>
-        <h3 className="mt-3 text-sm sm:text-xl md:text-2xl font-semibold">
-          {tt(`${template.name}.name`)}
-        </h3>
-        <p className="text-[#D7B180] text-lg sm:text-xl md:text-2xl font-bold mb-4 drop-shadow-[0_0_5px_rgba(215,177,128,0.4)]">
-          {tt(`${template.name}.price`)}
-        </p>
-      </Link>
-    ));
+    list.map((template) => {
+      const price = priceLabel(template.name);
+      const isFree = price === "Free" || price === "مجاني";
+      return (
+        <Link
+          key={template.id}
+          href={`/${locale}/templates/${template.slug}`}
+          className="group block"
+        >
+          <div className="relative">
+            <Image
+              src={tt(`${template.name}.image`)}
+              alt={`Template ${tt(`${template.name}.name`)}`}
+              width={800}
+              height={645}
+              className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:-translate-y-1"
+              unoptimized={true}
+            />
+            {template.premium && (
+              <span className="absolute top-3 end-3 rounded-[3px] bg-main text-neutral-950 text-xs font-bold tracking-widest px-2 py-0.5">
+                PRO
+              </span>
+            )}
+          </div>
+          <div className="mt-3.5 flex items-baseline justify-between gap-3 border-b border-[#3a3027] pb-3">
+            <h3 className="text-lg sm:text-2xl font-semibold uppercase rtl:normal-case rtl:font-extrabold group-hover:text-main transition-colors">
+              {tt(`${template.name}.name`)}
+            </h3>
+            <p className={`text-lg sm:text-2xl font-semibold shrink-0 ${isFree ? "text-neutral-400" : "text-main"}`}>
+              {price}
+            </p>
+          </div>
+        </Link>
+      );
+    });
 
   return (
-    <div id="templates-section" className="w-full px-6 py-12 sm:mt-12 mt-10 text-center flex flex-col gap-5 sm:gap-20 scroll-mt-32">
-
-
-      <div className="mt-4">
-        <div className="text-center max-w-3xl mx-auto px-4">
+    <div id="templates-section" className="w-full px-4 pt-20 pb-6 scroll-mt-32">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-10">
           <AnimatedInView threshold={0.1}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+            <h2 className="text-3xl sm:text-5xl font-semibold uppercase rtl:normal-case rtl:font-extrabold tracking-tight">
               {title || t("popularTitle")}
             </h2>
           </AnimatedInView>
           <AnimatedInView threshold={0.1}>
-            <p className="text-secondary mt-2 text-base sm:text-lg md:text-xl">
+            <p className="text-gray-300 mt-3 text-base sm:text-xl max-w-2xl">
               {subtitle || t("popularDescription")}
             </p>
           </AnimatedInView>
         </div>
-        <AnimatedInView
-          threshold={0.1}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8"
-        >
+        <AnimatedInView threshold={0.1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-10">
           {renderTemplates([...templates.moreTemplates, ...templates.largeCollection].slice(0, 6))}
         </AnimatedInView>
-      </div>
 
-      <GoToTemplatesPageButton
-        text={t("showMore")}
-        className={"flex justify-center mt-6 sm:mt-10 relative z-10 px-4"}
-      />
+        <div className="flex justify-center mt-12">
+          <Link
+            href={`/${locale}/templates`}
+            className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full border-[1.5px] border-[#3a3027] text-[#F4D9B6] font-semibold uppercase tracking-[0.06em] rtl:tracking-normal rtl:normal-case hover:border-main hover:text-main transition-colors"
+          >
+            {t("showMore")}
+            <ArrowIcon />
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

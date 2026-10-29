@@ -30,6 +30,7 @@ export default function HomeCoursesSection() {
   const [activeLoginPromptCourseId, setActiveLoginPromptCourseId] = useState(null);
 
   const activeCourses = courses.filter((c) => c.status === "active");
+  const single = activeCourses.length === 1;
 
   const handleCardClick = (e, course) => {
     if (!session) {
@@ -39,22 +40,22 @@ export default function HomeCoursesSection() {
   };
 
   return (
-    <section id="courses-section" className="w-full py-20 px-4 md:px-8 relative z-10 scroll-mt-24">
+    <section id="courses-section" className="w-full pt-24 pb-6 px-4 relative z-10 scroll-mt-24">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-14">
+        <div className="mb-10">
           <AnimatedInView threshold={0.1}>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-semibold uppercase rtl:normal-case rtl:font-extrabold text-white tracking-tight">
               {t("coursesSectionTitle")}
             </h2>
           </AnimatedInView>
           <AnimatedInView threshold={0.1}>
-            <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mt-3">
+            <p className="text-gray-300 text-base sm:text-xl max-w-2xl mt-3">
               {t("coursesSectionSubtitle")}
             </p>
           </AnimatedInView>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+        <div className={single ? "grid grid-cols-1 gap-8" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center"}>
           {activeCourses.map((course, index) => {
             const courseName = isArabic ? course.name_ar : course.name;
             const courseDesc = isArabic ? course.description_ar : course.description;
@@ -67,7 +68,7 @@ export default function HomeCoursesSection() {
 
             return (
               <AnimatedWrapper key={course.id} delay={index * 0.15}>
-                <div className="group relative bg-neutral-900/90 rounded-3xl overflow-hidden border border-neutral-800 hover:border-main/50 transition-all duration-500 hover:shadow-2xl hover:shadow-main/10 flex flex-col justify-between h-full backdrop-blur-sm">
+                <div className="group relative bg-[#14110F] rounded-md overflow-hidden border border-[#3a3027] hover:border-main/50 transition-colors duration-300 h-full">
                   
                   {/* Login Required Overlay Modal */}
                   {showPrompt && (
@@ -118,10 +119,10 @@ export default function HomeCoursesSection() {
                   <Link
                     href={session ? courseHref : "#"}
                     onClick={(e) => handleCardClick(e, course)}
-                    className="block cursor-pointer flex flex-col justify-between h-full"
+                    className={`cursor-pointer h-full ${single ? "md:grid md:grid-cols-[1.05fr_1fr]" : "flex flex-col justify-between"}`}
                   >
                     {/* Thumbnail / Header */}
-                    <div className="relative aspect-video w-full overflow-hidden bg-neutral-950">
+                    <div className={`relative aspect-video w-full overflow-hidden bg-neutral-950 ${single ? "md:aspect-auto md:min-h-[320px]" : ""}`}>
                       <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-black/40 z-10" />
                       {course.thumbnail ? (
                         <Image
@@ -139,7 +140,7 @@ export default function HomeCoursesSection() {
 
                       {/* Top Badges (Free Badge) */}
                       <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-main text-black shadow-md">
+                        <span className="px-3 py-1 rounded-[3px] text-xs font-bold tracking-wider border border-main bg-black/70 text-main uppercase rtl:normal-case">
                           {isArabic ? "مجاني" : "Free"}
                         </span>
                       </div>
@@ -154,7 +155,7 @@ export default function HomeCoursesSection() {
                     </div>
 
                     {/* Body */}
-                    <div className="p-6 flex flex-col flex-grow justify-between">
+                    <div className="p-6 sm:p-8 flex flex-col flex-grow justify-between gap-4">
                       <div>
                         <div className="flex items-center gap-2 mb-3">
                           <div className="flex text-amber-400 text-sm">
@@ -166,10 +167,10 @@ export default function HomeCoursesSection() {
                           <span className="text-neutral-500 text-xs">({course.reviews})</span>
                         </div>
 
-                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-main transition-colors duration-300 line-clamp-2">
+                        <h3 className="text-2xl sm:text-4xl font-semibold uppercase rtl:normal-case rtl:font-extrabold text-white mb-3 group-hover:text-main transition-colors duration-300 line-clamp-2">
                           {courseName}
                         </h3>
-                        <p className="text-neutral-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                        <p className="text-neutral-300 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
                           {courseDesc}
                         </p>
                       </div>
@@ -186,7 +187,7 @@ export default function HomeCoursesSection() {
                           </span>
                         </div>
 
-                        <div className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-neutral-800 text-white font-semibold text-sm group-hover:bg-main group-hover:text-black transition-all duration-300 shadow-md">
+                        <div className="inline-flex items-center gap-2 py-3 px-7 rounded-full border-[1.5px] border-[#3a3027] text-[#F4D9B6] font-semibold text-sm group-hover:border-main group-hover:text-main transition-colors duration-300">
                           <span>{isArabic ? "شاهد محتوى الدورة" : "Access Course"}</span>
                           <ArrowIcon className="text-base transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
                         </div>
@@ -204,7 +205,7 @@ export default function HomeCoursesSection() {
           <AnimatedInView threshold={0.1}>
             <Link
               href={`/${locale}/courses`}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-neutral-700 bg-neutral-900/80 hover:bg-white hover:text-black hover:border-white text-white font-semibold text-base transition-all duration-300 shadow-lg"
+              className="inline-flex items-center gap-2 text-main font-semibold uppercase tracking-[0.1em] rtl:tracking-normal rtl:normal-case text-base hover:text-white transition-colors"
             >
               <span>{t("viewAllCourses")}</span>
               <ArrowIcon className="text-lg" />
