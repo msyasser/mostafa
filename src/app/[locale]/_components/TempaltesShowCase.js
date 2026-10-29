@@ -88,18 +88,18 @@ const templates = {
   ],
 };
 
-// Home page grid: the three premium systems, then the three most downloaded and best rated free templates.
-// Free ones were picked from the Notion Marketplace numbers (English + Arabic listings, collected 2026-10-28/29),
-// leaving out "Second Brain - Minimal Version" because the premium Second Brain is already in the grid:
-//   My Schedule     ~10.7K installs, 4.85 (170 ratings)
-//   My 2026 Goals   ~2.4K installs, 4.87 (30 ratings)
-//   90-Day Challenge ~2.4K installs, 4.57 (28 ratings)
+// Home page grid: the three premium systems, then three free templates picked by Mostafa:
+// Second Brain (Minimal), whichever of TaskMaster / TaskHub is more downloaded and better rated, and 90-Day Challenge.
+// Notion Marketplace numbers (English + Arabic listings together, collected 2026-10-28/29):
+//   Second Brain Minimal  ~9.7K installs, 4.91 (198 ratings)
+//   TaskMaster            ~550 installs, 4.85 (13 ratings)   <- chosen over TaskHub (~340 installs, 4.43, 7 ratings)
+//   90-Day Challenge      ~2.4K installs, 4.57 (28 ratings)
 const homeTemplates = [
   { id: 20, name: "Second Brain", slug: "second-brain", premium: true },
   { id: 19, name: "FinanceHub", slug: "finance-hub", premium: true },
   { id: 16, name: "StudyHub", slug: "study-hub", premium: true },
-  { id: 29, name: "My Schedule", slug: "my-schedule" },
-  { id: 50, name: "My 2026 Goals", slug: "my-2026-goals" },
+  { id: 23, name: "Second Brain - Minimal Version", slug: "second-brain-minimal" },
+  { id: 13, name: "TaskMaster", slug: "task-manager" },
   { id: 9, name: "90-Day Challenge", slug: "90-day-challenge" },
 ];
 
