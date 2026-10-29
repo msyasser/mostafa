@@ -105,7 +105,7 @@ export default function TemplateDetailsClient({ template }) {
                 className={`text-xl md:text-2xl mt-2 text-main text-center ${locale === "ar" ? "lg:text-right" : "lg:text-left"
                   }`}
               >
-                {t(`${template.name}.price`)}
+                {t(`${template.name}.price`) === "$0" ? "Free" : t(`${template.name}.price`)}
               </p>
               {!template.premium && (
                 <div className="mt-4 flex flex-wrap justify-center lg:justify-start items-center gap-2 text-xs md:text-sm">
