@@ -132,7 +132,7 @@ export default function HomePage() {
             </div>
 
             {/* Real template previews, stacked */}
-            <AnimatedWrapper delay={0.6} className="relative h-[340px] sm:h-[430px] lg:h-[440px]">
+            <AnimatedWrapper delay={0.6} className="relative w-full aspect-[10/9]">
               {stack.map((name, i) => (
                 <Image
                   key={name}
@@ -146,8 +146,8 @@ export default function HomePage() {
                     i === 0
                       ? "end-0 top-0 z-[1] w-[74%]"
                       : i === 1
-                        ? "start-[2%] top-[70px] sm:top-[90px] lg:top-[120px] z-[2] w-[74%]"
-                        : "end-[6%] top-[150px] sm:top-[190px] lg:top-[250px] z-[3] w-[64%]"
+                        ? "start-[2%] top-[22%] z-[2] w-[74%]"
+                        : "end-[6%] top-[44%] z-[3] w-[60%]"
                   }`}
                 />
               ))}

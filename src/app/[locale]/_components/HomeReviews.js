@@ -69,9 +69,9 @@ export default function HomeReviews() {
                   >
                     {[...review.name][0].toUpperCase()}
                   </span>
-                  <div className="min-w-0">
-                    <bdi className="block text-base font-semibold leading-tight text-white">{review.name}</bdi>
-                    <small className="block mt-0.5 text-[13px] text-neutral-400">
+                  <div className="min-w-0 flex flex-col items-start">
+                    <bdi className="text-base font-semibold leading-tight text-white">{review.name}</bdi>
+                    <small className="mt-0.5 text-[13px] text-neutral-400">
                       <bdi>{review.template}</bdi> · <time dateTime={review.date}>{dateFormat.format(new Date(review.date))}</time>
                     </small>
                   </div>
