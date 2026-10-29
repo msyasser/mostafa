@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
@@ -18,6 +18,16 @@ export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [resOpen, setResOpen] = useState(false);
   const [tplOpen, setTplOpen] = useState(false);
+  const tplTimer = useRef(null);
+  const openTpl = () => {
+    clearTimeout(tplTimer.current);
+    setTplOpen(true);
+    setResOpen(false);
+  };
+  const closeTpl = () => {
+    clearTimeout(tplTimer.current);
+    tplTimer.current = setTimeout(() => setTplOpen(false), 220);
+  };
   const [hostname, setHostname] = useState("");
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -129,8 +139,8 @@ export default function Navigation() {
                   <div
                     key={link.id}
                     className="flex items-center gap-1.5"
-                    onMouseEnter={() => { setTplOpen(true); setResOpen(false); }}
-                    onMouseLeave={() => setTplOpen(false)}
+                    onMouseEnter={openTpl}
+                    onMouseLeave={closeTpl}
                   >
                     <Link
                       href={link.href}
@@ -166,7 +176,7 @@ export default function Navigation() {
 
             <div
               className="relative"
-              onMouseEnter={() => { setResOpen(true); setTplOpen(false); }}
+              onMouseEnter={() => { setResOpen(true); clearTimeout(tplTimer.current); setTplOpen(false); }}
               onMouseLeave={() => setResOpen(false)}
             >
               <button
@@ -285,9 +295,9 @@ export default function Navigation() {
       {tplOpen && (
         <div
           role="menu"
-          className="hidden lg:block absolute top-full inset-x-0 border-b border-[#3a3027] bg-[#14110F] shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
-          onMouseEnter={() => setTplOpen(true)}
-          onMouseLeave={() => setTplOpen(false)}
+          className="hidden lg:block absolute top-full inset-x-0 border-b border-[#3a3027] bg-[#14110F] shadow-[0_30px_60px_rgba(0,0,0,0.6)] before:absolute before:-top-6 before:inset-x-0 before:h-6 before:content-['']"
+          onMouseEnter={openTpl}
+          onMouseLeave={closeTpl}
         >
           <div className="mx-auto max-w-7xl px-6 py-7 grid grid-cols-[1fr_1.6fr_0.9fr] gap-10">
             <div>

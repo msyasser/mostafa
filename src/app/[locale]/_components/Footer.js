@@ -96,7 +96,7 @@ function Footer() {
     <footer className="mt-20 sm:mt-24">
       {isHome ? (
         <AnimatedInView threshold={0.1}>
-          <div className="max-w-7xl mx-auto px-4 pt-10 pb-10 grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-14 items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-10 pb-10 grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-14 items-center">
             <div>
               <p className="text-main text-xs sm:text-sm tracking-[0.22em] rtl:tracking-normal uppercase">
                 {t("ctaEyebrow")}
@@ -137,7 +137,7 @@ function Footer() {
           </div>
         </AnimatedInView>
       ) : (
-        <div className="max-w-7xl mx-auto px-4 pt-6 flex flex-wrap items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-10 pb-8 flex flex-wrap items-center justify-between gap-4">
           <Link href={mainUrl()} className="inline-block">
             <Image
               src="/logos/lightLogo.webp"
@@ -152,7 +152,7 @@ function Footer() {
       )}
 
       {/* Pages row: custom work is a quiet gold link, the copyright closes the row */}
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <nav
           aria-label="Footer"
           className="flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-neutral-800 py-5 text-base text-neutral-300"
