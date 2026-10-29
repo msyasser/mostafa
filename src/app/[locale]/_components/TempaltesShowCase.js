@@ -88,6 +88,21 @@ const templates = {
   ],
 };
 
+// Home page grid: the three premium systems, then the three most downloaded and best rated free templates.
+// Free ones were picked from the Notion Marketplace numbers (English + Arabic listings, collected 2026-10-28/29),
+// leaving out "Second Brain - Minimal Version" because the premium Second Brain is already in the grid:
+//   My Schedule     ~10.7K installs, 4.85 (170 ratings)
+//   My 2026 Goals   ~2.4K installs, 4.87 (30 ratings)
+//   90-Day Challenge ~2.4K installs, 4.57 (28 ratings)
+const homeTemplates = [
+  { id: 20, name: "Second Brain", slug: "second-brain", premium: true },
+  { id: 19, name: "FinanceHub", slug: "finance-hub", premium: true },
+  { id: 16, name: "StudyHub", slug: "study-hub", premium: true },
+  { id: 29, name: "My Schedule", slug: "my-schedule" },
+  { id: 50, name: "My 2026 Goals", slug: "my-2026-goals" },
+  { id: 9, name: "90-Day Challenge", slug: "90-day-challenge" },
+];
+
 export default function TemplatesShowcase({ title, subtitle }) {
   const t = useTranslations("TemplatesShowcase");
   const tt = useTranslations("TemplateSlug");
@@ -154,7 +169,7 @@ export default function TemplatesShowcase({ title, subtitle }) {
           </AnimatedInView>
         </div>
         <AnimatedInView threshold={0.1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-10">
-          {renderTemplates([...templates.moreTemplates, ...templates.largeCollection].slice(0, 6))}
+          {renderTemplates(homeTemplates)}
         </AnimatedInView>
 
         <div className="flex justify-center mt-12">
