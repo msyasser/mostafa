@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import AnimatedInView from "./AnimatedInView";
+import { CREDLY_BADGE_URL } from "../_data/credentials";
 
 export default function HomeAboutSection() {
   const t = useTranslations("HomePage");
@@ -41,14 +42,22 @@ export default function HomeAboutSection() {
                   unoptimized={true}
                 />
               </div>
-              <Image
-                src="/badges/notion-consulting-partner.webp"
-                alt={isArabic ? "شريك استشارات نوشن" : "Notion Consulting Partner"}
-                width={272}
-                height={480}
-                className="absolute -bottom-6 -start-6 h-28 w-auto drop-shadow-[0_10px_18px_rgba(0,0,0,0.8)]"
-                unoptimized={true}
-              />
+              <a
+                href={CREDLY_BADGE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={isArabic ? "تحقق من الاعتماد على Credly" : "Verify this credential on Credly"}
+                className="absolute -bottom-6 -start-6 transition-transform duration-200 hover:scale-105"
+              >
+                <Image
+                  src="/badges/notion-consulting-partner.webp"
+                  alt={isArabic ? "شريك استشارات نوشن" : "Notion Consulting Partner"}
+                  width={272}
+                  height={480}
+                  className="h-28 w-auto drop-shadow-[0_10px_18px_rgba(0,0,0,0.8)]"
+                  unoptimized={true}
+                />
+              </a>
             </div>
           </AnimatedInView>
 

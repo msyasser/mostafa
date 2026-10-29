@@ -6,6 +6,7 @@ import { BsArrowDown } from "react-icons/bs";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import ConsultationCalendar from "./_components/ConsultationCalendar";
 import Reviews from "./_components/Reviews";
+import { CREDLY_BADGE_URL } from "../_data/credentials";
 
 const SITE_URL = "https://www.mostafayasser.com";
 
@@ -117,14 +118,22 @@ export default function ConsultationPage() {
                   unoptimized
                   priority
                 />
-                <Image
-                  src="/badges/notion-consulting-partner.webp"
-                  alt={t("hero.badgeAlt")}
-                  width={272}
-                  height={480}
-                  unoptimized
-                  className="absolute -bottom-6 -start-5 h-24 w-auto drop-shadow-[0_10px_18px_rgba(0,0,0,0.8)] sm:-start-8 sm:h-32"
-                />
+                <a
+                  href={CREDLY_BADGE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t("hero.badgeAlt")}
+                  className="absolute -bottom-6 -start-5 sm:-start-8 transition-transform duration-200 hover:scale-105"
+                >
+                  <Image
+                    src="/badges/notion-consulting-partner.webp"
+                    alt={t("hero.badgeAlt")}
+                    width={272}
+                    height={480}
+                    unoptimized
+                    className="h-24 w-auto drop-shadow-[0_10px_18px_rgba(0,0,0,0.8)] sm:h-32"
+                  />
+                </a>
               </div>
             </div>
           </div>

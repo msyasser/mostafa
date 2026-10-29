@@ -33,9 +33,10 @@ export default function TemplateCard({ template, index, isTemplatesSubdomain = f
   // Fallback function to get template price
   const getTemplatePrice = () => {
     try {
-      return t(`${template.name}.price`);
+      const price = t(`${template.name}.price`);
+      return price === "$0" ? "Free" : price;
     } catch (error) {
-      return template.premium ? "PRO" : "$0";
+      return template.premium ? "PRO" : "Free";
     }
   };
 
