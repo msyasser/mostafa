@@ -110,7 +110,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-black/80 backdrop-blur-md border-b border-main/25 z-50 p-3 transition-all duration-300 ease-in-out">
+    <nav className="fixed top-0 left-0 w-full bg-black/95 backdrop-blur-md border-b border-main/25 z-50 p-3 transition-all duration-300 ease-in-out">
       <BlurText duration={1}>
         <div className="flex justify-between items-center mx-auto max-w-7xl transition-all duration-300 ease-in-out">
           <Link
@@ -289,14 +289,16 @@ export default function Navigation() {
           onMouseEnter={() => setTplOpen(true)}
           onMouseLeave={() => setTplOpen(false)}
         >
-          <div className="mx-auto max-w-7xl px-6 py-8 grid grid-cols-[0.8fr_1.7fr_0.9fr] gap-10">
+          <div className="mx-auto max-w-7xl px-6 py-7 grid grid-cols-[1fr_1.6fr_0.9fr] gap-10">
             <div>
               <h5 className="text-main text-xs tracking-[0.2em] rtl:tracking-normal rtl:text-base uppercase rtl:normal-case font-semibold mb-3">{t("MEGA_BY_NEED")}</h5>
-              {megaCategories.map((c) => (
-                <Link key={c} href={categoryHref(c)} role="menuitem" className="block py-1.5 text-lg text-neutral-200 hover:text-main transition-colors">
-                  {tc(c)}
-                </Link>
-              ))}
+              <div className="grid grid-cols-2 gap-x-6">
+                {megaCategories.map((c) => (
+                  <Link key={c} href={categoryHref(c)} role="menuitem" className="block py-1.5 text-lg text-neutral-200 hover:text-main transition-colors">
+                    {tc(c)}
+                  </Link>
+                ))}
+              </div>
               <Link href={templatesHref} className="mt-3 inline-flex items-center gap-2 text-main font-semibold">
                 {t("MEGA_ALL")}
                 <ArrowIcon />
