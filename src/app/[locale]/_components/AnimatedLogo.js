@@ -74,8 +74,8 @@ export default function AnimatedLogo({ className = "h-10 w-auto" }) {
         key={playId}
         src={playId === 0 ? STATIC_SRC : ANIMATED_SRC}
         alt="Mostafa Yasser"
-        width={535}
-        height={73}
+        width={95}
+        height={71}
         unoptimized
         priority
         className="h-full w-auto max-h-full object-contain"
