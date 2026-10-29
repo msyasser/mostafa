@@ -166,20 +166,10 @@ function Footer() {
             {t("customSystems")} <span aria-hidden="true">{isArabic ? "←" : "→"}</span>
           </Link>
           <span className="flex-1 hidden lg:block" />
-          <span className="basis-full lg:basis-auto flex flex-wrap items-center gap-x-2 text-sm text-neutral-400">
+          <span className="basis-full lg:basis-auto text-sm text-neutral-400">
             <span dir="auto" suppressHydrationWarning>
               {t("copyright", { year: new Date().getFullYear() })}
             </span>
-            <span aria-hidden="true">·</span>
-            <a
-              dir="auto"
-              href="https://arab-os.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-main transition-colors"
-            >
-              {t("poweredBy")} Arab OS ↗
-            </a>
           </span>
         </nav>
       </div>
