@@ -36,7 +36,7 @@
   "routingCoursesBtn": "استعرض الدورات",
   "routingServicesTitle": "أنظمة نوشن مخصصة",
   "routingServicesDesc": "هندسة وبناء مساحات عمل احترافية ومخصصة بالكامل للشركات وفرق العمل.",
-  "routingServicesBtn": "استكشف الخدمات",
+  "routingServicesBtn": "شوف إزاي بنشتغل",
   "coursesSectionTitle": "الدورات والتعلم",
   "coursesSectionSubtitle": "شروحات ودورات عملية لمساعدتك على التفكير المنظم وبناء أنظمتك الإنتاجية",
   "viewAllCourses": "عرض جميع الدورات",
@@ -49,5 +49,15 @@
   "statSystems": "+50 نظام مبني",
   "statDownloads": "+100 ألف تحميل",
   "statRank": "المركز 1 في المتجر العربي",
-  "officialCerts": "الاعتمادات والشهادات الرسمية"
+  "officialCerts": "الاعتمادات والشهادات الرسمية",
+  "heroEyebrow": "استشاري معتمد من نوشن",
+  "heroRating": "4.8 من +800 تقييم على متجر نوشن",
+  "heroStats": [{ "value": "+50", "label": "نظام مبني" }, { "value": "+100 ألف", "label": "تحميل" }, { "value": "#1", "label": "في المتجر العربي" }, { "value": "معتمد", "label": "استشاري نوشن" }],
+  "reviewsTitle": "بيقولوا إيه",
+  "reviewsSubtitle": "تقييمات حقيقية من متجر نوشن.",
+  "reviewsAvgValue": "4.8 ★",
+  "reviewsAvgLabel": "متوسط التقييم",
+  "reviewsCountValue": "+800",
+  "reviewsCountLabel": "تقييم",
+  "reviewsAll": "اقرأ كل التقييمات على نوشن"
 }

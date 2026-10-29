@@ -36,7 +36,7 @@
   "routingCoursesBtn": "View Courses",
   "routingServicesTitle": "Custom Notion Systems",
   "routingServicesDesc": "Tailored workspace architecture built for growing teams, businesses, and creators.",
-  "routingServicesBtn": "Explore Services",
+  "routingServicesBtn": "See how it works",
   "coursesSectionTitle": "Mastery Courses & Learning",
   "coursesSectionSubtitle": "In-depth tutorials and masterclasses to help you build clarity and optimize your workflows",
   "viewAllCourses": "Explore All Courses",
@@ -49,5 +49,15 @@
   "statSystems": "50+ Systems Built",
   "statDownloads": "100K+ Downloads",
   "statRank": "#1 Arabic Marketplace",
-  "officialCerts": "Official Notion Accreditations"
+  "officialCerts": "Official Notion Accreditations",
+  "heroEyebrow": "Notion Certified Consultant",
+  "heroRating": "4.8 from 800+ ratings on the Notion Marketplace",
+  "heroStats": [{ "value": "50+", "label": "Systems built" }, { "value": "100K+", "label": "Downloads" }, { "value": "#1", "label": "Arabic marketplace" }, { "value": "Certified", "label": "Notion consultant" }],
+  "reviewsTitle": "What people say",
+  "reviewsSubtitle": "Real reviews from the Notion Marketplace.",
+  "reviewsAvgValue": "4.8 ★",
+  "reviewsAvgLabel": "Average rating",
+  "reviewsCountValue": "800+",
+  "reviewsCountLabel": "Ratings",
+  "reviewsAll": "Read all reviews on Notion"
 }

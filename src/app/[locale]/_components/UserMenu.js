@@ -55,11 +55,27 @@ export default function UserMenu({ inline = false, onItemClick }) {
         )}`
       : `/${locale}/auth/signin`;
 
+    if (!inline) {
+      // Desktop header: a quiet account icon, so the header has one clear action only
+      return (
+        <a
+          href={signinHref}
+          aria-label={t("SIGN_IN")}
+          title={t("SIGN_IN")}
+          className="flex items-center justify-center w-9 h-9 rounded-full border border-white/20 text-gray-300 hover:text-main hover:border-main/60 transition-colors duration-200 shrink-0"
+        >
+          <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="1.6" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a7.5 7.5 0 0115 0" />
+          </svg>
+        </a>
+      );
+    }
+
     return (
       <a
         href={signinHref}
         onClick={onItemClick}
-        className={`rounded-full font-semibold border border-main/60 text-main hover:bg-main hover:text-black transition-all duration-200 shrink-0 ${inline ? "text-base px-10 py-3" : "text-sm px-4 py-2"}`}
+        className="rounded-full font-semibold border border-main/60 text-main hover:bg-main hover:text-black transition-all duration-200 shrink-0 text-base px-10 py-3"
       >
         {t("SIGN_IN")}
       </a>

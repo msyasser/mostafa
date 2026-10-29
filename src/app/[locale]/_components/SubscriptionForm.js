@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 
-function SubscriptionForm({ children, className, includeName = false, buttonText }) {
+function SubscriptionForm({ children, className, includeName = false, buttonText, inputClassName, buttonClassName }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -97,12 +97,12 @@ function SubscriptionForm({ children, className, includeName = false, buttonText
             placeholder="Your email address"
             required
             disabled
-            className="w-full px-5 py-3.5 rounded-xl shadow-md bg-white/5 border border-white/10 text-white placeholder:text-gray-400 focus:outline-none transition disabled:opacity-50"
+            className={inputClassName || "w-full px-5 py-3.5 rounded-xl shadow-md bg-white/5 border border-white/10 text-white placeholder:text-gray-400 focus:outline-none transition disabled:opacity-50"}
           />
           <button
             type="submit"
             disabled
-            className="w-full px-6 py-3.5 bg-main text-black font-bold rounded-xl shadow-md transition disabled:opacity-50"
+            className={buttonClassName || "w-full px-6 py-3.5 bg-main text-black font-bold rounded-xl shadow-md transition disabled:opacity-50"}
           >
             Subscribe
           </button>
@@ -134,12 +134,12 @@ function SubscriptionForm({ children, className, includeName = false, buttonText
           placeholder={t("placeholder")}
           required
           disabled={isLoading}
-          className="w-full px-5 py-3.5 rounded-xl shadow-md bg-neutral-800/80 border border-neutral-700/80 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent transition duration-200"
+          className={inputClassName || "w-full px-5 py-3.5 rounded-xl shadow-md bg-neutral-800/80 border border-neutral-700/80 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent transition duration-200"}
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full px-6 py-3.5 bg-main text-black font-bold rounded-xl shadow-[0_0_20px_rgba(215,177,128,0.3)] hover:bg-white transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
+          className={buttonClassName || "w-full px-6 py-3.5 bg-main text-black font-bold rounded-xl shadow-[0_0_20px_rgba(215,177,128,0.3)] hover:bg-white transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"}
         >
           {isLoading ? t("loading") || "Loading..." : submitLabel}
         </button>

@@ -6,6 +6,7 @@ import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
 import HeroScrollIndicator from "@/src/app/[locale]/_components/HeroScrollIndicator";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import SEOOptimizer from "./_components/SEOOptimizer";
+import Image from "next/image";
 
 // Lazy load components that are not immediately visible
 const HomeRoutingSection = dynamic(() => import("@/src/app/[locale]/_components/HomeRoutingSection"), {
@@ -17,11 +18,11 @@ const TemplatesShowcase = dynamic(() => import("@/src/app/[locale]/_components/T
 const HomeCoursesSection = dynamic(() => import("@/src/app/[locale]/_components/HomeCoursesSection"), {
   loading: () => <div className="animate-pulse h-96 bg-gray-800/40 rounded-3xl my-8"></div>,
 });
-const HomeAboutSection = dynamic(() => import("@/src/app/[locale]/_components/HomeAboutSection"), {
+const HomeReviews = dynamic(() => import("@/src/app/[locale]/_components/HomeReviews"), {
   loading: () => <div className="animate-pulse h-96 bg-gray-800/40 rounded-3xl my-8"></div>,
 });
-const ContactCTASection = dynamic(() => import("@/src/app/[locale]/_components/ContactCTASection"), {
-  loading: () => <div className="animate-pulse h-64 bg-gray-800/40 rounded-3xl my-8"></div>,
+const HomeAboutSection = dynamic(() => import("@/src/app/[locale]/_components/HomeAboutSection"), {
+  loading: () => <div className="animate-pulse h-96 bg-gray-800/40 rounded-3xl my-8"></div>,
 });
 
 export async function generateMetadata({ params }) {
@@ -85,8 +86,11 @@ export async function generateMetadata({ params }) {
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
+  const tt = useTranslations("TemplateSlug");
   const locale = useLocale();
-  const isArabic = locale === "ar";
+  const stats = t.raw("heroStats");
+  // Three premium systems shown as a stack of real template previews
+  const stack = ["Second Brain", "FinanceHub", "StudyHub"];
 
   return (
     <>
@@ -100,23 +104,68 @@ export default function HomePage() {
       />
       <BlurText>
         {/* 1. HERO SECTION */}
-        <div className="text-center min-h-[calc(100vh-160px)] flex flex-col justify-center items-center relative overflow-hidden px-4">
+        <div className="relative mx-auto max-w-7xl px-4 pt-6 md:pt-12 overflow-x-clip">
           {/* Ambient Gold Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[800px] h-[350px] bg-main/10 blur-[140px] -z-10 rounded-full pointer-events-none" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[400px] bg-main/10 blur-[140px] -z-10 rounded-full pointer-events-none" />
 
-          <AnimatedText className="max-w-5xl mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-7xl px-4 font-extrabold leading-tight tracking-tight">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
-              <TypewriterText text={t("titlePrefix")} highlightText={t("titleHighlight")} />
-            </h1>
-          </AnimatedText>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.12fr_0.88fr] gap-10 lg:gap-6 items-center">
+            <div>
+              <p className="text-main text-xs sm:text-sm tracking-[0.22em] rtl:tracking-normal uppercase mb-3">
+                {t("heroEyebrow")}
+              </p>
+              <AnimatedText>
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-semibold uppercase leading-[1.02] rtl:leading-[1.25] rtl:font-extrabold rtl:text-5xl rtl:sm:text-6xl rtl:xl:text-7xl">
+                  <TypewriterText text={t("titlePrefix")} highlightText={t("titleHighlight")} />
+                </h1>
+              </AnimatedText>
 
-          <AnimatedWrapper delay={2.5}>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mt-8 max-w-3xl mx-auto px-4 font-medium tracking-wide">
-              {t("subtitle")}
-            </p>
+              <AnimatedWrapper delay={2.5}>
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mt-7 max-w-xl font-medium">
+                  {t("subtitle")}
+                </p>
+                <p className="mt-5 text-sm sm:text-base text-neutral-400 flex items-center gap-3">
+                  <span className="text-main tracking-[0.2em]" aria-hidden="true">★★★★★</span>
+                  <span>{t("heroRating")}</span>
+                </p>
+                <HeroScrollIndicator />
+              </AnimatedWrapper>
+            </div>
 
-            <HeroScrollIndicator />
-          </AnimatedWrapper>
+            {/* Real template previews, stacked */}
+            <AnimatedWrapper delay={0.6} className="relative h-[340px] sm:h-[430px] lg:h-[440px]">
+              {stack.map((name, i) => (
+                <Image
+                  key={name}
+                  src={tt(`${name}.image`)}
+                  alt={tt(`${name}.name`)}
+                  width={900}
+                  height={726}
+                  unoptimized
+                  priority={i === 0}
+                  className={`absolute rounded-2xl shadow-[0_26px_60px_rgba(0,0,0,0.65)] h-auto ${
+                    i === 0
+                      ? "end-0 top-0 z-[1] w-[74%]"
+                      : i === 1
+                        ? "start-[2%] top-[70px] sm:top-[90px] lg:top-[120px] z-[2] w-[74%]"
+                        : "end-[6%] top-[150px] sm:top-[190px] lg:top-[250px] z-[3] w-[64%]"
+                  }`}
+                />
+              ))}
+            </AnimatedWrapper>
+          </div>
+
+          {/* Stats strip */}
+          <dl className="mt-14 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-5 border-t border-neutral-800 pt-6">
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 min-w-0">
+                <dt className="sr-only">{s.label}</dt>
+                <dd className="text-2xl sm:text-4xl font-semibold text-main">{s.value}</dd>
+                <span className="text-xs sm:text-sm text-neutral-400 uppercase tracking-wider rtl:tracking-normal rtl:normal-case" aria-hidden="true">
+                  {s.label}
+                </span>
+              </div>
+            ))}
+          </dl>
         </div>
 
         {/* 2. ROUTING / PATH FINDER SECTION */}
@@ -128,11 +177,11 @@ export default function HomePage() {
         {/* 4. COURSES & ACADEMY SECTION */}
         <HomeCoursesSection />
 
-        {/* 5. ABOUT ME & CREDIBILITY SECTION */}
-        <HomeAboutSection />
+        {/* 5. REVIEWS FROM THE NOTION MARKETPLACE */}
+        <HomeReviews />
 
-        {/* 6. FINAL HIGH-CONVERSION CTA SECTION */}
-        <ContactCTASection />
+        {/* 6. ABOUT ME & CREDIBILITY SECTION */}
+        <HomeAboutSection />
       </BlurText>
     </>
   );
