@@ -88,6 +88,21 @@ const templates = {
   ],
 };
 
+// Home page grid: the three premium systems, then three free templates picked by Mostafa:
+// Second Brain (Minimal), whichever of TaskMaster / TaskHub is more downloaded and better rated, and 90-Day Challenge.
+// Notion Marketplace numbers (English + Arabic listings together, collected 2026-10-28/29):
+//   Second Brain Minimal  ~9.7K installs, 4.91 (198 ratings)
+//   TaskMaster            ~550 installs, 4.85 (13 ratings)   <- chosen over TaskHub (~340 installs, 4.43, 7 ratings)
+//   90-Day Challenge      ~2.4K installs, 4.57 (28 ratings)
+const homeTemplates = [
+  { id: 20, name: "Second Brain", slug: "second-brain", premium: true },
+  { id: 19, name: "FinanceHub", slug: "finance-hub", premium: true },
+  { id: 16, name: "StudyHub", slug: "study-hub", premium: true },
+  { id: 23, name: "Second Brain - Minimal Version", slug: "second-brain-minimal" },
+  { id: 13, name: "TaskMaster", slug: "task-manager" },
+  { id: 9, name: "90-Day Challenge", slug: "90-day-challenge" },
+];
+
 export default function TemplatesShowcase({ title, subtitle }) {
   const t = useTranslations("TemplatesShowcase");
   const tt = useTranslations("TemplateSlug");
@@ -154,7 +169,7 @@ export default function TemplatesShowcase({ title, subtitle }) {
           </AnimatedInView>
         </div>
         <AnimatedInView threshold={0.1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-10">
-          {renderTemplates([...templates.moreTemplates, ...templates.largeCollection].slice(0, 6))}
+          {renderTemplates(homeTemplates)}
         </AnimatedInView>
 
         <div className="flex justify-center mt-12">
