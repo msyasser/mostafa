@@ -75,6 +75,7 @@ export default async function CaseStudyPage({ params }) {
     }
 
     const t = await getTranslations("CaseStudiesPage");
+    const metaPrefix = project.contentKey.replace(/\.content$/, ".meta");
 
     return (
         <div className="min-h-screen bg-[#191919] text-[#D4D4D4] selection:bg-[#3f2e1e] selection:text-[#eb5e28] py-8 lg:py-16">
@@ -122,8 +123,8 @@ export default async function CaseStudyPage({ params }) {
 
                                         // Paragraphs & Lists
                                         p: ({ node, ...props }) => <p className="mb-6 leading-relaxed text-[17px]" {...props} />,
-                                        ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-6 space-y-2 marker:text-gray-500" {...props} />,
-                                        ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-2 marker:text-gray-500" {...props} />,
+                                        ul: ({ node, ...props }) => <ul className="list-disc ps-6 mb-6 space-y-2 marker:text-gray-500" {...props} />,
+                                        ol: ({ node, ...props }) => <ol className="list-decimal ps-6 mb-6 space-y-2 marker:text-gray-500" {...props} />,
                                         li: ({ node, ...props }) => <li className="pl-1" {...props} />,
 
                                         // Bold & Links
@@ -135,7 +136,7 @@ export default async function CaseStudyPage({ params }) {
 
                                         // Blockquote -> Notion Callout Style
                                         blockquote: ({ node, ...props }) => (
-                                            <div className="my-8 bg-[#202020] border-l-4 border-[#d7b180] rounded-r-lg p-5 shadow-sm">
+                                            <div className="my-8 bg-[#202020] border-s-4 border-[#d7b180] rounded-e-lg p-5 shadow-sm">
                                                 <blockquote className="m-0 italic text-gray-300" {...props} />
                                             </div>
                                         ),
@@ -165,21 +166,21 @@ export default async function CaseStudyPage({ params }) {
                                             <div className="mt-1 text-gray-500"><FaBriefcase /></div>
                                             <div>
                                                 <span className="block text-xs uppercase text-gray-500 mb-1">{t("client")}</span>
-                                                <span className="text-white font-medium">{project.metadata.client}</span>
+                                                <span className="text-white font-medium">{t(`${metaPrefix}.client`)}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-4">
                                             <div className="mt-1 text-gray-500"><FaMapMarkerAlt /></div>
                                             <div>
                                                 <span className="block text-xs uppercase text-gray-500 mb-1">{t("location")}</span>
-                                                <span className="text-white font-medium">{project.metadata.location}</span>
+                                                <span className="text-white font-medium">{t(`${metaPrefix}.location`)}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-4">
                                             <div className="mt-1 text-gray-500"><FaCalendarAlt /></div>
                                             <div>
                                                 <span className="block text-xs uppercase text-gray-500 mb-1">{t("date")}</span>
-                                                <span className="text-white font-medium">{project.metadata.date}</span>
+                                                <span className="text-white font-medium">{t(`${metaPrefix}.date`)}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-4">
