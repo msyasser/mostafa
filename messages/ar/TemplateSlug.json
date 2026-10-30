@@ -1,17 +1,17 @@
 {
-  "recommendedTitle": "قد يعجبك أيضًا",
-  "showMore": "عرض المزيد من القوالب",
+  "recommendedTitle": "ممكن يعجبك كمان",
+  "showMore": "شوف قوالب أكتر",
   "templateLanguage": "لغة القالب",
   "premiumOffer": {
     "title": "عرض خاص!",
     "subtitle": "احصل على خصم %50 على قالبك المميز",
-    "couponDescription": "استخدم رمز القسيمة هذا عند الدفع:",
-    "copy": "نسخ",
-    "copied": "تم النسخ!",
+    "couponDescription": "استخدم كود الخصم ده وانت بتدفع:",
+    "copy": "انسخ",
+    "copied": "اتنسخ!",
     "templateInfo": "صالح لقالب {templateName}",
-    "expiryInfo": "ينتهي العرض خلال 24 ساعة",
-    "maybeLater": "ربما لاحقاً",
-    "getOffer": "احصل على العرض"
+    "expiryInfo": "العرض بينتهي خلال 24 ساعة",
+    "maybeLater": "مش دلوقتي",
+    "getOffer": "خد العرض"
   },
   "Prayer Times": {
     "name": "مواقيت الصلاة",

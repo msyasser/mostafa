@@ -89,7 +89,7 @@ export default function CourseCard({ course, isCoursesSubdomain = false }) {
               {isArabic ? "تسجيل الدخول مطلوب" : "Login Required"}
             </h3>
             <p className="text-gray-400 mb-4 text-sm">
-              {isArabic ? "يرجى تسجيل الدخول لمشاهدة هذه الدورة" : "Please login to access this course"}
+              {isArabic ? "سجّل دخولك عشان تشوف الدورة دي" : "Please login to access this course"}
             </p>
             <Link
               href={signinHref}
@@ -173,7 +173,7 @@ export default function CourseCard({ course, isCoursesSubdomain = false }) {
 
         {/* Action Button */}
         <div className="w-full bg-main text-black font-semibold py-3 px-4 rounded-lg text-center hover:bg-white transition-colors duration-300">
-          {course.youtubePlaylist ? (isArabic ? "شاهد الدورة" : "Watch Course") : t("viewCourse")}
+          {course.youtubePlaylist ? (isArabic ? "شوف الدورة" : "Watch Course") : t("viewCourse")}
         </div>
       </div>
       </Link>

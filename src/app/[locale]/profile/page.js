@@ -9,7 +9,7 @@ export async function generateMetadata({ params }) {
   return {
     title: isArabic ? "الملف الشخصي والإعدادات | مصطفى ياسر" : "Profile & Settings | Mostafa Yasser",
     description: isArabic
-      ? "إدارة معلوماتك الشخصية، الأمان، وتفضيلات حسابك على منصة مصطفى ياسر."
+      ? "إدارة بياناتك والأمان وتفضيلات حسابك على موقع مصطفى ياسر."
       : "Manage your personal information, security, and account preferences on Mostafa Yasser's platform.",
     robots: {
       index: false,

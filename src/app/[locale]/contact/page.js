@@ -7,9 +7,9 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const isArabic = locale === "ar";
   const siteUrl = "https://www.mostafayasser.com";
-  const title = isArabic ? "اتصل بنا" : "Contact";
+  const title = isArabic ? "تواصل معايا" : "Contact";
   const description = isArabic
-    ? "تواصل مع مصطفى ياسر للحصول على قوالب نوشن مخصصة، التعاون، فرص التسويق بالعمولة، أو أي استفسارات."
+    ? "تواصل مع مصطفى ياسر لو محتاج قوالب نوشن مخصصة، أو تعاون، أو شراكة بالعمولة، أو عندك أي استفسار."
     : "Reach out to Mostafa Yasser for custom Notion templates, collaborations, affiliate opportunities, or any inquiries.";
   const url = `${siteUrl}/${locale}/contact`;
   const imageUrl = `${siteUrl}/icon.png`;

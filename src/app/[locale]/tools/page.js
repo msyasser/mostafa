@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
     const siteUrl = "https://www.mostafayasser.com";
     const title = isArabic ? "الأدوات المجانية" : "Free Tools";
     const description = isArabic
-        ? "مجموعة من الأدوات المجانية لزيادة إنتاجيتك وتنظيم حياتك. تتضمن مؤقت بومودورو، متتبع العادات، والمزيد."
+        ? "مجموعة أدوات مجانية بتزوّد إنتاجيتك وتنظّم حياتك: مؤقت بومودورو، ومتتبع العادات، وغيرهم."
         : "A collection of free tools to boost your productivity and organize your life. Includes Pomodoro timer, habit tracker, and more.";
     const url = `${siteUrl}/${locale}/tools`;
 

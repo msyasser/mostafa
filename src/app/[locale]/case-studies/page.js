@@ -9,7 +9,7 @@ export async function generateMetadata({ params }) {
     const siteUrl = "https://www.mostafayasser.com";
     const title = isArabic ? "دراسات الحالة" : "Case Studies";
     const description = isArabic
-        ? "استكشف كيف قمت بحل مشاكل الأعمال المعقدة باستخدام نوشن."
+        ? "شوف إزاي حلّيت مشاكل شغل معقدة باستخدام نوشن."
         : "Explore how I solved complex business problems with custom Notion systems.";
     const url = `${siteUrl}/${locale}/case-studies`;
 

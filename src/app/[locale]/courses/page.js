@@ -20,7 +20,7 @@ export async function generateMetadata({ params }) {
     : "Courses";
 
   const description = isArabic
-    ? "تعلم إتقان نوشن مع دورات مصطفى ياسر التدريبية. من المبتدئين إلى المتقدمين، اكتشف كيفية بناء أنظمة إنتاجية قوية."
+    ? "اتقن نوشن مع دورات مصطفى ياسر. من المبتدئين للمتقدمين، واتعلّم إزاي تبني أنظمة إنتاجية قوية."
     : "Master Notion with Mostafa Yasser's comprehensive courses. From beginners to advanced users, learn how to build powerful productivity systems.";
 
   return {
