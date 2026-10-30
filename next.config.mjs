@@ -178,6 +178,12 @@ const nextConfig = {
         permanent: true,
       },
       {
+        // The old "coming soon" page; the free tools are the resources people can use today
+        source: "/:locale(en|ar)/resources",
+        destination: "/:locale/tools",
+        permanent: true,
+      },
+      {
         source: "/ramadan-competition",
         destination: "/en/templates/ramadan-competition",
         permanent: true,

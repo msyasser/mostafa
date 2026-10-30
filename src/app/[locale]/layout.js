@@ -108,7 +108,7 @@ export default async function LocaleLayout({ children, params }) {
     <html
       lang={locale}
       dir={dir}
-      className={locale === "ar" ? tajawal.className : oswald.className}
+      className={`dark ${locale === "ar" ? tajawal.className : oswald.className}`}
       suppressHydrationWarning={true}
     >
       <head>

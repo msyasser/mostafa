@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* The site is dark only: `dark:` styles follow the <html class="dark"> set in the layout,
+   not the visitor's device theme (a light-mode device used to get white cards with white text). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 html {
   scroll-behavior: smooth;
 }
