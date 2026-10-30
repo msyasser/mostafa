@@ -115,5 +115,351 @@
         "title": "Let’s Build a System That Works for You.",
         "ctaBook": "Book a Consultation",
         "ctaContact": "Contact Me"
+    },
+    "v2": {
+        "hero": {
+            "badge": "System Architect & Notion Certified",
+            "titleStart": "Custom Notion Systems Built Around ",
+            "titleEm": "How You Think",
+            "titleEnd": " & Work",
+            "subtitle": "I design structured, scalable systems that bring clarity to your workflow, whether you are an individual or a growing company.",
+            "ctaBook": "Book a free call",
+            "ctaCases": "View case studies",
+            "note": "Free · 30 minutes · No commitment",
+            "ratingLabel": "Rated",
+            "ratingValue": "4.8",
+            "ratingText": "800+ ratings, Notion Marketplace",
+            "systemsValue": "50+",
+            "systemsLabel": "Systems built",
+            "downloadsValue": "100K+",
+            "downloadsLabel": "Template downloads",
+            "badgeTitle": "Notion Consulting Partner",
+            "badgeNote": "Verified on Credly",
+            "clientsTitle": "Teams I've built systems for"
+        },
+        "quotes": {
+            "eyebrow": "Clients",
+            "title": "In their words",
+            "translated": "Translated from Arabic",
+            "items": [
+                {
+                    "q": "Honestly, the system he built exceeded my expectations. It's far better than I imagined, and he even added essentials I hadn't thought of.",
+                    "who": "Dr. Mahmoud",
+                    "what": "Resaltk App OS"
+                },
+                {
+                    "q": "Eng. Mostafa's work is honestly excellent, and the best part is that he always thinks ahead for me and suggests things I hadn't considered.",
+                    "who": "Mohamed Shoieb",
+                    "what": "Gold Tracker, Yearly Finance Tracker"
+                }
+            ]
+        },
+        "offers": {
+            "eyebrow": "Services",
+            "title": "What I build",
+            "subtitle": "Five ways to work together, from one workflow to a full operating system.",
+            "items": [
+                {
+                    "t": "Custom Workspace Implementation",
+                    "d": "Fully customized Notion workspaces for startups and SMBs: CRM, HR, company wikis. Your processes in a bilingual (Arabic & English) environment."
+                },
+                {
+                    "t": "Full-Stack Custom Development",
+                    "d": "Client portals and web apps that use Notion as a robust backend, with custom code where Notion alone is not enough."
+                },
+                {
+                    "t": "Advanced Automations & API Integrations",
+                    "d": "Notion connected to your tools through n8n, Make, Zapier and custom APIs, so manual data entry disappears."
+                },
+                {
+                    "t": "Notion AI Strategy & Implementation",
+                    "d": "Custom instructions, playbooks and data access that turn Notion AI into a teammate who knows your context."
+                },
+                {
+                    "t": "Business Consulting & Team Training",
+                    "d": "Process analysis before building, and interactive training for Arab teams after launch."
+                }
+            ]
+        },
+        "process": {
+            "eyebrow": "Methodology",
+            "title": "How we build your system",
+            "steps": [
+                {
+                    "t": "Understand Your Workflow",
+                    "d": "A deep dive into your current processes and pain points."
+                },
+                {
+                    "t": "Design the Architecture",
+                    "d": "A blueprint for a custom solution built around your logic."
+                },
+                {
+                    "t": "Build & Integrate",
+                    "d": "Develop the system and connect your essential tools."
+                },
+                {
+                    "t": "Test & Refine",
+                    "d": "Make sure everything works before launch."
+                },
+                {
+                    "t": "Deliver & Train",
+                    "d": "Handover with training, so your team actually uses it."
+                }
+            ]
+        },
+        "cases": {
+            "eyebrow": "Portfolio",
+            "title": "Selected projects",
+            "subtitle": "Real systems, built for real people.",
+            "view": "View case study",
+            "items": [
+                {
+                    "slug": "gold-investment-tracking-system",
+                    "tag": "Individual investor",
+                    "t": "Real-Time Gold Investment Tracking System",
+                    "d": "Automated Notion dashboard with live gold price API integration and automated profit and ROI calculation.",
+                    "tools": [
+                        "Notion",
+                        "Gold Price API",
+                        "Google Apps Script"
+                    ]
+                },
+                {
+                    "slug": "resaltk-research-app-project-management",
+                    "tag": "Mobile app",
+                    "t": "Research App Project Management System",
+                    "d": "A Notion dashboard for managing research app development: tasks, ideas, meetings, people and documents.",
+                    "tools": [
+                        "Notion"
+                    ]
+                },
+                {
+                    "slug": "trend-design-business-operating-system",
+                    "tag": "Interior design",
+                    "t": "Notion Operating System for an Interior Design Company",
+                    "d": "One workspace for projects, clients, design, finance, sales, HR and company operations.",
+                    "tools": [
+                        "Notion"
+                    ]
+                }
+            ]
+        },
+        "pricing": {
+            "eyebrow": "Pricing",
+            "titleLine1": "Clear scope.",
+            "titleLine2": "Clear price. No surprises.",
+            "subtitle": "The ranges help you plan; your proposal sets the deliverables, the timeline and a fixed fee, in writing, before we begin.",
+            "bestFor": "Best for:",
+            "budgetPrefix": "Different budget?",
+            "budgetLink": "Let's shape the scope",
+            "groups": {
+                "start": {
+                    "title": "1 · Start",
+                    "sub": "You never pay for a build before you know what it includes",
+                    "cta": "Book a free call",
+                    "rows": [
+                        {
+                            "t": "Free discovery call",
+                            "tag": "Step 1",
+                            "p": "$0",
+                            "u": "30 minutes",
+                            "li": [
+                                "We talk about how you work and what slows you down",
+                                "An honest answer on whether Notion is the right fit",
+                                "No pitch, no commitment"
+                            ]
+                        },
+                        {
+                            "t": "Systems Review",
+                            "tag": "Optional",
+                            "p": "$80 – $130",
+                            "u": "2 to 4 hours",
+                            "li": [
+                                "A focused review of one workflow or workspace area",
+                                "Written findings and a prioritised plan",
+                                "A fixed quote for the build",
+                                "Credited in full if you book a project within 30 days"
+                            ]
+                        }
+                    ]
+                },
+                "projects": {
+                    "title": "2 · Projects",
+                    "sub": "Indicative ranges in USD · fixed fee in your proposal",
+                    "cta": "Book a free call",
+                    "rows": [
+                        {
+                            "t": "Focused Implementation",
+                            "best": "Freelancers and small teams who need one important workflow working properly.",
+                            "p": "$350 – $650",
+                            "u": "project range · about 1 to 2 weeks",
+                            "li": [
+                                "One defined workflow built around your process",
+                                "Dashboard and agreed automations",
+                                "Handover video, training and documentation",
+                                "30 days of fixes for agreed deliverables"
+                            ]
+                        },
+                        {
+                            "t": "Connected Business System",
+                            "best": "Teams whose projects, clients and payments live in different places.",
+                            "p": "$750 – $1,450",
+                            "u": "project range · about 2 to 4 weeks",
+                            "badge": "Most requested",
+                            "li": [
+                                "Several connected workflows and shared data",
+                                "Dashboards and access designed for team roles",
+                                "Limited data import and basic automations",
+                                "Training, documentation and 30 days of fixes"
+                            ]
+                        },
+                        {
+                            "t": "Advanced & Custom",
+                            "best": "Multi-team operations, integrations and automation beyond Notion.",
+                            "p": "$1,500",
+                            "u": "starting from · scoped after a conversation",
+                            "li": [
+                                "Multi-team architecture and permissions",
+                                "API and n8n integrations, AI workflows",
+                                "Phased delivery with agreed milestones",
+                                "Full training and SOP documentation"
+                            ]
+                        }
+                    ]
+                },
+                "support": {
+                    "title": "3 · Monthly support",
+                    "sub": "Billed monthly · cancel before the next renewal",
+                    "cta": "Ask about support",
+                    "rows": [
+                        {
+                            "t": "Support",
+                            "best": "A finished system that needs upkeep and regular improvements.",
+                            "p": "$200",
+                            "u": "per month · up to 6 hours",
+                            "li": [
+                                "Fixes, small changes and improvements",
+                                "Reply within 2 business days"
+                            ]
+                        },
+                        {
+                            "t": "Growth",
+                            "best": "Teams that keep expanding their system.",
+                            "p": "$600",
+                            "u": "per month · up to 20 hours",
+                            "badge": "Best value",
+                            "li": [
+                                "New databases, views and automations",
+                                "One 30-minute call each month"
+                            ]
+                        },
+                        {
+                            "t": "Dedicated",
+                            "best": "Companies that want a Notion specialist on call every week.",
+                            "p": "Tailored",
+                            "u": "40+ hours a month",
+                            "li": [
+                                "Weekly call and priority queue",
+                                "Hours and fee agreed together"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "detailsSummary": "How support hours work",
+            "detailsText": "Quick task: up to 1.5 hours (change a view, add a property, fix a formula). Mid-size task: up to 6 hours (new database, dashboard or automation). Extra hours: $35/hour, always quoted and approved before work starts. Meetings count toward included hours; unused hours expire at month-end. Response times refer to acknowledgment, not guaranteed resolution.",
+            "footnote": "The final price depends on the size of the system, people and access, automation, existing data, training and timeline. All prices in USD; software subscriptions and taxes are separate; your proposal sets the payment schedule and milestones.",
+            "gate": {
+                "eyebrow": "Budget and scope",
+                "title": "Your budget is different? Let's shape the scope.",
+                "desc": "The rates reflect the work, so they stay. What we can change is the shape of the project, so it fits your budget and still delivers something useful.",
+                "opts": [
+                    {
+                        "t": "A smaller first phase",
+                        "d": "Start with the one workflow that matters most and expand later."
+                    },
+                    {
+                        "t": "Staged delivery",
+                        "d": "Split the build into milestones with a payment schedule that follows them."
+                    },
+                    {
+                        "t": "A lighter alternative",
+                        "d": "A ready-made template or the free course, if that serves you better right now."
+                    }
+                ],
+                "principle": "We adjust the scope, not the standard of the work.",
+                "cta": "Share your budget and goals"
+            }
+        },
+        "fit": {
+            "eyebrow": "Fit",
+            "title": "Is this right for you?",
+            "subtitle": "I don't just build databases. I architect operating systems tailored to your context.",
+            "goodFitTitle": "A good fit if",
+            "goodFit": [
+                "You manage complex workflows",
+                "Your operations feel scattered",
+                "You rely on manual tracking",
+                "You need clarity before scaling"
+            ],
+            "howTitle": "How I work",
+            "how": [
+                {
+                    "t": "No Generic Templates",
+                    "d": "Every system is built around your logic."
+                },
+                {
+                    "t": "Logic First",
+                    "d": "Structure before aesthetics."
+                },
+                {
+                    "t": "Systems Thinking",
+                    "d": "I think in systems, not pages."
+                },
+                {
+                    "t": "Partner, Not Vendor",
+                    "d": "I work with you to ensure long-term success."
+                }
+            ]
+        },
+        "faq": {
+            "eyebrow": "FAQ",
+            "title": "Questions, answered",
+            "items": [
+                {
+                    "q": "Do you build custom systems only?",
+                    "a": "Yes, I specialize in bespoke Notion systems tailored to your specific needs."
+                },
+                {
+                    "q": "Do I need a paid review first?",
+                    "a": "Only when it helps us understand the work properly. A clearly defined project can go straight to a proposal."
+                },
+                {
+                    "q": "What's the typical timeline?",
+                    "a": "Timelines vary by complexity, but most projects take 2 to 4 weeks from design to delivery."
+                },
+                {
+                    "q": "What is included after delivery?",
+                    "a": "Every build includes training, documentation and 30 days to report and correct defects in the agreed deliverables."
+                },
+                {
+                    "q": "Do you work with companies?",
+                    "a": "Yes, I work with both individuals and teams to streamline operations."
+                },
+                {
+                    "q": "Can the system be in Arabic?",
+                    "a": "Yes. Systems can be fully Arabic, English, or bilingual, and I train Arab teams in their own language."
+                }
+            ]
+        },
+        "booking": {
+            "eyebrow": "Start here",
+            "title": "Start with a conversation",
+            "desc": "30 minutes to talk about your business, what's getting in the way, and what a useful next step could look like.",
+            "note": "Pick a time, then answer a few quick questions so the call is useful from the first minute."
+        },
+        "sticky": {
+            "cta": "Book a free call"
+        }
     }
 }
