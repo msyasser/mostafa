@@ -4,6 +4,7 @@ import SectionHead from "./SectionHead";
 export default function Quotes() {
     const t = useTranslations("ServicesPage.v2.quotes");
     const items = t.raw("items");
+    const translated = t.raw("translated");
 
     return (
         <section className="px-6 pb-10 pt-8">
@@ -33,9 +34,11 @@ export default function Quotes() {
                                 <figcaption>
                                     <b className="block font-semibold">{item.who}</b>
                                     <span className={`text-sm ${featured ? "text-neutral-800" : "text-neutral-400"}`}>{item.what}</span>
-                                    <span className={`mt-3 block text-xs ${featured ? "text-neutral-800" : "text-neutral-400"}`}>
-                                        {t("translated")}
-                                    </span>
+                                    {translated && (
+                                        <span className={`mt-3 block text-xs ${featured ? "text-neutral-800" : "text-neutral-400"}`}>
+                                            {translated}
+                                        </span>
+                                    )}
                                 </figcaption>
                             </figure>
                         );

@@ -1,5 +1,4 @@
 import ServicesPageV2 from "./_v2/ServicesPageV2";
-import LegacyServicesPage from "./LegacyServicesPage";
 
 export async function generateMetadata({ params }) {
     const { locale } = await params;
@@ -43,9 +42,6 @@ export async function generateMetadata({ params }) {
     };
 }
 
-export default async function ServicesPage({ params }) {
-    const { locale } = await params;
-
-    // The new design is English only for now; Arabic keeps the previous page until its translation is ready
-    return locale === "ar" ? <LegacyServicesPage /> : <ServicesPageV2 />;
+export default function ServicesPage() {
+    return <ServicesPageV2 />;
 }

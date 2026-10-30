@@ -8,7 +8,7 @@ export default function Booking() {
         <section id="calendar-section" className="scroll-mt-24 px-6 pb-24 pt-[70px]">
             <div className="mx-auto max-w-5xl">
                 <div className="mb-10 text-center">
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:tracking-normal">{t("eyebrow")}</span>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:text-sm rtl:tracking-normal rtl:[font-family:inherit]">{t("eyebrow")}</span>
                     <h2 className="mb-4 mt-2 text-4xl font-semibold leading-[1.08] text-white md:text-5xl">{t("title")}</h2>
                     <p className="mx-auto max-w-xl text-lg text-neutral-400">{t("desc")}</p>
                 </div>

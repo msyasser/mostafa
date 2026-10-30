@@ -15,7 +15,7 @@ export default function Hero() {
 
             <div className="relative mx-auto grid max-w-[1200px] items-center gap-10 px-6 pb-12 pt-16 sm:pt-20 lg:grid-cols-[1.1fr_1fr]">
                 <div>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:tracking-normal">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:text-sm rtl:tracking-normal rtl:[font-family:inherit]">
                         {t("badge")}
                     </span>
                     <h1 className="mb-5 mt-4 text-5xl font-semibold leading-[1.05] text-white sm:text-6xl lg:text-[66px]">
@@ -44,11 +44,11 @@ export default function Hero() {
 
                 <div className="grid grid-cols-6 gap-3.5">
                     <div className="col-span-6 rounded-[22px] bg-gradient-to-br from-main to-[#be9462] p-5 text-neutral-900 sm:col-span-4">
-                        <span className="font-mono text-[11px] uppercase tracking-[0.2em] opacity-70 rtl:tracking-normal">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.2em] opacity-70 rtl:text-sm rtl:tracking-normal rtl:[font-family:inherit]">
                             {t("ratingLabel")}
                         </span>
                         <div className="flex items-end gap-3.5">
-                            <div className="text-[54px] font-semibold leading-none">{t("ratingValue")}</div>
+                            <div className="text-[54px] font-semibold leading-none"><bdi dir="ltr">{t("ratingValue")}</bdi></div>
                             <div>
                                 <div className="text-lg tracking-[3px]" aria-hidden="true">★★★★★</div>
                                 <div className="text-[13px] opacity-75">{t("ratingText")}</div>
@@ -57,7 +57,7 @@ export default function Hero() {
                     </div>
 
                     <div className={`${tile} col-span-3 sm:col-span-2`}>
-                        <div className="text-5xl font-semibold leading-none text-main">{t("systemsValue")}</div>
+                        <div className="text-5xl font-semibold leading-none text-main"><bdi dir="ltr">{t("systemsValue")}</bdi></div>
                         <div className="mt-1.5 text-[13px] text-neutral-300">{t("systemsLabel")}</div>
                     </div>
 
@@ -81,12 +81,12 @@ export default function Hero() {
                     </a>
 
                     <div className={`${tile} col-span-3 sm:col-span-3`}>
-                        <div className="text-5xl font-semibold leading-none text-main">{t("downloadsValue")}</div>
+                        <div className="text-5xl font-semibold leading-none text-main"><bdi dir="ltr">{t("downloadsValue")}</bdi></div>
                         <div className="mt-1.5 text-[13px] text-neutral-300">{t("downloadsLabel")}</div>
                     </div>
 
                     <div className={`${tile} col-span-6`}>
-                        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:tracking-normal">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:text-sm rtl:tracking-normal rtl:[font-family:inherit]">
                             {t("clientsTitle")}
                         </span>
                         <ul className="mt-3 flex flex-wrap gap-2.5">

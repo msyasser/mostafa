@@ -35,7 +35,7 @@ export default function Cases() {
                                 />
                             </div>
                             <div className="px-6 pb-7 pt-5">
-                                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:tracking-normal">{item.tag}</span>
+                                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:text-sm rtl:tracking-normal rtl:[font-family:inherit]">{item.tag}</span>
                                 <h3 className="my-2 text-[23px] font-semibold leading-tight text-white">{item.t}</h3>
                                 <p className="text-[15px] text-neutral-400">{item.d}</p>
                                 <div className="mt-3 flex flex-wrap gap-2">

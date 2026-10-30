@@ -45,7 +45,7 @@ export default function StickyBookBar({ label }) {
                 tabIndex={show ? 0 : -1}
                 className="flex w-full items-center justify-center rounded-full bg-main py-3.5 text-[15px] font-semibold text-neutral-900"
             >
-                {label} →
+                {label} <span className="inline-block rtl:-scale-x-100">→</span>
             </a>
         </div>
     );
