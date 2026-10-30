@@ -5,7 +5,7 @@ function Row({ row, bestFor }) {
     return (
         <div
             className={`grid items-center gap-x-6 gap-y-3 border-b border-main/20 px-7 py-6 last:border-b-0 md:grid-cols-[1.1fr_1.7fr_1fr] ${
-                row.badge ? "bg-main/[0.08] shadow-[inset_3px_0_0_0_#d7b180]" : ""
+                row.badge ? "bg-main/[0.08] shadow-[inset_3px_0_0_0_#d7b180] rtl:shadow-[inset_-3px_0_0_0_#d7b180]" : ""
             }`}
         >
             <div>
@@ -28,7 +28,9 @@ function Row({ row, bestFor }) {
                 ))}
             </ul>
             <div>
-                <div className="text-[32px] font-semibold leading-tight text-main">{row.p}</div>
+                <div className="text-[32px] font-semibold leading-tight text-main">
+                    <bdi dir="ltr">{row.p}</bdi>
+                </div>
                 <small className="mt-0.5 block text-xs text-neutral-400">{row.u}</small>
             </div>
         </div>
@@ -44,7 +46,7 @@ function Group({ group, bestFor, footer }) {
                     <span className="text-[13px] text-neutral-400">{group.sub}</span>
                 </div>
                 <a href="#calendar-section" className="whitespace-nowrap border-b-2 border-main text-sm font-semibold text-white">
-                    {group.cta} →
+                    {group.cta} <span className="inline-block rtl:-scale-x-100">→</span>
                 </a>
             </div>
             {group.rows.map((row) => (
@@ -102,7 +104,7 @@ export default function Pricing() {
                 <p className="text-[13px] text-neutral-400">{t("footnote")}</p>
 
                 <div className="mt-9 rounded-[26px] border border-main bg-[radial-gradient(600px_300px_at_90%_0,rgba(215,177,128,0.2),transparent_70%)] bg-main/[0.04] p-8 backdrop-blur-sm md:p-11">
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:tracking-normal">{gate.eyebrow}</span>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:text-sm rtl:tracking-normal rtl:[font-family:inherit]">{gate.eyebrow}</span>
                     <h3 className="mb-2 mt-2 text-4xl font-semibold leading-[1.1] text-white md:text-[42px]">{gate.title}</h3>
                     <p className="max-w-[700px] text-neutral-400">{gate.desc}</p>
                     <div className="mb-2 mt-6 grid gap-3.5 md:grid-cols-3">
