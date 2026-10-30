@@ -41,7 +41,7 @@ export default function ContactCTASection() {
               <div className="lg:col-span-6 w-full">
                 <SubscriptionForm
                   includeName={true}
-                  buttonText={isArabic ? "اشترك مجاناً" : "Subscribe for Free"}
+                  buttonText={isArabic ? "اشترك مجانًا" : "Subscribe for Free"}
                   className="flex flex-col gap-3 w-full"
                 />
               </div>

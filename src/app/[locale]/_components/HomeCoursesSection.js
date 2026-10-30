@@ -101,7 +101,7 @@ export default function HomeCoursesSection() {
                         </h3>
                         <p className="text-gray-400 mb-6 text-xs sm:text-sm leading-relaxed">
                           {isArabic
-                            ? "يرجى تسجيل الدخول أو إنشاء حساب مجاني لمشاهدة الدورة والوصول إلى كافة الدروس."
+                            ? "سجّل دخولك أو أنشئ حساب مجاني عشان تشوف الدورة وكل دروسها."
                             : "Please sign in or create a free account to access this course and all its resources."}
                         </p>
                         <Link
@@ -109,7 +109,7 @@ export default function HomeCoursesSection() {
                           className="block w-full bg-main text-black font-bold py-3 px-6 rounded-xl hover:bg-white transition-all duration-300 shadow-md"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          {isArabic ? "تسجيل الدخول الآن" : "Sign In to Access"}
+                          {isArabic ? "سجّل دخولك دلوقتي" : "Sign In to Access"}
                         </Link>
                       </div>
                     </div>
@@ -188,7 +188,7 @@ export default function HomeCoursesSection() {
                         </div>
 
                         <div className="inline-flex items-center gap-2 py-3 px-7 rounded-full border-[1.5px] border-[#3a3027] text-[#F4D9B6] font-semibold text-sm group-hover:border-main group-hover:text-main transition-colors duration-300">
-                          <span>{isArabic ? "شاهد محتوى الدورة" : "Access Course"}</span>
+                          <span>{isArabic ? "شوف محتوى الدورة" : "Access Course"}</span>
                           <ArrowIcon className="text-base transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
                         </div>
                       </div>

@@ -262,7 +262,7 @@ export default function CustomPhoneInput({
               })
             ) : (
               <div className="py-6 text-center text-xs text-neutral-500">
-                {isArabic ? "لم يتم العثور على نتائج" : "No countries found"}
+                {isArabic ? "مفيش نتايج" : "No countries found"}
               </div>
             )}
           </div>

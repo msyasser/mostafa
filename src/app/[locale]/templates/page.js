@@ -8,7 +8,7 @@ export async function generateMetadata({ params }) {
     ? "قوالب نوشن الاحترافية لتعزيز الإنتاجية"
     : "Premium Notion Templates for Productivity";
   const description = isArabic
-    ? "استكشف قوالب نوشن المصممة بعناية لتعزيز الإنتاجية وتنظيم سير العمل والمهام والمشاريع للأفراد وفرق العمل. من تصميم مصطفى ياسر."
+    ? "استكشف قوالب نوشن المصممة بعناية لتنظيم سير الشغل والمهام والمشاريع للأفراد والفرق. من تصميم مصطفى ياسر."
     : "Explore beautifully crafted Notion templates designed to boost productivity, streamline workflows, and bring clarity to projects and daily tasks. By Mostafa Yasser.";
   const url = `${siteUrl}/${locale}/templates`;
   const imageUrl = isArabic

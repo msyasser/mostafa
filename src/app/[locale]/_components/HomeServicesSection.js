@@ -118,7 +118,7 @@ export default function HomeServicesSection() {
                                 <ArrowIcon className="text-2xl group-hover:text-white transition-all duration-300 transform group-hover:rotate-45" />
                             </div>
                             <span className="text-xl md:text-2xl font-bold text-white group-hover:text-black transition-colors">
-                                {isArabic ? "عرض كل الخدمات" : "View All Services"}
+                                {isArabic ? "شوف كل الخدمات" : "View All Services"}
                             </span>
                         </Link>
                     </AnimatedWrapper>

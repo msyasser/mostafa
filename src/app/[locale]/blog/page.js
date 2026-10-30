@@ -15,11 +15,11 @@ export async function generateMetadata({ params }) {
     : "Blog";
 
   const description = isArabic
-    ? "اكتشف أحدث مقالاتي حول قوالب نوشن، حلول الإنتاجية، سير العمل الرقمي، واستراتيجيات الأعمال عبر الإنترنت."
+    ? "اكتشف أحدث مقالاتي عن قوالب نوشن وحلول الإنتاجية وسير الشغل الرقمي واستراتيجيات الأعمال أونلاين."
     : "Explore my latest blog posts on Notion templates, productivity hacks, digital workflows, and online business strategies.";
 
   const openGraphDescription = isArabic
-    ? "اكتشف رؤى وأفكار قابلة للتنفيذ لتحسين مساحة عمل نوشن وزيادة إنتاجيتك الرقمية."
+    ? "أفكار قابلة للتنفيذ تحسّن مساحة شغلك في نوشن وتزوّد إنتاجيتك."
     : "Discover actionable insights and ideas to level up your Notion workspace and digital productivity.";
 
   const url = `https://www.mostafayasser.com/${locale}/blog`;
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: isArabic ? "مدونة مصطفى ياسر" : "Blog by Mostafa Yasser",
       description: isArabic
-        ? "استكشف أحدث المقالات حول نوشن والإنتاجية والأنظمة الرقمية."
+        ? "أحدث المقالات عن نوشن والإنتاجية والأنظمة الرقمية."
         : "Explore the latest articles on Notion, productivity, and digital systems.",
       images: ["/blogs/ENBlogs/1.webp"],
     },

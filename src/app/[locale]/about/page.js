@@ -13,7 +13,7 @@ export async function generateMetadata({ params }) {
     ? "متخصص أنظمة وقوالب نوشن"
     : "Notion Specialist & Digital Architect";
   const description = isArabic
-    ? "أنا مصطفى ياسر، متخصص في تصميم وبناء أنظمة وقوالب نوشن المخصصة لإدارة المشاريع والمهام والماليات وتبسيط مساحات العمل للأفراد والشركات."
+    ? "أنا مصطفى ياسر، بصمم وببني أنظمة وقوالب نوشن مخصصة لإدارة المشاريع والمهام والماليات وتبسيط مساحات الشغل للأفراد والشركات."
     : "I'm Mostafa Yasser. I engineer custom Notion systems to organize projects, tasks, and finances, helping individuals and teams achieve workflow clarity.";
   const url = `${siteUrl}/${locale}/about`;
   const imageUrl = `${siteUrl}/certifications/notion-certifications.png`;

@@ -4,7 +4,7 @@
     "daysUntil": "يوم حتى",
     "ramadanDay": "اليوم {day}",
     "eidMubarak": "🎉 عيد مبارك! 🎉",
-    "enterCity": "أدخل مدينتك",
+    "enterCity": "اكتب مدينتك",
     "submit": "تم",
     "changeCity": "تغيير المدينة",
     "fajr": "الفجر",
@@ -13,6 +13,6 @@
     "maghrib": "المغرب",
     "isha": "العشاء",
     "poweredBy": "بواسطة",
-    "locationError": "لم يتم العثور على المدينة. حاول مرة أخرى.",
+    "locationError": "ماقدرناش نلاقي المدينة. جرّب تاني.",
     "hijriFormat": "{day} {month}، {year}هـ"
 }

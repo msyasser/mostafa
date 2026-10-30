@@ -36,7 +36,7 @@ export default function CaseStudiesSection() {
                                 className="inline-flex items-center gap-3 text-main font-semibold text-lg hover:text-white transition-colors group/link"
                             >
                                 <span className="border-b border-main group-hover/link:border-white transition-colors pb-1">
-                                    {isArabic ? "شاهد قصص النجاح" : "View Success Stories"}
+                                    {isArabic ? "شوف دراسات الحالة" : "View Success Stories"}
                                 </span>
                                 <ArrowIcon className="text-xl transform group-hover/link:translate-x-1 rtl:group-hover/link:-translate-x-1 transition-transform" />
                             </Link>
