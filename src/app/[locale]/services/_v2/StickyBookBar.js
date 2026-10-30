@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-// Small screens only: shows a "Book a free call" bar once the hero buttons have scrolled out of view,
-// and hides it again while the booking calendar itself is on screen.
+// Floating "Book a free call" button: a full-width bar on phones, a pill at the corner on larger screens.
+// It appears once the hero buttons have scrolled out of view and hides while the booking calendar is on screen.
 export default function StickyBookBar({ label }) {
     const [show, setShow] = useState(false);
 
@@ -36,14 +36,14 @@ export default function StickyBookBar({ label }) {
     return (
         <div
             aria-hidden={!show}
-            className={`fixed inset-x-0 bottom-0 z-40 border-t border-main/20 bg-neutral-950/95 px-4 pb-[calc(12px+env(safe-area-inset-bottom))] pt-3 backdrop-blur-md transition-transform duration-300 md:hidden ${
-                show ? "translate-y-0" : "translate-y-full"
+            className={`fixed inset-x-0 bottom-0 z-40 border-t border-main/20 bg-neutral-950/95 px-4 pb-[calc(12px+env(safe-area-inset-bottom))] pt-3 backdrop-blur-md transition-transform duration-300 md:inset-x-auto md:bottom-6 md:end-6 md:border-0 md:bg-transparent md:p-0 md:backdrop-blur-none ${
+                show ? "translate-y-0" : "translate-y-full md:translate-y-[calc(100%+2rem)]"
             }`}
         >
             <a
                 href="#calendar-section"
                 tabIndex={show ? 0 : -1}
-                className="flex w-full items-center justify-center rounded-full bg-main py-3.5 text-[15px] font-semibold text-neutral-900"
+                className="flex w-full items-center justify-center rounded-full bg-main py-3.5 text-[15px] font-semibold text-neutral-900 md:w-auto md:px-7 md:shadow-[0_8px_30px_rgba(0,0,0,0.5)] md:transition-transform md:hover:scale-[1.03]"
             >
                 {label} <span className="inline-block rtl:-scale-x-100">→</span>
             </a>

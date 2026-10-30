@@ -25,14 +25,25 @@ export default function Cases() {
                             href={`/case-studies/${item.slug}`}
                             className="group block overflow-hidden rounded-[22px] border border-main/20 bg-white/[0.045] backdrop-blur-sm transition-all duration-200 hover:-translate-y-1 hover:border-main"
                         >
-                            <div className="relative aspect-[3/2] overflow-hidden border-b border-main/20 bg-black">
-                                <Image
-                                    src={images[item.slug]}
-                                    alt={item.t}
-                                    fill
-                                    sizes="(min-width: 768px) 380px, 100vw"
-                                    className="object-cover"
-                                />
+                            <div className="relative aspect-[3/2] overflow-hidden border-b border-main/20 bg-neutral-900 px-4 pt-4">
+                                <div className="relative h-full overflow-hidden rounded-t-xl border border-b-0 border-white/15 bg-black shadow-2xl">
+                                    <div className="flex h-6 items-center gap-1.5 border-b border-white/10 bg-neutral-800 px-3" aria-hidden="true">
+                                        <span className="size-2 rounded-full bg-white/25" />
+                                        <span className="size-2 rounded-full bg-white/25" />
+                                        <span className="size-2 rounded-full bg-white/25" />
+                                    </div>
+                                    <div className="relative h-[calc(100%-1.5rem)]">
+                                        <Image
+                                            src={images[item.slug]}
+                                            alt={item.t}
+                                            fill
+                                            sizes="(min-width: 768px) 380px, 100vw"
+                                            className="object-cover object-left-top"
+                                        />
+                                        <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-neutral-900 to-transparent" aria-hidden="true" />
+                                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-neutral-900 to-transparent" aria-hidden="true" />
+                                    </div>
+                                </div>
                             </div>
                             <div className="px-6 pb-7 pt-5">
                                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:text-sm rtl:tracking-normal rtl:[font-family:inherit]">{item.tag}</span>

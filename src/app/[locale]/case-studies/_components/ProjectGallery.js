@@ -71,10 +71,12 @@ export default function ProjectGallery({ images, title }) {
                 </>
             )}
 
-            {/* Gallery Label */}
+            {/* Gallery Label (only when there is more than one image) */}
+            {images.length > 1 && (
             <div className="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full border border-white/10 text-[10px] font-mono uppercase tracking-widest text-white/70 z-10">
                 {currentIndex + 1} / {images.length}
             </div>
+            )}
         </div>
     );
 }
