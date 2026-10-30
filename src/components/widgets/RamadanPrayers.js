@@ -151,7 +151,7 @@ export default function RamadanPrayers({ theme = "dark", defaultCity = "", isPre
 
     useEffect(() => {
         if (isPreview) {
-            setRamadanStatus("Day 15");
+            setRamadanStatus(t("ramadanDay", { day: 15 }));
             setNextPrayer("Maghrib");
             return;
         }
@@ -176,7 +176,7 @@ export default function RamadanPrayers({ theme = "dark", defaultCity = "", isPre
         return (
             <div className={`relative overflow-hidden rounded-2xl border p-4 w-full scale-90 origin-top shadow-lg ${containerClasses}`}>
                 <div className="flex justify-between items-center mb-4">
-                    <span className="text-main font-bold text-[10px] uppercase tracking-widest leading-none">Day 15</span>
+                    <span className="text-main font-bold text-[10px] uppercase tracking-widest leading-none">{t("ramadanDay", { day: 15 })}</span>
                     <h3 className="text-lg font-bold tracking-tighter uppercase leading-none">{t("ramadan")}</h3>
                 </div>
                 <div className="space-y-2 opacity-60">

@@ -113,7 +113,7 @@ export default function TemplatesShowcase({ title, subtitle }) {
   // "$0" reads as a price tag; "Free" says what it is
   const priceLabel = (name) => {
     const price = tt(`${name}.price`);
-    return price === "$0" ? "Free" : price;
+    return price === "$0" ? (isArabic ? "مجاني" : "Free") : price;
   };
 
   const renderTemplates = (list) =>

@@ -6,6 +6,7 @@ import { Settings } from "lucide-react";
 
 export default function LifeProgressWidget({ theme = "dark" }) {
     const locale = useLocale();
+    const names = locale === "ar" ? { day: "اليوم", month: "الشهر", year: "السنة" } : { day: "Day", month: "Month", year: "Year" };
     const isDark = theme === "dark";
     const containerClass = isDark
         ? "bg-neutral-900 border border-neutral-800"
@@ -72,7 +73,7 @@ export default function LifeProgressWidget({ theme = "dark" }) {
             <div className="space-y-4">
                 <div>
                     <div className={`flex justify-between text-sm mb-1 ${labelClass}`}>
-                        <span>Day</span>
+                        <span>{names.day}</span>
                         <span>{Math.round(progress.day)}%</span>
                     </div>
                     <div className={`h-2 rounded-full overflow-hidden ${barBgClass}`}>
@@ -85,7 +86,7 @@ export default function LifeProgressWidget({ theme = "dark" }) {
 
                 <div>
                     <div className={`flex justify-between text-sm mb-1 ${labelClass}`}>
-                        <span>Month</span>
+                        <span>{names.month}</span>
                         <span>{Math.round(progress.month)}%</span>
                     </div>
                     <div className={`h-2 rounded-full overflow-hidden ${barBgClass}`}>
@@ -98,7 +99,7 @@ export default function LifeProgressWidget({ theme = "dark" }) {
 
                 <div>
                     <div className={`flex justify-between text-sm mb-1 ${labelClass}`}>
-                        <span>Year</span>
+                        <span>{names.year}</span>
                         <span>{Math.round(progress.year)}%</span>
                     </div>
                     <div className={`h-2 rounded-full overflow-hidden ${barBgClass}`}>

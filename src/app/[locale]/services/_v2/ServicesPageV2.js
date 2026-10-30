@@ -24,7 +24,7 @@ export default function ServicesPageV2() {
             <Fit />
             <Faq />
             <Booking />
-            <StickyBookBar label={t("cta")} />
+            <StickyBookBar label={t("cta")} sub={t("sub")} />
         </div>
     );
 }
