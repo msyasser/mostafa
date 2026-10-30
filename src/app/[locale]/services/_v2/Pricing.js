@@ -40,14 +40,9 @@ function Row({ row, bestFor }) {
 function Group({ group, bestFor, footer }) {
     return (
         <div className="mb-4 overflow-hidden rounded-[22px] border border-main/20 bg-white/[0.045] backdrop-blur-sm">
-            <div className="flex flex-col gap-2 border-b border-main/20 bg-main/10 px-7 py-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                    <h3 className="text-[22px] font-medium text-white">{group.title}</h3>
-                    <span className="text-[13px] text-neutral-400">{group.sub}</span>
-                </div>
-                <a href="#calendar-section" className="whitespace-nowrap border-b-2 border-main text-sm font-semibold text-white">
-                    {group.cta} <span className="inline-block rtl:-scale-x-100">→</span>
-                </a>
+            <div className="border-b border-main/20 bg-main/10 px-7 py-4">
+                <h3 className="text-[22px] font-medium text-white">{group.title}</h3>
+                <span className="text-[13px] text-neutral-400">{group.sub}</span>
             </div>
             {group.rows.map((row) => (
                 <Row key={row.t} row={row} bestFor={bestFor} />
@@ -61,10 +56,12 @@ export default function Pricing() {
     const t = useTranslations("ServicesPage.v2.pricing");
     const groups = t.raw("groups");
     const gate = t.raw("gate");
+    const notes = t.raw("notes");
+    const detailsItems = t.raw("detailsItems");
     const bestFor = t("bestFor");
 
     return (
-        <section id="pricing" className="scroll-mt-24 px-6 py-[70px]">
+        <section id="pricing" className="scroll-mt-24 px-6 py-12 md:py-[70px]">
             <div className="mx-auto max-w-[1200px]">
                 <SectionHead
                     eyebrow={t("eyebrow")}
@@ -99,9 +96,21 @@ export default function Pricing() {
                         <span className="text-main group-open:hidden">+</span>
                         <span className="hidden text-main group-open:inline">–</span>
                     </summary>
-                    <p className="pb-4 text-sm text-neutral-400">{t("detailsText")}</p>
+                    <ul className="space-y-1.5 pb-4 text-sm text-neutral-300">
+                        {detailsItems.map((item) => (
+                            <li key={item} className="before:text-main before:content-['–_']">
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
                 </details>
-                <p className="text-[13px] text-neutral-400">{t("footnote")}</p>
+                <ul className="space-y-1 px-1 text-sm text-neutral-300">
+                    {notes.map((note) => (
+                        <li key={note} className="before:text-main before:content-['•_']">
+                            {note}
+                        </li>
+                    ))}
+                </ul>
 
                 <div className="mt-9 rounded-[26px] border border-main bg-[radial-gradient(600px_300px_at_90%_0,rgba(215,177,128,0.2),transparent_70%)] bg-main/[0.04] p-8 backdrop-blur-sm md:p-11">
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:text-sm rtl:tracking-normal rtl:[font-family:inherit]">{gate.eyebrow}</span>

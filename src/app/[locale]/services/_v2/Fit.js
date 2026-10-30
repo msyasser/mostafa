@@ -5,7 +5,7 @@ export default function Fit() {
     const t = useTranslations("ServicesPage.v2.fit");
 
     return (
-        <section className="px-6 py-[70px]">
+        <section className="px-6 py-12 md:py-[70px]">
             <div className="mx-auto max-w-[1200px]">
                 <SectionHead eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} />
                 <div className="grid gap-4 lg:grid-cols-[1fr_1.5fr]">

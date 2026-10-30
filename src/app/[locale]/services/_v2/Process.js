@@ -6,16 +6,21 @@ export default function Process() {
     const steps = t.raw("steps");
 
     return (
-        <section className="px-6 py-[70px]">
+        <section className="px-6 py-12 md:py-[70px]">
             <div className="mx-auto max-w-[1200px]">
                 <SectionHead eyebrow={t("eyebrow")} title={t("title")} />
-                <ol className="grid rounded-[26px] border border-main/20 bg-white/[0.045] p-2.5 backdrop-blur-sm md:grid-cols-5">
+                <ol className="grid md:grid-cols-5">
                     {steps.map((step, index) => (
-                        <li
-                            key={step.t}
-                            className="border-b border-dashed border-main/20 p-6 last:border-b-0 md:border-b-0 md:border-e md:last:border-e-0"
-                        >
-                            <span className="mb-2.5 block text-4xl font-semibold text-main">{String(index + 1).padStart(2, "0")}</span>
+                        <li key={step.t} className="relative pb-8 ps-14 last:pb-0 md:pb-0 md:pe-6 md:ps-0 md:pt-14">
+                            <span className="absolute start-0 top-0 z-10 grid size-10 place-items-center rounded-full border border-main bg-neutral-950 text-sm font-semibold text-main">
+                                {index + 1}
+                            </span>
+                            {index < steps.length - 1 && (
+                                <span
+                                    aria-hidden="true"
+                                    className="absolute bottom-0 start-5 top-10 w-px bg-main/30 md:bottom-auto md:end-0 md:start-10 md:top-5 md:h-px md:w-auto"
+                                />
+                            )}
                             <h3 className="mb-1 text-[19px] font-semibold text-white">{step.t}</h3>
                             <p className="text-sm text-neutral-400">{step.d}</p>
                         </li>
