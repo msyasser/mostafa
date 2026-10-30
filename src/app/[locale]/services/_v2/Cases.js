@@ -3,11 +3,11 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/src/i18n/navigation";
 import SectionHead from "./SectionHead";
 
-// Screenshots of the real systems, cropped to the content
+// Screenshots of the real systems, cropped to the dashboard so the interface is readable at card size
 const images = {
-    "gold-investment-tracking-system": "/projects/Gold Tracker/Services.webp",
-    "resaltk-research-app-project-management": "/projects/Resaltk/Services.webp",
-    "trend-design-business-operating-system": "/projects/Trend Design/Services.webp",
+    "gold-investment-tracking-system": "/projects/Gold Tracker/Services-card.webp",
+    "resaltk-research-app-project-management": "/projects/Resaltk/Services-card.webp",
+    "trend-design-business-operating-system": "/projects/Trend Design/Services-card.webp",
 };
 
 export default function Cases() {
@@ -15,7 +15,7 @@ export default function Cases() {
     const items = t.raw("items");
 
     return (
-        <section id="case-studies" className="scroll-mt-24 px-6 py-[70px]">
+        <section id="case-studies" className="scroll-mt-24 px-6 py-12 md:py-[70px]">
             <div className="mx-auto max-w-[1200px]">
                 <SectionHead eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} />
                 <div className="grid gap-4 md:grid-cols-3">

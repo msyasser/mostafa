@@ -5,11 +5,11 @@ export async function generateMetadata({ params }) {
     const isArabic = locale === "ar";
     const siteUrl = "https://www.mostafayasser.com";
     const title = isArabic
-        ? "خدمات بناء أنظمة نوشن المخصصة"
+        ? "مستشار نوشن معتمد: أنظمة وأتمتة وتدريب"
         : "Custom Notion Systems Architecture";
     const description = isArabic
-        ? "أنظمة نوشن مخصصة ومصممة بدقة لتنظيم المشاريع، والمهام، والماليات للأفراد وفرق العمل لرفع الإنتاجية وتحقيق الوضوح الكامل."
-        : "Tailored, scalable Notion architectures engineered to organize projects, tasks, and finances for individuals and growing teams.";
+        ? "بصمم أنظمة نوشن متفصّلة على طريقة شغلك: لوحات للمشاريع والعملاء والمالية، وأتمتة وربط أدوات، وتدريب لفريقك. احجز مكالمة اكتشاف مجانية 30 دقيقة."
+        : "I build custom Notion systems around how you work: project, client and finance workspaces, automations and integrations, and team training. Book a free 30-minute discovery call.";
     const url = `${siteUrl}/${locale}/services`;
     const imageUrl = `${siteUrl}/icon.png`;
 

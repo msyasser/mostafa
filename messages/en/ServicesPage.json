@@ -183,7 +183,7 @@
         },
         "process": {
             "eyebrow": "Methodology",
-            "title": "How we build your system",
+            "title": "How I build your system",
             "steps": [
                 {
                     "t": "Understand Your Workflow",
@@ -256,7 +256,6 @@
                 "start": {
                     "title": "1 · Start",
                     "sub": "You never pay for a build before you know what it includes",
-                    "cta": "Book a free call",
                     "rows": [
                         {
                             "t": "Free discovery call",
@@ -286,7 +285,6 @@
                 "projects": {
                     "title": "2 · Projects",
                     "sub": "Indicative ranges in USD · fixed fee in your proposal",
-                    "cta": "Book a free call",
                     "rows": [
                         {
                             "t": "Focused Implementation",
@@ -305,7 +303,6 @@
                             "best": "Teams whose projects, clients and payments live in different places.",
                             "p": "$750 – $1,450",
                             "u": "project range · about 2 to 4 weeks",
-                            "badge": "Most requested",
                             "li": [
                                 "Several connected workflows and shared data",
                                 "Dashboards and access designed for team roles",
@@ -330,10 +327,9 @@
                 "support": {
                     "title": "3 · Monthly support",
                     "sub": "Billed monthly · cancel before the next renewal",
-                    "cta": "Ask about support",
                     "rows": [
                         {
-                            "t": "Support",
+                            "t": "Essential",
                             "best": "A finished system that needs upkeep and regular improvements.",
                             "p": "$200",
                             "u": "per month · up to 6 hours",
@@ -367,8 +363,6 @@
                 }
             },
             "detailsSummary": "How support hours work",
-            "detailsText": "Quick task: up to 1.5 hours (change a view, add a property, fix a formula). Mid-size task: up to 6 hours (new database, dashboard or automation). Extra hours: $35/hour, always quoted and approved before work starts. Meetings count toward included hours; unused hours expire at month-end. Response times refer to acknowledgment, not guaranteed resolution.",
-            "footnote": "The final price depends on the size of the system, people and access, automation, existing data, training and timeline. All prices in USD; software subscriptions and taxes are separate; your proposal sets the payment schedule and milestones.",
             "gate": {
                 "eyebrow": "Budget and scope",
                 "title": "Your budget is different? Let's shape the scope.",
@@ -389,7 +383,19 @@
                 ],
                 "principle": "We adjust the scope, not the standard of the work.",
                 "cta": "Share your budget and goals"
-            }
+            },
+            "notes": [
+                "The final price depends on the size of the system, people and access, automation, existing data, training and timeline.",
+                "All prices are in USD; software subscriptions and taxes are separate.",
+                "Your written proposal sets the scope, payment schedule and milestones."
+            ],
+            "detailsItems": [
+                "Quick task: up to 1.5 hours (change a view, add a property, fix a formula).",
+                "Mid-size task: up to 6 hours (new database, dashboard or automation).",
+                "Extra hours: $35/hour, always quoted and approved before work starts.",
+                "Meetings count toward included hours; unused hours expire at month-end.",
+                "Response times refer to acknowledgment, not guaranteed resolution."
+            ]
         },
         "fit": {
             "eyebrow": "Fit",
@@ -428,11 +434,15 @@
             "items": [
                 {
                     "q": "Do you build custom systems only?",
-                    "a": "Yes, I specialize in bespoke Notion systems tailored to your specific needs."
+                    "a": "No. I also have ready-made templates if you want something to start with quickly. This service is for systems tailored to how you work.",
+                    "link": {
+                        "t": "Browse templates",
+                        "href": "/templates"
+                    }
                 },
                 {
                     "q": "Do I need a paid review first?",
-                    "a": "Only when it helps us understand the work properly. A clearly defined project can go straight to a proposal."
+                    "a": "No, not necessarily. A clearly defined project can go straight to a proposal. The review is for when the work is still unclear, and its fee is deducted in full if you book a project within 30 days."
                 },
                 {
                     "q": "What's the typical timeline?",
@@ -444,7 +454,7 @@
                 },
                 {
                     "q": "Do you work with companies?",
-                    "a": "Yes, I work with both individuals and teams to streamline operations."
+                    "a": "Yes. I work with individuals, companies and teams, from one person organizing their work to a business running several departments in one workspace."
                 },
                 {
                     "q": "Can the system be in Arabic?",
