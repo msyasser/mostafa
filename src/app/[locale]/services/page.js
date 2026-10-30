@@ -6,7 +6,7 @@ import CaseStudiesPreview from "./_components/CaseStudiesPreview";
 import TargetAudience from "./_components/TargetAudience";
 import WhyWorkWithMe from "./_components/WhyWorkWithMe";
 import FAQ from "./_components/FAQ";
-import LogoCarousel from "./_components/LogoCarousel";
+import ClientsStrip from "./_components/ClientsStrip";
 import CalConsultation from "./_components/CalConsultation";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
 import { useTranslations } from "next-intl";
@@ -67,7 +67,7 @@ export default function ServicesPage() {
                 <ServiceHero />
 
                 {/* Logo Carousel */}
-                <LogoCarousel />
+                <ClientsStrip />
 
                 {/* 2. What I Actually Do */}
                 <TransformationValues />
