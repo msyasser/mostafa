@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
 // Floating "Book a free call" button: a full-width bar on phones, a pill at the corner on larger screens.
@@ -57,7 +58,9 @@ export default function StickyBookBar({ label, sub }) {
                     <b className="block text-[15px] font-bold">{label}</b>
                     <small className="text-xs opacity-80">{sub}</small>
                 </span>
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-neutral-900 text-main rtl:-scale-x-100">→</span>
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-neutral-900 text-main">
+                    <ArrowRight className="size-[18px] rtl:-scale-x-100" strokeWidth={2.75} aria-hidden="true" />
+                </span>
             </a>
         </div>
     );
