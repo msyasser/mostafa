@@ -16,8 +16,8 @@ export default function HomeAboutSection() {
   const highlights = isArabic
     ? [
         "استشاري معتمد رسمياً من نوشن (Notion Certified Consultant)",
-        "صانع قوالب ومحتوى معتمد ومميز (Featured Creator)",
-        "مهندس أنظمة رقمية ومؤسس مجتمع Notion Arabs",
+        "صانع قوالب مميّز على متجر نوشن",
+        "مهندس أنظمة رقمية ومؤسس مجتمع عرب نوشن",
       ]
     : [
         "Official Notion Certified Consultant",
