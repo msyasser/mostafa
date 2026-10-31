@@ -7,6 +7,10 @@ import { Settings } from "lucide-react";
 export default function PomodoroWidget({ theme = "dark" }) {
     const t = useTranslations("HomePage"); // Using HomePage for now, could use a dedicated widget namespace later
     const locale = useLocale();
+    const ar = locale === "ar";
+    const labels = ar
+        ? { focus: "وقت التركيز", rest: "وقت الراحة", work: "شغل", brk: "راحة", pause: "إيقاف مؤقت", start: "ابدأ", reset: "من الأول" }
+        : { focus: "Focus Time", rest: "Break Time", work: "Work", brk: "Break", pause: "Pause", start: "Start", reset: "Reset" };
     const [minutes, setMinutes] = useState(25);
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(false);
@@ -84,7 +88,7 @@ export default function PomodoroWidget({ theme = "dark" }) {
             <div className="flex justify-between items-center mb-4 relative">
                 <div className="w-6" /> {/* Spacer */}
                 <h3 className="text-xl font-bold">
-                    {mode === "work" ? "Focus Time" : "Break Time"}
+                    {mode === "work" ? labels.focus : labels.rest}
                 </h3>
                 <button
                     onClick={() => window.open(`/${locale}/tools/pomodoro`, '_blank')}
@@ -102,14 +106,14 @@ export default function PomodoroWidget({ theme = "dark" }) {
                     className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${mode === "work" ? buttonActiveClass : buttonInactiveClass
                         }`}
                 >
-                    Work
+                    {labels.work}
                 </button>
                 <button
                     onClick={() => switchMode("break")}
                     className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${mode === "break" ? buttonActiveClass : buttonInactiveClass
                         }`}
                 >
-                    Break
+                    {labels.brk}
                 </button>
             </div>
             <div className="flex justify-center gap-4">
@@ -120,13 +124,13 @@ export default function PomodoroWidget({ theme = "dark" }) {
                         : isDark ? "bg-main hover:bg-white text-black" : "bg-black text-white hover:bg-gray-800"
                         }`}
                 >
-                    {isActive ? "Pause" : "Start"}
+                    {isActive ? labels.pause : labels.start}
                 </button>
                 <button
                     onClick={resetTimer}
                     className={`px-4 py-2 rounded-full font-medium transition-all ${resetButtonClass}`}
                 >
-                    Reset
+                    {labels.reset}
                 </button>
             </div>
         </div>

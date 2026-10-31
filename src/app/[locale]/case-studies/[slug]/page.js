@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
     if (!project) return {};
 
     const t = await getTranslations({ locale, namespace: "CaseStudiesPage" });
-    const title = `${t(project.titleKey)} | Case Study`;
+    const title = `${t(project.titleKey)} | ${locale === "ar" ? "دراسة حالة" : "Case Study"}`;
     const description = t(project.descriptionKey);
     const siteUrl = "https://www.mostafayasser.com";
     const url = `${siteUrl}/${locale}/case-studies/${slug}`;

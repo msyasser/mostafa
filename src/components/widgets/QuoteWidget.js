@@ -14,28 +14,39 @@ export default function QuoteWidget({ theme = "dark" }) {
     const quoteClass = isDark ? "text-white" : "text-gray-900";
     const authorClass = isDark ? "text-gray-400" : "text-gray-600";
 
+    const isArabic = locale === "ar";
     const [quote, setQuote] = useState({
         text: "Productivity is doing the right things, not just doing things right.",
+        text_ar: "الإنتاجية إنك تعمل الحاجات الصح، مش إنك تعمل الحاجات بشكل صح وبس.",
         author: "Peter Drucker",
+        author_ar: "بيتر دراكر",
     });
 
     useEffect(() => {
         const quotes = [
             {
                 text: "The way to get started is to quit talking and begin doing.",
+                text_ar: "طريقة البداية إنك تبطّل كلام وتبدأ تنفّذ.",
                 author: "Walt Disney",
+                author_ar: "والت ديزني",
             },
             {
                 text: "Your time is limited, so don't waste it living someone else's life.",
+                text_ar: "وقتك محدود، فمتضيّعوش وانت عايش حياة حد تاني.",
                 author: "Steve Jobs",
+                author_ar: "ستيف جوبز",
             },
             {
                 text: "The future belongs to those who believe in the beauty of their dreams.",
+                text_ar: "المستقبل بتاع اللي بيؤمنوا بجمال أحلامهم.",
                 author: "Eleanor Roosevelt",
+                author_ar: "إليانور روزفلت",
             },
             {
                 text: "If you look at what you have in life, you'll always have more.",
+                text_ar: "لو بصّيت على اللي عندك في حياتك، هتلاقي عندك دايمًا أكتر.",
                 author: "Oprah Winfrey",
+                author_ar: "أوبرا وينفري",
             },
         ];
         // Pick a random quote each day or refresh
@@ -56,10 +67,10 @@ export default function QuoteWidget({ theme = "dark" }) {
                 &quot;
             </div>
             <blockquote className={`text-lg md:text-xl font-medium mb-4 relative z-10 px-6 pt-2 ${quoteClass}`}>
-                {quote.text}
+                {isArabic ? quote.text_ar : quote.text}
             </blockquote>
             <cite className={`block text-sm font-light not-italic ${authorClass}`}>
-                - {quote.author}
+                - {isArabic ? quote.author_ar : quote.author}
             </cite>
         </div>
     );

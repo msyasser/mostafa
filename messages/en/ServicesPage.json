@@ -469,7 +469,8 @@
             "note": "Pick a time, then answer a few quick questions so the call is useful from the first minute."
         },
         "sticky": {
-            "cta": "Book a free call"
+            "cta": "Book a free call",
+            "sub": "30 minutes · no commitment"
         }
     }
 }

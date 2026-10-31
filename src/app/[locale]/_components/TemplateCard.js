@@ -34,9 +34,9 @@ export default function TemplateCard({ template, index, isTemplatesSubdomain = f
   const getTemplatePrice = () => {
     try {
       const price = t(`${template.name}.price`);
-      return price === "$0" ? "Free" : price;
+      return price === "$0" ? (locale === "ar" ? "مجاني" : "Free") : price;
     } catch (error) {
-      return template.premium ? "PRO" : "Free";
+      return template.premium ? "PRO" : (locale === "ar" ? "مجاني" : "Free");
     }
   };
 
