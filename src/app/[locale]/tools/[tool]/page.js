@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { tools } from "../_data/tools";
 import ToolExplorer from "../_components/ToolExplorer";
+import ToolCta from "../_components/ToolCta";
 
 import { getTranslations } from "next-intl/server";
 
@@ -68,8 +69,9 @@ export default async function ToolPage({ params }) {
     // const t = useTranslations("ToolsPage");
 
     return (
-        <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
+        <div className="min-h-screen bg-black px-4 pb-20 text-white flex flex-col items-center justify-center">
             <ToolExplorer slug={slug} />
+            <ToolCta />
         </div>
     );
 }

@@ -17,9 +17,9 @@ export default function StudyPlanner({ theme = "dark", isPreview = false, isExpl
     useEffect(() => {
         if (isPreview) {
             setTopics([
-                { id: 1, text: "Math - Calculus", completed: true },
-                { id: 2, text: "Physics - Newton's Laws", completed: false },
-                { id: 3, text: "CS - Data Structures", completed: false }
+                { id: 1, text: t("math"), completed: true },
+                { id: 2, text: t("physics"), completed: false },
+                { id: 3, text: t("cs"), completed: false }
             ]);
             setStudyHours(12);
             return;
@@ -72,7 +72,7 @@ export default function StudyPlanner({ theme = "dark", isPreview = false, isExpl
         return (
             <div className={`relative overflow-hidden rounded-2xl border p-4 w-full scale-90 origin-top shadow-lg ${containerClasses}`}>
                 <div className="flex justify-between items-center mb-3">
-                    <h4 className="text-sm font-bold uppercase tracking-tighter">Study Planner</h4>
+                    <h4 className="text-sm font-bold uppercase tracking-tighter">{t("title")}</h4>
                     <span className="text-main text-xs font-bold">{progress}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-black/20 rounded-full mb-3 overflow-hidden">

@@ -93,7 +93,7 @@ export default function QuranWidget({ theme = "dark", isPreview = false, display
             // unless its Indopak which has specific glyphs
             const edition = fontStyle === 'indopak' ? 'quran-indopak' : 'quran-uthmani';
 
-            const response = await fetch(`https://api.alquran.cloud/v1/ayah/${verseId}/editions/${edition},en.asad,${reciter}`);
+            const response = await fetch(`/api/tools/quran?mode=ayah&verseId=${verseId}&edition=${edition}&reciter=${reciter}`);
             if (!response.ok) throw new Error("Failed to fetch");
 
             const data = await response.json();

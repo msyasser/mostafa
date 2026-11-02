@@ -66,5 +66,75 @@
     "configure": "Configure",
     "style": "Style",
     "guide": "Guide",
-    "noConfigHint": "This widget works automatically with no extra configuration needed."
+    "noConfigHint": "This widget works automatically with no extra configuration needed.",
+    "notionPreview": "Notion preview",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeLightFull": "light mode",
+    "themeDarkFull": "dark mode",
+    "tasksWidget": {
+        "badge": "Desktop app",
+        "title": "Notion Tasks Widget",
+        "cardText": "Today's Notion tasks right on your desktop. Light, fast, and no need to open Notion.",
+        "cardCta": "Learn more",
+        "metaTitle": "Notion Tasks Widget for Windows",
+        "metaDescription": "A small Windows widget that shows today's tasks from your Notion database, so you can complete and reschedule them in one click. Free on the Microsoft Store.",
+        "subtitle": "A small widget that lives in your system tray and shows today's tasks from your Notion database. Check them off or move them to tomorrow in one click.",
+        "windowsLabel": "Windows: free on the Microsoft Store",
+        "windowsButton": "Get it from the Microsoft Store",
+        "androidLabel": "Android: coming soon on Google Play",
+        "featuresTitle": "What it does",
+        "features": [
+            {
+                "t": "Lives in the system tray",
+                "d": "Click the icon to show or hide it, and right-click for the menu."
+            },
+            {
+                "t": "Connect to Notion in one click",
+                "d": "Approve on Notion's page and the app finishes on its own. No tokens or database IDs to copy."
+            },
+            {
+                "t": "Instant check-off",
+                "d": "Mark a task done and it updates right away. Switching between days is quick."
+            },
+            {
+                "t": "Move, open or delete",
+                "d": "Move a task to tomorrow, open it in Notion, or delete it (it goes to Notion's trash, so you can restore it). Double-click a task to rename it."
+            },
+            {
+                "t": "Your style",
+                "d": "Dark, light or follow Windows, with your accent color, transparency and font size."
+            },
+            {
+                "t": "Keyboard shortcuts",
+                "d": "Ctrl+N to add, Ctrl+R to sync, Alt+arrows to change day, Ctrl+, for settings."
+            },
+            {
+                "t": "Arabic and English",
+                "d": "A full right-to-left layout, plus an option for Arabic numerals."
+            },
+            {
+                "t": "Your privacy",
+                "d": "The connection token is kept in Windows Credential Manager, and your data goes straight to Notion only."
+            }
+        ],
+        "howTitle": "How to start",
+        "steps": [
+            "Get the widget from the Microsoft Store.",
+            "Click Connect with Notion and approve on Notion's page.",
+            "If you don't have a tasks database, duplicate the free TaskHub template while connecting and the app picks its tasks database on its own.",
+            "Today's tasks appear on your desktop."
+        ],
+        "requirements": "You need a Notion account and a tasks database with a Status property and a Date property.",
+        "screenshotsTitle": "Screenshots",
+        "templateText": "Need a ready-made tasks database? The TaskHub template is free.",
+        "templateCta": "See the TaskHub template",
+        "backToTools": "All tools"
+    },
+    "cta": {
+        "title": "Want to organize your work further?",
+        "newsletter": "Join the newsletter: Notion templates, tools and tips every week.",
+        "templates": "Browse templates",
+        "services": "Book a free call"
+    }
 }

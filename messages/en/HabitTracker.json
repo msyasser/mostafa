@@ -8,5 +8,6 @@
     "delete": "Delete",
     "done": "Done!",
     "edit": "Edit",
-    "placeholder": "Drink water..."
+    "placeholder": "Drink water...",
+    "addFirstHabit": "Add your first habit"
 }

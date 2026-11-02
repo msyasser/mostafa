@@ -221,6 +221,8 @@ export default async function CaseStudyPage({ params }) {
                     <p className="mx-auto mt-3 max-w-xl text-neutral-400">{t("calendarDescription")}</p>
                     <Link
                         href="/services#calendar-section"
+                        data-track="book_call_click"
+                        data-track-place="case_study"
                         className="mt-6 inline-flex rounded-full bg-main px-8 py-3.5 text-[15px] font-semibold text-neutral-900 transition-transform duration-300 hover:scale-[1.03]"
                     >
                         {t("ctaButton")}

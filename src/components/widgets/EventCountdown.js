@@ -65,7 +65,7 @@ export default function EventCountdown({ theme = "dark", initialDate = "", initi
         return (
             <div className={`relative overflow-hidden rounded-2xl border p-4 w-full scale-90 origin-top shadow-lg ${containerClasses}`}>
                 <div className="text-center mb-2">
-                    <span className="text-[10px] text-main font-bold uppercase tracking-widest leading-none">Wedding Day</span>
+                    <span className="text-[10px] text-main font-bold uppercase tracking-widest leading-none">{locale === "ar" ? "يوم الزفاف" : "Wedding Day"}</span>
                 </div>
                 <div className="flex justify-around items-center">
                     {[{ v: 12, l: "D" }, { v: 5, l: "H" }, { v: 45, l: "M" }].map((item, i) => (

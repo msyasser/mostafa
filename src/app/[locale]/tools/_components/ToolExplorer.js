@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Copy, Check, Info, Calendar } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
+import { track } from "@/src/lib/track";
 import { tools } from "../_data/tools";
 
 export default function ToolExplorer({ slug }) {
@@ -91,6 +92,7 @@ export default function ToolExplorer({ slug }) {
             });
         }
 
+        track("tool_embed_copy", { tool: slug, theme, language: targetLocale });
         navigator.clipboard.writeText(url).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
@@ -99,7 +101,7 @@ export default function ToolExplorer({ slug }) {
 
 
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 mt-12 mb-32 md:mb-40 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start pb-20">
+        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 mt-12 mb-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Left Column: Controls & Info */}
             <div className="flex flex-col justify-between lg:min-h-[600px] lg:sticky lg:top-24 gap-8">
                 <div className="space-y-8">
@@ -207,7 +209,7 @@ export default function ToolExplorer({ slug }) {
                                                     : "text-gray-400 hover:text-white"
                                                     }`}
                                             >
-                                                Light
+                                                {t("themeLight")}
                                             </button>
                                             <button
                                                 onClick={() => setTheme("dark")}
@@ -216,7 +218,7 @@ export default function ToolExplorer({ slug }) {
                                                     : "text-gray-400 hover:text-white"
                                                     }`}
                                             >
-                                                Dark
+                                                {t("themeDark")}
                                             </button>
                                         </div>
                                     </div>
@@ -252,7 +254,7 @@ export default function ToolExplorer({ slug }) {
                         {copied ? t("copied") : t("copyEmbed")}
                     </button>
                     <p className="text-gray-500 text-xs text-center uppercase tracking-widest font-bold opacity-50">
-                        {t("embedHint")} • {theme} Mode
+                        {t("embedHint")} • {theme === "light" ? t("themeLightFull") : t("themeDarkFull")}
                     </p>
                 </div>
             </div>
@@ -287,7 +289,7 @@ export default function ToolExplorer({ slug }) {
                 </div>
 
                 <div className="absolute bottom-4 right-6 text-xs font-mono opacity-30 text-gray-500">
-                    Notion Preview • {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
+                    {t("notionPreview")} • {theme === 'light' ? t("themeLightFull") : t("themeDarkFull")}
                 </div>
             </div>
         </div>
