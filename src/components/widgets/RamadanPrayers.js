@@ -22,49 +22,16 @@ export default function RamadanPrayers({ theme = "dark", defaultCity = "", isPre
     const lastRequestCity = useRef("");
 
     const getCoordinates = useCallback(async (cityName) => {
-        const apiKey = "3f3c663b33e341549fe8b87f6fd7985d";
-
-        try {
-            const response = await fetch(
-                `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-                    cityName
-                )}&key=${apiKey}`
-            );
-            const data = await response.json();
-            if (data.results && data.results.length > 0) {
-                return {
-                    lat: data.results[0].geometry.lat,
-                    lng: data.results[0].geometry.lng,
-                };
-            }
-        } catch (e) {
-            console.error("OpenCage failed, trying fallback...");
-        }
-
-        try {
-            const response = await fetch(
-                `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(cityName)}&format=json&limit=1`
-            );
-            const data = await response.json();
-            if (data.length > 0) {
-                return {
-                    lat: parseFloat(data[0].lat),
-                    lng: parseFloat(data[0].lon),
-                };
-            }
-        } catch (e) {
-            console.error("Nominatim fallback failed:", e);
-        }
-
-        throw new Error("City not found");
-    }, []);
+        const response = await fetch(`/api/tools/geocode?q=${encodeURIComponent(cityName)}&lang=${isArabic ? "ar" : "en"}`);
+        if (!response.ok) throw new Error("City not found");
+        const data = await response.json();
+        return { lat: data.lat, lng: data.lng };
+    }, [isArabic]);
 
     const fetchPrayerTimes = useCallback(async (lat, lng) => {
-        const response = await fetch(
-            `https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=4`
-        );
-        const data = await response.json();
-        return data.data;
+        const response = await fetch(`/api/tools/prayer-times?lat=${lat}&lng=${lng}`);
+        if (!response.ok) throw new Error("Prayer times unavailable");
+        return response.json();
     }, []);
 
     const calculateRamadanStatus = useCallback((hijri) => {

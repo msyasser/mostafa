@@ -18,13 +18,11 @@ export default function WeatherWidget({ theme = "dark", defaultCity = "", isPrev
     const lastRequestCity = useRef("");
 
     const getCoordinates = useCallback(async (cityName) => {
-        try {
-            const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(cityName)}&format=json&limit=1`);
-            const data = await response.json();
-            if (data.length > 0) return { lat: data[0].lat, lon: data[0].lon, name: data[0].display_name.split(',')[0] };
-        } catch (e) { console.error(e); }
-        throw new Error("City not found");
-    }, []);
+        const response = await fetch(`/api/tools/geocode?q=${encodeURIComponent(cityName)}&lang=${locale === "ar" ? "ar" : "en"}`);
+        if (!response.ok) throw new Error("City not found");
+        const data = await response.json();
+        return { lat: data.lat, lon: data.lng, name: data.name };
+    }, [locale]);
 
     const fetchWeather = useCallback(async (cityName) => {
         if (!cityName) return;
@@ -38,17 +36,18 @@ export default function WeatherWidget({ theme = "dark", defaultCity = "", isPrev
 
             if (lastRequestCity.current !== currentRequest) return;
 
-            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m`);
+            const response = await fetch(`/api/tools/weather?lat=${coords.lat}&lng=${coords.lon}`);
+            if (!response.ok) throw new Error("Weather unavailable");
             const data = await response.json();
 
             if (lastRequestCity.current !== currentRequest) return;
 
             setWeather({
-                temp: Math.round(data.current.temperature_2m),
-                humidity: data.current.relative_humidity_2m,
-                feelsLike: Math.round(data.current.apparent_temperature),
-                wind: data.current.wind_speed_10m,
-                code: data.current.weather_code,
+                temp: Math.round(data.temperature_2m),
+                humidity: data.relative_humidity_2m,
+                feelsLike: Math.round(data.apparent_temperature),
+                wind: data.wind_speed_10m,
+                code: data.weather_code,
                 cityFriendly: coords.name
             });
             setSavedCity(cityName);

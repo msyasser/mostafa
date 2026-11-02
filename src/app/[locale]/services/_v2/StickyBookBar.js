@@ -44,6 +44,8 @@ export default function StickyBookBar({ label, sub }) {
         >
             <a
                 href="#calendar-section"
+                data-track="book_call_click"
+                data-track-place="services_floating"
                 tabIndex={show ? 0 : -1}
                 className="flex w-full items-center gap-3 rounded-full bg-main py-1.5 pe-2 ps-1.5 text-neutral-900 md:w-auto md:shadow-[0_10px_30px_rgba(0,0,0,0.55)] md:transition-transform md:hover:scale-[1.03]"
             >

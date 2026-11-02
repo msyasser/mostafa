@@ -82,7 +82,7 @@ export default function Pricing() {
                     footer={
                         <div className="border-t border-main/20 px-7 py-3.5 text-center text-[13px] text-neutral-400">
                             {t("budgetPrefix")}{" "}
-                            <a href="#calendar-section" className="text-main underline underline-offset-4">
+                            <a href="#calendar-section" data-track="book_call_click" data-track-place="services_pricing_link" className="text-main underline underline-offset-4">
                                 {t("budgetLink")}
                             </a>
                         </div>
@@ -127,6 +127,8 @@ export default function Pricing() {
                     <p className="my-4 border-s-[3px] border-main ps-3.5 text-white">{gate.principle}</p>
                     <a
                         href="#calendar-section"
+                        data-track="book_call_click"
+                        data-track-place="services_gate"
                         className="inline-flex rounded-full bg-main px-8 py-3.5 text-[15px] font-semibold text-neutral-900 transition-transform duration-300 hover:scale-[1.03]"
                     >
                         {gate.cta}

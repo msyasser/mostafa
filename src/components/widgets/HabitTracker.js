@@ -219,7 +219,7 @@ export default function HabitTracker({ theme = "dark", isPreview = false }) {
                 {habits.length === 0 && !isAdding && (
                     <div className="text-center py-12 opacity-30">
                         <Plus className="mx-auto mb-2" size={40} />
-                        <p className="text-sm font-medium">Add your first habit</p>
+                        <p className="text-sm font-medium">{t("addFirstHabit")}</p>
                     </div>
                 )}
             </div>

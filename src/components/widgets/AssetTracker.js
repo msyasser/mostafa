@@ -13,7 +13,7 @@ export default function AssetTracker({ theme = "dark", isPreview = false }) {
     const [assets, setAssets] = useState([
         { id: "bitcoin", name: t("bitcoin"), price: 0, change: 0, icon: "₿" },
         { id: "ethereum", name: t("ethereum"), price: 0, change: 0, icon: "Ξ" },
-        { id: "gold", name: t("gold"), price: 2650.45, change: 0.85, icon: "Au" }
+        { id: "gold", name: t("gold"), price: 0, change: 0, icon: "Au" }
     ]);
     const [loading, setLoading] = useState(false);
     const [lastUpdate, setLastUpdate] = useState(null);
@@ -22,16 +22,16 @@ export default function AssetTracker({ theme = "dark", isPreview = false }) {
         if (isPreview) return;
         setLoading(true);
         try {
-            // Fetch Crypto via CoinGecko
-            const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true");
+            const response = await fetch("/api/tools/prices");
+            if (!response.ok) throw new Error("Prices unavailable");
             const data = await response.json();
 
             setAssets(prev => prev.map(asset => {
                 if (data[asset.id]) {
                     return {
                         ...asset,
-                        price: data[asset.id].usd,
-                        change: data[asset.id].usd_24h_change
+                        price: data[asset.id].price,
+                        change: data[asset.id].change
                     };
                 }
                 return asset;

@@ -28,12 +28,16 @@ export default function Hero() {
                     <div id="services-hero-cta" className="flex flex-wrap gap-3">
                         <a
                             href="#calendar-section"
+                            data-track="book_call_click"
+                            data-track-place="services_hero"
                             className="inline-flex items-center justify-center gap-2 rounded-full bg-main px-8 py-3.5 text-[15px] font-semibold text-neutral-900 transition-transform duration-300 hover:scale-[1.03]"
                         >
                             {t("ctaBook")} <BsArrowRight className="rtl:rotate-180" />
                         </a>
                         <a
                             href="#case-studies"
+                            data-track="view_case_studies_click"
+                            data-track-place="services_hero"
                             className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-3.5 text-[15px] font-semibold text-white transition-colors duration-300 hover:border-main hover:text-main"
                         >
                             {t("ctaCases")}

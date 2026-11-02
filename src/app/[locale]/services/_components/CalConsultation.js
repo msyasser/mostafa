@@ -2,11 +2,16 @@
 
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
+import { track } from "@/src/lib/track";
 
 export default function CalConsultation() {
   useEffect(() => {
     (async function () {
       const cal = await getCalApi({ namespace: "discovery-call" });
+      cal("on", {
+        action: "bookingSuccessful",
+        callback: () => track("book_call_success", { place: "calendar_embed", page_path: window.location.pathname }),
+      });
       cal("ui", {
         theme: "dark",
         cssVarsPerTheme: {

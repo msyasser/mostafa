@@ -71,7 +71,7 @@ export default function QuranicPlanner({ theme = "dark", initialStartSura = "fat
         let isMounted = true;
         async function fetchQuranData() {
             try {
-                const res = await fetch("https://api.alquran.cloud/v1/meta");
+                const res = await fetch("/api/tools/quran?mode=meta");
                 const json = await res.json();
 
                 if (json.data && json.data.surahs && json.data.surahs.references) {
