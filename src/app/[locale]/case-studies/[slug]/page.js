@@ -113,6 +113,7 @@ export default async function CaseStudyPage({ params }) {
               .split(/\r?\n/)
               .filter((line) => !line.trim().startsWith("**"))
               .join(" ")
+              .replace(/\*\*/g, "")
               .trim()
         : "";
     const description = t(project.descriptionKey);
