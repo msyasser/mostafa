@@ -1,7 +1,5 @@
-import BlurText from "@/src/app/[locale]/_components/BlurText";
 import CaseStudiesList from "./_components/CaseStudiesList";
 import CaseStudiesHero from "./_components/CaseStudiesHero";
-import { useTranslations } from "next-intl";
 
 export async function generateMetadata({ params }) {
     const { locale } = await params;
@@ -45,13 +43,11 @@ export async function generateMetadata({ params }) {
 
 export default function CaseStudiesPage() {
     return (
-        <BlurText>
-            <div className="bg-neutral-950 min-h-screen text-white selection:bg-main selection:text-neutral-900">
-                <div className="max-w-7xl mx-auto px-4 md:px-8">
-                    <CaseStudiesHero />
-                    <CaseStudiesList />
-                </div>
+        <div className="min-h-screen bg-neutral-950 text-white selection:bg-main selection:text-neutral-900">
+            <div className="mx-auto max-w-[1200px] px-6">
+                <CaseStudiesHero />
+                <CaseStudiesList />
             </div>
-        </BlurText>
+        </div>
     );
 }

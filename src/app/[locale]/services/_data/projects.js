@@ -5,6 +5,7 @@ export const projects = [
         titleKey: "caseStudies.goldInvestment.title",
         descriptionKey: "caseStudies.goldInvestment.description",
         image: "/projects/Gold Tracker/Dashboard.webp",
+        cardImage: "/projects/Gold Tracker/Services-card.webp",
         images: [
             "/projects/Gold Tracker/Dashboard.webp",
         ],
@@ -23,6 +24,7 @@ export const projects = [
         titleKey: "caseStudies.resaltk.title",
         descriptionKey: "caseStudies.resaltk.description",
         image: "/projects/Resaltk/Dashboard.webp",
+        cardImage: "/projects/Resaltk/Services-card.webp",
         images: [
             "/projects/Resaltk/Dashboard.webp",
             "/projects/Resaltk/9.webp",
@@ -43,6 +45,7 @@ export const projects = [
         titleKey: "caseStudies.trendDesign.title",
         descriptionKey: "caseStudies.trendDesign.description",
         image: "/projects/Trend Design/11.webp",
+        cardImage: "/projects/Trend Design/Services-card.webp",
         images: [
             "/projects/Trend Design/11.webp",
             "/projects/Trend Design/12.webp",
