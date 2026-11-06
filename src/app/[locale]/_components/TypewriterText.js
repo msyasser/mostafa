@@ -2,6 +2,11 @@
 
 import { motion } from "framer-motion";
 
+// Arabic letters join each other, so a word must stay in one piece: splitting it into one element per letter
+// (each one animated) makes Safari draw the letters disconnected. Arabic is animated word by word instead.
+const hasArabic = (value) => /[؀-ۿ]/.test(value);
+const pieces = (value) => (hasArabic(value) ? value.split(/(\s+)/).filter(Boolean) : value.split(""));
+
 function TypewriterText({ text = "", highlightText = "" }) {
   const sentence = {
     hidden: { opacity: 1 },
@@ -27,19 +32,27 @@ function TypewriterText({ text = "", highlightText = "" }) {
       className="inline"
     >
       <span className="text-white inline">
-        {text.split("").map((char, i) => (
-          <motion.span key={`text-${i}`} variants={letter} className="inline">
-            {char}
-          </motion.span>
-        ))}
+        {pieces(text).map((piece, i) =>
+          piece.trim() === "" && piece !== "" ? (
+            piece
+          ) : (
+            <motion.span key={`text-${i}`} variants={letter} className="inline">
+              {piece}
+            </motion.span>
+          )
+        )}
       </span>
       {highlightText && (
         <span className="text-main inline">
-          {highlightText.split("").map((char, i) => (
-            <motion.span key={`hl-${i}`} variants={letter} className="inline">
-              {char}
-            </motion.span>
-          ))}
+          {pieces(highlightText).map((piece, i) =>
+            piece.trim() === "" && piece !== "" ? (
+              piece
+            ) : (
+              <motion.span key={`hl-${i}`} variants={letter} className="inline">
+                {piece}
+              </motion.span>
+            )
+          )}
         </span>
       )}
     </motion.span>
