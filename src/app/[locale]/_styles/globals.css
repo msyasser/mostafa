@@ -404,3 +404,12 @@ input:-webkit-autofill:active,
     padding-bottom: 0;
   }
 }
+
+/* Arabic letters must stay joined. Any letter-spacing (tracking-wide, tracking-tight, ...) pulls the letters of a word
+   apart, and Safari on iPhone then shows them disconnected. Arabic pages (and any right-to-left block) get none. */
+html[lang="ar"],
+html[lang="ar"] *,
+[dir="rtl"],
+[dir="rtl"] * {
+  letter-spacing: 0 !important;
+}
