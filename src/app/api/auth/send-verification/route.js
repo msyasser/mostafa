@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { generateVerificationCode, createVerificationToken, sendVerificationEmail } from "@/src/lib/email";
 import { rateLimit, getClientIp } from "@/src/lib/rate-limit";
 import { isValidEmail, normalizeEmail } from "@/src/lib/validation";
+import { accountsApiEnabled, findAccount } from "@/src/lib/accounts";
 
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_NAME_LENGTH = 100;
@@ -86,8 +87,23 @@ export async function POST(request) {
       );
     }
 
-    // Check if user already exists
-    const exists = await checkUserExistsInNotion(email);
+    // Check if user already exists. In the shared account database, an account created only by the
+    // course app (no site password yet) does not count: that person may still set a password here.
+    let exists;
+    if (accountsApiEnabled()) {
+      try {
+        const account = await findAccount(email);
+        exists = !!(account && account.passwordHash);
+      } catch (err) {
+        console.error("Accounts API lookup failed:", err.message);
+        return NextResponse.json(
+          { error: locale === "ar" ? "حصلت مشكلة مؤقتة. جرّب بعد شوية." : "Temporary problem. Please try again shortly." },
+          { status: 503 }
+        );
+      }
+    } else {
+      exists = await checkUserExistsInNotion(email);
+    }
     if (exists) {
       return NextResponse.json(
         {

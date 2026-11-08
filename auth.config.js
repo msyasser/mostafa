@@ -12,6 +12,7 @@ import {
 } from "@/src/lib/password";
 import { rateLimit, getClientIp } from "@/src/lib/rate-limit";
 import { isValidEmail, normalizeEmail } from "@/src/lib/validation";
+import { accountsApiEnabled, findAccount, createAccount, updateAccount, AccountsError } from "@/src/lib/accounts";
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const NOTION_USERS_DB_ID = process.env.NOTION_USERS_DB_ID;
@@ -340,6 +341,29 @@ export const authConfig = {
           const cleanName = name.trim();
           const cleanPhone = typeof phone === "string" ? phone.trim().slice(0, MAX_PHONE_LENGTH) : "";
 
+          // Shared account database (site + app), when USER_STORE=worker.
+          if (accountsApiEnabled()) {
+            try {
+              const existing = await findAccount(normalizedEmail);
+              if (existing && existing.status !== "active") throw new CredentialsError("signup_failed");
+              if (existing && existing.passwordHash) throw new CredentialsError("user_exists");
+              const hash = await hashPassword(password);
+              const made = await createAccount({
+                email: normalizedEmail,
+                name: cleanName,
+                phone: cleanPhone,
+                passwordHash: hash,
+                source: "website",
+              });
+              return { id: made.user.id, name: made.user.name || cleanName, email: made.user.email };
+            } catch (error) {
+              if (error instanceof CredentialsError) throw error;
+              if (error instanceof AccountsError && error.code === "exists_with_password") throw new CredentialsError("user_exists");
+              console.error("Accounts API signup error:", error.message);
+              throw new CredentialsError("signup_failed");
+            }
+          }
+
           // Try Notion first, fallback to in-memory
           let newUser;
 
@@ -402,6 +426,31 @@ export const authConfig = {
           }
 
           let user = null;
+
+          if (accountsApiEnabled()) {
+            let account;
+            try {
+              account = await findAccount(normalizeEmail(email));
+            } catch (error) {
+              console.error("Accounts API login error:", error.message);
+              throw new CredentialsError("login_failed");
+            }
+            // Blocked, unknown, or an app-only account that never set a site password: same answer as a wrong password.
+            if (!account || account.status !== "active" || !account.passwordHash) {
+              throw new CredentialsError("invalid_credentials");
+            }
+            if (!(await verifyPassword(password, account.passwordHash))) {
+              throw new CredentialsError("invalid_credentials");
+            }
+            if (needsRehash(account.passwordHash)) {
+              try {
+                await updateAccount(account.email, { passwordHash: await hashPassword(password) });
+              } catch (error) {
+                console.error("Password hash upgrade failed:", error.message);
+              }
+            }
+            return { id: account.id, name: account.name || name, email: account.email };
+          }
 
           if (NOTION_TOKEN && NOTION_USERS_DB_ID) {
             const notionUser = await findUserByEmail(email);
@@ -493,7 +542,15 @@ export const authConfig = {
         const email = user?.email;
         const name = user?.name || "Google User";
 
-        if (NOTION_TOKEN && NOTION_USERS_DB_ID && email) {
+        if (accountsApiEnabled() && email) {
+          try {
+            // Creates the shared account if it is new (no password); a blocked account cannot sign in.
+            await createAccount({ email: normalizeEmail(email), name, source: "website-google" });
+          } catch (error) {
+            if (error instanceof AccountsError && error.code === "blocked") return false;
+            console.error("Error syncing Google user to the accounts API:", error.message);
+          }
+        } else if (NOTION_TOKEN && NOTION_USERS_DB_ID && email) {
           try {
             const existingUser = await findUserByEmail(email);
             if (!existingUser) {
@@ -516,8 +573,26 @@ export const authConfig = {
         token.id = user.id || token.sub;
         token.email = user.email;
         token.name = user.name;
+        token.signedInAt = Math.floor(Date.now() / 1000);
         if (user.image) {
           token.picture = user.image;
+        }
+      }
+      // Shared account database: a blocked account, or one that was "signed out everywhere" from the
+      // Notion sheet, loses its website session within about 5 minutes. If the accounts API cannot be
+      // reached the session is kept and checked again on the next request.
+      if (accountsApiEnabled() && token.email) {
+        const nowSec = Math.floor(Date.now() / 1000);
+        if (!token.checkedAt || nowSec - token.checkedAt > 300) {
+          try {
+            const account = await findAccount(token.email);
+            if (account && (account.status !== "active" || (account.signedOutAt && (token.signedInAt || 0) < account.signedOutAt))) {
+              return null;
+            }
+            token.checkedAt = nowSec;
+          } catch (error) {
+            console.error("Session check failed:", error.message);
+          }
         }
       }
       return token;
