@@ -192,6 +192,15 @@ export default function SignInForm() {
             </div>
           </div>
 
+          <div className="-mt-2 text-end">
+            <Link
+              href={`/${locale}/auth/forgot-password${callbackUrl && callbackUrl !== `/${locale}` ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ""}`}
+              className="text-sm text-neutral-400 hover:text-main transition-colors"
+            >
+              {t("FORGOT_PASSWORD")}
+            </Link>
+          </div>
+
           {/* Error Message */}
           {error && (
             <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3.5 text-red-400 text-sm text-center">

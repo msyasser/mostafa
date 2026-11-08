@@ -73,7 +73,7 @@ export function verifyToken(token, email, code) {
 }
 
 // Send Verification Email HTML
-export async function sendVerificationEmail({ email, name, code, locale = "en" }) {
+export async function sendVerificationEmail({ email, name, code, locale = "en", purpose = "signup" }) {
   if (!resend) {
     throw new Error("Resend API key is not configured");
   }
@@ -111,8 +111,8 @@ export async function sendVerificationEmail({ email, name, code, locale = "en" }
             <p style="color: #a3a3a3; font-size: 15px; line-height: 1.6; margin: 0 0 28px 0;">
               ${
                 isArabic
-                  ? "شكراً لتسجيلك في المنصة. استخدم رمز التحقق التالي لتأكيد بريدك الإلكتروني وإكمال إنشاء حسابك:"
-                  : "Thank you for creating an account. Please use the verification code below to verify your email address and complete your registration:"
+                  ? purpose === "reset" ? "وصلنا طلب لإعادة تعيين كلمة المرور. استخدم الرمز التالي لتعيين كلمة مرور جديدة:" : "شكراً لتسجيلك في المنصة. استخدم رمز التحقق التالي لتأكيد بريدك الإلكتروني وإكمال إنشاء حسابك:"
+                  : purpose === "reset" ? "We received a request to reset your password. Use the code below to set a new one:" : "Thank you for creating an account. Please use the verification code below to verify your email address and complete your registration:"
               }
             </p>
 
