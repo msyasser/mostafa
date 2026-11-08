@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/src/app/api/auth/[...nextauth]/route";
 import { hashPassword, verifyPassword, findPasswordPropertyName } from "@/src/lib/password";
 import { rateLimit } from "@/src/lib/rate-limit";
+import { accountsApiEnabled, findAccount, updateAccount, deleteAccount, AccountsError } from "@/src/lib/accounts";
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const NOTION_USERS_DB_ID = process.env.NOTION_USERS_DB_ID;
@@ -69,6 +70,28 @@ export async function GET() {
   let name = session.user.name || "";
   let createdAt = null;
 
+  if (accountsApiEnabled()) {
+    try {
+      const account = await findAccount(email);
+      if (account) {
+        name = account.name || name;
+        phone = account.phone || "";
+        if (account.createdAt) createdAt = new Date(account.createdAt * 1000).toISOString().split("T")[0];
+      }
+    } catch (err) {
+      console.error("Accounts API profile error:", err.message);
+    }
+    return NextResponse.json({
+      user: {
+        name,
+        email,
+        phone,
+        createdAt: createdAt || new Date().toISOString().split("T")[0],
+        isGoogleUser: !!session.user.image,
+      },
+    });
+  }
+
   const result = await findUserInNotion(email);
   if (result && result.userPage) {
     const props = result.userPage.properties || {};
@@ -116,6 +139,53 @@ export async function PATCH(request) {
     const body = await request.json();
     const { name, phone, currentPassword, newPassword } = body;
     const email = session.user.email;
+
+    if (accountsApiEnabled()) {
+      const fields = {};
+      if (typeof name === "string" && name.trim()) {
+        if (name.trim().length > MAX_NAME_LENGTH) {
+          return NextResponse.json({ error: "Name is too long" }, { status: 400 });
+        }
+        fields.name = name.trim();
+      }
+      if (typeof phone === "string") {
+        if (phone.length > MAX_PHONE_LENGTH) {
+          return NextResponse.json({ error: "Phone number is too long" }, { status: 400 });
+        }
+        fields.phone = phone.replace(/\s+/g, "") || null;
+      }
+      if (newPassword) {
+        if (typeof newPassword !== "string" || newPassword.length < 6) {
+          return NextResponse.json({ error: "Password must be at least 6 characters" }, { status: 400 });
+        }
+        if (newPassword.length > MAX_PASSWORD_LENGTH) {
+          return NextResponse.json({ error: "Password is too long" }, { status: 400 });
+        }
+        const attempts = rateLimit(`profile-password:${email.toLowerCase()}`, { limit: 5, windowMs: 15 * 60 * 1000 });
+        if (!attempts.ok) {
+          return NextResponse.json({ error: "Too many attempts. Please try again later." }, { status: 429 });
+        }
+      }
+      try {
+        const account = await findAccount(email);
+        if (!account) return NextResponse.json({ error: "User record not found" }, { status: 404 });
+        if (newPassword) {
+          if (account.passwordHash && !(await verifyPassword(typeof currentPassword === "string" ? currentPassword : "", account.passwordHash))) {
+            return NextResponse.json({ error: "Current password is incorrect" }, { status: 400 });
+          }
+          fields.passwordHash = await hashPassword(newPassword);
+        }
+        if (Object.keys(fields).length > 0) await updateAccount(email, fields);
+      } catch (err) {
+        console.error("Accounts API profile update error:", err.message);
+        return NextResponse.json({ error: "Failed to update profile" }, { status: 500 });
+      }
+      return NextResponse.json({
+        success: true,
+        message: "Profile updated successfully",
+        user: { name: name || session.user.name, phone: phone },
+      });
+    }
 
     const result = await findUserInNotion(email);
     if (!result || !result.userPage) {
@@ -230,6 +300,23 @@ export async function DELETE() {
 
   try {
     const email = session.user.email;
+
+    if (accountsApiEnabled()) {
+      try {
+        await deleteAccount(email);
+      } catch (err) {
+        if (err instanceof AccountsError && err.code === "has_purchases") {
+          return NextResponse.json(
+            { error: "This account owns a course, so it can't be deleted here. Please contact us." },
+            { status: 409 }
+          );
+        }
+        console.error("Accounts API delete error:", err.message);
+        return NextResponse.json({ error: "Failed to delete account in database" }, { status: 500 });
+      }
+      return NextResponse.json({ success: true, message: "Account deleted successfully" });
+    }
+
     const result = await findUserInNotion(email);
 
     if (result && result.userPage) {
