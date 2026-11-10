@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
     const title = t("title");
     const description = t("description");
     const url = `${SITE_URL}/${locale}/courses/notion-course`;
-    const image = `${SITE_URL}/metaData/${locale === "ar" ? "ar" : "en"}/courses.webp`;
+    const image = `${SITE_URL}/courses/notion-course-${locale === "ar" ? "ar" : "en"}.webp`;
 
     return {
         title,
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }) {
             url,
             siteName: "Mostafa Yasser",
             type: "website",
-            images: [{ url: image, width: 1200, height: 630, alt: title }],
+            images: [{ url: image, width: 1600, height: 900, alt: title }],
         },
         twitter: { card: "summary_large_image", title, description, images: [image] },
     };

@@ -185,6 +185,19 @@ const nextConfig = {
         permanent: true,
       },
       {
+        // The free YouTube course page was replaced by the full Notion course (temporary redirect on purpose)
+        source: "/:locale(en|ar)/courses/complete-notion-learning-playlist",
+        destination: "/:locale/courses/notion-course",
+        permanent: false,
+      },
+      {
+        // Same old link on courses.mostafayasser.com, where course pages have no /courses prefix
+        source: "/:locale(en|ar)/complete-notion-learning-playlist",
+        has: [{ type: "host", value: "courses.mostafayasser.com" }],
+        destination: "/:locale/notion-course",
+        permanent: false,
+      },
+      {
         source: "/ramadan-competition",
         destination: "/en/templates/ramadan-competition",
         permanent: true,

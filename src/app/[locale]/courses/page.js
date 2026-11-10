@@ -2,8 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
-import CourseCard from "@/src/app/[locale]/_components/CourseCard";
-import courses from "@/src/app/[locale]/_data/coursesData";
+import NotionCourseCard from "@/src/app/[locale]/_components/NotionCourseCard";
 import SEOOptimizer from "@/src/app/[locale]/_components/SEOOptimizer";
 
 export async function generateMetadata({ params }) {
@@ -27,8 +26,8 @@ export async function generateMetadata({ params }) {
     title,
     description,
     keywords: isArabic
-      ? ["دورات نوشن", "تعلم نوشن", "كورس نوشن مجاني", "شرح نوشن بالعربي", "مصطفى ياسر", "إنتاجية وتنسيق العمل"]
-      : ["Notion courses", "Learn Notion", "Free Notion course", "Notion tutorial", "Mostafa Yasser", "Productivity systems"],
+      ? ["دورات نوشن", "تعلم نوشن", "كورس نوشن بالعربي", "شرح نوشن بالعربي", "مصطفى ياسر", "إنتاجية وتنسيق العمل"]
+      : ["Notion courses", "Learn Notion", "Notion course in Arabic", "Notion tutorial", "Mostafa Yasser", "Productivity systems"],
     openGraph: {
       title,
       description,
@@ -66,13 +65,9 @@ export default async function CoursesPage({ params }) {
   const resolvedParams = await params;
   const locale = resolvedParams.locale;
   const t = await getTranslations({ locale, namespace: "CoursesPage" });
-  const featured = await getTranslations({ locale, namespace: "NotionCoursePage.card" });
   const headersList = await headers();
   const host = headersList.get("host") || "";
   const isCoursesSubdomain = host.startsWith("courses.");
-
-  // Filter courses by status
-  const activeCourses = courses.filter(course => course.status === "active");
 
   return (
     <>
@@ -95,31 +90,12 @@ export default async function CoursesPage({ params }) {
               {t("subtitle")}
             </p>
 
-            <a
-              href={isCoursesSubdomain ? `/${locale}/notion-course` : `/${locale}/courses/notion-course`}
-              data-track="course_details_click"
-              data-track-place="courses_list"
-              className="group mx-auto mb-8 flex max-w-7xl flex-col gap-5 rounded-2xl border border-main/40 bg-main/[0.06] p-6 text-start transition-colors hover:border-main md:flex-row md:items-center md:justify-between md:p-8"
-            >
-              <span className="block">
-                <span className="inline-block rounded-md bg-main px-2.5 py-0.5 text-xs font-semibold text-neutral-900">{featured("badge")}</span>
-                <span className="mt-3 block text-2xl font-bold text-white md:text-3xl">{featured("title")}</span>
-                <span className="mt-2 block text-base text-neutral-300">{featured("desc")}</span>
-              </span>
-              <span className="inline-flex shrink-0 items-center justify-center rounded-full bg-main px-7 py-3 font-semibold text-neutral-900 transition-transform duration-300 group-hover:scale-[1.03]">
-                {featured("cta")}
-              </span>
-            </a>
-
             <AnimatedWrapper delay={0.1}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                {activeCourses.map((course) => (
-                  <CourseCard
-                    key={course.id}
-                    course={course}
-                    isCoursesSubdomain={isCoursesSubdomain}
-                  />
-                ))}
+              <div className="max-w-7xl mx-auto">
+                <NotionCourseCard
+                  href={isCoursesSubdomain ? `/${locale}/notion-course` : `/${locale}/courses/notion-course`}
+                  place="courses_list"
+                />
               </div>
             </AnimatedWrapper>
           </section>

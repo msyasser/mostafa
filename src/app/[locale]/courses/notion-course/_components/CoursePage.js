@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { BsArrowRight } from "react-icons/bs";
 import { Link } from "@/src/i18n/navigation";
-import SectionHead from "@/src/app/[locale]/services/_v2/SectionHead";
 import { CREDLY_BADGE_URL } from "@/src/app/[locale]/_data/credentials";
 import { course } from "../_data/course";
 import { sections } from "../_data/curriculum";
@@ -16,6 +15,18 @@ const primaryBtn =
     "inline-flex items-center justify-center gap-2 rounded-full bg-main px-8 py-3.5 text-[15px] font-semibold text-neutral-900 transition-transform duration-300 hover:scale-[1.03]";
 const ghostBtn =
     "inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-3.5 text-[15px] font-semibold text-white transition-colors duration-300 hover:border-main hover:text-main";
+
+// Section heading: small label, title, and the supporting line directly under the title
+// (same reading column, so the two always read as one block).
+function SectionHead({ eyebrow: label, title, subtitle }) {
+    return (
+        <div className="mb-9 max-w-[760px]">
+            <span className={`block ${eyebrow}`}>{label}</span>
+            <h2 className="mt-2 text-[34px] font-semibold leading-[1.15] text-white md:text-5xl md:leading-[1.12]">{title}</h2>
+            {subtitle && <p className="mt-4 max-w-[620px] text-[17px] leading-relaxed text-neutral-400 md:text-lg">{subtitle}</p>}
+        </div>
+    );
+}
 
 // Numbers shown on the page come from the real lesson list, so they stay right when lessons are added.
 const allLessons = sections.flatMap((section) => section.lessons);
