@@ -2,8 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import AnimatedWrapper from "@/src/app/[locale]/_components/AnimatedWrapper";
-import CourseCard from "@/src/app/[locale]/_components/CourseCard";
-import courses from "@/src/app/[locale]/_data/coursesData";
+import NotionCourseCard from "@/src/app/[locale]/_components/NotionCourseCard";
 import SEOOptimizer from "@/src/app/[locale]/_components/SEOOptimizer";
 
 export async function generateMetadata({ params }) {
@@ -27,8 +26,8 @@ export async function generateMetadata({ params }) {
     title,
     description,
     keywords: isArabic
-      ? ["دورات نوشن", "تعلم نوشن", "كورس نوشن مجاني", "شرح نوشن بالعربي", "مصطفى ياسر", "إنتاجية وتنسيق العمل"]
-      : ["Notion courses", "Learn Notion", "Free Notion course", "Notion tutorial", "Mostafa Yasser", "Productivity systems"],
+      ? ["دورات نوشن", "تعلم نوشن", "كورس نوشن بالعربي", "شرح نوشن بالعربي", "مصطفى ياسر", "إنتاجية وتنسيق العمل"]
+      : ["Notion courses", "Learn Notion", "Notion course in Arabic", "Notion tutorial", "Mostafa Yasser", "Productivity systems"],
     openGraph: {
       title,
       description,
@@ -70,9 +69,6 @@ export default async function CoursesPage({ params }) {
   const host = headersList.get("host") || "";
   const isCoursesSubdomain = host.startsWith("courses.");
 
-  // Filter courses by status
-  const activeCourses = courses.filter(course => course.status === "active");
-
   return (
     <>
       <SEOOptimizer
@@ -95,14 +91,11 @@ export default async function CoursesPage({ params }) {
             </p>
 
             <AnimatedWrapper delay={0.1}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                {activeCourses.map((course) => (
-                  <CourseCard
-                    key={course.id}
-                    course={course}
-                    isCoursesSubdomain={isCoursesSubdomain}
-                  />
-                ))}
+              <div className="max-w-7xl mx-auto">
+                <NotionCourseCard
+                  href={isCoursesSubdomain ? `/${locale}/notion-course` : `/${locale}/courses/notion-course`}
+                  place="courses_list"
+                />
               </div>
             </AnimatedWrapper>
           </section>

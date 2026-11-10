@@ -18,6 +18,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       CoursesPage: (await import(`../../messages/${locale}/CoursesPage.json`))
         .default,
+      NotionCoursePage: (
+        await import(`../../messages/${locale}/NotionCoursePage.json`)
+      ).default,
       BlogsPage: (await import(`../../messages/${locale}/BlogsPage.json`))
         .default,
       ContactPage: (await import(`../../messages/${locale}/ContactPage.json`))
