@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { BsArrowRight } from "react-icons/bs";
-import { Link } from "@/src/i18n/navigation";
 import { CREDLY_BADGE_URL } from "@/src/app/[locale]/_data/credentials";
 import { course } from "../_data/course";
 import { sections } from "../_data/curriculum";
@@ -308,9 +307,6 @@ function Instructor() {
                             </div>
                         ))}
                     </dl>
-                    <Link href="/about" className="mt-5 inline-block text-[15px] text-main underline underline-offset-4">
-                        {t("about")}
-                    </Link>
                 </div>
             </div>
         </section>
@@ -444,7 +440,7 @@ export default function CoursePage() {
             <Curriculum />
             <Instructor />
             <AppSection />
-            <Preview />
+            {course.showFreePreview && <Preview />}
             <Enroll />
             <Faq />
             <Final />
