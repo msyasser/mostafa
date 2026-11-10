@@ -7,5 +7,8 @@ export const course = {
     // The payment form shows only when NEXT_PUBLIC_COURSE_SALES=open (set it in Vercel when Paymob is live
     // and the app can be downloaded). Otherwise the page shows a "notify me" email field instead.
     salesOpen: process.env.NEXT_PUBLIC_COURSE_SALES === "open",
+    // The "try before you decide" section. Hidden until launch, when open sample lessons are ready;
+    // then set this to true and point freePlaylistUrl at them.
+    showFreePreview: false,
     freePlaylistUrl: "https://www.youtube.com/playlist?list=PL_Ygc7HIAnRczriiuR2wSURpo_wOnk0jf",
 };
