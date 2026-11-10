@@ -9,7 +9,8 @@ import { getAuthErrorMessage } from "@/src/lib/auth-errors";
 import { getSafeCallbackUrl } from "@/src/lib/redirect";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 import CustomPhoneInput from "@/src/app/[locale]/_components/CustomPhoneInput";
-import { Mail, User, Lock, Eye, EyeOff, RotateCw, ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react";
+import { StatusHeader } from "@/src/app/[locale]/_components/ConfirmationCard";
+import { Mail, User, Lock, Eye, EyeOff, RotateCw, ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function SignUpForm() {
   const t = useTranslations("Auth");
@@ -275,16 +276,12 @@ export default function SignUpForm() {
           {/* STEP 2: VERIFY CODE */}
           {step === "verify" ? (
             <div className="space-y-5">
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-main/10 border border-main/30 flex items-center justify-center text-main shadow-[0_0_20px_rgba(215,177,128,0.2)]">
-                  <ShieldCheck size={32} />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-1.5">{t("VERIFICATION_CODE")}</h3>
-                <p className="text-neutral-300 text-sm leading-relaxed max-w-sm mx-auto">
+              <StatusHeader state="wait" title={t("VERIFICATION_CODE")}>
+                <span className="text-sm">
                   {t("VERIFICATION_SENT_TO")}{" "}
-                  <span className="text-main font-semibold block mt-1 break-all">{formData.email}</span>
-                </p>
-              </div>
+                  <bdi className="text-main font-semibold block mt-1 break-all">{formData.email}</bdi>
+                </span>
+              </StatusHeader>
 
               <div className="pt-2">
                 <input
@@ -305,12 +302,6 @@ export default function SignUpForm() {
               {error && (
                 <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3.5 text-red-400 text-sm text-center">
                   {error}
-                </div>
-              )}
-
-              {successMessage && !error && (
-                <div className="bg-main/10 border border-main/30 rounded-xl p-3 text-main text-xs text-center">
-                  {successMessage}
                 </div>
               )}
 

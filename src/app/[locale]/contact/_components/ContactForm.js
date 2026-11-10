@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { submitContactForm } from '../actions'
 import AnimatedWrapper from '@/src/app/[locale]/_components/AnimatedWrapper'
+import ConfirmationCard from '@/src/app/[locale]/_components/ConfirmationCard'
 
 export default function ContactForm() {
     const t = useTranslations('ContactPage.form')
@@ -18,8 +19,6 @@ export default function ContactForm() {
 
         if (result.success) {
             setStatus('success')
-            event.target.reset()
-            setTimeout(() => setStatus('idle'), 5000)
         } else {
             console.error(result.message)
             setStatus('error')
@@ -34,6 +33,14 @@ export default function ContactForm() {
                         {/* Background Glow */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-main/5 rounded-full blur-[80px] pointer-events-none"></div>
 
+                        {status === 'success' ? (
+                            <div className="relative z-10">
+                                <ConfirmationCard bare state="success" title={t('successTitle')} action={{ onClick: () => setStatus('idle'), label: t('sendAnother') }}>
+                                    {t('success')}
+                                </ConfirmationCard>
+                            </div>
+                        ) : (
+                        <>
                         <h2 className="text-3xl font-bold text-white mb-8 text-center">{t('title')}</h2>
 
                         <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
@@ -65,17 +72,14 @@ export default function ContactForm() {
                                 {status === 'submitting' ? t('submitting') : t('submit')}
                             </button>
 
-                            {status === 'success' && (
-                                <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400 text-center font-medium animate-in fade-in slide-in-from-bottom-2">
-                                    {t('success')}
-                                </div>
-                            )}
                             {status === 'error' && (
                                 <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-center font-medium animate-in fade-in slide-in-from-bottom-2">
                                     {t('error')}
                                 </div>
                             )}
                         </form>
+                        </>
+                        )}
                     </div>
                 </AnimatedWrapper>
             </div>
