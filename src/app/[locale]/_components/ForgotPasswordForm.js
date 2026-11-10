@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { getSafeCallbackUrl } from "@/src/lib/redirect";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
+import ConfirmationCard, { StatusHeader } from "@/src/app/[locale]/_components/ConfirmationCard";
 import { Mail, Lock, Eye, EyeOff, ShieldCheck, RotateCw } from "lucide-react";
 
 const inputClass =
@@ -129,9 +130,9 @@ export default function ForgotPasswordForm() {
 
         {step === "reset" && (
           <form onSubmit={resetPassword} className="space-y-5">
-            <p className="text-sm text-neutral-400 text-center leading-relaxed">
-              {t("RESET_CODE_SENT")} <bdi className="text-white font-medium">{email}</bdi>
-            </p>
+            <StatusHeader state="wait" title={t("VERIFICATION_CODE")}>
+              <span className="text-sm">{t("RESET_CODE_SENT")} <bdi className="text-white font-medium">{email}</bdi></span>
+            </StatusHeader>
             <div className="space-y-2">
               <label htmlFor="code" className="block text-sm font-medium text-neutral-300">
                 {t("VERIFICATION_CODE")} <span className="text-main">*</span>
@@ -203,12 +204,9 @@ export default function ForgotPasswordForm() {
         )}
 
         {step === "done" && (
-          <div className="text-center space-y-5">
-            <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 text-green-400 text-sm leading-relaxed">{t("PASSWORD_UPDATED")}</div>
-            <Link href={signinHref} className={buttonClass}>
-              {t("SIGN_IN")}
-            </Link>
-          </div>
+          <ConfirmationCard bare state="success" title={t("PASSWORD_UPDATED_TITLE")} action={{ href: signinHref, label: t("SIGN_IN") }}>
+            {t("PASSWORD_UPDATED")}
+          </ConfirmationCard>
         )}
 
         {step !== "done" && (
