@@ -1,0 +1,264 @@
+{
+    "meta": {
+        "title": "The Complete Notion Course (in Arabic): from zero to your own system",
+        "description": "43 videos and 8+ hours with Mostafa Yasser, a Notion Certified Consulting Partner. Pages, databases, automations, dashboards and AI agents, while you build your own Second Brain step by step. Taught in Arabic."
+    },
+    "card": {
+        "badge": "Full course",
+        "title": "Notion Course: from zero to your own system",
+        "desc": "43 videos and 8+ hours, taught in Arabic. You build your own Second Brain step by step.",
+        "cta": "See the course details"
+    },
+    "hero": {
+        "eyebrow": "The complete Notion course · Taught in Arabic",
+        "titleStart": "Learn Notion properly, ",
+        "titleEm": "and build your own system.",
+        "subtitle": "From creating your account to databases, automations, dashboards and AI agents. Every section ends with a hands-on lesson where you build your own Second Brain, one step at a time.",
+        "ctaEnroll": "Enroll in the course",
+        "ctaCurriculum": "See the curriculum",
+        "note": "EGP 1,500 · one-time payment · lifetime access",
+        "videosLabel": "videos",
+        "hoursValue": "8+",
+        "hoursLabel": "hours of lessons and practice",
+        "practicalsLabel": "hands-on builds",
+        "projectEyebrow": "Course project",
+        "projectTitle": "Second Brain",
+        "projectSteps": [
+            "Plan",
+            "Pages",
+            "Databases",
+            "Connect & automate",
+            "Dashboard",
+            "AI",
+            "Mobile"
+        ],
+        "certTitle": "Certificate of completion",
+        "certNote": "In your name, with a code anyone can verify"
+    },
+    "why": {
+        "eyebrow": "Why this course",
+        "title": "You won't memorize templates. You'll understand how Notion works.",
+        "subtitle": "A ready-made template stops helping at the first change you need. Understanding the building blocks lets you make any system you want.",
+        "items": [
+            {
+                "t": "Foundations before looks",
+                "d": "We start with pages and blocks, then databases, then connecting them. Every lesson builds on the one before."
+            },
+            {
+                "t": "One project that grows with you",
+                "d": "Instead of scattered examples, you build one system, a Second Brain, from the first section to the last, across 9 hands-on videos."
+            },
+            {
+                "t": "Today's Notion",
+                "d": "Includes lessons on forms, charts, page layout customization, the personal agent, custom agents and AI meeting notes."
+            },
+            {
+                "t": "Taught by a practitioner",
+                "d": "Mostafa Yasser is a Notion Certified Consulting Partner who builds systems for companies and individuals and publishes templates on the Notion Marketplace."
+            }
+        ]
+    },
+    "audience": {
+        "eyebrow": "Who it is for",
+        "title": "Find where you are, and what the course gives you.",
+        "items": [
+            {
+                "t": "Starting from zero",
+                "d": "You have never opened Notion, or you opened it and closed it.",
+                "li": [
+                    "Create your account and set it up",
+                    "Understand the workspace and the sidebar",
+                    "Build your first structured page with different blocks"
+                ]
+            },
+            {
+                "t": "Using Notion without a structure",
+                "d": "You have many pages and no idea how to connect them.",
+                "li": [
+                    "Understand databases, properties and views",
+                    "Connect databases with relations and rollups",
+                    "Write formulas and set up buttons and automations"
+                ]
+            },
+            {
+                "t": "Need a system for work or study",
+                "d": "A freelancer, a business owner, or a student who wants one place for everything.",
+                "li": [
+                    "Bring your work into one dashboard",
+                    "Collect data with forms and show it in charts",
+                    "Run AI agents on your own data"
+                ]
+            }
+        ],
+        "notForTitle": "Not for you if",
+        "notForText": "you are already a Notion pro looking for the API and integrations with external tools. This course does not cover them."
+    },
+    "journey": {
+        "eyebrow": "The journey",
+        "title": "4 stages, each one building on the last.",
+        "subtitle": "Every stage ends with a hands-on build on the same project, so you finish with a working system, not just information.",
+        "practicalLabel": "Hands-on:",
+        "phases": [
+            {
+                "t": "Understand the basics",
+                "d": "Account and settings, workspaces, pages and blocks, sharing and web publishing.",
+                "practical": "Plan your Second Brain and build its pages."
+            },
+            {
+                "t": "Build your databases",
+                "d": "Properties, views, filters and sorts, relations and rollups, formulas, buttons and automations.",
+                "practical": "Build the databases, connect them and automate them."
+            },
+            {
+                "t": "Bring it together in a dashboard",
+                "d": "Database templates, page layout customization, forms, charts and dashboards.",
+                "practical": "Build your Second Brain dashboard."
+            },
+            {
+                "t": "Add AI and mobile",
+                "d": "The personal agent, custom agents, AI meeting notes, AI autofill and the mobile app.",
+                "practical": "Add AI to your system and use it from your phone."
+            }
+        ]
+    },
+    "curriculum": {
+        "eyebrow": "Curriculum",
+        "title": "See every lesson before you enroll.",
+        "subtitle": "Open any section to see its lessons and how long each one is.",
+        "lessons": "lessons",
+        "practicalTag": "Hands-on",
+        "min": "min",
+        "hour": "h"
+    },
+    "instructor": {
+        "eyebrow": "Your instructor",
+        "title": "Mostafa Yasser",
+        "p1": "A Notion Certified Consulting Partner. My daily work is building Notion systems for companies and individuals, and publishing templates on the Notion Marketplace.",
+        "p2": "This course is the order I wish I had found when I was learning: from the basics, in the right sequence, with practice on every part.",
+        "about": "More about me"
+    },
+    "app": {
+        "eyebrow": "Where you watch",
+        "title": "The course lives in the MY Hub app.",
+        "subtitle": "A Windows app made for studying: open it, continue, and always know where you are.",
+        "items": [
+            {
+                "t": "Continue where you stopped",
+                "d": "The app remembers your last lesson and the exact second you reached."
+            },
+            {
+                "t": "Your progress in front of you",
+                "d": "A tick on every finished lesson, a completion percentage and the time left."
+            },
+            {
+                "t": "Full playback control",
+                "d": "Automatic or manual quality, playback speed, and 15-second skip back and forward."
+            },
+            {
+                "t": "Certificate of completion",
+                "d": "Finish all lessons and get a certificate in your name with a code that can be verified on this site."
+            }
+        ],
+        "note": "Watching is currently available on Windows only."
+    },
+    "preview": {
+        "eyebrow": "Try before you decide",
+        "title": "See the teaching style for free.",
+        "desc": "I have a short free course on YouTube: 8 videos on Notion basics, in Arabic. Watch it, and if the style suits you, the full course takes you all the way to your own system.",
+        "cta": "Open the free course on YouTube"
+    },
+    "enroll": {
+        "eyebrow": "Enrollment",
+        "title": "All of it in one enrollment.",
+        "priceValue": "1,500",
+        "priceUnit": "EGP",
+        "priceNote": "one-time payment · lifetime access",
+        "includesTitle": "What you get",
+        "includes": [
+            "Lifetime access to all course content",
+            "43 videos in 8 sections, 8+ hours",
+            "9 hands-on videos where you build your Second Brain",
+            "Lessons on Notion AI and agents",
+            "A section dedicated to new Notion updates",
+            "Lesson-by-lesson progress tracking",
+            "A certificate of completion with a verification code"
+        ],
+        "form": {
+            "name": "Name",
+            "namePlaceholder": "Your name",
+            "email": "Email",
+            "emailHint": "You will sign in to the app with this email, so make sure it is correct.",
+            "phone": "Mobile number",
+            "submit": "Continue to payment",
+            "loading": "One moment...",
+            "secure": "Card payment through Paymob. You will be taken to the secure payment page.",
+            "errors": {
+                "invalid_name": "Enter your name.",
+                "invalid_email": "Enter a valid email.",
+                "invalid_phone": "Enter a valid mobile number.",
+                "already_owned": "This email already owns the course. Open the app and sign in with it.",
+                "generic": "Something went wrong and the payment could not start. Please try again shortly."
+            }
+        },
+        "soon": {
+            "title": "Enrollment opens soon",
+            "desc": "Leave your email and we will write to you as soon as enrollment opens. Your email will be added to our newsletter.",
+            "email": "Email",
+            "button": "Notify me",
+            "loading": "One moment...",
+            "success": "Done, your email is saved. We will write to you when enrollment opens.",
+            "error": "We could not save your email. Check it and try again."
+        }
+    },
+    "faq": {
+        "eyebrow": "Before you start",
+        "title": "If you still have a question.",
+        "items": [
+            {
+                "q": "I have never used Notion. Is the course for me?",
+                "a": "Yes. The first section starts with creating an account and the settings, and nothing is required before the course."
+            },
+            {
+                "q": "What language is the course in?",
+                "a": "All lessons are taught in Arabic."
+            },
+            {
+                "q": "Do I need a paid Notion plan?",
+                "a": "The free plan is enough for most of the course, and one lesson explains plans and pricing. Notion's AI features are paid, so you only need them if you want to follow that section hands-on."
+            },
+            {
+                "q": "Where do I watch the course?",
+                "a": "Inside the MY Hub app on Windows. Watching on Mac or mobile is not available right now."
+            },
+            {
+                "q": "How do I pay?",
+                "a": "By bank card through Paymob. The price is in Egyptian pounds."
+            },
+            {
+                "q": "How long does my access last?",
+                "a": "For life. You pay once and the course stays in your account."
+            },
+            {
+                "q": "What happens after I pay?",
+                "a": "Your account is created with the email you entered, and you get an email. Open the app and sign in with the same email, using a code sent to it or your Google account, and the course is there."
+            },
+            {
+                "q": "Is there a certificate?",
+                "a": "Yes. Finish all lessons and you get a certificate of completion in your name, with a code anyone can verify on this site."
+            },
+            {
+                "q": "Notion changes often. Will the course keep up?",
+                "a": "The course has a section dedicated to Notion updates, and some lessons were recorded again after the Notion interface changed."
+            }
+        ]
+    },
+    "final": {
+        "title": "Start at lesson one. Finish with your own system.",
+        "desc": "43 videos, 9 hands-on builds, and one project you build yourself.",
+        "cta": "Enroll in the course"
+    },
+    "sticky": {
+        "cta": "Enroll in the course",
+        "sub": "EGP 1,500 · one-time payment"
+    }
+}

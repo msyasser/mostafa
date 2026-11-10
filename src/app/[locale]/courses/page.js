@@ -66,6 +66,7 @@ export default async function CoursesPage({ params }) {
   const resolvedParams = await params;
   const locale = resolvedParams.locale;
   const t = await getTranslations({ locale, namespace: "CoursesPage" });
+  const featured = await getTranslations({ locale, namespace: "NotionCoursePage.card" });
   const headersList = await headers();
   const host = headersList.get("host") || "";
   const isCoursesSubdomain = host.startsWith("courses.");
@@ -93,6 +94,22 @@ export default async function CoursesPage({ params }) {
             <p className="text-sm sm:text-base md:text-lg text-main mb-6 sm:mb-8 md:mb-10 max-w-2xl mx-auto">
               {t("subtitle")}
             </p>
+
+            <a
+              href={isCoursesSubdomain ? `/${locale}/notion-course` : `/${locale}/courses/notion-course`}
+              data-track="course_details_click"
+              data-track-place="courses_list"
+              className="group mx-auto mb-8 flex max-w-7xl flex-col gap-5 rounded-2xl border border-main/40 bg-main/[0.06] p-6 text-start transition-colors hover:border-main md:flex-row md:items-center md:justify-between md:p-8"
+            >
+              <span className="block">
+                <span className="inline-block rounded-md bg-main px-2.5 py-0.5 text-xs font-semibold text-neutral-900">{featured("badge")}</span>
+                <span className="mt-3 block text-2xl font-bold text-white md:text-3xl">{featured("title")}</span>
+                <span className="mt-2 block text-base text-neutral-300">{featured("desc")}</span>
+              </span>
+              <span className="inline-flex shrink-0 items-center justify-center rounded-full bg-main px-7 py-3 font-semibold text-neutral-900 transition-transform duration-300 group-hover:scale-[1.03]">
+                {featured("cta")}
+              </span>
+            </a>
 
             <AnimatedWrapper delay={0.1}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
