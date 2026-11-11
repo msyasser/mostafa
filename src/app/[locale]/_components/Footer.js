@@ -82,14 +82,12 @@ function Footer() {
   const isHome = !isSubdomain && (pathname === `/${locale}` || pathname === `/${locale}/`);
 
   const pages = [
-    { label: t("links.templates"), href: sectionUrl("templates") },
-    { label: t("links.courses"), href: sectionUrl("courses") },
-    { label: t("links.tools"), href: mainUrl("/tools") },
-    { label: t("links.blogs"), href: mainUrl("/blog") },
     { label: t("links.about"), href: mainUrl("/about") },
     { label: t("links.contact"), href: mainUrl("/contact") },
     { label: t("privacy"), href: mainUrl("/privacy-policy") },
     { label: t("terms"), href: mainUrl("/terms-of-service") },
+    { label: t("refund"), href: mainUrl("/refund-policy") },
+    { label: t("delivery"), href: mainUrl("/delivery-policy") },
   ];
 
   return (
