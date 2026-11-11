@@ -1,3 +1,4 @@
+import Money from "@/src/components/Money";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle, XCircle } from "lucide-react";
@@ -117,10 +118,10 @@ export default function PricingSec({ template }) {
                   {plan.data.description}
                 </p>
                 <div className="flex items-end gap-2 mb-4">
-                  <span className="text-3xl font-bold">{plan.data.price}</span>
+                  <span className="text-3xl font-bold"><Money value={plan.data.price} /></span>
                   {plan.data.oldPrice && (
                     <span className="text-lg line-through text-neutral-400">
-                      {plan.data.oldPrice}
+                      <Money value={plan.data.oldPrice} />
                     </span>
                   )}
                 </div>

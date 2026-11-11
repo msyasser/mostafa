@@ -1,5 +1,6 @@
 "use client";
 
+import Money from "@/src/components/Money";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -99,7 +100,7 @@ export default function TemplateCard({ template, index, isTemplatesSubdomain = f
             {getTemplateName()}
           </h3>
           <p className="text-[#D7B180] text-lg sm:text-xl md:text-2xl font-bold mb-4 drop-shadow-[0_0_5px_rgba(215,177,128,0.4)]">
-            {getTemplatePrice()}
+            <Money value={getTemplatePrice()} />
           </p>
         </Link>
       </div>

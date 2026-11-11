@@ -1,3 +1,4 @@
+import Money from "@/src/components/Money";
 import Link from "next/link";
 import Image from "next/image";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
@@ -146,7 +147,7 @@ export default function TemplatesShowcase({ title, subtitle }) {
               {tt(`${template.name}.name`)}
             </h3>
             <p className={`text-lg sm:text-2xl font-semibold shrink-0 ${isFree ? "text-neutral-400" : "text-main"}`}>
-              {price}
+              <Money value={price} />
             </p>
           </div>
         </Link>

@@ -1,3 +1,4 @@
+import Money from "@/src/components/Money";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
@@ -105,7 +106,7 @@ export default function TemplateDetailsClient({ template }) {
                 className={`text-xl md:text-2xl mt-2 text-main text-center ${locale === "ar" ? "lg:text-right" : "lg:text-left"
                   }`}
               >
-                {t(`${template.name}.price`) === "$0" ? (locale === "ar" ? "مجاني" : "Free") : t(`${template.name}.price`)}
+                {t(`${template.name}.price`) === "$0" ? (locale === "ar" ? "مجاني" : "Free") : <Money value={t(`${template.name}.price`)} />}
               </p>
               {!template.premium && (
                 <div className="mt-4 flex flex-wrap justify-center lg:justify-start items-center gap-2 text-xs md:text-sm">

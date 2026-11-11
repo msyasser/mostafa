@@ -1,5 +1,6 @@
 "use client";
 
+import Money from "@/src/components/Money";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -330,7 +331,7 @@ export default function Navigation() {
                     />
                     <span className="mt-2 flex items-baseline justify-between gap-2 font-semibold uppercase rtl:normal-case">
                       <span className="group-hover:text-main transition-colors">{tt(`${tpl.name}.name`)}</span>
-                      <span className="text-main">{tt(`${tpl.name}.price`)}</span>
+                      <span className="text-main"><Money value={tt(`${tpl.name}.price`)} /></span>
                     </span>
                   </Link>
                 ))}
