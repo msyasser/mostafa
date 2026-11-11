@@ -1,0 +1,45 @@
+{
+  "title": "Delivery & Shipping Policy",
+  "effectiveDate": "Effective: November 11, 2026",
+  "intro": "Everything we sell is digital or a service, so nothing is shipped physically. This page explains how and when you receive what you buy. All prices are in Egyptian Pounds (EGP).",
+  "sections": [
+    {
+      "title": "1. No Physical Shipping",
+      "content": "We do not sell physical products, so there are no shipping fees, no shipping addresses and no delivery times for parcels."
+    },
+    {
+      "title": "2. Notion Templates",
+      "content": [
+        "Templates are delivered instantly after payment.",
+        "If you buy through Notion, you receive access from your Notion purchases right after checkout.",
+        "If you buy from us directly, you receive the template link by email, or on your account, right after payment."
+      ]
+    },
+    {
+      "title": "3. The Notion Course",
+      "content": [
+        "Access to the course is activated on your account right after payment, usually within minutes.",
+        "If you paid and still cannot access the course after 24 hours, contact us and we will fix it."
+      ]
+    },
+    {
+      "title": "4. Custom Services and Monthly Support",
+      "content": [
+        "Services are delivered according to the schedule and milestones in your written proposal.",
+        "Monthly support starts on the date agreed with you and renews monthly; replies follow the response times on the Services page.",
+        "Deliverables are shared digitally: Notion pages, video walkthroughs and documents."
+      ]
+    },
+    {
+      "title": "5. Delivery Problems",
+      "content": [
+        "Check your spam folder and the email you used at checkout.",
+        "If you did not receive what you paid for, email us with your order details and we will resend it or fix the access, usually within 2 business days."
+      ]
+    }
+  ],
+  "contact": {
+    "title": "6. Contact Us",
+    "text": "Questions about delivery? Reach us at:"
+  }
+}

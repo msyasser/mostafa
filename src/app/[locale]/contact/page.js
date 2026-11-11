@@ -1,6 +1,7 @@
 import ContactHero from "./_components/ContactHero";
 
 import ContactForm from "./_components/ContactForm";
+import ContactDetails from "./_components/ContactDetails";
 import BlurText from "@/src/app/[locale]/_components/BlurText";
 
 export async function generateMetadata({ params }) {
@@ -48,6 +49,7 @@ export default function ContactPage() {
     <BlurText>
       <div className="bg-neutral-950 min-h-screen text-white selection:bg-main selection:text-neutral-900">
         <ContactHero />
+        <ContactDetails />
         <ContactForm />
       </div>
     </BlurText>

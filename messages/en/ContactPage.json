@@ -37,5 +37,12 @@
     "error": "Something went wrong. Please try again.",
     "successTitle": "Message sent",
     "sendAnother": "Send another message"
+  },
+  "details": {
+    "title": "Contact details",
+    "email": "Email",
+    "phone": "Phone / WhatsApp",
+    "location": "Location",
+    "hours": "We reply to every message within 1 to 2 business days."
   }
 }

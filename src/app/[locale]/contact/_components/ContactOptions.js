@@ -25,7 +25,7 @@ export default function ContactOptions() {
         {
             key: "support",
             icon: MdSupportAgent,
-            href: "mailto:support@mostafayasser.com", // Assuming support email or form
+            href: "mailto:contact@mostafayasser.com",
             actionType: "link"
         }
     ];

@@ -260,7 +260,7 @@
                         {
                             "t": "Free discovery call",
                             "tag": "Step 1",
-                            "p": "$0",
+                            "p": "0",
                             "u": "30 minutes",
                             "li": [
                                 "We talk about how you work and what slows you down",
@@ -271,55 +271,66 @@
                         {
                             "t": "Systems Review",
                             "tag": "Optional",
-                            "p": "$80 – $130",
                             "u": "2 to 4 hours",
                             "li": [
                                 "A focused review of one workflow or workspace area",
                                 "Written findings and a prioritised plan",
                                 "A fixed quote for the build",
                                 "Credited in full if you book a project within 30 days"
+                            ],
+                            "usd": [
+                                80,
+                                130
                             ]
                         }
                     ]
                 },
                 "projects": {
                     "title": "2 · Projects",
-                    "sub": "Indicative ranges in USD · fixed fee in your proposal",
+                    "sub": "Indicative ranges · fixed fee in your proposal",
                     "rows": [
                         {
                             "t": "Focused Implementation",
                             "best": "Freelancers and small teams who need one important workflow working properly.",
-                            "p": "$350 – $650",
                             "u": "project range · about 1 to 2 weeks",
                             "li": [
                                 "One defined workflow built around your process",
                                 "Dashboard and agreed automations",
                                 "Handover video, training and documentation",
                                 "30 days of fixes for agreed deliverables"
+                            ],
+                            "usd": [
+                                350,
+                                650
                             ]
                         },
                         {
                             "t": "Connected Business System",
                             "best": "Teams whose projects, clients and payments live in different places.",
-                            "p": "$750 – $1,450",
                             "u": "project range · about 2 to 4 weeks",
                             "li": [
                                 "Several connected workflows and shared data",
                                 "Dashboards and access designed for team roles",
                                 "Limited data import and basic automations",
                                 "Training, documentation and 30 days of fixes"
+                            ],
+                            "usd": [
+                                750,
+                                1450
                             ]
                         },
                         {
                             "t": "Advanced & Custom",
                             "best": "Multi-team operations, integrations and automation beyond Notion.",
-                            "p": "$1,500",
                             "u": "starting from · scoped after a conversation",
                             "li": [
                                 "Multi-team architecture and permissions",
                                 "API and n8n integrations, AI workflows",
                                 "Phased delivery with agreed milestones",
                                 "Full training and SOP documentation"
+                            ],
+                            "usd": [
+                                1500
                             ]
                         }
                     ]
@@ -331,22 +342,26 @@
                         {
                             "t": "Essential",
                             "best": "A finished system that needs upkeep and regular improvements.",
-                            "p": "$150",
                             "u": "per month · up to 6 hours",
                             "li": [
                                 "Fixes, small changes and improvements",
                                 "Reply within 2 business days"
+                            ],
+                            "usd": [
+                                150
                             ]
                         },
                         {
                             "t": "Growth",
                             "best": "Teams that keep expanding their system.",
-                            "p": "$600",
                             "u": "per month · up to 20 hours",
                             "badge": "Best value",
                             "li": [
                                 "New databases, views and automations",
                                 "One 30-minute call each month"
+                            ],
+                            "usd": [
+                                600
                             ]
                         },
                         {
@@ -386,16 +401,21 @@
             },
             "notes": [
                 "The final price depends on the size of the system, people and access, automation, existing data, training and timeline.",
-                "All prices are in USD; software subscriptions and taxes are separate.",
+                "All prices are in {currency}; software subscriptions and taxes are separate.",
                 "Your written proposal sets the scope, payment schedule and milestones."
             ],
             "detailsItems": [
                 "Quick task: up to 1.5 hours (change a view, add a property, fix a formula).",
                 "Mid-size task: up to 6 hours (new database, dashboard or automation).",
-                "Extra hours: $35/hour, always quoted and approved before work starts.",
+                "Extra hours: {hourly}/hour, always quoted and approved before work starts.",
                 "Meetings count toward included hours; unused hours expire at month-end.",
                 "Response times refer to acknowledgment, not guaranteed resolution."
-            ]
+            ],
+            "currencyNames": {
+                "EGP": "Egyptian pounds (EGP)",
+                "USD": "US dollars (USD)"
+            },
+            "toggleLabel": "Show prices in"
         },
         "fit": {
             "eyebrow": "Fit",

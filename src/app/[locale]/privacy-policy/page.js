@@ -77,10 +77,10 @@ function PrivacyPolicy() {
           <p className="text-gray-300">
             {t("contact.text")}{" "}
             <a
-              href="mailto:contactmostafayasser@gmail.com"
+              href="mailto:contact@mostafayasser.com"
               className="text-main hover:text-white transition-colors font-bold text-lg"
             >
-              contactmostafayasser@gmail.com
+              contact@mostafayasser.com
             </a>
           </p>
         </section>

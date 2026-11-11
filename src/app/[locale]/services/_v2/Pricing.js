@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import SectionHead from "./SectionHead";
+import { Price, PriceText, CurrencyToggle } from "./PriceBits";
 
 function Row({ row, bestFor }) {
     return (
@@ -29,7 +30,7 @@ function Row({ row, bestFor }) {
             </ul>
             <div>
                 <div className="text-[32px] font-semibold leading-tight text-main">
-                    <bdi dir="ltr">{row.p}</bdi>
+                    {row.usd ? <Price usd={row.usd} /> : <bdi dir="ltr">{row.p}</bdi>}
                 </div>
                 <small className="mt-0.5 block text-xs text-neutral-400">{row.u}</small>
             </div>
@@ -59,6 +60,7 @@ export default function Pricing() {
     const notes = t.raw("notes");
     const detailsItems = t.raw("detailsItems");
     const bestFor = t("bestFor");
+    const currencyNames = t.raw("currencyNames");
 
     return (
         <section id="pricing" className="scroll-mt-24 px-6 py-12 md:py-[70px]">
@@ -75,6 +77,7 @@ export default function Pricing() {
                     subtitle={t("subtitle")}
                 />
 
+                <CurrencyToggle label={t("toggleLabel")} />
                 <Group group={groups.start} bestFor={bestFor} />
                 <Group
                     group={groups.projects}
@@ -99,7 +102,7 @@ export default function Pricing() {
                     <ul className="space-y-1.5 pb-4 text-sm text-neutral-300">
                         {detailsItems.map((item) => (
                             <li key={item} className="before:text-main before:content-['–_']">
-                                {item}
+                                <PriceText text={item} names={currencyNames} />
                             </li>
                         ))}
                     </ul>
@@ -107,7 +110,7 @@ export default function Pricing() {
                 <ul className="space-y-1 px-1 text-sm text-neutral-300">
                     {notes.map((note) => (
                         <li key={note} className="before:text-main before:content-['•_']">
-                            {note}
+                            <PriceText text={note} names={currencyNames} />
                         </li>
                     ))}
                 </ul>

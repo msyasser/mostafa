@@ -69,7 +69,7 @@ function TermsOfService() {
           </h2>
           <p className="text-gray-300">
             <a
-              href="mailto:contactmostafayasser@gmail.com"
+              href="mailto:contact@mostafayasser.com"
               className="text-main underline hover:text-white transition-colors"
             >
               {t("contact.text")}

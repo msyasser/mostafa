@@ -17,7 +17,7 @@ module.exports = {
   // so auto-discovery misses them. Keep this list to those index pages only.
   additionalPaths: async (config) => {
     // /consultation is deliberately left out: it is a landing page for social media campaigns only.
-    const pages = ["", "services", "courses", "tools", "blog", "privacy-policy", "terms-of-service"];
+    const pages = ["", "services", "courses", "tools", "blog", "privacy-policy", "terms-of-service", "refund-policy", "delivery-policy"];
     return Promise.all(
       ["en", "ar"].flatMap((locale) =>
         pages.map((page) => config.transform(config, `/${locale}${page ? "/" + page : ""}`))
@@ -37,7 +37,7 @@ module.exports = {
       changefreq = "daily";
     } else if (/^\/(en|ar)\/(templates|courses)(\/|$)/.test(path)) {
       priority = 0.9;
-    } else if (/^\/(en|ar)\/(privacy-policy|terms-of-service)$/.test(path)) {
+    } else if (/^\/(en|ar)\/(privacy-policy|terms-of-service|refund-policy|delivery-policy)$/.test(path)) {
       priority = 0.5;
       changefreq = "yearly";
     } else if (/^\/(en|ar)\/(about|contact)$/.test(path)) {

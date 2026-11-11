@@ -17,7 +17,18 @@ const MAIN_SITE_ONLY = ["about", "contact", "services", "case-studies", "blog", 
 const SIBLING_SECTION = { templates: "courses", courses: "templates" };
 const MAIN_SITE_ORIGIN = "https://www.mostafayasser.com";
 
+// Remember the visitor's country (Vercel sets the header at the edge) so the
+// services page can show prices in the right currency without a server render.
 export default function middleware(request) {
+  const response = handle(request);
+  const country = request.headers.get("x-vercel-ip-country");
+  if (country && response && request.cookies.get("geo_country")?.value !== country) {
+    response.cookies.set("geo_country", country, { path: "/", maxAge: 60 * 60 * 24 * 30, sameSite: "lax" });
+  }
+  return response;
+}
+
+function handle(request) {
   const hostname = request.headers.get("host") || "";
 
   // Extract subdomain (e.g. "templates" from "templates.mostafayasser.com")
@@ -76,7 +87,9 @@ export default function middleware(request) {
     if (
       rest.startsWith("/api") ||
       rest.startsWith("/privacy-policy") ||
-      rest.startsWith("/terms-of-service")
+      rest.startsWith("/terms-of-service") ||
+      rest.startsWith("/refund-policy") ||
+      rest.startsWith("/delivery-policy")
     ) {
       return intlMiddleware(request);
     }

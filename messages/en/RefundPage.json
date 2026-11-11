@@ -1,0 +1,57 @@
+{
+  "title": "Refund & Cancellation Policy",
+  "effectiveDate": "Effective: November 11, 2026",
+  "intro": "This policy explains refunds and cancellations for everything sold by Mostafa Yasser: Notion templates, the Notion course, custom services and monthly support. All prices are in Egyptian Pounds (EGP).",
+  "sections": [
+    {
+      "title": "1. Notion Templates (digital products)",
+      "content": [
+        "Templates are digital products delivered instantly.",
+        "If you bought a template from us directly, it is not refundable. The only exception is a payment error: if you were charged twice, or paid but did not get access, contact us and we will fix it or refund the duplicate or undelivered payment.",
+        "If you bought a template through Notion, Notion's own policies apply and Notion handles the payment, refund and access. Please follow Notion's refund policy: notion.com/help/refunds",
+        "For help using a template after you have it, you are always welcome to contact us."
+      ]
+    },
+    {
+      "title": "2. The Notion Course",
+      "content": [
+        "The course is not refundable. Free preview lessons are available so you can see the teaching style and content before you buy.",
+        "If you were charged twice, or paid but cannot access the course because of a problem on our side, contact us and we will fix it or refund the payment error."
+      ]
+    },
+    {
+      "title": "3. Custom Services and Projects",
+      "content": [
+        "The 30-minute discovery call is free, so there is nothing to refund.",
+        "Every project has a written proposal with a fixed fee and milestones. You pay by milestone as agreed in the proposal.",
+        "Before work on a milestone starts, you can cancel it and get that milestone's payment back in full.",
+        "Once a milestone has started, you pay for the work already done. Delivered milestones are not refundable.",
+        "If we cannot deliver what the proposal promised, the payment for the undelivered part is refunded.",
+        "The Systems Review fee is credited in full if you book a project within 30 days."
+      ]
+    },
+    {
+      "title": "4. Monthly Support",
+      "content": [
+        "Monthly support renews every month. You can cancel any time before the next renewal date by emailing us, and you will not be charged again.",
+        "The month you have already paid for is not refundable, and you keep the included hours until the end of that month."
+      ]
+    },
+    {
+      "title": "5. How to Request a Refund or Cancellation",
+      "content": [
+        "Email us at the address below from the email you used for the purchase, with your order details and the reason.",
+        "We reply within 2 business days.",
+        "Approved refunds go back to the original payment method in EGP, and may take up to 14 business days to appear, depending on your bank or card issuer."
+      ]
+    },
+    {
+      "title": "6. Changes to This Policy",
+      "content": "We may update this policy from time to time. The version published on this page at the time of your purchase is the one that applies to it."
+    }
+  ],
+  "contact": {
+    "title": "7. Contact Us",
+    "text": "Questions about a refund or cancellation? Reach us at:"
+  }
+}

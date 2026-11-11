@@ -34,6 +34,10 @@ export default getRequestConfig(async ({ requestLocale }) => {
         .default,
       TermsPage: (await import(`../../messages/${locale}/TermsPage.json`))
         .default,
+      DeliveryPage: (await import(`../../messages/${locale}/DeliveryPage.json`))
+        .default,
+      RefundPage: (await import(`../../messages/${locale}/RefundPage.json`))
+        .default,
       Subscription: (await import(`../../messages/${locale}/Subscription.json`))
         .default,
       TemplateSlug: (await import(`../../messages/${locale}/TemplateSlug.json`))
