@@ -17,7 +17,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedInView from "./AnimatedInView";
-import { CONTACT } from "@/src/lib/contactInfo";
 import SubscriptionForm from "./SubscriptionForm";
 
 const SOCIALS = [
@@ -91,8 +90,6 @@ function Footer() {
     { label: t("links.contact"), href: mainUrl("/contact") },
     { label: t("privacy"), href: mainUrl("/privacy-policy") },
     { label: t("terms"), href: mainUrl("/terms-of-service") },
-    { label: t("refund"), href: mainUrl("/refund-policy") },
-    { label: t("delivery"), href: mainUrl("/delivery-policy") },
   ];
 
   return (
@@ -175,15 +172,6 @@ function Footer() {
             </span>
           </span>
         </nav>
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pb-6 text-sm text-neutral-400">
-          <a href={`mailto:${CONTACT.email}`} className="hover:text-white transition-colors">
-            <bdi dir="ltr">{CONTACT.email}</bdi>
-          </a>
-          <a href={`tel:${CONTACT.phone}`} className="hover:text-white transition-colors">
-            <bdi dir="ltr">{CONTACT.phoneDisplay}</bdi>
-          </a>
-          <span>{CONTACT.location[isArabic ? "ar" : "en"]}</span>
-        </div>
       </div>
     </footer>
   );
