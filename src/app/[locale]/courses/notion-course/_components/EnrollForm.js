@@ -16,6 +16,8 @@ const primary =
 function PayForm() {
     const t = useTranslations("NotionCoursePage.enroll.form");
     const { data: session } = useSession();
+    const locale = useLocale();
+    const [agreed, setAgreed] = useState(false);
     const [values, setValues] = useState({ name: "", email: "", phone: "" });
     const [error, setError] = useState(null); // { field, message }
     const [loading, setLoading] = useState(false);
@@ -36,9 +38,9 @@ function PayForm() {
     };
 
     const fail = (code) => {
-        const known = ["invalid_name", "invalid_email", "invalid_phone", "already_owned"];
+        const known = ["invalid_name", "invalid_email", "invalid_phone", "already_owned", "agree"];
         const key = known.includes(code) ? code : "generic";
-        const fieldOf = { invalid_name: "name", invalid_email: "email", invalid_phone: "phone", already_owned: "email" };
+        const fieldOf = { invalid_name: "name", invalid_email: "email", invalid_phone: "phone", already_owned: "email", agree: "agree" };
         setError({ field: fieldOf[key] || "form", message: t(`errors.${key}`) });
     };
 
@@ -51,6 +53,7 @@ function PayForm() {
         if (name.length < 2) return fail("invalid_name");
         if (!/^\S+@\S+\.\S+$/.test(email)) return fail("invalid_email");
         if (phone.length < 8) return fail("invalid_phone");
+        if (!agreed) return fail("agree");
 
         setLoading(true);
         setError(null);
@@ -136,12 +139,42 @@ function PayForm() {
                 {errorFor("phone")}
             </div>
 
+            <div>
+                <label htmlFor="enroll-agree" className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-neutral-200">
+                    <input
+                        id="enroll-agree"
+                        name="agree"
+                        type="checkbox"
+                        checked={agreed}
+                        onChange={(event) => {
+                            setAgreed(event.target.checked);
+                            if (error?.field === "agree") setError(null);
+                        }}
+                        aria-invalid={error?.field === "agree"}
+                        className="mt-1 h-4 w-4 shrink-0 accent-[#d7b180]"
+                    />
+                    <span>
+                        {t("agreePrefix")}{" "}
+                        <a href={`/${locale}/terms-of-service`} target="_blank" rel="noopener noreferrer" className="text-main underline underline-offset-4">
+                            {t("terms")}
+                        </a>{" "}
+                        {t("agreeAnd")}{" "}
+                        <a href={`/${locale}/refund-policy`} target="_blank" rel="noopener noreferrer" className="text-main underline underline-offset-4">
+                            {t("refund")}
+                        </a>
+                        {t("agreeSuffix")}
+                    </span>
+                </label>
+                {errorFor("agree")}
+            </div>
+
             {errorFor("form")}
 
             <button type="submit" disabled={loading} className={primary}>
                 {loading ? t("loading") : t("submit")}
             </button>
             <p className="text-center text-[13px] text-neutral-400">{t("secure")}</p>
+            <p className="text-center text-[13px] text-neutral-400">{t("methods")}</p>
         </form>
     );
 }

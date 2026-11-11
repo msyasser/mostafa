@@ -196,8 +196,15 @@
                 "invalid_email": "Enter a valid email.",
                 "invalid_phone": "Enter a valid mobile number.",
                 "already_owned": "This email already owns the course. Open the app and sign in with it.",
-                "generic": "Something went wrong and the payment could not start. Please try again shortly."
-            }
+                "generic": "Something went wrong and the payment could not start. Please try again shortly.",
+                "agree": "Please confirm that you agree to the terms and the refund policy to continue."
+            },
+            "agreePrefix": "I have read and agree to the",
+            "terms": "Terms of Service",
+            "agreeAnd": "and the",
+            "refund": "Refund & Cancellation Policy",
+            "agreeSuffix": ". I understand the course is not refundable.",
+            "methods": "Pay with Visa, Mastercard, Meeza or mobile wallets. All prices are in Egyptian Pounds (EGP)."
         },
         "soon": {
             "title": "Enrollment opens soon",
