@@ -33,7 +33,7 @@
   },
   "section4": {
     "title": "4. Data Sharing & Third Parties",
-    "content": "We do not sell your personal data. We only share information with trusted third-party services essential for our operations, such as payment processors (Stripe/PayPal), email marketing tools, and the Notion platform itself where your systems reside."
+    "content": "We do not sell your personal data. We only share information with trusted third-party services essential for our operations, such as our payment processor (Paymob), email marketing tools, and the Notion platform itself where your systems reside."
   },
   "section5": {
     "title": "5. Security & Retention",
