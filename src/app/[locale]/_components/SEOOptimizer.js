@@ -1,4 +1,12 @@
 import Script from "next/script";
+import { convert } from "@/src/lib/currency";
+
+// "$79" (stored in USD) -> numeric EGP string for structured data; free or unknown prices become "0".
+function egpPrice(value) {
+  const match = typeof value === "string" ? value.trim().match(/^\$([\d.,]+)$/) : null;
+  const amount = match ? parseFloat(match[1].replace(/,/g, "")) : 0;
+  return String(amount ? convert(amount, "EGP") : 0);
+}
 
 export default function SEOOptimizer({
   type = "website",
@@ -117,7 +125,7 @@ export default function SEOOptimizer({
     "offers": {
       "@type": "Offer",
       "price": courseData.price ? String(courseData.price) : "0",
-      "priceCurrency": "USD",
+      "priceCurrency": "EGP",
       "availability": "https://schema.org/InStock",
       "category": courseData.premium ? "Paid" : "Free"
     },
@@ -140,8 +148,8 @@ export default function SEOOptimizer({
     "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
-      "price": templateData.price,
-      "priceCurrency": "USD",
+      "price": egpPrice(templateData.price),
+      "priceCurrency": "EGP",
       "availability": "https://schema.org/InStock"
     },
     "creator": {
