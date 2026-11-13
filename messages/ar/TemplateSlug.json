@@ -244,7 +244,7 @@
     "description": "تتبع تلاوة القرآن، والحفظ، والتفسير في قالب نوشن قوي واحد. حافظ على تحفيزك، وتأمل بعمق، ورفع تجربتك مع القرآن.",
     "price": "$20",
     "checkout": "احصل على مركز القرآن",
-    "checkoutLink": "https://mostafayasser.lemonsqueezy.com/buy/786dd007-922a-4df6-ac87-8519b528061f",
+    "checkoutLink": "https://www.notion.so/marketplace/templates/quran-hub?checkout=true",
     "moreDetails": "مزيد من التفاصيل",
     "image": "/thumbnails/ARThumbnails/1.webp"
   },
@@ -1329,7 +1329,7 @@
     "description": "",
     "price": "$79",
     "checkout": "احصل على العقل الثاني",
-    "checkoutLink": "",
+    "checkoutLink": "https://www.notion.so/marketplace/templates/second-brain-plus?checkout=true",
     "moreDetails": "المزيد من التفاصيل",
     "image": "/thumbnails/ARThumbnails/20.webp"
   },
@@ -1639,7 +1639,7 @@
     "description": "",
     "price": "$59",
     "checkout": "احصل على مركز المال",
-    "checkoutLink": "",
+    "checkoutLink": "https://www.notion.so/marketplace/templates/financehub-premium?checkout=true",
     "moreDetails": "المزيد من التفاصيل",
     "image": "/thumbnails/ARThumbnails/19.webp"
   },

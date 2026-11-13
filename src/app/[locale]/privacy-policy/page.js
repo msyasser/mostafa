@@ -44,7 +44,7 @@ function PrivacyPolicy() {
           <p className="text-sm text-gray-400">{t("effectiveDate")}</p>
         </div>
 
-        {[1, 2, 3, 4, 5, 6].map((section) => (
+        {[1, 2, 3, 4, 5, 6, 7].map((section) => (
           <section key={section}>
             <h2 className="text-xl font-semibold text-main mb-2">
               {t(`section${section}.title`)}

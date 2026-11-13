@@ -1,20 +1,36 @@
 {
   "title": "Privacy Policy",
-  "effectiveDate": "Effective Date: February 13, 2026",
+  "effectiveDate": "Effective Date: November 13, 2026",
   "section1": {
     "title": "1. Introduction",
-    "content": "Welcome to Mostafa Yasser's platform. We are committed to protecting your personal data and your privacy. This Privacy Policy explains how we collect, use, and safe-guard your information when you visit our website, purchase our Notion templates, or engage in our consulting services."
+    "content": "Welcome to Mostafa Yasser's platform. We are committed to protecting your personal data and your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website, buy our Notion templates or course, use the MY Hub app, or work with us on consulting services."
   },
   "section2": {
     "title": "2. Information We Collect",
     "content": [
       {
         "label": "Personal Information:",
-        "value": " We may collect your name, email address, and billing information when you subscribe to our newsletter, purchase a template, or book a consultation."
+        "value": " Your name, email address, phone number and billing information when you create an account, subscribe to our newsletter, buy a product, or book a consultation."
+      },
+      {
+        "label": "Account and Device Data (MY Hub app):",
+        "value": " Your account details, whether you sign in with an email code, a password or your Google account, and an identifier and name for each device you use, with the date of your last sign-in. We use this to keep your account secure and to limit the number of devices per account."
+      },
+      {
+        "label": "Learning Data:",
+        "value": " The lessons you complete, your watch time, your answers and scores in quizzes and in the final exam, and the link and notes of your graduation project together with our feedback on it."
+      },
+      {
+        "label": "Certificates:",
+        "value": " The name you choose to print on your certificate, the course title, the issue date and a verification code. Anyone who has the verification code can see these details on our verification page."
       },
       {
         "label": "Project Data:",
         "value": " For consulting clients, we may receive access to your Notion workspaces or project details necessary to build your custom systems."
+      },
+      {
+        "label": "Payment Data:",
+        "value": " Payments are processed by Paymob. We receive the order details and its status, but we never see or store your card number."
       },
       {
         "label": "Usage Data:",
@@ -25,26 +41,32 @@
   "section3": {
     "title": "3. How We Use Your Information",
     "content": [
-      "To deliver the Notion templates and consulting services you requested.",
+      "To deliver the Notion templates, course and consulting services you requested, and to give you access to them.",
+      "To keep your account and our content secure, including showing your email address, and your phone number if you added one, as a watermark on course videos.",
+      "To track your progress, grade your quizzes, review your graduation project and issue your certificate.",
       "To provide specialized support and system maintenance.",
-      "To send updates about new tools, templates, and Notion tips (you can opt-out at any time).",
-      "To process payments securely through our third-party providers."
+      "To send you receipts, sign-in codes and service messages, and, if you agreed, updates about new tools, templates, and Notion tips (you can opt out at any time).",
+      "To process payments securely through our third-party payment provider."
     ]
   },
   "section4": {
     "title": "4. Data Sharing & Third Parties",
-    "content": "We do not sell your personal data. We only share information with trusted third-party services essential for our operations, such as our payment processor (Paymob), email marketing tools, and the Notion platform itself where your systems reside."
+    "content": "We do not sell your personal data. We only share information with trusted third-party services that are essential to our operations: Paymob for payment processing; Cloudflare, which runs our platform servers and stores our course videos; Brevo for sending emails; Google, if you choose to sign in with your Google account; Vercel, which hosts our website; and Notion, which we use to manage student records, project reviews and the systems we build for you. These providers handle your data only to provide their service to us. We may also disclose information when the law requires it."
   },
   "section5": {
     "title": "5. Security & Retention",
-    "content": "We implement industry-standard security measures to protect your data. We retain your information only as long as necessary to provide our services and comply with legal obligations."
+    "content": "We implement industry-standard security measures to protect your data. Our course videos are encrypted, and we do not store card numbers. We retain your information only as long as necessary to provide our services and comply with legal obligations. If you ask us to delete your account, we delete your personal data within 30 days. We may keep payment and invoice records for as long as the law requires."
   },
   "section6": {
     "title": "6. Your Privacy Rights",
-    "content": "Depending on your location, you have the right to access, correct, or delete your personal data. To exercise these rights, please contact our support team."
+    "content": "Depending on your location, you have the right to access, correct, or delete your personal data, and to withdraw your consent to marketing emails at any time. To exercise these rights, email us at the address below from the email you use for your account. We reply within 2 business days."
+  },
+  "section7": {
+    "title": "7. Changes to This Policy",
+    "content": "We may update this policy from time to time. The latest version is always published on this page, with its effective date at the top."
   },
   "contact": {
-    "title": "7. Contact Us",
+    "title": "8. Contact Us",
     "text": "If you have any questions regarding this Privacy Policy, please reach out to us at:"
   }
 }
