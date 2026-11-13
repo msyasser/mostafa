@@ -3,6 +3,24 @@
 // seconds = real video length. practical = a hands-on build lesson.
 export const sections = [
     {
+        "en": "Introduction",
+        "ar": "المقدمة",
+        "lessons": [
+            {
+                "en": "Welcome & Course Orientation",
+                "ar": "أهلاً بيك وتعريف بالكورس",
+                "seconds": 192,
+                "practical": false
+            },
+            {
+                "en": "Understanding Notion",
+                "ar": "يعني إيه نوشن",
+                "seconds": 499,
+                "practical": false
+            }
+        ]
+    },
+    {
         "en": "Getting Started",
         "ar": "البداية",
         "lessons": [
@@ -293,6 +311,18 @@ export const sections = [
                 "ar": "استخدم عقلك التاني على الموبايل",
                 "seconds": 47,
                 "practical": true
+            }
+        ]
+    },
+    {
+        "en": "Final Project & Conclusion",
+        "ar": "المشروع النهائي والختام",
+        "lessons": [
+            {
+                "en": "The End",
+                "ar": "النهاية",
+                "seconds": 67,
+                "practical": false
             }
         ]
     },

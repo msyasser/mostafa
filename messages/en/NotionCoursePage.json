@@ -1,12 +1,12 @@
 {
     "meta": {
         "title": "The Complete Notion Course (in Arabic): from zero to your own system",
-        "description": "43 videos and 8+ hours with Mostafa Yasser, a Notion Certified Consulting Partner. Pages, databases, automations, dashboards and AI agents, while you build your own Second Brain step by step. Taught in Arabic."
+        "description": "46 videos and 8+ hours with Mostafa Yasser, a Notion Certified Consulting Partner. Pages, databases, automations, dashboards and AI agents, while you build your own Second Brain step by step. Taught in Arabic."
     },
     "card": {
         "badge": "Full course",
         "title": "Notion Course: from zero to your own system",
-        "desc": "43 videos and 8+ hours, taught in Arabic. You build your own Second Brain step by step.",
+        "desc": "46 videos and 8+ hours, taught in Arabic. You build your own Second Brain step by step.",
         "cta": "See the course details"
     },
     "hero": {
@@ -175,7 +175,7 @@
         "includesTitle": "What you get",
         "includes": [
             "Lifetime access to all course content",
-            "43 videos in 8 sections, 8+ hours",
+            "46 videos in 10 sections, 8+ hours",
             "9 hands-on videos where you build your Second Brain",
             "Lessons on Notion AI and agents",
             "A section dedicated to new Notion updates",
@@ -260,7 +260,7 @@
     },
     "final": {
         "title": "Start at lesson one. Finish with your own system.",
-        "desc": "43 videos, 9 hands-on builds, and one project you build yourself.",
+        "desc": "46 videos, 9 hands-on builds, and one project you build yourself.",
         "cta": "Enroll in the course"
     },
     "sticky": {
