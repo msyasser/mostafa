@@ -10,7 +10,7 @@ const CODE_RE = /^MY-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]{4}$/;
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   return {
-    title: locale === "ar" ? "التحقق من الشهادة" : "Verify certificate",
+    title: locale === "ar" ? "التحقق من الاعتمادية" : "Verify credential",
     robots: { index: false, follow: false },
   };
 }
@@ -48,17 +48,20 @@ export default async function VerifyCertificatePage({ params }) {
     const date = new Date(cert.issuedAt * 1000).toLocaleDateString(isArabic ? "ar-EG" : "en-GB", {
       day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Cairo",
     });
+    // A course that awards a named credential shows it; any other course keeps the plain certificate wording.
+    const credential = cert.credential ? (isArabic ? cert.credential.ar : cert.credential.en) : null;
     return (
       <ConfirmationCard
         state="success"
-        title={isArabic ? "شهادة حقيقية" : "Verified certificate"}
+        title={credential ? (isArabic ? "اعتمادية حقيقية" : "Verified credential") : (isArabic ? "شهادة حقيقية" : "Verified certificate")}
         action={back}
         footer={<p className="text-neutral-500 text-xs" dir="ltr">{code}</p>}
       >
         <div className="mt-6">
-          <Row label={isArabic ? "صادرة باسم" : "Issued to"} strong>{cert.name}</Row>
-          <Row label={isArabic ? "عن إتمام" : "For completing"}>{cert.courseTitle}</Row>
-          <Row label={isArabic ? "بتاريخ" : "Issued on"}>{date}</Row>
+          {credential && <Row label={isArabic ? "الاعتمادية" : "Credential"} strong>{credential}</Row>}
+          <Row label={isArabic ? "صادرة باسم" : "Issued to"} strong={!credential}>{cert.name}</Row>
+          <Row label={credential ? (isArabic ? "من كورس" : "From the course") : (isArabic ? "عن إتمام" : "For completing")}>{cert.courseTitle}</Row>
+          <Row label={credential ? (isArabic ? "تاريخ المنح" : "Granted on") : (isArabic ? "بتاريخ" : "Issued on")}>{date}</Row>
         </div>
       </ConfirmationCard>
     );
@@ -66,10 +69,10 @@ export default async function VerifyCertificatePage({ params }) {
 
   if (state === "invalid") {
     return (
-      <ConfirmationCard state="error" title={isArabic ? "ما لقيناش الشهادة دي" : "Certificate not found"} action={back}>
+      <ConfirmationCard state="error" title={isArabic ? "ما لقيناش الشهادة أو الاعتمادية دي" : "Certificate or credential not found"} action={back}>
         {isArabic
-          ? "الرقم ده مش مطابق لأي شهادة سارية. اتأكد إنك كتبته زي ما هو مكتوب على الشهادة."
-          : "This code does not match any valid certificate. Check that it is written exactly as printed on the certificate."}
+          ? "الرقم ده مش مطابق لأي شهادة أو اعتمادية سارية. اتأكد إنك كتبته زي ما هو مكتوب."
+          : "This code does not match any valid certificate or credential. Check that it is written exactly as printed."}
       </ConfirmationCard>
     );
   }

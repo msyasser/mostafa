@@ -32,7 +32,7 @@
             "AI",
             "Mobile"
         ],
-        "certTitle": "Certificate of completion",
+        "certTitle": "Notion Power User credential",
         "certNote": "In your name, with a code anyone can verify"
     },
     "why": {
@@ -154,8 +154,8 @@
                 "d": "Automatic or manual quality, playback speed, and 15-second skip back and forward."
             },
             {
-                "t": "Certificate of completion",
-                "d": "Once your graduation project is accepted you get a certificate in your name with a code that can be verified on this site."
+                "t": "Notion Power User credential",
+                "d": "Once your graduation project is accepted you are awarded the Notion Power User credential in your name, with a code that can be verified on this site."
             }
         ],
         "note": "Watching is currently available on Windows only."
@@ -181,7 +181,7 @@
             "A section dedicated to new Notion updates",
             "Lesson-by-lesson progress tracking",
             "A quiz at the end of every unit and a graduation project I review myself",
-            "A certificate of completion with a verification code"
+            "The Notion Power User credential with a verification code"
         ],
         "form": {
             "name": "Name",
@@ -250,8 +250,8 @@
                 "a": "Your account is created with the email you entered, and you get an email. Open the app and sign in with the same email, using a code sent to it or your Google account, and the course is there."
             },
             {
-                "q": "Is there a certificate?",
-                "a": "Yes. Once your graduation project is accepted you get a certificate of completion in your name, with a code anyone can verify on this site. The graduation project opens after you finish all lessons and pass each unit quiz."
+                "q": "What do I get at the end?",
+                "a": "Once your graduation project is accepted you are awarded the Notion Power User credential in your name, with a code anyone can verify on this site. The graduation project opens after you finish all lessons and pass each unit quiz."
             },
             {
                 "q": "Notion changes often. Will the course keep up?",
