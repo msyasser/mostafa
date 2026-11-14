@@ -155,7 +155,7 @@
             },
             {
                 "t": "Certificate of completion",
-                "d": "Finish all lessons and get a certificate in your name with a code that can be verified on this site."
+                "d": "Finish all lessons, pass each unit quiz and get your graduation project accepted, and you get a certificate in your name with a code that can be verified on this site."
             }
         ],
         "note": "Watching is currently available on Windows only."
@@ -180,6 +180,7 @@
             "Lessons on Notion AI and agents",
             "A section dedicated to new Notion updates",
             "Lesson-by-lesson progress tracking",
+            "A quiz at the end of every unit and a graduation project I review myself",
             "A certificate of completion with a verification code"
         ],
         "form": {
@@ -250,7 +251,7 @@
             },
             {
                 "q": "Is there a certificate?",
-                "a": "Yes. Finish all lessons and you get a certificate of completion in your name, with a code anyone can verify on this site."
+                "a": "Yes. Finish all lessons, pass each unit quiz (50% or more) and get your graduation project accepted. Then you get a certificate of completion in your name, with a code anyone can verify on this site."
             },
             {
                 "q": "Notion changes often. Will the course keep up?",
