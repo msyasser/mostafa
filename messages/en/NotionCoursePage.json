@@ -155,7 +155,7 @@
             },
             {
                 "t": "Certificate of completion",
-                "d": "Finish all lessons, pass each unit quiz and get your graduation project accepted, and you get a certificate in your name with a code that can be verified on this site."
+                "d": "Once your graduation project is accepted you get a certificate in your name with a code that can be verified on this site."
             }
         ],
         "note": "Watching is currently available on Windows only."
@@ -251,7 +251,7 @@
             },
             {
                 "q": "Is there a certificate?",
-                "a": "Yes. Finish all lessons, pass each unit quiz (50% or more) and get your graduation project accepted. Then you get a certificate of completion in your name, with a code anyone can verify on this site."
+                "a": "Yes. Once your graduation project is accepted you get a certificate of completion in your name, with a code anyone can verify on this site. The graduation project opens after you finish all lessons and pass each unit quiz."
             },
             {
                 "q": "Notion changes often. Will the course keep up?",
