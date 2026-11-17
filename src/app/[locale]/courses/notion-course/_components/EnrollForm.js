@@ -195,7 +195,7 @@ function NotifyForm() {
             const response = await fetch("/api/subscribe", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: email.trim(), language: locale === "ar" ? "Arabic" : "English" }),
+                body: JSON.stringify({ email: email.trim(), language: locale === "ar" ? "ar" : "en", list: "course-waitlist" }),
             });
             if (!response.ok) return setState("error");
             track("course_notify_signup", { place: "notion_course_form" });

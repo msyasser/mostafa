@@ -163,8 +163,8 @@
     "preview": {
         "eyebrow": "Try before you decide",
         "title": "See the teaching style for free.",
-        "desc": "My YouTube channel has a playlist of 8 videos on Notion basics, in Arabic. Watch them, and if the style suits you, the full course takes you all the way to your own system.",
-        "cta": "Open the videos on YouTube"
+        "desc": "The first lesson of every unit is free on YouTube, plus the introduction and the Second Brain planning lesson: 9 videos, about an hour and a half, in Arabic. Watch them, and if the style suits you, the full course takes you all the way to your own system.",
+        "cta": "Watch the free lessons"
     },
     "enroll": {
         "eyebrow": "Enrollment",
@@ -208,12 +208,12 @@
             "methods": "Pay with Visa, Mastercard, Meeza or mobile wallets. All prices are in Egyptian Pounds (EGP)."
         },
         "soon": {
-            "title": "Enrollment opens soon",
-            "desc": "Leave your email and we will write to you as soon as enrollment opens. Your email will be added to our newsletter.",
+            "title": "Join the waitlist",
+            "desc": "Enrollment opens at the start of 2027, and people on the waitlist get the launch price one day before everyone else. Your email will be added to our newsletter.",
             "email": "Email",
-            "button": "Notify me",
+            "button": "Add me to the waitlist",
             "loading": "One moment...",
-            "success": "Done, your email is saved. We will write to you when enrollment opens.",
+            "success": "Done, you are on the waitlist. We will write to you one day before enrollment opens so you get the launch price. If you don't see the welcome email, check your Promotions or Spam folder.",
             "error": "We could not save your email. Check it and try again."
         }
     },
