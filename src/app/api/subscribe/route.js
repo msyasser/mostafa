@@ -8,9 +8,9 @@ const NOTION_DB_ID = process.env.NOTION_USERS_DB_ID || process.env.NOTION_DB_ID;
 const ALLOWED_LANGUAGES = ['en', 'ar'];
 const MAX_NAME_LENGTH = 100;
 
-function notionHeaders() {
+function notionHeaders(token = NOTION_TOKEN) {
   return {
-    'Authorization': `Bearer ${NOTION_TOKEN}`,
+    'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json',
     'Notion-Version': '2022-06-28',
   };
@@ -90,15 +90,18 @@ async function joinBrevoWaitlist(email, language) {
 }
 
 // Course waiting list: its own Notion database ("Waiting List" under MY Hub) once
-// NOTION_WAITLIST_DB_ID is set in Vercel and the database is shared with the site's integration.
+// NOTION_WAITLIST_DB_ID is set in Vercel. The database is connected to the "Mostafa Yasser Platform"
+// integration, whose secret goes in NOTION_WAITLIST_TOKEN (the site's NOTION_TOKEN is another
+// integration that cannot see it; NOTION_TOKEN is only the fallback when the variable is missing).
 // Columns: Name (title), Email, Language (ar/en), Joined, Status, Source, Welcome email, Notes.
-// Without the variable, waitlist joins fall back to the newsletter database with a tag (below).
+// Without NOTION_WAITLIST_DB_ID, waitlist joins fall back to the newsletter database with a tag (below).
 const NOTION_WAITLIST_DB_ID = process.env.NOTION_WAITLIST_DB_ID;
+const waitlistHeaders = () => notionHeaders(process.env.NOTION_WAITLIST_TOKEN || NOTION_TOKEN);
 
 async function joinNotionWaitlist(email, language) {
   const existing = await fetch(`https://api.notion.com/v1/databases/${NOTION_WAITLIST_DB_ID}/query`, {
     method: 'POST',
-    headers: notionHeaders(),
+    headers: waitlistHeaders(),
     body: JSON.stringify({ filter: { property: 'Email', email: { equals: email } }, page_size: 1 }),
   });
   if (!existing.ok) {
@@ -109,7 +112,7 @@ async function joinNotionWaitlist(email, language) {
 
   const created = await fetch('https://api.notion.com/v1/pages', {
     method: 'POST',
-    headers: notionHeaders(),
+    headers: waitlistHeaders(),
     body: JSON.stringify({
       parent: { database_id: NOTION_WAITLIST_DB_ID },
       properties: {
@@ -132,7 +135,7 @@ async function joinNotionWaitlist(email, language) {
   if (await joinBrevoWaitlist(email, language)) {
     const ticked = await fetch(`https://api.notion.com/v1/pages/${page.id}`, {
       method: 'PATCH',
-      headers: notionHeaders(),
+      headers: waitlistHeaders(),
       body: JSON.stringify({ properties: { 'Welcome email': { checkbox: true } } }),
     });
     if (!ticked.ok) console.error('Waitlist: could not tick Welcome email', ticked.status);
