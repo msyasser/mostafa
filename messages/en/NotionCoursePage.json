@@ -208,12 +208,12 @@
             "methods": "Pay with Visa, Mastercard, Meeza or mobile wallets. All prices are in Egyptian Pounds (EGP)."
         },
         "soon": {
-            "title": "Join the waitlist",
-            "desc": "Enrollment opens at the start of 2027, and people on the waitlist get the launch price one day before everyone else. Your email will be added to our newsletter.",
+            "title": "Enrollment opens soon",
+            "desc": "Leave your email and we will write to you as soon as enrollment opens. Your email will be added to our newsletter.",
             "email": "Email",
-            "button": "Add me to the waitlist",
+            "button": "Notify me",
             "loading": "One moment...",
-            "success": "Done, you are on the waitlist. We will write to you one day before enrollment opens so you get the launch price. If you don't see the welcome email, check your Promotions or Spam folder.",
+            "success": "Done, your email is saved. We will write to you when enrollment opens.",
             "error": "We could not save your email. Check it and try again."
         }
     },

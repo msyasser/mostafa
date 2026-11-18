@@ -77,7 +77,7 @@ export default async function NotionCoursePage({ params }) {
             price: course.priceEgp,
             priceCurrency: "EGP",
             url,
-            // Until enrollment opens the page collects a waitlist, so the offer is marked as a pre-order.
+            // In stock while sales are open (NEXT_PUBLIC_COURSE_SALES=open); a pre-order while the page only collects emails.
             availability: course.salesOpen ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
         },
         hasCourseInstance: {

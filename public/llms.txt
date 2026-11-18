@@ -22,10 +22,10 @@
 - Price: 1,500 EGP, one payment, lifetime access. Payment by card through Paymob.
 - The course is not refundable (see https://www.mostafayasser.com/ar/refund-policy).
 - The first lesson of every unit is free on YouTube (@engmsyasser).
-- Enrollment status: a waitlist is open now; enrollment opens at the start of 2027.
+- Enrollment status: open. Buy on the course page: https://www.mostafayasser.com/ar/courses/notion-course
 
 ## MY Hub (the course app)
-- MY Hub is Mostafa Yasser's learning app for Windows (Microsoft Store). Lessons are watched only inside the app.
+- MY Hub is Mostafa Yasser's learning app for Windows, on the Microsoft Store: https://apps.microsoft.com/detail/9NGS8111LT4V . Lessons are watched only inside the app.
 - Watching is currently on Windows only; there is no Mac or mobile version.
 - Features: progress saved to the account, resume where you stopped, lesson and unit quizzes, graduation project submission, the credential with a QR code and an "add to LinkedIn" button, Arabic and English interface.
 
