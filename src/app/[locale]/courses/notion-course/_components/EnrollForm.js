@@ -287,8 +287,6 @@ function PayForm() {
             <button type="submit" disabled={loading} className={primary}>
                 {loading ? t("loading") : coupon && coupon.finalCents <= 0 ? t("coupon.submitFree") : t("submit")}
             </button>
-            <p className="text-center text-[13px] text-neutral-400">{t("secure")}</p>
-            <p className="text-center text-[13px] text-neutral-400">{t("methods")}</p>
         </form>
     );
 }
