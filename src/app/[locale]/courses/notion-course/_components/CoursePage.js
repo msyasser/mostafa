@@ -90,12 +90,8 @@ function Hero() {
                     <p className="mt-3 text-[13px] text-neutral-400">{t("note")}</p>
                 </div>
 
-                <HeroShot />
-            </div>
-
-            <div className="relative mx-auto max-w-[1200px] px-6 pb-6">
                 <div className="grid grid-cols-6 gap-3.5">
-                    <div className="col-span-6 rounded-[22px] bg-gradient-to-br from-main to-[#be9462] p-5 text-neutral-900 sm:col-span-3 lg:col-span-2">
+                    <div className="col-span-6 rounded-[22px] bg-gradient-to-br from-main to-[#be9462] p-5 text-neutral-900 sm:col-span-4">
                         <div className="flex items-end gap-3.5">
                             <div className="text-[54px] font-semibold leading-none"><bdi dir="ltr">{totals.videos}</bdi></div>
                             <div className="pb-1">
@@ -107,12 +103,12 @@ function Hero() {
                         </div>
                     </div>
 
-                    <div className={`${tile} col-span-6 sm:col-span-3 lg:col-span-1`}>
+                    <div className={`${tile} col-span-6 sm:col-span-2`}>
                         <div className="text-5xl font-semibold leading-none text-main"><bdi dir="ltr">{totals.practicals}</bdi></div>
                         <div className="mt-1.5 text-[13px] text-neutral-300">{t("practicalsLabel")}</div>
                     </div>
 
-                    <div className={`${tile} col-span-6 lg:col-span-3`}>
+                    <div className={`${tile} col-span-6`}>
                         <span className={eyebrow}>{t("projectEyebrow")}</span>
                         <b className="mt-1.5 block text-[22px] font-semibold leading-tight text-white">{t("projectTitle")}</b>
                         <ol className="mt-3.5 flex flex-wrap gap-2">
@@ -129,7 +125,7 @@ function Hero() {
                         href={CREDLY_BADGE_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`${tile} col-span-6 flex items-center gap-3.5 transition-colors hover:border-main/60 sm:col-span-3 lg:col-span-3`}
+                        className={`${tile} col-span-6 flex items-center gap-3.5 transition-colors hover:border-main/60 sm:col-span-3`}
                     >
                         <Image src="/badges/notion-consulting-partner.webp" alt={badge("badgeTitle")} width={272} height={480} className="h-[72px] w-auto" />
                         <div>
@@ -138,45 +134,13 @@ function Hero() {
                         </div>
                     </a>
 
-                    <a href="#credential" className={`${tile} col-span-6 transition-colors hover:border-main/60 sm:col-span-3 lg:col-span-3`}>
+                    <a href="#credential" className={`${tile} col-span-6 transition-colors hover:border-main/60 sm:col-span-3`}>
                         <b className="block text-[17px] font-semibold leading-tight text-white">{t("certTitle")}</b>
                         <span className="mt-1 block text-[13px] text-neutral-300">{t("certNote")}</span>
                     </a>
                 </div>
             </div>
         </section>
-    );
-}
-
-// The real app, so visitors see where they will study before they pay.
-function HeroShot() {
-    const t = useTranslations("NotionCoursePage.hero");
-    const locale = useLocale();
-    const lang = locale === "ar" ? "ar" : "en";
-    return (
-        <div className="relative">
-            <div className="pointer-events-none absolute -inset-6 rounded-[40px] bg-[radial-gradient(closest-side,rgba(215,177,128,0.22),transparent)]" />
-            <div className="relative overflow-hidden rounded-[18px] border border-main/35 bg-black shadow-[0_40px_90px_rgba(0,0,0,0.6)]">
-                <div className="flex items-center gap-2 border-b border-white/10 bg-[#141210] px-4 py-2.5" dir="ltr">
-                    <span className="size-2.5 rounded-full bg-[#ff5f57]" />
-                    <span className="size-2.5 rounded-full bg-[#febc2e]" />
-                    <span className="size-2.5 rounded-full bg-[#28c840]" />
-                    <span className="ms-2 text-xs text-neutral-400">MY Hub</span>
-                </div>
-                <Image
-                    src={`/courses/myhub/${lang}-01-lesson-playing.webp`}
-                    alt={t("shotAlt")}
-                    width={1600}
-                    height={900}
-                    priority
-                    sizes="(min-width: 1024px) 560px, 100vw"
-                    className="h-auto w-full"
-                />
-            </div>
-            <span className="absolute -bottom-4 start-5 rounded-full border border-main/40 bg-neutral-950/90 px-4 py-1.5 text-[13px] font-semibold text-main backdrop-blur">
-                {t("shotTag")}
-            </span>
-        </div>
     );
 }
 
@@ -479,13 +443,23 @@ function Enroll() {
                     </div>
                     <div className="rounded-[18px] border border-[#3d342b] bg-[#171411] p-5 md:p-6">
                         <EnrollForm />
-                        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 border-t border-white/10 pt-4" aria-label={t("cardsLabel")}>
-                            {["Visa", "Mastercard", "Meeza"].map((brand) => (
-                                <span key={brand} dir="ltr" className="rounded-md border border-white/15 bg-white/[0.04] px-2.5 py-1 text-xs font-semibold tracking-wide text-neutral-200">
-                                    {brand}
-                                </span>
-                            ))}
-                            <span className="text-xs text-neutral-400">{t("securedBy")} <bdi dir="ltr" className="font-semibold text-neutral-200">Paymob</bdi></span>
+                        {/* Official acceptance marks (Paymob contract 3.2.2), each on a white tile so the brand colours stay as supplied. */}
+                        <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5 border-t border-white/10 pt-4">
+                            <ul className="flex items-center gap-2" aria-label={t("cardsLabel")} dir="ltr">
+                                {[
+                                    { src: "/payments/visa.svg", alt: "Visa", w: 1000, h: 325 },
+                                    { src: "/payments/mastercard.svg", alt: "Mastercard", w: 1000, h: 618 },
+                                    { src: "/payments/meeza.svg", alt: "Meeza", w: 140, h: 68 },
+                                ].map((logo) => (
+                                    <li key={logo.alt} className="grid h-9 w-[58px] place-items-center rounded-md bg-white px-2">
+                                        <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className="max-h-6 w-auto" unoptimized />
+                                    </li>
+                                ))}
+                            </ul>
+                            <span className="flex items-center gap-2 text-xs text-neutral-400">
+                                {t("securedBy")}
+                                <Image src="/payments/paymob.svg" alt="Paymob" width={148} height={32} className="h-4 w-auto" unoptimized />
+                            </span>
                         </div>
                     </div>
                 </div>
