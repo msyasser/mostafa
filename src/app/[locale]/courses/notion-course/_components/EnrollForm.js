@@ -158,7 +158,8 @@ function PayForm() {
                 {errorFor("name")}
             </div>
             <div>
-                <label htmlFor="enroll-email" className={label}>{t("email")}</label>
+                <label htmlFor="enroll-email" className="block text-sm font-medium text-neutral-200">{t("email")}</label>
+                <p id="enroll-email-hint" className="mb-1.5 mt-0.5 text-[13px] text-neutral-400">{t("emailHint")}</p>
                 <input
                     id="enroll-email"
                     name="email"
@@ -169,12 +170,10 @@ function PayForm() {
                     value={values.email}
                     onChange={set("email")}
                     aria-invalid={error?.field === "email"}
-                    aria-describedby={error?.field === "email" ? "enroll-email-error" : "enroll-email-hint"}
+                    aria-describedby={error?.field === "email" ? "enroll-email-hint enroll-email-error" : "enroll-email-hint"}
                     className={`${field} rtl:text-right`}
                 />
-                {errorFor("email") || (
-                    <p id="enroll-email-hint" className="mt-1.5 text-[13px] text-neutral-400">{t("emailHint")}</p>
-                )}
+                {errorFor("email")}
             </div>
             <div>
                 <label htmlFor="enroll-phone" className={label}>{t("phone")}</label>
