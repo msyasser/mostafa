@@ -5,6 +5,7 @@ import { CREDLY_BADGE_URL } from "@/src/app/[locale]/_data/credentials";
 import { course } from "../_data/course";
 import { sections } from "../_data/curriculum";
 import EnrollForm from "./EnrollForm";
+import AppShowcase from "./AppShowcase";
 import StickyEnrollBar from "./StickyEnrollBar";
 
 const eyebrow = "font-mono text-[11px] uppercase tracking-[0.2em] text-main rtl:text-sm rtl:tracking-normal rtl:[font-family:inherit]";
@@ -89,8 +90,12 @@ function Hero() {
                     <p className="mt-3 text-[13px] text-neutral-400">{t("note")}</p>
                 </div>
 
+                <HeroShot />
+            </div>
+
+            <div className="relative mx-auto max-w-[1200px] px-6 pb-6">
                 <div className="grid grid-cols-6 gap-3.5">
-                    <div className="col-span-6 rounded-[22px] bg-gradient-to-br from-main to-[#be9462] p-5 text-neutral-900 sm:col-span-4">
+                    <div className="col-span-6 rounded-[22px] bg-gradient-to-br from-main to-[#be9462] p-5 text-neutral-900 sm:col-span-3 lg:col-span-2">
                         <div className="flex items-end gap-3.5">
                             <div className="text-[54px] font-semibold leading-none"><bdi dir="ltr">{totals.videos}</bdi></div>
                             <div className="pb-1">
@@ -102,12 +107,12 @@ function Hero() {
                         </div>
                     </div>
 
-                    <div className={`${tile} col-span-6 sm:col-span-2`}>
+                    <div className={`${tile} col-span-6 sm:col-span-3 lg:col-span-1`}>
                         <div className="text-5xl font-semibold leading-none text-main"><bdi dir="ltr">{totals.practicals}</bdi></div>
                         <div className="mt-1.5 text-[13px] text-neutral-300">{t("practicalsLabel")}</div>
                     </div>
 
-                    <div className={`${tile} col-span-6`}>
+                    <div className={`${tile} col-span-6 lg:col-span-3`}>
                         <span className={eyebrow}>{t("projectEyebrow")}</span>
                         <b className="mt-1.5 block text-[22px] font-semibold leading-tight text-white">{t("projectTitle")}</b>
                         <ol className="mt-3.5 flex flex-wrap gap-2">
@@ -124,7 +129,7 @@ function Hero() {
                         href={CREDLY_BADGE_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`${tile} col-span-6 flex items-center gap-3.5 transition-colors hover:border-main/60 sm:col-span-3`}
+                        className={`${tile} col-span-6 flex items-center gap-3.5 transition-colors hover:border-main/60 sm:col-span-3 lg:col-span-3`}
                     >
                         <Image src="/badges/notion-consulting-partner.webp" alt={badge("badgeTitle")} width={272} height={480} className="h-[72px] w-auto" />
                         <div>
@@ -133,13 +138,103 @@ function Hero() {
                         </div>
                     </a>
 
-                    <div className={`${tile} col-span-6 sm:col-span-3`}>
+                    <a href="#credential" className={`${tile} col-span-6 transition-colors hover:border-main/60 sm:col-span-3 lg:col-span-3`}>
                         <b className="block text-[17px] font-semibold leading-tight text-white">{t("certTitle")}</b>
                         <span className="mt-1 block text-[13px] text-neutral-300">{t("certNote")}</span>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>
+    );
+}
+
+// The real app, so visitors see where they will study before they pay.
+function HeroShot() {
+    const t = useTranslations("NotionCoursePage.hero");
+    const locale = useLocale();
+    const lang = locale === "ar" ? "ar" : "en";
+    return (
+        <div className="relative">
+            <div className="pointer-events-none absolute -inset-6 rounded-[40px] bg-[radial-gradient(closest-side,rgba(215,177,128,0.22),transparent)]" />
+            <div className="relative overflow-hidden rounded-[18px] border border-main/35 bg-black shadow-[0_40px_90px_rgba(0,0,0,0.6)]">
+                <div className="flex items-center gap-2 border-b border-white/10 bg-[#141210] px-4 py-2.5" dir="ltr">
+                    <span className="size-2.5 rounded-full bg-[#ff5f57]" />
+                    <span className="size-2.5 rounded-full bg-[#febc2e]" />
+                    <span className="size-2.5 rounded-full bg-[#28c840]" />
+                    <span className="ms-2 text-xs text-neutral-400">MY Hub</span>
+                </div>
+                <Image
+                    src={`/courses/myhub/${lang}-01-lesson-playing.webp`}
+                    alt={t("shotAlt")}
+                    width={1600}
+                    height={900}
+                    priority
+                    sizes="(min-width: 1024px) 560px, 100vw"
+                    className="h-auto w-full"
+                />
+            </div>
+            <span className="absolute -bottom-4 start-5 rounded-full border border-main/40 bg-neutral-950/90 px-4 py-1.5 text-[13px] font-semibold text-main backdrop-blur">
+                {t("shotTag")}
+            </span>
+        </div>
+    );
+}
+
+function Credential() {
+    const t = useTranslations("NotionCoursePage.credential");
+    const locale = useLocale();
+    const lang = locale === "ar" ? "ar" : "en";
+    return (
+        <section id="credential" className="scroll-mt-24 px-6 py-12 md:py-[70px]">
+            <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[1fr_1.05fr]">
+                <div>
+                    <SectionHead eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} />
+                    <ol className="space-y-3">
+                        {t.raw("steps").map((step, index) => (
+                            <li key={step} className="flex items-start gap-3.5 text-[16px] text-neutral-200">
+                                <span className="grid size-8 shrink-0 place-items-center rounded-full border border-main text-sm font-semibold text-main">{index + 1}</span>
+                                <span className="pt-1">{step}</span>
+                            </li>
+                        ))}
+                    </ol>
+                    <p className="mt-6 text-[15px] text-neutral-400">
+                        {t("verifyText")}{" "}
+                        <a href={`/${locale}/verify`} className="text-main underline underline-offset-4">{t("verifyLink")}</a>
+                    </p>
+                </div>
+                <figure className="relative">
+                    <div className="pointer-events-none absolute -inset-8 rounded-[40px] bg-[radial-gradient(closest-side,rgba(215,177,128,0.18),transparent)]" />
+                    <Image
+                        src={`/courses/myhub/${lang}-credential.webp`}
+                        alt={t("alt")}
+                        width={1200}
+                        height={847}
+                        sizes="(min-width: 1024px) 600px, 100vw"
+                        className="relative h-auto w-full -rotate-1 rounded-[14px] shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
+                    />
+                    <figcaption className="relative mt-4 text-center text-[13px] text-neutral-500">{t("sample")}</figcaption>
+                </figure>
+            </div>
+        </section>
+    );
+}
+
+// What happens after paying: three short steps, under the pay form.
+function AfterPay() {
+    const t = useTranslations("NotionCoursePage.enroll.after");
+    return (
+        <div className="mt-6">
+            <h3 className="mb-4 text-xl font-semibold text-white">{t("title")}</h3>
+            <ol className="grid gap-3 md:grid-cols-3">
+                {t.raw("steps").map((step, index) => (
+                    <li key={step.t} className={`${card} p-5`}>
+                        <span className="text-3xl font-semibold leading-none text-main"><bdi dir="ltr">0{index + 1}</bdi></span>
+                        <h4 className="mt-3 text-[18px] font-semibold text-white">{step.t}</h4>
+                        <p className="mt-1.5 text-[14px] leading-relaxed text-neutral-400">{step.d}</p>
+                    </li>
+                ))}
+            </ol>
+        </div>
     );
 }
 
@@ -319,15 +414,15 @@ function AppSection() {
         <section className="px-6 py-12 md:py-[70px]">
             <div className="mx-auto max-w-[1200px]">
                 <SectionHead eyebrow={t("eyebrow")} title={<bdi>{t("title")}</bdi>} subtitle={t("subtitle")} />
-                <div className="grid gap-4 md:grid-cols-2">
+                <AppShowcase />
+                <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {t.raw("items").map((item) => (
-                        <div key={item.t} className={card}>
-                            <h3 className="text-xl font-semibold text-white">{item.t}</h3>
-                            <p className="mt-2 text-[15px] leading-relaxed text-neutral-400">{item.d}</p>
+                        <div key={item.t} className={`${card} p-5`}>
+                            <h3 className="text-[17px] font-semibold text-white">{item.t}</h3>
+                            <p className="mt-1.5 text-[14px] leading-relaxed text-neutral-400">{item.d}</p>
                         </div>
                     ))}
                 </div>
-                <p className="mt-4 text-sm text-neutral-400">{t("note")}</p>
             </div>
         </section>
     );
@@ -384,8 +479,17 @@ function Enroll() {
                     </div>
                     <div className="rounded-[18px] border border-[#3d342b] bg-[#171411] p-5 md:p-6">
                         <EnrollForm />
+                        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 border-t border-white/10 pt-4" aria-label={t("cardsLabel")}>
+                            {["Visa", "Mastercard", "Meeza"].map((brand) => (
+                                <span key={brand} dir="ltr" className="rounded-md border border-white/15 bg-white/[0.04] px-2.5 py-1 text-xs font-semibold tracking-wide text-neutral-200">
+                                    {brand}
+                                </span>
+                            ))}
+                            <span className="text-xs text-neutral-400">{t("securedBy")} <bdi dir="ltr" className="font-semibold text-neutral-200">Paymob</bdi></span>
+                        </div>
                     </div>
                 </div>
+                <AfterPay />
             </div>
         </section>
     );
@@ -432,14 +536,15 @@ function Final() {
 export default function CoursePage() {
     const t = useTranslations("NotionCoursePage.sticky");
     return (
-        <div className="min-h-screen bg-neutral-950 text-white selection:bg-main selection:text-neutral-900">
+        <div className="min-h-screen overflow-x-clip bg-neutral-950 text-white selection:bg-main selection:text-neutral-900">
             <Hero />
             <Why />
             <Audience />
             <Journey />
             <Curriculum />
-            <Instructor />
             <AppSection />
+            <Credential />
+            <Instructor />
             {course.showFreePreview && <Preview />}
             <Enroll />
             <Faq />

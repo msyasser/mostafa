@@ -33,7 +33,9 @@
             "Mobile"
         ],
         "certTitle": "Notion Power User credential",
-        "certNote": "In your name, with a code anyone can verify"
+        "certNote": "In your name, with a code anyone can verify",
+        "shotAlt": "The MY Hub app with the lesson “What is Notion” playing, the lesson list and the student's progress",
+        "shotTag": "This is where you will study"
     },
     "why": {
         "eyebrow": "Why this course",
@@ -158,7 +160,51 @@
                 "d": "Once your graduation project is accepted you are awarded the Notion Power User credential in your name, with a code that can be verified on this site."
             }
         ],
-        "note": "Watching is currently available on Windows only."
+        "note": "Watching is currently available on Windows only.",
+        "tabsLabel": "Inside the MY Hub app",
+        "storeSmall": "Get it free from the",
+        "storeBig": "Microsoft Store",
+        "tabs": [
+            {
+                "t": "Lessons",
+                "d": "Lessons are grouped by section, and the app remembers where you are and how far you got. Carry on from the exact second you stopped.",
+                "alt": "A lesson playing in MY Hub next to the course sections and progress"
+            },
+            {
+                "t": "Hands-on",
+                "d": "Every section ends with a hands-on lesson where you build part of your Second Brain with me, step by step.",
+                "alt": "A hands-on lesson in MY Hub where the student builds their Notion system"
+            },
+            {
+                "t": "Quizzes",
+                "d": "A short quiz after lessons and a quiz at the end of every unit, so you know whether it clicked or you need to go back.",
+                "alt": "A lesson quiz in MY Hub with a score of 100%"
+            },
+            {
+                "t": "Graduation path",
+                "d": "Unit quizzes, then the graduation project I review myself, then the credential. Every step is in front of you.",
+                "alt": "The graduation path in MY Hub: unit quizzes, graduation project and credential"
+            },
+            {
+                "t": "Templates & tools",
+                "d": "My templates and tools library lives in the same app, so everything is in one place.",
+                "alt": "The templates and tools library inside MY Hub"
+            }
+        ]
+    },
+    "credential": {
+        "eyebrow": "At the end of the course",
+        "title": "A credential in your name that anyone can verify.",
+        "subtitle": "The Notion Power User credential is not a certificate of attendance. You earn it once you prove you can build a system on your own.",
+        "steps": [
+            "Pass the unit quizzes.",
+            "Submit your graduation project, and I review it myself.",
+            "Receive the credential in your name with a number and a QR code, and add it to LinkedIn in one click."
+        ],
+        "verifyText": "Anyone can check a credential by its number on the",
+        "verifyLink": "verification page",
+        "alt": "The Notion Power User credential: name, seal, credential number and QR code",
+        "sample": "What the credential looks like (the name and number here are an example)"
     },
     "preview": {
         "eyebrow": "Try before you decide",
@@ -226,6 +272,25 @@
             "loading": "One moment...",
             "success": "Done, your email is saved. We will write to you when enrollment opens.",
             "error": "We could not save your email. Check it and try again."
+        },
+        "cardsLabel": "Payment methods",
+        "securedBy": "Secure payment by",
+        "after": {
+            "title": "After you pay",
+            "steps": [
+                {
+                    "t": "The course is on your email",
+                    "d": "As soon as the payment goes through, the course is added to your account on that email and you get an email with the details."
+                },
+                {
+                    "t": "Install MY Hub",
+                    "d": "Download the app for free from the Microsoft Store on Windows."
+                },
+                {
+                    "t": "Sign in and start",
+                    "d": "Sign in with the same email and the course is under My courses. Start with the first lesson."
+                }
+            ]
         }
     },
     "faq": {
@@ -251,6 +316,14 @@
             {
                 "q": "How do I pay?",
                 "a": "By bank card through Paymob. The price is in Egyptian pounds."
+            },
+            {
+                "q": "My card is a debit card. Will it work?",
+                "a": "Yes, as long as online payments are enabled on the card. If the payment is declined, enable online transactions in your bank app and try again, or pay with another Visa or Mastercard."
+            },
+            {
+                "q": "I have a discount coupon. How do I use it?",
+                "a": "In the enrollment form, tap “Have a discount coupon?” and type the code. The new price shows before you pay."
             },
             {
                 "q": "How long does my access last?",
