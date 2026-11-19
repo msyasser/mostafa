@@ -21,6 +21,48 @@ function PayForm() {
     const [values, setValues] = useState({ name: "", email: "", phone: "" });
     const [error, setError] = useState(null); // { field, message }
     const [loading, setLoading] = useState(false);
+    // Coupon: hidden behind a small link; checked against the platform before paying (price shown live).
+    const [couponOpen, setCouponOpen] = useState(false);
+    const [couponCode, setCouponCode] = useState("");
+    const [coupon, setCoupon] = useState(null); // { code, finalCents, priceCents } once accepted
+    const [couponState, setCouponState] = useState("idle"); // idle | checking | error
+    const [couponMsg, setCouponMsg] = useState("");
+
+    const egp = (cents) => new Intl.NumberFormat(locale === "ar" ? "ar-EG" : "en-US", { maximumFractionDigits: 2 }).format(cents / 100);
+
+    const applyCoupon = async () => {
+        const code = couponCode.trim();
+        if (!code || couponState === "checking") return;
+        setCouponState("checking");
+        setCouponMsg("");
+        try {
+            const response = await fetch(`${course.apiBase}/coupon/check`, {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({ courseId: course.id, code, email: values.email.trim() }),
+            });
+            const data = await response.json().catch(() => ({}));
+            if (response.ok && data.valid) {
+                setCoupon({ code, finalCents: data.finalCents, priceCents: data.priceCents });
+                setCouponState("idle");
+                track("course_coupon_applied", { place: "notion_course_form" });
+                return;
+            }
+            setCoupon(null);
+            setCouponState("error");
+            setCouponMsg(locale === "ar" && data.message ? data.message : t("coupon.invalid"));
+        } catch {
+            setCoupon(null);
+            setCouponState("error");
+            setCouponMsg(t("coupon.invalid"));
+        }
+    };
+    const removeCoupon = () => {
+        setCoupon(null);
+        setCouponCode("");
+        setCouponState("idle");
+        setCouponMsg("");
+    };
 
     // Signed-in visitors get their name and email filled in (they can still change them).
     useEffect(() => {
@@ -61,9 +103,23 @@ function PayForm() {
             const response = await fetch(`${course.apiBase}/checkout`, {
                 method: "POST",
                 headers: { "content-type": "application/json" },
-                body: JSON.stringify({ name, email, phone, courseId: course.id }),
+                body: JSON.stringify({ name, email, phone, courseId: course.id, ...(coupon ? { coupon: coupon.code } : {}) }),
             });
             const data = await response.json().catch(() => ({}));
+            if (response.ok && data.granted) {
+                // A 100% coupon: no payment, the course is already on this email.
+                track("course_coupon_granted", { place: "notion_course_form" });
+                window.location.assign(`/${locale}/course/thanks?granted=1`);
+                return;
+            }
+            if (data.error === "coupon_invalid") {
+                setCoupon(null);
+                setCouponOpen(true);
+                setCouponState("error");
+                setCouponMsg(locale === "ar" && data.message ? data.message : t("coupon.invalid"));
+                setLoading(false);
+                return;
+            }
             if (response.ok && data.checkoutUrl) {
                 track("course_checkout_start", { place: "notion_course_form" });
                 window.location.assign(data.checkoutUrl);
@@ -168,10 +224,68 @@ function PayForm() {
                 {errorFor("agree")}
             </div>
 
+            <div>
+                {!couponOpen && !coupon ? (
+                    <button type="button" onClick={() => setCouponOpen(true)} className="text-sm text-main underline underline-offset-4">
+                        {t("coupon.open")}
+                    </button>
+                ) : coupon ? (
+                    <div className="flex items-center justify-between gap-3 rounded-lg border border-main/50 bg-main/10 px-3.5 py-2.5 text-sm">
+                        <span className="text-neutral-100">
+                            {t("coupon.applied", { code: coupon.code.toUpperCase() })}{" "}
+                            <span className="text-neutral-400 line-through">{egp(coupon.priceCents)}</span>{" "}
+                            <b className="text-main">{coupon.finalCents <= 0 ? t("coupon.free") : `${egp(coupon.finalCents)} ${t("coupon.unit")}`}</b>
+                        </span>
+                        <button type="button" onClick={removeCoupon} className="shrink-0 text-neutral-400 underline underline-offset-4 hover:text-white">
+                            {t("coupon.remove")}
+                        </button>
+                    </div>
+                ) : (
+                    <div>
+                        <label htmlFor="enroll-coupon" className={label}>{t("coupon.label")}</label>
+                        <div className="flex gap-2">
+                            <input
+                                id="enroll-coupon"
+                                name="coupon"
+                                dir="ltr"
+                                autoComplete="off"
+                                autoCapitalize="characters"
+                                maxLength={40}
+                                value={couponCode}
+                                onChange={(event) => {
+                                    setCouponCode(event.target.value);
+                                    if (couponState === "error") setCouponState("idle");
+                                }}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter") {
+                                        event.preventDefault();
+                                        applyCoupon();
+                                    }
+                                }}
+                                aria-invalid={couponState === "error"}
+                                aria-describedby={couponState === "error" ? "enroll-coupon-error" : undefined}
+                                className={`${field} uppercase rtl:text-right`}
+                            />
+                            <button
+                                type="button"
+                                onClick={applyCoupon}
+                                disabled={!couponCode.trim() || couponState === "checking"}
+                                className="h-12 shrink-0 rounded-lg border border-main px-5 text-sm font-semibold text-main disabled:opacity-50"
+                            >
+                                {couponState === "checking" ? t("loading") : t("coupon.apply")}
+                            </button>
+                        </div>
+                        {couponState === "error" && (
+                            <p id="enroll-coupon-error" role="alert" className="mt-1.5 text-sm text-[#f0a29a]">{couponMsg}</p>
+                        )}
+                    </div>
+                )}
+            </div>
+
             {errorFor("form")}
 
             <button type="submit" disabled={loading} className={primary}>
-                {loading ? t("loading") : t("submit")}
+                {loading ? t("loading") : coupon && coupon.finalCents <= 0 ? t("coupon.submitFree") : t("submit")}
             </button>
             <p className="text-center text-[13px] text-neutral-400">{t("secure")}</p>
             <p className="text-center text-[13px] text-neutral-400">{t("methods")}</p>

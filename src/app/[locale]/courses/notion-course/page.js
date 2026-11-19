@@ -40,27 +40,68 @@ export default async function NotionCoursePage({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
     const t = await getTranslations({ locale, namespace: "NotionCoursePage.meta" });
+    const tFaq = await getTranslations({ locale, namespace: "NotionCoursePage.faq" });
 
-    const seconds = sections.flatMap((section) => section.lessons).reduce((sum, lesson) => sum + lesson.seconds, 0);
-    const jsonLd = {
+    const lessons = sections.flatMap((section) => section.lessons);
+    const seconds = lessons.reduce((sum, lesson) => sum + lesson.seconds, 0);
+    const url = `${SITE_URL}/${locale}/courses/notion-course`;
+    const instructor = {
+        "@type": "Person",
+        name: locale === "ar" ? "مصطفى ياسر" : "Mostafa Yasser",
+        alternateName: locale === "ar" ? "Mostafa Yasser" : "مصطفى ياسر",
+        jobTitle: "Notion Consulting Partner",
+        url: SITE_URL,
+        sameAs: [
+            "https://youtube.com/@engmsyasser",
+            "https://linkedin.com/in/engmsyasser",
+            "https://notion.com/@mostafayasser",
+            "https://x.com/engmsyasser",
+            "https://facebook.com/engmsyasser",
+            "https://instagram.com/engmsyasser",
+        ],
+    };
+    const courseLd = {
         "@context": "https://schema.org",
         "@type": "Course",
         name: t("title"),
         description: t("description"),
         inLanguage: "ar",
-        url: `${SITE_URL}/${locale}/courses/notion-course`,
-        provider: { "@type": "Person", name: "Mostafa Yasser", url: SITE_URL },
-        offers: { "@type": "Offer", category: "Paid", price: course.priceEgp, priceCurrency: "EGP" },
+        url,
+        image: `${SITE_URL}/courses/notion-course-${locale === "ar" ? "ar" : "en"}.webp`,
+        provider: instructor,
+        educationalCredentialAwarded: "Notion Power User (NPU)",
+        coursePrerequisites: locale === "ar" ? "مفيش خبرة سابقة مطلوبة" : "No previous experience needed",
+        offers: {
+            "@type": "Offer",
+            category: "Paid",
+            price: course.priceEgp,
+            priceCurrency: "EGP",
+            url,
+            // In stock while sales are open (NEXT_PUBLIC_COURSE_SALES=open); a pre-order while the page only collects emails.
+            availability: course.salesOpen ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
+        },
         hasCourseInstance: {
             "@type": "CourseInstance",
             courseMode: "Online",
             courseWorkload: `PT${Math.round(seconds / 3600)}H`,
+            instructor,
         },
     };
+    const faqLd = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: tFaq.raw("items").map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
+    };
+    const ld = (data) => ({ __html: JSON.stringify(data).replace(/</g, "\\u003c") });
 
     return (
         <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={ld(courseLd)} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={ld(faqLd)} />
             <CoursePage />
         </>
     );

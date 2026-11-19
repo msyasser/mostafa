@@ -163,8 +163,8 @@
     "preview": {
         "eyebrow": "Try before you decide",
         "title": "See the teaching style for free.",
-        "desc": "My YouTube channel has a playlist of 8 videos on Notion basics, in Arabic. Watch them, and if the style suits you, the full course takes you all the way to your own system.",
-        "cta": "Open the videos on YouTube"
+        "desc": "The first lesson of every unit is free on YouTube, plus the introduction and the Second Brain planning lesson: 9 videos, about an hour and a half, in Arabic. Watch them, and if the style suits you, the full course takes you all the way to your own system.",
+        "cta": "Watch the free lessons"
     },
     "enroll": {
         "eyebrow": "Enrollment",
@@ -205,7 +205,18 @@
             "agreeAnd": "and the",
             "refund": "Refund & Cancellation Policy",
             "agreeSuffix": ". I understand the course is not refundable.",
-            "methods": "Pay with Visa, Mastercard, Meeza or mobile wallets. All prices are in Egyptian Pounds (EGP)."
+            "methods": "Pay with Visa, Mastercard or Meeza. All prices are in Egyptian Pounds (EGP).",
+            "coupon": {
+                "open": "Have a discount coupon?",
+                "label": "Discount coupon",
+                "apply": "Apply",
+                "applied": "Coupon {code} applied:",
+                "free": "Free",
+                "unit": "EGP",
+                "remove": "Remove",
+                "invalid": "This coupon does not work. Check it and try again.",
+                "submitFree": "Activate the course"
+            }
         },
         "soon": {
             "title": "Enrollment opens soon",

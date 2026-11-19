@@ -14,9 +14,11 @@ const SITE_FRAME_ANCESTORS = "'self' https://*.mostafayasser.com";
 const NOTION_FRAME_ANCESTORS = `${SITE_FRAME_ANCESTORS} https://www.notion.so https://notion.so https://*.notion.site https://www.notion.com https://*.notion.com`;
 
 const FRAME_SRC = "'self' https://www.notion.so https://notion.so https://mostafayasser.notion.site https://www.youtube.com https://youtube.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://vercel.live";
-const SCRIPT_HOSTS = "https://www.googletagmanager.com https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://vercel.live https://vercel.com";
+const SCRIPT_HOSTS = "https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://vercel.live https://vercel.com";
 // api.mostafayasser.com = the platform API; the paid course page calls its /checkout to start a payment.
-const CONNECT_SRC = "'self' https://api.mostafayasser.com https://www.google-analytics.com https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://api.opencagedata.com https://api.aladhan.com https://nominatim.openstreetmap.org https://api.coingecko.com https://api.open-meteo.com https://vercel.live https://vercel.com https://api.alquran.cloud";
+const CONNECT_SRC = "'self' https://api.mostafayasser.com https://www.google-analytics.com https://www.facebook.com https://connect.facebook.net https://app.fillout.com https://fillout.com https://embed.fillout.com https://calendar.google.com https://calendar.notion.com https://cal.com https://app.cal.com https://*.cal.com https://api.opencagedata.com https://api.aladhan.com https://nominatim.openstreetmap.org https://api.coingecko.com https://api.open-meteo.com https://vercel.live https://vercel.com https://api.alquran.cloud"
+  // A different course API (local tests) must be reachable from the pay form too.
+  + (process.env.NEXT_PUBLIC_COURSE_API_BASE ? ` ${new URL(process.env.NEXT_PUBLIC_COURSE_API_BASE).origin}` : "");
 
 function buildCsp({ frameAncestors, allowEval }) {
   return [
