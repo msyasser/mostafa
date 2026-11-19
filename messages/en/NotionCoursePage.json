@@ -205,7 +205,18 @@
             "agreeAnd": "and the",
             "refund": "Refund & Cancellation Policy",
             "agreeSuffix": ". I understand the course is not refundable.",
-            "methods": "Pay with Visa, Mastercard, Meeza or mobile wallets. All prices are in Egyptian Pounds (EGP)."
+            "methods": "Pay with Visa, Mastercard or Meeza. All prices are in Egyptian Pounds (EGP).",
+            "coupon": {
+                "open": "Have a discount coupon?",
+                "label": "Discount coupon",
+                "apply": "Apply",
+                "applied": "Coupon {code} applied:",
+                "free": "Free",
+                "unit": "EGP",
+                "remove": "Remove",
+                "invalid": "This coupon does not work. Check it and try again.",
+                "submitFree": "Activate the course"
+            }
         },
         "soon": {
             "title": "Enrollment opens soon",
