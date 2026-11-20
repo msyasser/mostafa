@@ -13,7 +13,8 @@ const SUBDOMAIN_MAP = {
 // Pages that only exist on the main site, plus each subdomain's sibling section.
 // A relative link to one of them clicked on a subdomain (e.g. /en/about) would be
 // rewritten to /en/templates/about and 404, so send it to the main site instead.
-const MAIN_SITE_ONLY = ["about", "contact", "services", "case-studies", "blog", "tools", "resources", "profile"];
+// "verify" = credential checks (printed on certificates), "course" = /course/thanks and /course/app.
+const MAIN_SITE_ONLY = ["about", "contact", "services", "case-studies", "blog", "tools", "resources", "profile", "verify", "course"];
 const SIBLING_SECTION = { templates: "courses", courses: "templates" };
 const MAIN_SITE_ORIGIN = "https://www.mostafayasser.com";
 

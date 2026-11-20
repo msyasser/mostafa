@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import StoreBadge from "../../../_components/StoreBadge";
 
 // Real screenshots of MY Hub (Store screenshots, demo accounts), one tab per part of the student's day.
 const SHOTS = ["01-lesson-playing", "02-hands-on-lesson", "03-lesson-quiz", "04-graduation-path", "07-templates-library"];
@@ -13,7 +14,6 @@ export default function AppShowcase() {
     const lang = locale === "ar" ? "ar" : "en";
     const tabs = t.raw("tabs");
     const [active, setActive] = useState(0);
-    const storeUrl = process.env.NEXT_PUBLIC_MYHUB_STORE_URL || "";
 
     return (
         <div>
@@ -57,24 +57,7 @@ export default function AppShowcase() {
                 <div>
                     <h3 className="text-2xl font-semibold text-white">{tabs[active].t}</h3>
                     <p className="mt-2 text-[16px] leading-relaxed text-neutral-400">{tabs[active].d}</p>
-                    {/^https:\/\//.test(storeUrl) && (
-                        <a
-                            href={storeUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            data-track="course_store_click"
-                            data-track-place="notion_course_app"
-                            className="mt-6 inline-flex items-center gap-3 rounded-[14px] border border-white/20 bg-neutral-950 px-4 py-3 transition-colors hover:border-main"
-                        >
-                            <svg viewBox="0 0 24 24" className="size-7 text-main" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                <path d="M12 3v12M7 10l5 5 5-5M4 19h16" />
-                            </svg>
-                            <span className="leading-tight">
-                                <span className="block text-[11px] text-neutral-400">{t("storeSmall")}</span>
-                                <span className="block text-[15px] font-semibold text-white">{t("storeBig")}</span>
-                            </span>
-                        </a>
-                    )}
+                    <StoreBadge locale={locale} place="course-app" className="mt-6" />
                     <p className="mt-4 text-sm text-neutral-500">{t("note")}</p>
                 </div>
             </div>
