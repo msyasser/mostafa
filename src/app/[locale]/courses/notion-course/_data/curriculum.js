@@ -315,18 +315,6 @@ export const sections = [
         ]
     },
     {
-        "en": "Final Project & Conclusion",
-        "ar": "المشروع النهائي والختام",
-        "lessons": [
-            {
-                "en": "The End",
-                "ar": "النهاية",
-                "seconds": 67,
-                "practical": false
-            }
-        ]
-    },
-    {
         "en": "Notion Updates & What's New",
         "ar": "تحديثات نوشن والجديد فيه",
         "lessons": [
@@ -334,6 +322,18 @@ export const sections = [
                 "en": "Presentation",
                 "ar": "العروض التقديمية",
                 "seconds": 93,
+                "practical": false
+            }
+        ]
+    },
+    {
+        "en": "Final Project & Conclusion",
+        "ar": "المشروع النهائي والختام",
+        "lessons": [
+            {
+                "en": "The End",
+                "ar": "النهاية",
+                "seconds": 67,
                 "practical": false
             }
         ]
