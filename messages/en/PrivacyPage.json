@@ -34,7 +34,7 @@
       },
       {
         "label": "Usage Data:",
-        "value": " Periodically, we collect technical data such as IP addresses, browser types, and page interaction to improve our website experience. We also use Google Analytics and the Meta Pixel (Facebook and Instagram) to measure site visits and the performance of our ads, and to show our ads to site visitors on Meta platforms. These tools use cookies, browser identifiers and events such as viewing the course page, starting checkout and completing a purchase. They never receive your card number. You can control Meta ads from your Facebook or Instagram account settings."
+        "value": " Periodically, we collect technical data such as IP addresses, browser types, and page interaction to improve our website experience. We also use Google Analytics and the Meta Pixel (Facebook and Instagram) to measure site visits and the performance of our ads, and to show our ads to site visitors on Meta platforms. These tools use cookies, browser identifiers and events such as viewing the course page, starting checkout and completing a purchase. They never receive your card number. You can control Meta ads from your Facebook or Instagram account settings. When a purchase is completed, our servers also send Meta a confirmation of the purchase (value and currency) together with your email address and phone number in hashed (one-way encrypted) form. We never send card details."
       }
     ]
   },

@@ -8,7 +8,7 @@ const META_EVENTS = {
 
 // Sends a custom event to Google Analytics 4. It uses the same queue as the official gtag snippet,
 // so events fired before gtag.js has loaded (it loads lazily) are replayed once it is ready.
-export function track(name, params = {}) {
+export function track(name, params = {}, options = {}) {
     if (typeof window === "undefined") return;
     try {
         window.dataLayer = window.dataLayer || [];
@@ -21,7 +21,7 @@ export function track(name, params = {}) {
     try {
         const metaEvent = META_EVENTS[name];
         if (metaEvent && typeof window.fbq === "function") {
-            window.fbq("track", metaEvent, { content_name: "notion-course" });
+            window.fbq("track", metaEvent, { content_name: "notion-course", ...(options.value > 0 ? { value: options.value, currency: options.currency || "EGP" } : {}) }, options.eventId ? { eventID: options.eventId } : undefined);
         }
     } catch {
         // same rule for the Meta Pixel
