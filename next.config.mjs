@@ -157,6 +157,15 @@ const nextConfig = {
     ];
   },
 
+  // The course API is reached THROUGH this site (server to server) for the two public checkout calls, so visitors
+  // whose network cannot reach api.mostafayasser.com directly (seen on some home Wi-Fi) can still pay.
+  async rewrites() {
+    return [
+      { source: "/api/course-proxy/checkout", destination: "https://api.mostafayasser.com/checkout" },
+      { source: "/api/course-proxy/coupon/check", destination: "https://api.mostafayasser.com/coupon/check" },
+    ];
+  },
+
   // Essential path-based redirects
   async redirects() {
     return [
