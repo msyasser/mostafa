@@ -10,6 +10,7 @@ import Footer from "@/src/app/[locale]/_components/Footer";
 import PerformanceMonitor from "@/src/app/[locale]/_components/PerformanceMonitor";
 import AnalyticsEvents from "@/src/app/[locale]/_components/AnalyticsEvents";
 import MetaPixel from "@/src/app/[locale]/_components/MetaPixel";
+import AttributionCapture from "@/src/app/[locale]/_components/AttributionCapture";
 import AuthProvider from "@/src/app/[locale]/_components/AuthProvider";
 import "@/src/app/[locale]/_styles/globals.css";
 import Script from "next/script";
@@ -135,6 +136,7 @@ export default async function LocaleLayout({ children, params }) {
           `}
         </Script>
         <MetaPixel />
+        <AttributionCapture />
 
         {/* Structured Data */}
         <Script

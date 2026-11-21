@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { track } from "@/src/lib/track";
+import { captureAttribution, attributionForCheckout } from "@/src/lib/attribution";
 import { isPossiblePhoneNumber } from "react-phone-number-input";
 import CustomPhoneInput from "@/src/app/[locale]/_components/CustomPhoneInput";
 import { course } from "../_data/course";
@@ -65,6 +66,8 @@ function PayForm() {
     const [couponState, setCouponState] = useState("idle"); // idle | checking | error
     const [couponMsg, setCouponMsg] = useState("");
     const [geo, setGeo] = useState("EG");
+    // keep the campaign tags of this visit (utm_*, fbclid) so the order can be tied to the campaign
+    useEffect(() => { captureAttribution(); }, []);
     // Pre-select the visitor's country when the edge told us (geo_country cookie); Egypt otherwise.
     useEffect(() => {
         try {
@@ -159,7 +162,7 @@ function PayForm() {
         setLoading(true);
         setError(null);
         try {
-            const response = await postJson(`${course.apiBase}/checkout`, { name, email, phone, courseId: course.id, ...(coupon ? { coupon: coupon.code } : {}) });
+            const response = await postJson(`${course.apiBase}/checkout`, { name, email, phone, courseId: course.id, attr: attributionForCheckout(), ...(coupon ? { coupon: coupon.code } : {}) });
             const data = await response.json().catch(() => ({}));
             if (response.ok && data.granted) {
                 // A 100% coupon: no payment, the course is already on this email.
