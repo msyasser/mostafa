@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { track } from "@/src/lib/track";
+import { isPossiblePhoneNumber } from "react-phone-number-input";
 import CustomPhoneInput from "@/src/app/[locale]/_components/CustomPhoneInput";
 import { course } from "../_data/course";
 
@@ -23,6 +24,17 @@ function normalizePhone(value) {
     if (!rest) return "";
     if (m[1] === "20") return rest.startsWith("0") ? rest : "0" + rest;
     return "+" + m[1] + rest.replace(/^0+/, "");
+}
+
+// Paymob takes at most 15 characters for the phone, and a wrong number is better caught here than at the payment step.
+function isValidPhone(p) {
+    if (p.length < 8 || p.length > 15) return false;
+    const intl = p.startsWith("+") ? p : "+20" + p.replace(/^0/, "");
+    try {
+        return isPossiblePhoneNumber(intl);
+    } catch {
+        return false;
+    }
 }
 
 // A request that never answers (some home networks cannot reach the API) must not leave the button busy forever.
@@ -141,7 +153,7 @@ function PayForm() {
         const phone = normalizePhone(values.phone);
         if (name.length < 2) return fail("invalid_name");
         if (!/^\S+@\S+\.\S+$/.test(email)) return fail("invalid_email");
-        if (phone.replace(/\D/g, "").length < 8) return fail("invalid_phone");
+        if (!isValidPhone(phone)) return fail("invalid_phone");
         if (!agreed) return fail("agree");
 
         setLoading(true);
