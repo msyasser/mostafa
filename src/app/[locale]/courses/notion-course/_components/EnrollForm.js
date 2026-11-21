@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { track } from "@/src/lib/track";
+import CustomPhoneInput from "@/src/app/[locale]/_components/CustomPhoneInput";
 import { course } from "../_data/course";
 
 const field =
@@ -12,25 +13,16 @@ const label = "mb-1.5 block text-sm font-medium text-neutral-200";
 const primary =
     "inline-flex h-12 w-full items-center justify-center rounded-full bg-main px-8 text-[15px] font-semibold text-neutral-900 transition-transform duration-200 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100";
 
-// Country dial codes for the phone field: [ISO country, dial code, Arabic name, English name].
-const DIALS = [
-    ["EG", "+20", "مصر", "Egypt"], ["SA", "+966", "السعودية", "Saudi Arabia"], ["AE", "+971", "الإمارات", "UAE"], ["KW", "+965", "الكويت", "Kuwait"],
-    ["QA", "+974", "قطر", "Qatar"], ["BH", "+973", "البحرين", "Bahrain"], ["OM", "+968", "عُمان", "Oman"], ["JO", "+962", "الأردن", "Jordan"],
-    ["IQ", "+964", "العراق", "Iraq"], ["LB", "+961", "لبنان", "Lebanon"], ["SY", "+963", "سوريا", "Syria"], ["PS", "+970", "فلسطين", "Palestine"],
-    ["YE", "+967", "اليمن", "Yemen"], ["LY", "+218", "ليبيا", "Libya"], ["SD", "+249", "السودان", "Sudan"], ["TN", "+216", "تونس", "Tunisia"],
-    ["DZ", "+213", "الجزائر", "Algeria"], ["MA", "+212", "المغرب", "Morocco"], ["US", "+1", "أمريكا / كندا", "USA / Canada"], ["GB", "+44", "بريطانيا", "UK"],
-    ["DE", "+49", "ألمانيا", "Germany"], ["FR", "+33", "فرنسا", "France"], ["TR", "+90", "تركيا", "Türkiye"],
-];
-
-// What is sent to the platform: Egyptian numbers keep the local form (01xxxxxxxxx, exactly as before); every other
-// country goes as +<code><number>. A number typed with its own + or 00 is trusted as international.
-function fullPhone(dial, raw) {
-    const typed = String(raw || "").trim();
-    const digits = typed.replace(/\D/g, "");
-    if (typed.startsWith("+")) return "+" + digits;
-    if (typed.startsWith("00")) return "+" + digits.slice(2);
-    if (dial === "+20") return digits.startsWith("0") ? digits : "0" + digits;
-    return dial + digits.replace(/^0+/, "");
+// The phone field gives "+<code> <number>". What is sent to the platform: Egyptian numbers keep the local form
+// (01xxxxxxxxx, exactly as before); every other country goes as +<code><number> (a leading 0 of the local number is dropped).
+function normalizePhone(value) {
+    const t = String(value || "").trim();
+    const m = t.match(/^\+(\d{1,3})\s+(.*)$/);
+    if (!m) return t.replace(/[^\d+]/g, "");
+    const rest = m[2].replace(/\D/g, "");
+    if (!rest) return "";
+    if (m[1] === "20") return rest.startsWith("0") ? rest : "0" + rest;
+    return "+" + m[1] + rest.replace(/^0+/, "");
 }
 
 // A request that never answers (some home networks cannot reach the API) must not leave the button busy forever.
@@ -60,13 +52,12 @@ function PayForm() {
     const [coupon, setCoupon] = useState(null); // { code, finalCents, priceCents } once accepted
     const [couponState, setCouponState] = useState("idle"); // idle | checking | error
     const [couponMsg, setCouponMsg] = useState("");
-    const [dial, setDial] = useState("+20");
-    // Pre-select the visitor's country when we know it (the edge sets the geo_country cookie); Egypt otherwise.
+    const [geo, setGeo] = useState("EG");
+    // Pre-select the visitor's country when the edge told us (geo_country cookie); Egypt otherwise.
     useEffect(() => {
         try {
             const c = (document.cookie.match(/(?:^|; )geo_country=([A-Z]{2})/) || [])[1];
-            const hit = DIALS.find((d) => d[0] === c);
-            if (hit) setDial(hit[1]);
+            if (c) setGeo(c);
         } catch {
             // cookies blocked: keep Egypt
         }
@@ -147,7 +138,7 @@ function PayForm() {
         if (loading) return;
         const name = values.name.trim();
         const email = values.email.trim();
-        const phone = fullPhone(dial, values.phone);
+        const phone = normalizePhone(values.phone);
         if (name.length < 2) return fail("invalid_name");
         if (!/^\S+@\S+\.\S+$/.test(email)) return fail("invalid_email");
         if (phone.replace(/\D/g, "").length < 8) return fail("invalid_phone");
@@ -230,34 +221,18 @@ function PayForm() {
             </div>
             <div>
                 <label htmlFor="enroll-phone" className={label}>{t("phone")}</label>
-                <div className="flex gap-2" dir="ltr">
-                    <select
-                        id="enroll-dial"
-                        name="dial"
-                        aria-label={locale === "ar" ? "كود الدولة" : "Country code"}
-                        value={dial}
-                        onChange={(event) => setDial(event.target.value)}
-                        className={`${field} w-[7.5rem] shrink-0 px-2 sm:w-44`}
-                    >
-                        {DIALS.map(([iso, code, ar, en]) => (
-                            <option key={iso} value={code}>{`${code} ${locale === "ar" ? ar : en}`}</option>
-                        ))}
-                    </select>
-                    <input
-                        id="enroll-phone"
-                        name="phone"
-                        type="tel"
-                        dir="ltr"
-                        inputMode="tel"
-                        autoComplete="tel-national"
-                        placeholder={dial === "+20" ? "01xxxxxxxxx" : "5xxxxxxxx"}
-                        value={values.phone}
-                        onChange={set("phone")}
-                        aria-invalid={error?.field === "phone"}
-                        aria-describedby={error?.field === "phone" ? "enroll-phone-error" : undefined}
-                        className={`${field} min-w-0 flex-1`}
-                    />
-                </div>
+                <CustomPhoneInput
+                    key={geo}
+                    variant="course"
+                    id="enroll-phone"
+                    name="phone"
+                    defaultCountry={geo}
+                    value={values.phone}
+                    onChange={(v) => {
+                        setValues((cur) => ({ ...cur, phone: v }));
+                        if (error?.field === "phone" || error?.field === "form") setError(null);
+                    }}
+                />
                 {errorFor("phone")}
             </div>
 

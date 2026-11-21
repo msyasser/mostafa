@@ -8,6 +8,8 @@ import arLabels from "react-phone-number-input/locale/ar.json";
 import { ChevronDown, Search, Check } from "lucide-react";
 import { useLocale } from "next-intl";
 
+const PINNED = ["EG", "SA", "AE", "KW", "QA", "BH", "OM", "JO", "IQ", "LB", "SY", "PS", "YE", "LY", "SD", "TN", "DZ", "MA"];
+
 export default function CustomPhoneInput({
   value = "",
   onChange,
@@ -16,6 +18,7 @@ export default function CustomPhoneInput({
   required,
   id = "phone",
   name = "phone",
+  variant = "default",
 }) {
   const locale = useLocale();
   const isArabic = locale === "ar";
@@ -97,8 +100,15 @@ export default function CustomPhoneInput({
           callingCode: `+${code}`,
         };
       })
-      .sort((a, b) => a.name.localeCompare(b.name, isArabic ? "ar" : "en"));
-  }, [labels, isArabic]);
+      .sort((a, b) => {
+        // course form: the Arab countries first (in this order), then everyone else alphabetically
+        if (variant === "course") {
+          const ia = PINNED.indexOf(a.code), ib = PINNED.indexOf(b.code);
+          if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+        }
+        return a.name.localeCompare(b.name, isArabic ? "ar" : "en");
+      });
+  }, [labels, isArabic, variant]);
 
   // Filter countries by name or calling code
   const filteredCountries = useMemo(() => {
@@ -141,13 +151,15 @@ export default function CustomPhoneInput({
   const SelectedFlag = flags[country];
 
   return (
-    <div className="relative w-full" ref={dropdownRef}>
+    <div className="relative w-full" ref={dropdownRef} dir={variant === "course" ? "ltr" : undefined}>
       {/* Input container */}
       <div
-        className={`relative flex items-center w-full bg-[#141414] rounded-xl border transition-all duration-200 min-h-[52px] px-3 ${
+        className={`relative flex items-center w-full ${variant === "course" ? "bg-neutral-950 rounded-lg min-h-[48px]" : "bg-[#141414] rounded-xl min-h-[52px]"} border transition-all duration-200 px-3 ${
           isOpen
             ? "border-main ring-1 ring-main/30 shadow-[0_0_20px_rgba(215,177,128,0.15)]"
-            : "border-neutral-800 hover:border-neutral-700 focus-within:border-main focus-within:ring-1 focus-within:ring-main/30"
+            : variant === "course"
+              ? "border-[#857564] focus-within:border-main focus-within:ring-2 focus-within:ring-[#f4d9b6]"
+              : "border-neutral-800 hover:border-neutral-700 focus-within:border-main focus-within:ring-1 focus-within:ring-main/30"
         }`}
       >
         {/* Custom Country Trigger Button */}
@@ -198,7 +210,7 @@ export default function CustomPhoneInput({
 
       {/* Custom Floating Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-neutral-900/95 backdrop-blur-2xl border border-neutral-800 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+        <div dir={variant === "course" ? (isArabic ? "rtl" : "ltr") : undefined} className="absolute top-full left-0 right-0 mt-2 z-50 bg-neutral-900/95 backdrop-blur-2xl border border-neutral-800 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
           {/* Search Header */}
           <div className="p-3 border-b border-neutral-800/80 bg-neutral-950/50">
             <div className="relative">
