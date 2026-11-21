@@ -8,10 +8,25 @@ const API_BASE = (process.env.COURSE_API_BASE || "https://api.mostafayasser.com"
 const CODE_RE = /^MY-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]{4}$/;
 
 export async function generateMetadata({ params }) {
-  const { locale } = await params;
+  const { locale, code: rawCode } = await params;
+  const isArabic = locale === "ar";
+  const code = decodeURIComponent(rawCode || "").trim().toUpperCase();
+  const base = { title: isArabic ? "التحقق من الاعتمادية" : "Verify credential", robots: { index: false, follow: false } };
+  const { state, cert } = await lookup(code);
+  if (state !== "valid") return base;
+  // What a shared link looks like (LinkedIn "Add media", posts, chats): the credential, the person and the picture.
+  const credential = cert.credential ? (isArabic ? cert.credential.ar : cert.credential.en) : cert.courseTitle;
+  const title = `${credential} | ${cert.name}`;
+  const description = isArabic
+    ? `اعتمادية حقيقية صادرة من مصطفى ياسر. رقم التحقق ${code}.`
+    : `A verified credential issued by Mostafa Yasser. Verification code ${code}.`;
+  const image = `https://www.mostafayasser.com/${locale}/verify/${encodeURIComponent(code)}/opengraph-image`;
   return {
-    title: locale === "ar" ? "التحقق من الاعتمادية" : "Verify credential",
-    robots: { index: false, follow: false },
+    ...base,
+    title,
+    description,
+    openGraph: { title, description, type: "website", images: [{ url: image, width: 1200, height: 630, alt: title }] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }
 
