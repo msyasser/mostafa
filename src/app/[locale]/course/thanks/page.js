@@ -1,5 +1,6 @@
 import ConfirmationCard from "../../_components/ConfirmationCard";
 import StoreBadge, { storeLive } from "../../_components/StoreBadge";
+import PurchaseEvent from "./_components/PurchaseEvent";
 
 // Where people land after buying a course: from Paymob after paying (website or app), or straight from the
 // website form when a 100% coupon added the course (?granted=1). The course opens inside MY Hub.
@@ -25,6 +26,7 @@ export default async function CourseThanksPage({ params, searchParams }) {
 
   return (
     <ConfirmationCard state="success" title={title} action={action}>
+      <PurchaseEvent granted={granted} />
       <p className="mb-2">
         {isArabic ? (
           <>الكورس بيتشاف جوه تطبيق <bdi>MY Hub</bdi> على ويندوز. حمّله، وسجّل دخولك بنفس الإيميل اللي اشتركت بيه، وهتلاقي الكورس في «كورساتي».</>

@@ -1,6 +1,6 @@
 {
   "title": "Privacy Policy",
-  "effectiveDate": "Effective Date: November 13, 2026",
+  "effectiveDate": "Effective Date: November 21, 2026",
   "section1": {
     "title": "1. Introduction",
     "content": "Welcome to Mostafa Yasser's platform. We are committed to protecting your personal data and your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website, buy our Notion templates or course, use the MY Hub app, or work with us on consulting services."
@@ -34,7 +34,7 @@
       },
       {
         "label": "Usage Data:",
-        "value": " Periodically, we collect technical data such as IP addresses, browser types, and page interaction to improve our website experience."
+        "value": " Periodically, we collect technical data such as IP addresses, browser types, and page interaction to improve our website experience. We also use Google Analytics and the Meta Pixel (Facebook and Instagram) to measure site visits and the performance of our ads, and to show our ads to site visitors on Meta platforms. These tools use cookies, browser identifiers and events such as viewing the course page, starting checkout and completing a purchase. They never receive your card number. You can control Meta ads from your Facebook or Instagram account settings."
       }
     ]
   },
@@ -51,7 +51,7 @@
   },
   "section4": {
     "title": "4. Data Sharing & Third Parties",
-    "content": "We do not sell your personal data. We only share information with trusted third-party services that are essential to our operations: Paymob for payment processing; Cloudflare, which runs our platform servers and stores our course videos; Brevo for sending emails; Google, if you choose to sign in with your Google account; Vercel, which hosts our website; and Notion, which we use to manage student records, project reviews and the systems we build for you. These providers handle your data only to provide their service to us. We may also disclose information when the law requires it."
+    "content": "We do not sell your personal data. We only share information with trusted third-party services that are essential to our operations: Paymob for payment processing; Cloudflare, which runs our platform servers and stores our course videos; Brevo for sending emails; Google, if you choose to sign in with your Google account; Vercel, which hosts our website; Google Analytics and Meta (Facebook and Instagram) for measuring visits and ads, as described in section 2; and Notion, which we use to manage student records, project reviews and the systems we build for you. These providers handle your data only to provide their service to us. We may also disclose information when the law requires it."
   },
   "section5": {
     "title": "5. Security & Retention",

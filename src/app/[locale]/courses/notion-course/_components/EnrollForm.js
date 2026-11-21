@@ -30,8 +30,8 @@ function PayForm() {
 
     const egp = (cents) => new Intl.NumberFormat(locale === "ar" ? "ar-EG" : "en-US", { maximumFractionDigits: 2 }).format(cents / 100);
 
-    const applyCoupon = async () => {
-        const code = couponCode.trim();
+    const applyCoupon = async (fromLink) => {
+        const code = (typeof fromLink === "string" ? fromLink : couponCode).trim();
         if (!code || couponState === "checking") return;
         setCouponState("checking");
         setCouponMsg("");
@@ -63,6 +63,22 @@ function PayForm() {
         setCouponState("idle");
         setCouponMsg("");
     };
+
+    // A link like ?coupon=LAUNCH-ADS (from an ad or an email) fills in and checks the code, so the buyer sees
+    // the discounted price without typing anything. A wrong or expired code just shows the normal error.
+    useEffect(() => {
+        let code = "";
+        try {
+            code = (new URLSearchParams(window.location.search).get("coupon") || "").trim().slice(0, 40);
+        } catch {
+            return;
+        }
+        if (!/^[A-Za-z0-9_-]{2,40}$/.test(code)) return;
+        setCouponCode(code);
+        setCouponOpen(true);
+        applyCoupon(code);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // Signed-in visitors get their name and email filled in (they can still change them).
     useEffect(() => {

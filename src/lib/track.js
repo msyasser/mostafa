@@ -3,6 +3,7 @@
 const META_EVENTS = {
     course_notify_signup: "Lead",
     course_checkout_start: "InitiateCheckout",
+    course_purchase: "Purchase",
 };
 
 // Sends a custom event to Google Analytics 4. It uses the same queue as the official gtag snippet,
