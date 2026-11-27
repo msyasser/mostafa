@@ -1,6 +1,6 @@
 {
   "title": "Privacy Policy",
-  "effectiveDate": "Effective Date: November 21, 2026",
+  "effectiveDate": "Effective Date: November 27, 2026",
   "section1": {
     "title": "1. Introduction",
     "content": "Welcome to Mostafa Yasser's platform. We are committed to protecting your personal data and your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website, buy our Notion templates or course, use the MY Hub app, or work with us on consulting services."
@@ -34,7 +34,7 @@
       },
       {
         "label": "Usage Data:",
-        "value": " Periodically, we collect technical data such as IP addresses, browser types, and page interaction to improve our website experience. We also use Google Analytics and the Meta Pixel (Facebook and Instagram) to measure site visits and the performance of our ads, and to show our ads to site visitors on Meta platforms. These tools use cookies, browser identifiers and events such as viewing the course page, starting checkout and completing a purchase. They never receive your card number. You can control Meta ads from your Facebook or Instagram account settings. When a purchase is completed, our servers also send Meta a confirmation of the purchase (value and currency) together with your email address and phone number in hashed (one-way encrypted) form, plus your browser identifiers, IP address and browser type from the moment you started the purchase. We never send card details. We keep the campaign tags of the link you came from (such as utm) with your order, to know which ad or channel produced the sale."
+        "value": " Periodically, we collect technical data such as IP addresses, browser types, and page interaction to improve our website experience. We also use Google Analytics and the Meta Pixel (Facebook and Instagram) to measure site visits and the performance of our ads, and to show our ads to site visitors on Meta platforms. These tools use cookies, browser identifiers and events such as viewing the course page, starting checkout and completing a purchase. They never receive your card number. You can control Meta ads from your Facebook or Instagram account settings. When a purchase is completed, our servers also send Meta a confirmation of the purchase (value and currency) together with your email address and phone number in hashed (one-way encrypted) form, plus your browser identifiers, IP address and browser type from the moment you started the purchase. We never send card details. We keep the campaign tags of the link you came from (such as utm) with your order, to know which ad or channel produced the sale. These measuring tools are on our website only: the MY Hub app does not use Google Analytics, the Meta Pixel or any advertising or tracking tool, and does not share your data with advertisers."
       }
     ]
   },
@@ -55,7 +55,7 @@
   },
   "section5": {
     "title": "5. Security & Retention",
-    "content": "We implement industry-standard security measures to protect your data. Our course videos are encrypted, and we do not store card numbers. We retain your information only as long as necessary to provide our services and comply with legal obligations. If you ask us to delete your account, we delete your personal data within 30 days. We may keep payment and invoice records for as long as the law requires."
+    "content": "We implement industry-standard security measures to protect your data. Our course videos are encrypted, and we do not store card numbers. We retain your information only as long as necessary to provide our services and comply with legal obligations. You can delete your account yourself at any time from “My account” in the MY Hub app: your account and personal data are deleted right away. If you ask us by email instead, we delete them within 30 days. We may keep payment and invoice records for as long as the law requires."
   },
   "section6": {
     "title": "6. Your Privacy Rights",
